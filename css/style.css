@@ -88,24 +88,26 @@ i{
 
 main{
     margin: 70px auto 0 auto;
-    max-width: 800px;
+    max-width: 100%;
 }
 
 .img-container{
-    height: 300px;
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
+    width: 100%;
     margin: 15px 10px;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.281);
-    transition: .2s;
+    transition: box-shadow .2s;
 }
 
 .img-container:hover{
     box-shadow: 0 9px 9px rgba(0, 0, 0, 0.438);
 }
 
-@media (min-width:480px){
+.img-container > img{
+    display: block;
+    width: 100%;
+}
+
+/*@media (min-width:480px){
     .img-container{
         height: 400px;
     }
@@ -120,4 +122,4 @@ main{
     .img-container{
         height: 800px;
     }
-}
+}*/
