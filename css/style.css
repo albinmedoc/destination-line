@@ -3,18 +3,16 @@
     font-family: "Segoe UI";
 }
 
-body{
+body, html {
     margin: 0;
     padding: 0;
     font-family: 'Segoe UI';
     font-weight: 300;
     overflow-x: hidden;
-    padding-bottom: 70px;
 }
 
 h1{
     font-weight: 300;
-    font-size: 5vw;
 }
 
 a {
@@ -117,60 +115,32 @@ main{
     top: 50%;
     border-radius: 100%;
     width: 50vw;
-    max-width: 500px;
-    max-height: 500px;
-    background-color: rgba(0, 0, 0, 0.925);
+    background-color: black;
     position: absolute;
-    transform: translate(-50%, -50%);
-    text-align: center;
     color: white;
+    transform: translate(-50%, -50%);
     display: flex;
     flex-direction: column;
+    align-items: center;
     justify-content: space-around;
 }
 
-.linje{
-    height: 2px;
-    width: 80%;
-    background: white;
-    position: absolute;
- top: 50%;
- left: 50%;
- transform: translate(-50%, -50%);
-}
 
 footer{
     position: fixed;
     bottom: 0;
-    height: 70px;
     width: 100%;
     display: flex;
-    justify-content: space-around;
-    align-items: center;
-    background-color: white;
+    justify-content: center;
+    margin-bottom: 10px;
 }
 
 .user_profile{
     border-radius: 50%;
     background-color: red;
-    width: 60px;
-    height: 60px;
-    
+    max-width: 80px;
+    max-height: 80px;
+    width: 13vw;
+    height: 13vw;
+    margin: 0 3vw;
 }
-
-/*@media (min-width:480px){
-    .img_container{
-        height: 400px;
-    }
-}
-@media (min-width:768px){
-    .img_container{
-        height: 600px;
-    }
-}
-
-@media (min-width:1200px){
-    .img_container{
-        height: 800px;
-    }
-}*/
