@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 * {
     box-sizing: border-box;
     font-family: "Segoe UI";
@@ -141,4 +142,160 @@ footer{
     .img_container{
         height: 800px;
     }
+=======
+* {
+    box-sizing: border-box;
+    font-family: "Segoe UI";
+}
+
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI';
+    font-weight: 300;
+    overflow-x: hidden;
+}
+
+h1{
+    font-weight: 300;
+}
+
+a {
+    text-decoration: none;
+    color: rgb(66, 66, 66);
+}
+
+nav {
+    top:0;
+    width: 100%;
+    position: fixed;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    background-color: rgba(255, 255, 255, 0.918);
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.116);
+    z-index: 1;
+}
+
+.logo {
+	margin: 0;
+	font-size: 18px;
+}
+
+nav > ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    font-size: 16px;
+    line-height: 0;
+}
+
+.logo > a, nav > ul > li{
+    padding: 10px 15px;
+}
+
+#search_container{
+    display: block;
+}
+
+input[type=text]{
+    visibility: hidden;
+    position: fixed;
+    height: 60px;
+    width: 100%;
+    top: 0;
+    left: 0;
+    border: none;
+    outline: none;
+    font-size: 18px;
+    font-weight: 300;
+    text-indent: 20px;
+    opacity: 0;
+    transform: translateY(-60px);
+    transition: .7s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+#search_container:focus-within > input[type=text]{
+    visibility: visible;
+    transform: scale(1);
+    opacity: 1;
+    transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+i{
+    transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+#search_container:focus-within > a > i{
+    transform: translateX(100px);
+}
+
+main{
+    margin: 60px auto 0 auto;
+}
+
+.img_container{
+    position: relative;
+    width: 100%;
+    margin: 10px 0;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.281);
+    transition: box-shadow .2s;
+}
+
+.img_container:hover{
+    box-shadow: 0 9px 9px rgba(0, 0, 0, 0.438);
+}
+
+.img_container > img{
+    display: block;
+    width: 100%;
+}
+
+.info_circle{
+    height: 400px;
+    left: 50%;
+    top: 50%;
+    border-radius: 100%;
+    width: 400px;
+    background-color: black;
+    position: absolute;
+    transform: translate(-50%, -50%);
+}
+
+footer{
+    position: fixed;
+    bottom: 0;
+    height: 70px;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.user_profile{
+    border-radius: 50%;
+    background-color: red;
+    width: 60px;
+    height: 60px;
+    margin: 0 30px;
+}
+
+/*@media (min-width:480px){
+    .img_container{
+        height: 400px;
+    }
+}
+@media (min-width:768px){
+    .img_container{
+        height: 600px;
+    }
+}
+
+@media (min-width:1200px){
+    .img_container{
+        height: 800px;
+    }
+>>>>>>> 32c4183b12db815187d3337d8e193c65bc9a0e03
 }*/
