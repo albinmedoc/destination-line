@@ -1,3 +1,4 @@
+@import url('https://fonts.googleapis.com/css?family=Kaushan+Script');
 * {
     box-sizing: border-box;
     font-family: "Segoe UI";
@@ -9,10 +10,6 @@ body, html {
     font-family: 'Segoe UI';
     font-weight: 300;
     overflow-x: hidden;
-}
-
-h1, h2{
-    font-weight: 300;
 }
 
 a {
@@ -89,7 +86,7 @@ i{
 }
 
 main{
-    margin: 60px auto 0 auto;
+    margin: 0 auto;
 }
 
 .img_container{
@@ -127,19 +124,30 @@ main{
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.411);
 }
 
-.info_circle > h1, .info_circle > .material-icons{
-    font-size: 5vw;
-    margin-top: 0;
-}
-
-.info_circle > h2{
-    font-size: 4vw;
-}
-
 .info_circle:hover{
     background-color: rgba(255, 255, 255, 0.9)
 }
 
+.info_circle > *{
+    margin: 0;
+}
+
+.info_circle > .city{
+    font-size: 4vw;
+}
+
+.info_circle > .country{
+    font-size: 8vw;
+}
+.info_circle > .material-icons{
+    font-size: 5vw;
+    margin: 20px 0;
+}
+
+.info_circle > .author{
+    font-size: 3vw;
+    font-family: 'Kaushan Script', cursive;
+}
 
 footer{
     position: fixed;
