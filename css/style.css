@@ -123,14 +123,18 @@ main{
 footer{
     position: fixed;
     bottom: 0;
-    background-color: red;
-    height: 100px;
+    height: 70px;
     width: 100%;
-    margin: 0 auto;
+    display: flex;
+    justify-content: center;
 }
 
 .user_profile{
     border-radius: 50%;
+    background-color: red;
+    width: 60px;
+    height: 60px;
+    margin: 0 30px;
 }
 
 /*@media (min-width:480px){
