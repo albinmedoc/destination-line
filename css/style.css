@@ -110,18 +110,20 @@ main{
 footer{
     position: fixed;
     bottom: 0;
-    height: 70px;
     width: 100%;
     display: flex;
     justify-content: center;
+    margin-bottom: 10px;
 }
 
 .user_profile{
     border-radius: 50%;
     background-color: red;
-    width: 60px;
-    height: 60px;
-    margin: 0 30px;
+    max-width: 80px;
+    max-height: 80px;
+    width: 13vw;
+    height: 13vw;
+    margin: 0 3vw;
 }
 
 /*@media (min-width:480px){
