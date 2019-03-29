@@ -1,0 +1,44 @@
+body{
+    background-image: url("https://www.w3schools.com/howto/img_parallax.jpg");
+}
+.timeline{
+    position: relative;
+    overflow: hidden;
+    height: 100%;
+}
+
+.timeline_year > .year, .timeline_date{
+    position: relative;
+    width: 60px;
+    height: 60px;
+    background-color: rgba(0,0,0,0.6);
+    border-radius: 50%;
+    text-align: center;
+    color: #fff;
+    font-size: 20px;
+    margin: 15px 0;
+}
+
+.timeline_year > .year{
+    border-radius: 30%;
+    line-height: 60px;
+    width: 80px;
+}
+.timeline_date{
+    margin-left: 10px;
+}
+.timeline_year > .year::before, .timeline_date::before{
+    content: "";
+    position: absolute;
+    width: 4px;
+    height: 15px;
+    top: 60px;
+    right: calc(50% - 2px);
+    background-color: rgba(0,0,0,0.6);
+}
+
+.timeline_date > *{
+    width: 100%;
+    margin: 0;
+    line-height: 30px;
+}
