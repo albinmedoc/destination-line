@@ -213,20 +213,20 @@ main{
     margin: 0;
 }
 
-.info_circle > .city{
-    font-size: 4vw;
-    font-family: 'Parisienne', cursive;
-    font-weight: 800;
+.info_circle > .country{
+    font-size: 3vw;
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 200;
 }
 
-.info_circle > .country{
+.info_circle > .city{
     font-size: 8vw;
-    font-family: 'Titillium Web', sans-serif;
+    font-family: 'Parisienne', cursive;
     font-weight: 150;
 }
 .info_circle > .material-icons{
-    font-size: 5vw;
-    margin: 20px 0;
+    font-size: 3vw;
+    margin: 50px 0 0 0;
 }
 
 .info_circle > .author{
