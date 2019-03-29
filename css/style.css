@@ -57,11 +57,11 @@ nav > ul {
     padding: 10px 15px;
 }
 
-#search_container{
+#search_container, #account_container, input, label{
     display: block;
 }
 
-input[type=text]{
+#search_container > input[type=text]{
     visibility: hidden;
     position: fixed;
     height: 60px;
@@ -91,6 +91,74 @@ i{
 
 #search_container:focus-within > a > i{
     transform: translateX(100px);
+}
+
+#login_container{
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    z-index: 2;
+    background-color: rgba(0, 0, 0, 0.404);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    opacity: 0;
+    transition: .2s;
+
+}
+
+#login_container.show{
+    visibility: visible;
+    transform: none;
+    opacity: 1;
+
+}
+
+.blur_overlay{
+    height: 100vh;
+    width: 100vw;
+    position: absolute;
+    z-index: 1;
+}
+
+#login{
+    background-color: white;
+    z-index: 2;
+    width: 100%;
+    max-width: 400px;
+    visibility: hidden;
+    transform: scale(.9) translateY(20px);
+    transition: .2s cubic-bezier(0.075, 0.82, 0.165, 1);
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.295);
+}
+
+#login.show{
+    visibility: visible;
+    transform: scale(1);
+}
+
+#login form{
+    margin: 10px;
+}
+
+#login label{
+    margin: 20px auto;
+}
+
+#login input{
+    height: 40px;
+    width: 100%;
+    border: 1px solid lightgray;
+}
+
+#login input[type=submit]{
+    margin: 10px 0;
+    cursor: pointer;
+}
+
+#login fieldset{
+    border: none;
 }
 
 main{

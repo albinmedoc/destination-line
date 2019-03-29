@@ -12,6 +12,22 @@
         <script src="js/main.js"></script>
     </head>
     <body>
+        <div id="login_container">
+            <div class="blur_overlay"></div>
+            <div id="login">
+                <form>
+                    <fieldset>
+                        <label for="username">User name</label>
+                        <input type="text" name="username">
+                        <label for="username">Password</label>
+                        <input type="text" name="password">
+                    </fieldset>
+                    <input type="submit"></button>
+                            
+                    
+                </form>
+            </div>
+        </div>
         <nav>
             <h1 class="logo"><a href="#">Destination Line</a></h1>
             <ul>
@@ -22,7 +38,11 @@
                     </div>
                 </li>
                 <li><a href="#"><i class="material-icons">info_outline</i></a></li>
-                <li><a href="#"><i class="material-icons">account_circle</i></a></li>
+                <li>
+                    <div id="account_container">
+                        <a href="#"><i class="material-icons">account_circle</i></a>
+                    </div>
+                </li>
             </ul>
         </nav>
         <main>

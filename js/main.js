@@ -8,3 +8,14 @@ window.onscroll = function() {
   }
   prevScrollpos = currentScrollPos;
 }
+
+$(document).ready(function(){
+  $("#account_container").click(function(){
+    $("#login_container, #login").toggleClass("show");
+    //$("body, html").css('overflow-y', 'hidden');
+  });
+  $(".blur_overlay").click(function(){
+    $("#login_container, #login").toggleClass("show");
+    //$("body, html").css('overflow-y', 'visible');
+  });
+});
