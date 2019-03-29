@@ -1,4 +1,12 @@
 @import url('https://fonts.googleapis.com/css?family=Kaushan+Script');
+
+/*Author */
+@import url('https://fonts.googleapis.com/css?family=Parisienne');
+
+/*Country */
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web');
+
+
 * {
     box-sizing: border-box;
     font-family: "Segoe UI";
@@ -110,11 +118,13 @@ main{
 }
 
 .info_circle{
-    height: 45vw;
+    height: 40vw;
+    width: 40vw;
+    min-width: 150px;
+    min-height: 150px;
     left: 50%;
     top: 50%;
     border-radius: 100%;
-    width: 45vw;
     position: absolute;
     transform: translate(-50%, -50%);
     display: flex;
@@ -137,10 +147,14 @@ main{
 
 .info_circle > .city{
     font-size: 4vw;
+    font-family: 'Parisienne', cursive;
+    font-weight: 800;
 }
 
 .info_circle > .country{
     font-size: 8vw;
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 150;
 }
 .info_circle > .material-icons{
     font-size: 5vw;
@@ -149,7 +163,8 @@ main{
 
 .info_circle > .author{
     font-size: 3vw;
-    font-family: 'Kaushan Script', cursive;
+    font-family: 'Parisienne', cursive;
+    font-weight: 500;
 }
 
 #top-users{
@@ -159,6 +174,7 @@ main{
     display: flex;
     justify-content: center;
     padding-bottom: 10px;
+    background-color: rgba(255, 255, 255, 0.7);
 }
 
 .user_profile{
