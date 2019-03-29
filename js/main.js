@@ -61,3 +61,12 @@ window.onload = function(event) {
         }
     });
 };
+
+function openPage(pageName) {
+  var i;
+  var x = document.getElementsByClassName("account_forms");
+  for (i = 0; i < x.length; i++) {
+    $(x[i]).addClass("hide");
+  }
+  $(document.getElementById(pageName)).removeClass("hide");
+}

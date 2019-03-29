@@ -15,17 +15,35 @@
         <div id="login_container">
             <div class="blur_overlay"></div>
             <div id="login">
-                <form>
+                    
+                <form id="login_page" class="account_forms">
                     <fieldset>
+                        <h1>Login</h1>
                         <label for="username">User name</label>
                         <input type="text" name="username">
                         <label for="username">Password</label>
                         <input type="text" name="password">
                     </fieldset>
-                    <input type="submit"></button>
-                            
+                    <input type="submit" value="Logga in"></button>
+                    <div class="w3-bar w3-black">
+                            <p class="mouse_pointer" onclick="openPage('register_page')">Har du ej konto? Registrera här!</p>
+                        </div>
                     
                 </form>
+                <form id="register_page" class="account_forms hide">
+                        <fieldset>
+                            <h1>Register</h1>
+                            <label for="username">User name</label>
+                            <input type="text" name="username">
+                            <label for="username">Password</label>
+                            <input type="text" name="password">
+                        </fieldset>
+                        <input type="submit" value="Registrera"></button>    
+                        <div class="w3-bar w3-black">
+                                <p class="mouse_pointer" onclick="openPage('login_page')">Logga in</p>
+                            </div>     
+                    </form>
+                    
             </div>
         </div>
         <nav>

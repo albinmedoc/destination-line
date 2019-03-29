@@ -9,13 +9,13 @@
 
 * {
     box-sizing: border-box;
-    font-family: "Segoe UI";
+    font-family: "Titillium Web";
 }
 
 body, html {
     margin: 0;
     padding: 0;
-    font-family: 'Segoe UI';
+    font-family: 'Titillium Web';
     font-weight: 300;
     overflow-x: hidden;
 }
@@ -104,6 +104,7 @@ i{
     align-items: center;
     visibility: hidden;
     opacity: 0;
+    height: 100%;
     transition: .2s;
 
 }
@@ -124,22 +125,22 @@ i{
 
 #login{
     background-color: white;
+    position: relative;
+    height: 420px;
     z-index: 2;
     width: 100%;
-    max-width: 400px;
+    max-width: 500px;
+    overflow-x: hidden;
     visibility: hidden;
     transform: scale(.9) translateY(20px);
     transition: .2s cubic-bezier(0.075, 0.82, 0.165, 1);
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.295);
+    overflow-y: hidden;
 }
 
 #login.show{
     visibility: visible;
     transform: scale(1);
-}
-
-#login form{
-    margin: 10px;
 }
 
 #login label{
@@ -153,12 +154,33 @@ i{
 }
 
 #login input[type=submit]{
-    margin: 10px 0;
+    margin: 10px;
     cursor: pointer;
+    
 }
 
 #login fieldset{
     border: none;
+}
+
+.account_forms{
+    margin: 0;
+    width: 100%;
+    opacity: 1;
+    transition: .3s cubic-bezier(0.075, 1.82, 0.165, 1);
+    position: absolute;
+    visibility: visible;
+}
+
+.mouse_pointer{
+    cursor: pointer;
+}
+
+.hide{
+    transform: translateY(50px);
+    visibility: hidden;
+    position: absolute;
+    opacity: 0;
 }
 
 main{
@@ -188,8 +210,8 @@ main{
 .info_circle{
     height: 40vw;
     width: 40vw;
-    min-width: 150px;
-    min-height: 150px;
+    min-width: 210px;
+    min-height: 210px;
     left: 50%;
     top: 50%;
     border-radius: 100%;
@@ -226,7 +248,7 @@ main{
 }
 .info_circle > .material-icons{
     font-size: 3vw;
-    margin: 50px 0 0 0;
+    margin: 4vw 0 0 0;
 }
 
 .info_circle > .author{
