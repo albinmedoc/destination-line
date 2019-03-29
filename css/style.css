@@ -161,6 +161,12 @@ main{
     margin: 20px 0;
 }
 
+.info_circle > .line{
+    width: 50px;
+    height: 1px;
+    background-color: black;
+}
+
 .info_circle > .author{
     font-size: 3vw;
     font-family: 'Parisienne', cursive;
