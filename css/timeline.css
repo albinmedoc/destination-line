@@ -1,22 +1,37 @@
 body{
-    background-image: url("https://www.w3schools.com/howto/img_parallax.jpg");
+    margin: 0;
 }
 .timeline{
-    position: relative;
-    overflow: hidden;
-    height: 100%;
+    top: 70px;
+    position: fixed;
+    overflow-y: auto;
+    height: calc(100% - 95px);
+    margin-left: 15px;
+    -moz-user-select: none;
+   -khtml-user-select: none;
+   -webkit-user-select: none;
+
+   /*
+     Introduced in IE 10.
+     See http://ie.microsoft.com/testdrive/HTML5/msUserSelect/
+   */
+   -ms-user-select: none;
+   user-select: none;
+}
+.timeline::-webkit-scrollbar { 
+    display: none; 
 }
 
 .timeline_year > .year, .timeline_date{
     position: relative;
     width: 60px;
     height: 60px;
-    background-color: rgba(0,0,0,0.6);
-    border-radius: 50%;
+    background-color: rgba(0,0,0,0.4);
     text-align: center;
     color: #fff;
     font-size: 20px;
     margin: 15px 0;
+    cursor: pointer;
 }
 
 .timeline_year > .year{
@@ -26,6 +41,7 @@ body{
 }
 .timeline_date{
     margin-left: 10px;
+    border-radius: 50%;
 }
 .timeline_year > .year::before, .timeline_date::before{
     content: "";
@@ -34,7 +50,7 @@ body{
     height: 15px;
     top: 60px;
     right: calc(50% - 2px);
-    background-color: rgba(0,0,0,0.6);
+    background-color: rgba(0,0,0,0.4);
 }
 
 .timeline_date > *{
