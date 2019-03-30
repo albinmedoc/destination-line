@@ -9,21 +9,15 @@ window.onscroll = function() {
   prevScrollpos = currentScrollPos;
 }
 
-$(document).ready(function(){
-  $("#account_container").click(function(){
-    $("#login_container, #login").toggleClass("show");
-    //$("body, html").css('overflow-y', 'hidden');
-  });
-  $(".blur_overlay").click(function(){
-    $("#login_container, #login").toggleClass("show");
-    //$("body, html").css('overflow-y', 'visible');
-  });
-});
-flexFont = function(){
-    
-};
 
-window.onload = function(event) {
+
+window.onload = function() {
+    $("#login, #register").mousedown(function(e){
+        if(e.target.id == "login" || e.target.id == "register"){
+            location.hash = '';
+        }
+    });
+
     $(".flexFont").each(function(){
         if($(this).text().length > 9 && $(this).text().length < 15){
             if($(this).hasClass("country")){
@@ -61,12 +55,3 @@ window.onload = function(event) {
         }
     });
 };
-
-function openPage(pageName) {
-  var i;
-  var x = document.getElementsByClassName("account_forms");
-  for (i = 0; i < x.length; i++) {
-    $(x[i]).addClass("hide");
-  }
-  $(document.getElementById(pageName)).removeClass("hide");
-}

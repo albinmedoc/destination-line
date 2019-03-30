@@ -5,6 +5,7 @@
         <title>Destination Line</title>
         <!-- CSS -->
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="css/loginsignup.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         
         <!-- JavaScript -->
@@ -12,40 +13,30 @@
         <script src="js/main.js"></script>
     </head>
     <body>
-        <div id="login_container">
-            <div class="blur_overlay"></div>
-            <div id="login">
-                    
-                <form id="login_page" class="account_forms">
-                    <fieldset>
-                        <h1>Login</h1>
-                        <label for="username">User name</label>
-                        <input type="text" name="username">
-                        <label for="username">Password</label>
-                        <input type="text" name="password">
-                    </fieldset>
-                    <input type="submit" value="Logga in"></button>
-                    <div class="w3-bar w3-black">
-                            <p class="mouse_pointer" onclick="openPage('register_page')">Har du ej konto? Registrera här!</p>
-                        </div>
-                    
-                </form>
-                <form id="register_page" class="account_forms hide">
-                        <fieldset>
-                            <h1>Register</h1>
-                            <label for="username">User name</label>
-                            <input type="text" name="username">
-                            <label for="username">Password</label>
-                            <input type="text" name="password">
-                        </fieldset>
-                        <input type="submit" value="Registrera"></button>    
-                        <div class="w3-bar w3-black">
-                                <p class="mouse_pointer" onclick="openPage('login_page')">Logga in</p>
-                            </div>     
-                    </form>
-                    
-            </div>
-        </div>
+        <section>
+            <form id="login">
+                <fieldset>
+                    <h1>Login</h1>
+                    <label for="username">Username</label>
+                    <input type="text" name="username">
+                    <label for="password">Password</label>
+                    <input type="password" name="password">
+                    <input type="submit" value="Login">
+                    <p><a href="#register">Don´t have an account? Create one!</a></p>
+                </fieldset>
+            </form>
+            <form id="register">
+                <fieldset>
+                    <h1>Register</h1>
+                    <label for="username">Username</label>
+                    <input type="text" name="username">
+                    <label for="password">Password</label>
+                    <input type="password" name="password">
+                    <input type="submit" value="Register">
+                    <p><a href="#login">Already have an account? Login!</a></p>
+                </fieldset>
+            </form>
+        </section>
         <nav>
             <h1 class="logo"><a href="#">Destination Line</a></h1>
             <ul>
@@ -58,7 +49,7 @@
                 <li><a href="#"><i class="material-icons">info_outline</i></a></li>
                 <li>
                     <div id="account_container">
-                        <a href="#"><i class="material-icons">account_circle</i></a>
+                        <a href="#login"><i class="material-icons">account_circle</i></a>
                     </div>
                 </li>
             </ul>
@@ -109,6 +100,5 @@
                 <img src="https://pbs.twimg.com/profile_images/2732599377/37859386e06ae87287b22db8924cefd8.png">
             </div>
         </section>
-        <!--Kommentar--> 
     </body>
 </html>

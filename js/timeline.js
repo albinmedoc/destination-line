@@ -1,7 +1,7 @@
 $(document).ready(function(){
 
     //-- Tidslinje dragbar --
-    //lastposition och position ökar med 70 eftersom den är 70 px ifrån toppen av sidan
+    //lastposition och position ökar med 70 eftersom den är 70px ifrån toppen av sidan
     var dragging = false, lastPosition, position;
     $(".timeline").on("mousedown mouseup mousemove", function(e){
         if(e.type == "mousedown"){
