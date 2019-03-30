@@ -24,24 +24,4 @@ $(document).ready(function(){
     $(window).on("mouseup", function(){
         dragging = false;
     });
-
-    
-    // -- Hindra att scrolla hela sidan när man skrollar på tidslinjen --
-    var hovering = false;
-    $(".timeline").on("mouseover", function(){
-        //Användarens mus är ovanför tidslinjen
-        hovering = true;
-    });
-
-    $(".timeline").off("mouseover", function(){
-        //Användarens mus lämnade tidslinjen
-        hovering = false;
-    });
-
-    $(document).on("scroll", function(){
-        //Förhindra att hela sidan skrollas ifall användarens mus är ovanför tidslinjen
-        if(hovering){
-            return false;
-        }
-    });
 });
