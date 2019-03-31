@@ -1,15 +1,25 @@
 body{
     margin: 0;
 }
-.timeline{
-    top: 70px;
-    position: fixed;
-    overflow-y: auto;
-    height: calc(100% - 95px);
-    width: 80px;
-    margin-left: 15px;
 
-    /* Förhindrar att användaren markera text i tidslinjen när man drar i den */
+.timeline{
+    position: fixed;
+    margin-left: 15px;
+    top: 70px;
+    height: calc(100% - 95px);
+}
+
+.timeline_container{
+    max-height: 100%;
+    overflow-y: auto;
+    width: 80px;
+    padding-top: 15px;
+
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
+
+    /* Förhindrar att man markera text i tidslinjen när man drar i den */
     -moz-user-select: none;
     -khtml-user-select: none;
     -webkit-user-select: none;
@@ -18,7 +28,7 @@ body{
 }
 
 /* Tar bort scrollbar, det går ändå att scrolla */
-.timeline::-webkit-scrollbar { 
+.timeline_container::-webkit-scrollbar { 
     display: none; 
 }
 
@@ -36,7 +46,7 @@ body{
 
 .timeline_year > .year{
     border-radius: 30%;
-    /* Line-height är 60px eftersom .timeline_year har höjden 60px */
+    /* Line-height är 60px eftersom .timeline_year har höjden 60px, då placeras texten i mitten (vertikalt) */
     line-height: 60px;
     width: 80px;
 }
@@ -50,7 +60,7 @@ body{
     width: 4px;
     height: 15px;
     /* top är 60px eftersom .timeline_year och .timeline_date har höjden 60px */
-    top: 60px;
+    top: -15px;
     /* right är calc(50% - 2px) eftersom bredden på linjen är 4. Då hamnar det exakt i mitten */
     right: calc(50% - 2px);
     background-color: rgba(0,0,0,0.4);
@@ -59,6 +69,7 @@ body{
 .timeline_date > *{
     width: 100%;
     margin: 0;
-    /* Line-height är 30px eftersom .timeline_date har höjden 60px och det ska finnas två rader */
+    /* Line-height är 30px eftersom .timeline_date har höjden 60px och det ska finnas två rader,
+    då placeras texten i mitten (vertikalt) */
     line-height: 30px;
 }
