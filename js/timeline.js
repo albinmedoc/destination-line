@@ -1,13 +1,13 @@
 $(document).ready(function(){
     //-- Tidslinje dragbar --
-    //lastposition och position ökar med 70 eftersom den är 70px ifrån toppen av sidan
 
-    var dragging = false, lastPosition, position;
+    var dragging = false, lastPositionX, lastPositionY, positionX, positionY;
 
     $(".timeline_container").mousedown(function(e){
         //Användaren trycker ner musen när den är över tidslinjen
         dragging = true;
-        lastPosition = e.clientY + $(".timeline_container").scrollTop() + 70;
+        lastPositionX = e.clientX + $(".timeline_container").scrollLeft();
+        lastPositionY = e.clientY + $(".timeline_container").scrollTop();
     });
 
     $(window).mouseup(function(){
@@ -18,10 +18,13 @@ $(document).ready(function(){
     $(window).mousemove(function(e){
         if(dragging){
             //Användaren drar i tidslinjen
-            position = e.clientY + $(".timeline_container").scrollTop() + 70;
-            $(".timeline_container").scrollTop($(".timeline_container").scrollTop() - (position - lastPosition));
+            positionX = e.clientX + $(".timeline_container").scrollLeft();
+            positionY = e.clientY + $(".timeline_container").scrollTop();
+            $(".timeline_container").scrollLeft($(".timeline_container").scrollLeft() - (positionX - lastPositionX));
+            $(".timeline_container").scrollTop($(".timeline_container").scrollTop() - (positionY - lastPositionY));
             //Sätter jag "lastPosition = position;" blir det laggigt att dra tidslinjen
-            lastPosition = e.clientY + $(".timeline_container").scrollTop() + 70;
+            lastPositionX = e.clientX + $(".timeline_container").scrollLeft();
+            lastPositionY = e.clientY + $(".timeline_container").scrollTop();
         }
     });
 });
