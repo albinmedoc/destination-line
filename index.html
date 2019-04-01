@@ -6,6 +6,7 @@
         <!-- CSS -->
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="css/loginsignup.css">
+        <link rel="stylesheet" href="css/animations.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
         
         <!-- JavaScript -->
@@ -16,6 +17,7 @@
         <section>
             <form id="login">
                 <fieldset>
+                    <a href="#" class="cancel_modal"><i class="material-icons">close</i></a>
                     <h1>Login</h1>
                     <label for="username">Username</label>
                     <input type="text" name="username">
@@ -38,18 +40,19 @@
             </form>
         </section>
         <nav>
-            <h1 class="logo"><a href="#">Destination Line</a></h1>
+            <h1 class="logo"><a href="#">Destination Line</a></h1> 
             <ul>
                 <li>
                     <div id="search_container">
-                        <input type="text" placeholder="Search...">
-                        <a href="#"><i class="material-icons">search</i></a>
+                        <input type="text" placeholder="Search for places...">
                     </div>
                 </li>
-                <li><a href="#"><i class="material-icons">info_outline</i></a></li>
+                <li>
+                    <a href="#"><i class="material-icons">info_outline</i><span>Info</span></a>
+                </li>
                 <li>
                     <div id="account_container">
-                        <a href="#login"><i class="material-icons">account_circle</i></a>
+                        <a href="#login"><i class="material-icons">account_circle</i><span>Login</span></a>
                     </div>
                 </li>
             </ul>

@@ -1,0 +1,4 @@
+@keyframes slideDown {
+    0%   {transform: translateY(-70px)}
+    100% {transform: none;}
+}

@@ -2,9 +2,10 @@ var prevScrollpos = window.pageYOffset;
 window.onscroll = function() {
   var currentScrollPos = window.pageYOffset;
   if (prevScrollpos > currentScrollPos) {
-    $("#top-users").show();
+    $("#top-users").addClass("isVisible");
+      
   } else {
-    $("#top-users").hide();
+    $("#top-users").removeClass("isVisible");
   }
   prevScrollpos = currentScrollPos;
 }
