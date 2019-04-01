@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <title>Destination Line</title>
+        <!-- CSS -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/loginsignup.css') }}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+        
+        <!-- JavaScript -->
+        <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+        <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    </head>
+    <body>
+        <section>
+            <form id="login">
+                <fieldset>
+                    <h1>Login</h1>
+                    <label for="username">Username</label>
+                    <input type="text" name="username">
+                    <label for="password">Password</label>
+                    <input type="password" name="password">
+                    <input type="submit" value="Login">
+                    <p><a href="#register">Don´t have an account? Create one!</a></p>
+                </fieldset>
+            </form>
+            <form id="register">
+                <fieldset>
+                    <h1>Register</h1>
+                    <label for="username">Username</label>
+                    <input type="text" name="username">
+                    <label for="password">Password</label>
+                    <input type="password" name="password">
+                    <input type="submit" value="Register">
+                    <p><a href="#login">Already have an account? Login!</a></p>
+                </fieldset>
+            </form>
+        </section>
+        <nav>
+            <h1 class="logo"><a href="#">Destination Line</a></h1>
+            <ul>
+                <li>
+                    <div id="search_container">
+                        <input type="text" placeholder="Search...">
+                        <a href="#"><i class="material-icons">search</i></a>
+                    </div>
+                </li>
+                <li><a href="#"><i class="material-icons">info_outline</i></a></li>
+                <li>
+                    <div id="account_container">
+                        <a href="#login"><i class="material-icons">account_circle</i></a>
+                    </div>
+                </li>
+            </ul>
+        </nav>
+        <main>
+            <div class="img_container">
+                <img src="https://www.w3schools.com/howto/img_parallax.jpg">
+                <div class="info_circle">   
+                    <h1 class="city flexFont">Malmö</h1>
+                    <h2 class="country flexFont">Sweden</h2> 
+                    <i class="material-icons">camera_alt</i>
+                    <h2 class="author">Albin Médoc</h2>
+                </div>
+            </div>
+            <div class="img_container">
+                <img src="https://cdn.pixabay.com/photo/2017/08/30/01/05/milky-way-2695569_960_720.jpg">
+                <div class="info_circle">
+                    <h1 class="country">Norway</h1>
+                    <h2 class="city">Oslo</h2>    
+                    <i class="material-icons">camera_alt</i>
+                    <h2 class="author">Albin Médoc</h2>
+                </div>
+                </div>
+            <div class="img_container">
+                <img src="https://www.w3schools.com/howto/img_parallax3.jpg">
+                <div class="info_circle">
+                    <h1 class="country">England</h1>
+                    <h2 class="city">London</h2>    
+                    <i class="material-icons">camera_alt</i>
+                    <h2 class="author">Albin Médoc</h2>
+                </div>
+            </div>
+        </main>
+        <section id="top-users">
+            <div class="user_profile">
+                <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9zkVwFWJpEWQMFOHT4MyoGziX5hoItFHOhHbl5xdcQrxnXHfang">
+            </div>
+            <div class="user_profile">
+                <img src="https://camolab.com/perch/resources/profilelt256.png">
+            </div>
+            <div class="user_profile">
+                <img src="https://lh3.googleusercontent.com/yp9Ptad3Y5PmWz-M1wr0n0HYb_iDJ0dn95qi1bXeJZkERU9rjbU7dp-SSLKBOUEBAGHevlJp0q_AANL8nNO52Vufv5pjoWahlHgT7mVJccOfpQ=s256">
+            </div>
+            <div class="user_profile">
+                <img src="https://riskmagazine.nl/f/content-platform/author-thumb/elemans-carlijn">
+            </div>
+            <div class="user_profile">
+                <img src="https://pbs.twimg.com/profile_images/2732599377/37859386e06ae87287b22db8924cefd8.png">
+            </div>
+        </section>
+    </body>
+</html>
