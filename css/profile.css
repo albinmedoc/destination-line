@@ -1,0 +1,24 @@
+#background_img{
+    width: 100%;
+}
+
+#profile_info{
+    text-align: center;
+    position: absolute;
+    margin: 0 auto;
+    width: 100%;
+    top: 11%;
+    z-index: 1;
+    justify-content: center;
+    align-items: center;
+}
+
+#profile_img{
+    height: 15vw;
+    width: 15vw;
+    min-width: 210px;
+    min-height: 210px;
+    border-radius: 100%;
+    transition: background-color 0.3s;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.411);
+}

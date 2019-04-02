@@ -9,7 +9,7 @@
         <link rel="stylesheet" href="css/album.css">
         <link rel="stylesheet" href="css/topusers.css">
         <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
-        <link rel="stylesheet" href="profile.css"
+        <link rel="stylesheet" href="CSS/profile.css">
 
         <!-- JavaScript -->
         <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
@@ -18,32 +18,6 @@
         <script src="js/topusers.js"></script>
     </head>
     <body>
-        <section>
-            <form id="login">
-                <fieldset>
-                    <a href="#" class="cancel_modal"><i class="material-icons">close</i></a>
-                    <h1>Login</h1>
-                    <label for="username">Username</label>
-                    <input type="text" name="username">
-                    <label for="password">Password</label>
-                    <input type="password" name="password">
-                    <input type="submit" value="Login">
-                    <p><a href="#register">Don´t have an account? Create one!</a></p>
-                </fieldset>
-            </form>
-            <form id="register">
-                <fieldset>
-                    <a href="#" class="cancel_modal"><i class="material-icons">close</i></a>
-                    <h1>Register</h1>
-                    <label for="username">Username</label>
-                    <input type="text" name="username">
-                    <label for="password">Password</label>
-                    <input type="password" name="password">
-                    <input type="submit" value="Register">
-                    <p><a href="#login">Already have an account? Login!</a></p>
-                </fieldset>
-            </form>
-        </section>
         <nav>
             <h1 id="logo"><a href="#">Destination Line</a></h1> 
             <ul>
@@ -63,14 +37,23 @@
             </ul>
         </nav>
         <main>
-            <section id="profile_menu">
-                <div id="profile_header">
-                </div>
-                <div id="profile_footer">
-
-                </div>
+            <!--Profilbild, omslagsbild, namn och text-->
+            <section>
+            <img id="background_img" src="http://eskipaper.com/images/new-zealand-pictures-2.jpg">
+                <section id="profile_info">
+                    <img id="profile_img" src="https://iso.500px.com/wp-content/uploads/2016/03/pedroquintela.jpg">
+                    <h1>Hanna Bengtsson</h1>
+                    <p>Photographer</p> 
+                </section>
             </section>
+            <!--Album till tidslinjen-->
+            <div class="album">
+                <img src="https://www.datocms-assets.com/6737/1540764102-rotorua.jpg?auto=format&crop=faces&fit=crop&fm=jpg&h=1126&q=40&w=2000">
+                <div class="info_circle">   
+                    <h1 class="city flexFont">Rotorua</h1>
+                    <h2 class="country flexFont">New Zeeland</h2> 
+                </div>
+            </div>
         </main>
-
     </body>
 </html>
