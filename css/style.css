@@ -1,7 +1,7 @@
-/*Author */
+/*Author & City */
 @import url('https://fonts.googleapis.com/css?family=Parisienne');
 
-/*Country */
+/*Country & Headfont */
 @import url('https://fonts.googleapis.com/css?family=Titillium+Web');
 
 
@@ -38,7 +38,7 @@ nav {
     z-index: 1;
 }
 
-.logo {
+#logo {
 	margin: 0;
 	font-size: 18px;
     position: absolute;
@@ -55,13 +55,13 @@ nav > ul {
     flex-grow: 1;
 }
 
-.logo > a, nav > ul > li{
+#logo > a, nav > ul > li{
     padding: 10px 15px;
     display: flex;
     align-items: center;
 }
 
-.logo > a, nav > ul > li:first-child{
+#logo > a, nav > ul > li:first-child{
     flex-grow: 1;
     justify-content: flex-end;
 }
