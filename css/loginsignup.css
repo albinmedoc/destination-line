@@ -25,15 +25,15 @@
     max-width: 500px;
     border: none;
     border-radius: .5vw;
-    transform: scale(.8);
-    transform-origin: bottom;
-    transition: .2s cubic-bezier(.18, .91, .69, .92);
+    transform: scale(0.1) translate(-50px, 50px);
+    transform-origin: top right;
+    transition: .5s cubic-bezier(.18, .91, .69, .92);
     
 }
 
 #login:target > fieldset, #register:target > fieldset{
     transform: none;
-    transition: .2s cubic-bezier(.17, .84, .24, 1);
+    transition: .5s cubic-bezier(.17, .84, .24, 1);
 }
 
 #login > fieldset > label, #register > fieldset > label{
