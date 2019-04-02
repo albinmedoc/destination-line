@@ -1,17 +1,3 @@
-var prevScrollpos = window.pageYOffset;
-window.onscroll = function() {
-  var currentScrollPos = window.pageYOffset;
-  if (prevScrollpos > currentScrollPos) {
-    $("#top-users").addClass("isVisible");
-      
-  } else {
-    $("#top-users").removeClass("isVisible");
-  }
-  prevScrollpos = currentScrollPos;
-}
-
-
-
 window.onload = function() {
     $("#login, #register").mousedown(function(e){
         if(e.target.id == "login" || e.target.id == "register"){
