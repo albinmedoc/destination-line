@@ -1,5 +1,5 @@
 <section>
-    <form id="login" method="POST">
+    <form id="login" method="POST" action="/login">
         <fieldset>
             <a href="#" class="cancel_modal"><i class="material-icons">close</i></a>
             <h1>Login</h1>
@@ -11,14 +11,26 @@
             <p><a href="#register">Don´t have an account? Create one!</a></p>
         </fieldset>
     </form>
-    <form id="register">
+    <form id="register" method="POST" action="/register">
         <fieldset>
             <a href="#" class="cancel_modal"><i class="material-icons">close</i></a>
             <h1>Register</h1>
+            
+            <label for="firstname">Firstname</label>
+            <input type="text" name="firstname">
+
+            <label for="lastname">Lastname</label>
+            <input type="text" name="lastname">
+
             <label for="username">Username</label>
             <input type="text" name="username">
+
+            <label for="email">Email</label>
+            <input type="email" name="email">
+
             <label for="password">Password</label>
             <input type="password" name="password">
+
             <input type="submit" value="Register">
             <p><a href="#login">Already have an account? Login!</a></p>
         </fieldset>

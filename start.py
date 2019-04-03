@@ -11,6 +11,20 @@ app.secret_key = urandom(24)
 def index():
     return render_template("index.html")
 
+@app.route("/login", methods = ["POST"])
+def login():
+    username = request.args.get("username")
+    password = request.args.get("password")
+
+@app.route("/register", methods = ["POST"])
+def register():
+    firstname = request.args.get("firstname")
+    lastname = request.args.get("lastname")
+    username = request.args.get("username")
+    email = request.args.get("email")
+    password = request.args.get("password")
+    print(firstname)
+
 @app.route("/timeline")
 def timeline():
     return render_template("timeline.html")
