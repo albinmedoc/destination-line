@@ -27,7 +27,7 @@
     border-radius: 50px;
     transform: scale(0) translate(-200px, 300px);
     transform-origin: top right;
-    transition: .2s cubic-bezier(1, 1, .9, 1);
+    transition: .2s ease;
     
 }
 
