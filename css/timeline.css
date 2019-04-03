@@ -7,6 +7,7 @@ body{
     margin-left: 15px;
     top: 70px;
     height: calc(100% - 95px);
+    z-index: 1; 
 }
 
 .timeline_container{

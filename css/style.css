@@ -10,6 +10,10 @@
     font-family: "Titillium Web";
 }
 
+main{
+    margin-top: 60px;
+}
+
 body, html {
     margin: 0;
     padding: 0;
@@ -35,7 +39,7 @@ nav {
     justify-content: space-between;
     align-items: center;
     box-shadow: 0 0 5px rgba(0, 0, 0, 0.116);
-    z-index: 1;
+    z-index: 2;
 }
 
 #logo {

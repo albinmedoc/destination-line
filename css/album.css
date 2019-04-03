@@ -21,8 +21,6 @@
 .info_circle{
     height: 40vw;
     width: 40vw;
-    min-width: 210px;
-    min-height: 210px;
     left: 50%;
     top: 50%;
     border-radius: 100%;
