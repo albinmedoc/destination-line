@@ -48,7 +48,22 @@
     position: absolute;
     top:10px;
     right:10px;
-    font-size: 4vw;
     color: white;
+    font-size: 4vw;
+}
+
+
+#profile_container > #setting_icon{
+    border-radius: 50%;
+    font-size: 2vw;
+    padding:8px;
+    background-color: rgba(0, 0, 0, 0.411)
+
+}
+
+#profile_container > div > i{
+    position: relative;
+    bottom: 20vw;
+    right: 20vw;
 
 }
