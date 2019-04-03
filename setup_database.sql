@@ -1,11 +1,11 @@
 \set ON_ERROR_STOP on
 \c temp
-drop database if exists pi;
-create database pi;
-\c pi
+drop database if exists destinationline;
+create database destinationline;
+\c destinationline
 
 
-create table user(
+create table person(
 	id serial primary key,
 	firstname text not null,
 	lastname text not null,
@@ -17,8 +17,8 @@ create table user(
 );
 
 create table follow(
-	follower int references user(id),
-	following int references user(id)
+	follower int references person(id),
+	following int references person(id)
 );
 
 create table album(
@@ -37,6 +37,6 @@ create table post(
 );
 
 create table owns(
-	user integer references user(id),
+	person integer references person(id),
 	album integer references album(id)
 );
