@@ -1,3 +1,4 @@
+import psycopg2
 from flask import Flask, session, render_template, request, url_for, redirect
 from os import urandom
 
@@ -37,4 +38,4 @@ def timeline():
     return render_template("timeline.html")
 
 if __name__ == "__main__":
-    app.run(host= IP_ADDRESS, port=80, debug=DEBUG_MODE, threaded=True)
+    app.run(host = IP_ADDRESS, port = 80, debug = DEBUG_MODE, threaded = True)
