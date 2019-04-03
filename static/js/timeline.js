@@ -20,11 +20,8 @@ $(document).ready(function(){
             //Användaren drar i tidslinjen
             positionX = e.clientX + $(".timeline_container").scrollLeft();
             positionY = e.clientY + $(".timeline_container").scrollTop();
-
-            //Scrolla beroende på hur mycket användaren har dragit
             $(".timeline_container").scrollLeft($(".timeline_container").scrollLeft() - (positionX - lastPositionX));
             $(".timeline_container").scrollTop($(".timeline_container").scrollTop() - (positionY - lastPositionY));
-
             //Sätter jag "lastPosition = position;" blir det laggigt att dra tidslinjen
             lastPositionX = e.clientX + $(".timeline_container").scrollLeft();
             lastPositionY = e.clientY + $(".timeline_container").scrollTop();
