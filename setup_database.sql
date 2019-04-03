@@ -7,13 +7,13 @@ create database destinationline;
 
 create table person(
 	id serial primary key,
-	firstname text not null,
-	lastname text not null,
-	username text not null,
-	email text not null,
+	firstname varchar(30) not null,
+	lastname varchar(50) not null,
+	username varchar(30) not null,
+	email varchar(50) not null,
 	password text not null,
-	biography text not null,
-	background text not null
+	biography varchar(80),
+	background text
 );
 
 create table follow(
@@ -24,8 +24,8 @@ create table follow(
 create table album(
 	id serial primary key,
 	published timestamp not null,
-	country text not null,
-	city text not null,
+	country varchar(50) not null,
+	city varchar(60) not null,
 	date_start date not null,
 	date_end date not null
 );
@@ -33,7 +33,7 @@ create table album(
 create table post(
 	album integer references album(id),
 	image text not null,
-	text text not null
+	text varchar(500) not null
 );
 
 create table owns(
