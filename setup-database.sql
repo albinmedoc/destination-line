@@ -12,7 +12,8 @@ create table user(
 	username text not null,
 	email text not null,
 	password text not null,
-	info text not null
+	biography text not null,
+	background text not null
 );
 
 create table follow(
