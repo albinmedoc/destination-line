@@ -16,4 +16,4 @@ def timeline():
     return render_template("timeline.html")
 
 if __name__ == "__main__":
-    app.run(host= IP_ADDRESS, port=80, debug=DEBUG_MODE)
+    app.run(host= IP_ADDRESS, port=80, debug=DEBUG_MODE, threaded=True)
