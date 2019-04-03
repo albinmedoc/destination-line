@@ -21,6 +21,9 @@ body, html {
 
 a {
     text-decoration: none;
+}
+
+i{
     color: rgb(66, 66, 66);
 }
 
@@ -42,6 +45,10 @@ nav {
 	margin: 0;
 	font-size: 18px;
     position: absolute;
+}
+
+#logo > a{
+    color: rgb(66, 66, 66);
 }
 
 nav > ul {
@@ -85,7 +92,6 @@ nav a{
     display: flex;
     justify-content: flex-end;
     flex-grow: 1;
-    transition: .7s cubic-bezier(.46, .89, .25, 1);
 }
 
 #search_container::after{
@@ -94,7 +100,7 @@ nav a{
     font-size: 24px;
     position: absolute;
     top: 50%;
-    right: 0;
+    right: 0px;
     transition: transform .2s;
 }
 
@@ -116,15 +122,16 @@ nav a{
     font-weight: 300;
     text-indent: 10px;
     opacity: 0;
-    transform: scale(0.9);
-    transition: .7s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transform: scaleX(0.3);
+    transform-origin: right;
+    transition: .2s cubic-bezier(.375, 0.32, 1, 1);
 }
 
 #search_container:hover > input[type=text], #search_container:focus-within > input[type=text]{
     visibility: visible;
     transform: scale(1);
     opacity: 1;
-    transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: .2s cubic-bezier(1, 0.32, 0.165, 1);
 }
 
 i{
@@ -140,12 +147,8 @@ i{
     nav a > span{
         display: block;
     }
-    #search_container{
+    #search_container > input{
         margin-left: 135px;
-        max-width: 40px;
-    }
-    
-    #search_container:hover, #search_container:focus-within{
         max-width: 500px;
     }
 }

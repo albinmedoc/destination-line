@@ -2,14 +2,14 @@
     position: fixed;
     height: 100vh;
     width: 100%;
-    z-index: 2;
+    z-index: 3;
     background-color: rgba(0, 0, 0, 0.404);
     display: flex;
     justify-content: center;
     align-items: center;
     opacity: 0;
     visibility: hidden;
-    transition: opacity .2s, visibility .2s;
+    transition: opacity .2s ;
     text-align: center;
 }
 #login:target, #register:target{
@@ -24,16 +24,17 @@
     height: 100%;
     max-width: 500px;
     border: none;
-    border-radius: .5vw;
-    transform: scale(0.1) translate(-50px, 50px);
+    border-radius: 50px;
+    transform: scale(0) translate(-200px, 300px);
     transform-origin: top right;
-    transition: .5s cubic-bezier(.18, .91, .69, .92);
+    transition: .2s cubic-bezier(1, 1, .9, 1);
     
 }
 
 #login:target > fieldset, #register:target > fieldset{
     transform: none;
-    transition: .5s cubic-bezier(.17, .84, .24, 1);
+    border-radius: .5vw;
+    transition: .4s cubic-bezier(.8, .14, .14, 1);
 }
 
 #login > fieldset > label, #register > fieldset > label{
