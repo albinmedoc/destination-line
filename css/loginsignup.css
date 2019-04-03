@@ -9,7 +9,7 @@
     align-items: center;
     opacity: 0;
     visibility: hidden;
-    transition: opacity .2s ;
+    transition: .4s;
     text-align: center;
 }
 #login:target, #register:target{
@@ -27,35 +27,37 @@
     border-radius: 50px;
     transform: scale(0) translate(-200px, 300px);
     transform-origin: top right;
-    transition: .2s ease;
-    
+    transition: .4s cubic-bezier(.8, .23, .23, .99);
 }
 
 #login:target > fieldset, #register:target > fieldset{
     transform: none;
     border-radius: .5vw;
-    transition: .4s cubic-bezier(.8, .14, .14, 1);
+    transition: .5s cubic-bezier(.57, .66, 0, 1);
 }
 
 #login > fieldset > label, #register > fieldset > label{
-    margin: 20px auto;
+    margin: 10px auto;
 }
+
 #login > fieldset > input, #register > fieldset > input{
     height: 40px;
     width: 100%;
     border: 1px solid lightgray;
 }
+
 #login > fieldset > input[type="submit"], #register > fieldset > input[type="submit"]{
     margin: 10px 0;
-    background: white;
+    font-size: 16px;
+    background: #cdd7dd;
     box-shadow: 0 2px 2px rgba(0, 0, 0, 0.28);
     cursor: pointer;
     transition: box-shadow .2s, background-color .2s;
 }
 
 #login > fieldset > input[type="submit"]:hover, #register > fieldset > input[type="submit"]:hover{
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.41);
-    background-color: whitesmoke;
+    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.41);
+    background-color: #c3cdd3;
 }
 
 #login .cancel_modal > i, #register .cancel_modal > i{
