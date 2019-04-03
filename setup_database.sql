@@ -1,5 +1,5 @@
 \set ON_ERROR_STOP on
-\c postgres
+\c temp
 drop database if exists pi;
 create database pi;
 \c pi
