@@ -15,15 +15,22 @@ def index():
 def login():
     username = request.args.get("username")
     password = request.args.get("password")
+    
+    # Kontrollerar så alla fält är ifyllda
+    if(username.strip() and password.strip()):
+        print("Giltligt")
 
 @app.route("/register", methods = ["POST"])
 def register():
-    firstname = request.args.get("firstname")
-    lastname = request.args.get("lastname")
-    username = request.args.get("username")
-    email = request.args.get("email")
-    password = request.args.get("password")
-    print(firstname)
+    firstname = request.form.get("firstname")
+    lastname = request.form.get("lastname")
+    username = request.form.get("username")
+    email = request.form.get("email")
+    password = request.form.get("password")
+
+    # Kontrollerar så alla fält är ifyllda
+    if(firstname.strip() and lastname.strip() and username.strip() and email.strip() and password.strip()):
+        print("Giltligt")
 
 @app.route("/timeline")
 def timeline():
