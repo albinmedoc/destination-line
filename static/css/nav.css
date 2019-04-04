@@ -1,0 +1,112 @@
+nav {
+    top:0;
+    width: 100%;
+    position: fixed;
+    height: 60px;
+    display: flex;
+    flex-direction: row;
+    background-color: rgba(255, 255, 255, 0.918);
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.116);
+    z-index: 2;
+}
+
+#logo {
+	margin: 0;
+	font-size: 18px;
+    position: absolute;
+}
+
+nav a{
+    color: rgb(66, 66, 66);
+}
+
+nav > ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    justify-content: flex-end;
+    font-size: 16px;
+    line-height: 0;
+    flex-grow: 1;
+}
+
+#logo > a, nav > ul > li{
+    padding: 10px 15px;
+    display: flex;
+    align-items: center;
+}
+
+#logo > a, nav > ul{
+    justify-content: flex-end;
+}
+
+nav a > span{
+    margin-left: 10px;
+    display: none;
+}
+
+nav a{
+    display: flex;
+    align-items: center;
+}
+
+#search_container{
+    position: relative;
+    display: flex;
+    justify-content: flex-end;
+    height: 40px;
+}
+
+#search_container a{
+    z-index: 1;
+    transition: .4s cubic-bezier(.87, .06, .23, .97);
+    transition-delay: .5s;
+}
+
+#search_container:hover a, #search_container:focus-within a{
+    transform: translateX(110px);
+    transition: transform .4s;
+}
+
+#search_container > input[type=text]{
+    position: fixed;
+    display: block;
+    padding: 6px 15px;
+    width: 100%;
+    border: solid rgba(0, 0, 0, 0.31) 1px;
+    border-radius: 5px;
+    outline: none;
+    font-size: 18px;
+    opacity: 0;
+    transform: scale(0);
+    transition: .3s cubic-bezier(.87, .06, .79, .83);
+    transition-delay: .5s;
+    right: 0;
+}
+
+#search_container:hover > input[type=text], #search_container:focus-within > input[type=text]{
+    visibility: visible;
+    transform: none;
+    opacity: 1;
+    transition: .4s cubic-bezier(.83, .27, 0, 1);
+}
+
+/*För större skärmar*/
+@media (min-width:768px){
+    nav a > span{
+        display: block;
+    }
+    #search_container:hover a, #search_container:focus-within a{
+        transform: translateX(-15px);
+    }
+    
+    #search_container > input[type=text]{
+        transform-origin: right;
+        transform: scaleX(0);
+        max-width: 400px;
+        right: auto;
+    }
+}
