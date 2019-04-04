@@ -16,7 +16,7 @@
         <script src="js/album.js"></script>
     </head>
     <body>
-        <section>
+        <section id="modal">
             <form id="login">
                 <fieldset>
                     <a href="#" class="cancel_modal"><i class="material-icons">close</i></a>
@@ -25,7 +25,7 @@
                     <input type="text" name="username">
                     <label for="password">Password</label>
                     <input type="password" name="password">
-                    <input type="submit" value="Login">
+                    <button type="submit">Login</button>
                     <p><a href="#register">Don´t have an account? Create one!</a></p>
                 </fieldset>
             </form>
@@ -37,7 +37,7 @@
                     <input type="text" name="username">
                     <label for="password">Password</label>
                     <input type="password" name="password">
-                    <input type="submit" value="Register">
+                    <button type="submit">Register</button>
                     <p><a href="#login">Already have an account? Login!</a></p>
                 </fieldset>
             </form>
@@ -47,6 +47,7 @@
             <ul>
                 <li>
                     <div id="search_container">
+                        <a><i class="material-icons">search</i><span>Search</span></a>
                         <input type="text" placeholder="Search for places...">
                     </div>
                 </li>

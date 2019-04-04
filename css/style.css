@@ -14,12 +14,13 @@ main{
     margin-top: 60px;
 }
 
-body, html {
+body {
     margin: 0;
     padding: 0;
     font-family: 'Titillium Web';
     font-weight: 300;
     overflow-x: hidden;
+    overflow-y: visible;
     text-shadow: 0 0 1px rgba(0, 0, 0, 0.42);
 }
 

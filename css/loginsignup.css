@@ -1,24 +1,26 @@
-#login, #register{
+#modal > form{
     position: fixed;
     height: 100vh;
     width: 100%;
     z-index: 3;
+    top: 0;
     background-color: rgba(0, 0, 0, 0.404);
     display: flex;
     justify-content: center;
     align-items: center;
     opacity: 0;
     visibility: hidden;
-    transition: .4s;
-    text-align: center;
+    transition: opacity .4s, visibility .3s;
 }
-#login:target, #register:target{
+
+#modal > form:target{
     opacity: 1;
     visibility: visible;
 }
 
-#login > fieldset, #register > fieldset{
+#modal fieldset{
     background-color: white;
+    margin: 0;
     position: relative;
     width: 100%;
     height: 100%;
@@ -28,50 +30,86 @@
     transform: scale(0) translate(-200px, 300px);
     transform-origin: top right;
     transition: .4s cubic-bezier(.8, .23, .23, .99);
+    text-align: center;
 }
 
-#login:target > fieldset, #register:target > fieldset{
+#modal > form:target > fieldset{
     transform: none;
     border-radius: .5vw;
     transition: .5s cubic-bezier(.57, .66, 0, 1);
 }
 
-#login > fieldset > label, #register > fieldset > label{
+#modal fieldset > label{
     margin: 10px auto;
+    display: block;
 }
 
-#login > fieldset > input, #register > fieldset > input{
+#modal fieldset > input, #modal fieldset > button{
     height: 40px;
     width: 100%;
-    border: 1px solid lightgray;
+    border: 1px solid #efefef;
+    outline: none;
+    box-shadow: 0 0 3px rgba(232, 232, 232, 0);
+    transition: box-shadow .2s;
 }
 
-#login > fieldset > input[type="submit"], #register > fieldset > input[type="submit"]{
-    margin: 10px 0;
+#modal fieldset > input[type=text], #modal fieldset > input[type=password]{
+    padding: 0 10px;
+}
+
+#modal fieldset > input[type=text]:focus, #modal fieldset > input[type=password]:focus{
+    box-shadow: 0 0 3px rgb(221, 221, 221);
+}
+
+#modal fieldset > button{
+    border: none;
+    margin: 20px 0;
     font-size: 16px;
-    background: #cdd7dd;
-    box-shadow: 0 2px 2px rgba(0, 0, 0, 0.28);
+    background: rgba(230, 230, 230, 0.27);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.22);
     cursor: pointer;
     transition: box-shadow .2s, background-color .2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 0;
 }
 
-#login > fieldset > input[type="submit"]:hover, #register > fieldset > input[type="submit"]:hover{
-    box-shadow: 0 3px 3px rgba(0, 0, 0, 0.41);
-    background-color: #c3cdd3;
+#modal fieldset > button::before{
+    content: '';
+    position: absolute;
+    right: 0;
+    background: rgba(230, 230, 230, 0.63);
+    width: 100%;
+    height: 100%;
+    transform: scaleX(0);
+    transition: .4s cubic-bezier(.51, .03, 0, 1);
+    transform-origin: right;
+    z-index: -1;
+}
+
+#modal fieldset > button:hover::before{
+    transform: scaleX(1);
+}
+
+#login > fieldset > button::after, #register > fieldset > button::after{
+    font-family: "Material Icons";
+    content: 'done';
+    margin-left: 5px;
 }
 
 #login .cancel_modal > i, #register .cancel_modal > i{
     position: absolute;
     top: 12px;
     right: 15px;
-    line-height: 30px;
     border-radius: 100%;
     transition: .2s cubic-bezier(.19, .83, .34, .97);
 }
 
-#login .cancel_modal > i:hover, #register .cancel_modal:hover{
-    transform: rotate(90deg);
-    transform-origin: center;
+#modal a{
+    color: black;
+    text-decoration: underline;
 }
 
 @media (min-width:480px){

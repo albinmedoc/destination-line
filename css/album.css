@@ -65,3 +65,14 @@
     font-family: 'Parisienne', cursive;
     font-weight: 500;
 }
+
+@media (max-width:480px){
+    .album{
+        overflow: hidden;
+    }
+    
+    .info_circle{
+        width: 50vw;
+        height: 50vw;
+    }
+}
