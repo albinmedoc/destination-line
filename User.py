@@ -9,7 +9,8 @@ def create_user(firstname, lastname, username, email, password):
                 cur.execute("insert into person(firstname, lastname, username, email, password) values (%s, %s, %s, %s, %s)", (firstname, lastname, username, email, password))
                 #Kontrollera ifall det lyckades
                 cur.close()
-                return conn.commit()
+                conn.commit()
+                return True
                 #Sätt session ifall det lyckades
 
 def check_password(password, username = None, email = None):

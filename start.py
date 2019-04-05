@@ -2,6 +2,7 @@ import psycopg2, User
 from flask import Flask, session, render_template, request, url_for, redirect
 from os import urandom
 from sys import exit
+
 try:
         conn = psycopg2.connect(dbname="destinationline", user="pi", host="destinationline.ml", password="DestinationLine")
 except:
@@ -25,9 +26,15 @@ def login():
         # Kontrollerar så alla fält är ifyllda
         if(username.strip() and password.strip()):
                 if(User.check_password(password, username = username)):
+                        session["username"] = username
                         return "<h1>Inloggad</h1>"
                 return "<h1>Fel inloggningsuppgifter</h1>"
         return "<h1>Fyll i alla fälten</h1>"
+
+@app.route("/logout")
+def logout():
+        session.clear()
+        return "Utloggad"
 
 @app.route("/register", methods = ["POST"])
 def register():
@@ -38,13 +45,16 @@ def register():
         password = request.form.get("password")
         password2 = request.form.get("password2")
         if(password == password2):
-                User.create_user(firstname, lastname, username, email, password)
+                if(User.create_user(firstname, lastname, username, email, password)):
+                        return "<h1>Registrerar</h1>"
+                else:
+                        return "Något gick fel"
+        return "password stämmer inte överrens"
 
 @app.route("/profile/<username>")
 def profile(username):
         # Kolla om användaren besöker sin egna profil
         return render_template("profile.html")
-
 @app.route("/timeline")
 def timeline():
         return render_template("timeline.html")
