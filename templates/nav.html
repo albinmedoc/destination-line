@@ -12,10 +12,16 @@
         </li>
         <li>
             <div id="account_container">
+                {% if("username" not in session) %}
                 <a href="#login"><i class="material-icons">account_circle</i><span>Login</span></a>
+                {% else %}
+                <a href="/logout"><i class="material-icons">account_circle</i><span>Logout</span></a>
+                {% endif %}
             </div>
         </li>
     </ul>
 </nav>
 <!-- Inkludera endast ifall användaren i utloggad -->
+{% if("username" not in session) %}
 {% include 'login_register.html' %}
+{% endif %}

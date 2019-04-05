@@ -1,5 +1,4 @@
 #explore_tabs{
-    top: 60px;
     position: relative;
     height: 40px;
     width: 100%;
@@ -15,7 +14,7 @@
     display: flex;
 }
 
-#followers::before, #explore::before{
+#followers::before, #explore::before, #profile::before{
     font-family: "Material Icons";
     position: absolute;
     top: 20px;
@@ -28,5 +27,7 @@
    
 #explore::before{
     content: "public";
- 
+}
+#profile::before{
+    content: "person";
 }

@@ -27,14 +27,14 @@ def login():
         if(username.strip() and password.strip()):
                 if(User.check_password(password, username = username)):
                         session["username"] = username
-                        return "<h1>Inloggad</h1>"
+                        return redirect("/")
                 return "<h1>Fel inloggningsuppgifter</h1>"
         return "<h1>Fyll i alla fälten</h1>"
 
 @app.route("/logout")
 def logout():
         session.clear()
-        return "Utloggad"
+        return redirect("/")
 
 @app.route("/register", methods = ["POST"])
 def register():
