@@ -1,6 +1,6 @@
 #modal > form{
     position: fixed;
-    height: 100vh;
+    height: 100%;
     width: 100%;
     z-index: 3;
     top: 0;
@@ -23,7 +23,7 @@
     margin: 0;
     position: relative;
     width: 100%;
-    height: 100%;
+    height: auto;
     max-width: 500px;
     border: none;
     border-radius: 50px;
@@ -31,6 +31,7 @@
     transform-origin: top right;
     transition: .4s cubic-bezier(.8, .23, .23, .99);
     text-align: center;
+    overflow-y: auto;
 }
 
 #modal > form:target > fieldset{
@@ -39,12 +40,29 @@
     transition: .5s cubic-bezier(.57, .66, 0, 1);
 }
 
-#modal fieldset > label{
-    margin: 10px auto;
-    display: block;
+#modal > form > fieldset > .form_row{
+    display: flex;
+    flex-wrap: wrap;
 }
 
-#modal fieldset > input, #modal fieldset > button{
+#modal .input_container{
+    position: relative;
+    flex-grow: 1;
+    min-width: 200px;
+    margin: 10px;
+}
+
+#modal span{
+    pointer-events: none;
+    position:absolute;
+    line-height:40px;
+    left:0;
+    top:0;
+    transition: .2s ease;
+    opacity:0.5;
+}
+
+#modal fieldset input, #modal fieldset button{
     height: 40px;
     width: 100%;
     border: 1px solid #efefef;
@@ -53,15 +71,21 @@
     transition: box-shadow .2s;
 }
 
-#modal fieldset > input[type=text], #modal fieldset > input[type=password]{
+#modal fieldset input, #modal fieldset .input_container > span, #modal > form > fieldset > .form_row{
     padding: 0 10px;
 }
 
-#modal fieldset > input[type=text]:focus, #modal fieldset > input[type=password]:focus{
+#modal fieldset input:focus{
     box-shadow: 0 0 3px rgb(221, 221, 221);
 }
 
-#modal fieldset > button{
+input:focus + span, input:not(:placeholder-shown) + span {
+  opacity:1;
+    font-size: 11px;
+  transform: translateY(-30px) translateX(-10px);
+}
+
+#modal fieldset button{
     border: none;
     margin: 20px 0;
     font-size: 16px;
@@ -76,10 +100,9 @@
     z-index: 0;
 }
 
-#modal fieldset > button::before{
+#modal fieldset button::before{
     content: '';
     position: absolute;
-    right: 0;
     background: rgba(230, 230, 230, 0.63);
     width: 100%;
     height: 100%;
@@ -89,17 +112,17 @@
     z-index: -1;
 }
 
-#modal fieldset > button:hover::before{
+#modal fieldset button:hover::before{
     transform: scaleX(1);
 }
 
-#login > fieldset > button::after, #register > fieldset > button::after{
+#login > fieldset button::after, #register > fieldset button::after{
     font-family: "Material Icons";
-    content: 'done';
-    margin-left: 5px;
+    content: 'input';
+    margin-left: 7px;
 }
 
-#login .cancel_modal > i, #register .cancel_modal > i{
+#modal .cancel_modal > i{
     position: absolute;
     top: 12px;
     right: 15px;
@@ -107,13 +130,17 @@
     transition: .2s cubic-bezier(.19, .83, .34, .97);
 }
 
-#modal a{
-    color: black;
-    text-decoration: underline;
-}
-
-@media (min-width:480px){
-    #login > fieldset, #register > fieldset{
-        height: auto;
+@media (max-width:768px){
+    #modal > form fieldset{
+        height: 100%;
+        max-width: none;
+    }
+    
+    #modal > form:target fieldset{
+        border-radius: 0;
+    }
+    
+    #modal span{
+        transition-delay: .2s;
     }
 }

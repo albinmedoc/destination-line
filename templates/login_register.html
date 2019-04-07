@@ -3,11 +3,19 @@
         <fieldset>
             <a href="#" class="cancel_modal"><i class="material-icons">close</i></a>
             <h1>Login</h1>
-            <label for="username">Username</label>
-            <input type="text" name="username">
-            <label for="password">Password</label>
-            <input type="password" name="password">
-            <button type="submit">Login</button>
+            <div class="form_row">
+                <div class="input_container">
+                    <input type="text" name="username" placeholder=" " required>
+                    <span>Username</span>
+                </div>
+                <div class="input_container">
+                    <input type="password" name="password" placeholder=" " required>
+                    <span>Password</span>
+                </div>
+            </div>
+            <div class="input_container">
+                <button type="submit">Login</button>
+            </div>
             <p><a href="#register">Don´t have an account? Create one!</a></p>
         </fieldset>
     </form>
@@ -15,27 +23,42 @@
         <fieldset>
             <a href="#" class="cancel_modal"><i class="material-icons">close</i></a>
             <h1>Register</h1>
-
-            <label for="firstname">Firstname</label>
-            <input type="text" name="firstname">
-
-            <label for="lastname">Lastname</label>
-            <input type="text" name="lastname">
-
-            <label for="username">Username</label>
-            <input type="text" name="username">
-
-            <label for="email">Email</label>
-            <input type="email" name="email">
-
-            <label for="password">Password</label>
-            <input type="password" name="password">
-
-            <label for="password">Repeat Password</label>
-            <input type="password" name="password2">
-
-            <button type="submit">Register</button>
-            <p><a href="#login">Already have an account? Login!</a></p>
+            <div class="form_row">
+                <div class="input_container">
+                    <input type="text" name="firstname" placeholder=" " required>
+                    <span>Firstname</span>
+                </div>
+                <div class="input_container">
+                    <input type="text" name="lastname" placeholder=" " required>
+                    <span>Lastname</span>
+                </div>
+            </div>
+            <div class="form_row">
+                <div class="input_container">
+                    <input type="text" name="username" placeholder=" " required>
+                    <span>Username</span>
+                </div>
+                <div class="input_container">
+                    <input type="email" name="email" placeholder=" " required>
+                    <span>E-mail</span>
+                </div>
+            </div>
+            <div class="form_row">
+                <div class="input_container">
+                    <input type="password" name="password" placeholder=" " required>
+                    <span>Password</span>
+                </div>
+                <div class="input_container">
+                    <input type="password" name="password2" placeholder=" " required>
+                    <span>Confirm password</span>
+                </div>
+            </div>
+            <div class="input_container">
+                <button type="submit">Register</button>
+            </div>
+            <p>
+                <a href="#login">Already have an account? Login!</a>
+            </p>
         </fieldset>
     </form>
 </section>
