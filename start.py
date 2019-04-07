@@ -1,7 +1,7 @@
 import psycopg2, User
 from flask import Flask, session, render_template, request, url_for, redirect
 from os import urandom
-from sys import exit
+from sys import exit, argv
 
 try:
         conn = psycopg2.connect(dbname="destinationline", user="pi", host="destinationline.ml", password="DestinationLine")
@@ -9,7 +9,6 @@ except:
         exit("Could not connect to database...")
 
 DEBUG_MODE = True
-IP_ADDRESS = "localhost"
 
 app = Flask(__name__)
 app.secret_key = urandom(24)
@@ -60,5 +59,9 @@ def timeline():
         return render_template("timeline.html")
 
 if __name__ == "__main__":
-        app.run(host = IP_ADDRESS, port = 80, debug = DEBUG_MODE, threaded = True)
+        if(len(argv) > 1 and argv[1].lower() == "server"):
+                ipaddress = "192.168.1.18"
+        else:
+                ipaddress = "localhost"
+        app.run(host = ipaddress, port = 80, debug = DEBUG_MODE, threaded = True)
         conn.close()
