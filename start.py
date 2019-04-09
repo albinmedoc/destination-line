@@ -63,7 +63,7 @@ def timeline():
 
 @app.route("/upload")
 def upload():
-        if("user" not in session):
+        if("username" not in session):
                 return "<h1>Du måste vara inloggad</h1>"
         return render_template("create_album.html")
 
