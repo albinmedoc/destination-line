@@ -20,8 +20,8 @@
     <label for="date_end">To</label>
     <input id="date_end" type="date">
 </form>
-<section>
-    <div id="upload_btn"></div>
+<section id="test">
+    <div id="upload_btn" class="locked"></div>
     <input id="upload" type="file" multiple>
     {%for i in range(1, 30)%}
     <div class="post">
@@ -35,5 +35,6 @@
 {% endblock main %}
 {% block javascript %}
 {{ super() }}
+<script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
 <script src="{{ url_for('static', filename='js/create_album.js') }}"></script>
 {% endblock javascript %}
