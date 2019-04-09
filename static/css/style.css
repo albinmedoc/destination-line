@@ -33,3 +33,10 @@ i{
     color: rgb(66, 66, 66);
     transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
+.material-icons{
+    -moz-user-select: none;
+    -khtml-user-select: none;
+    -webkit-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
