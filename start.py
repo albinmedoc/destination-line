@@ -1,8 +1,10 @@
-import psycopg2, User
+import psycopg2
 from flask import Flask, session, render_template, request, url_for, redirect
 from os import urandom
 from sys import exit, argv
+import User
 
+conn = None
 try:
         conn = psycopg2.connect(dbname="destinationline", user="pi", host="destinationline.ml", password="DestinationLine")
 except:
@@ -45,7 +47,7 @@ def register():
         password2 = request.form.get("password2")
         if(password == password2):
                 if(User.create_user(firstname, lastname, username, email, password)):
-                        return "<h1>Registrerar</h1>"
+                        return redirect("/")
                 else:
                         return "Något gick fel"
         return "password stämmer inte överrens"
@@ -54,9 +56,14 @@ def register():
 def profile(username):
         # Kolla om användaren besöker sin egna profil
         return render_template("profile.html")
+
 @app.route("/timeline")
 def timeline():
         return render_template("timeline.html")
+
+@app.route("/upload")
+def upload():
+        return render_template("create_album.html")
 
 if __name__ == "__main__":
         if(len(argv) > 1 and argv[1].lower() == "server"):
