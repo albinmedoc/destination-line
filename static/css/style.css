@@ -40,3 +40,33 @@ i{
     -ms-user-select: none;
     user-select: none;
 }
+
+.flashes > div{
+    position: fixed;
+    top: 62px;
+    color: white;
+    text-align: center;
+    box-shadow: 0 0 5px black;
+    width: 100%;
+    z-index: 3;
+    background-color: gray;
+    display: flex;
+    justify-content: space-between;
+    padding: 10px;
+}
+
+.error{
+    background-color: rgb(223, 71, 71);
+    display: none;
+}
+.success{
+    background-color: rgb(126, 201, 126);
+}
+
+.cookie{
+    background-color: rgba(0, 0, 0, 0.5)
+}
+
+#confirm_cookies{
+    background-color: beige;
+}
