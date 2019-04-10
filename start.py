@@ -3,7 +3,7 @@ import psycopg2
 from flask import Flask, flash, session, render_template, request, url_for, redirect
 from os import urandom
 from sys import exit, argv
-import User
+import User, ajax_requests
 
 conn = None
 try:
@@ -76,5 +76,8 @@ if __name__ == "__main__":
                 ipaddress = "192.168.1.18"
         else:
                 ipaddress = "localhost"
+        #Importera routes från ajax_request.py
+        app.register_blueprint(ajax_requests.app)
+        
         app.run(host = ipaddress, port = 80, debug = DEBUG_MODE, threaded = True)
         conn.close()

@@ -4,7 +4,7 @@ from start import conn
 def create_user(firstname, lastname, username, email, password):
         ''' Skapar en ny användare '''
         if(firstname.strip() and lastname.strip() and username.strip() and email.strip() and password.strip()):
-                if (userExists(username=username) and userExists(email=email)):
+                if (not user_exists(username=username) and not user_exists(email=email)):
                         password = bcrypt.hashpw(password.encode("utf8"), bcrypt.gensalt(12)).decode("utf8").replace("'", '"')
                         cur = conn.cursor()
                         cur.execute("insert into person(firstname, lastname, username, email, password) values (%s, %s, %s, %s, %s)", (firstname, lastname, username, email, password))
@@ -16,7 +16,7 @@ def create_user(firstname, lastname, username, email, password):
         return False
                 
              
-def userExists(username=None, email=None):
+def user_exists(username=None, email=None):
         cur = conn.cursor()
         if(not username == None):
                 cur.execute("select * from person where username = '{}'".format(username))
@@ -24,9 +24,9 @@ def userExists(username=None, email=None):
                 cur.execute("select * from person where email = '{}'".format(email))
         else:
                 return False
-        validation = cur.fetchone()
+        row = cur.fetchone()
         cur.close()
-        return validation == None
+        return row is not None
 
 
 def check_password(password, username = None, email = None):
