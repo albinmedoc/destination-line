@@ -4,9 +4,9 @@ from start import conn
 def create_user(firstname, lastname, username, email, password):
         ''' Skapar en ny användare '''
         if(firstname.strip() and lastname.strip() and username.strip() and email.strip() and password.strip()):
-                cur = conn.cursor()
-                if (validate_username(username) and validate_email(email)):
+                if (userExists(username=username) and userExists(email=email)):
                         password = bcrypt.hashpw(password.encode("utf8"), bcrypt.gensalt(12)).decode("utf8").replace("'", '"')
+                        cur = conn.cursor()
                         cur.execute("insert into person(firstname, lastname, username, email, password) values (%s, %s, %s, %s, %s)", (firstname, lastname, username, email, password))
                         #Kontrollera ifall det lyckades
                         cur.close()
@@ -16,24 +16,17 @@ def create_user(firstname, lastname, username, email, password):
         return False
                 
              
-def validate_username(username):
+def userExists(username=None, email=None):
         cur = conn.cursor()
-        cur.execute("select * from person where username = '{}'".format(username))
-        validates = cur.fetchone()
-        print(validates)
-        if validates == None:
-                return True
-
-
-
-def validate_email(email):
-        cur = conn.cursor()
-        cur.execute("select * from person where email = '{}'".format(email))
-        validates = cur.fetchone()
-        print(validates)
-        if validates == None:
-                return True
-    
+        if(not username == None):
+                cur.execute("select * from person where username = '{}'".format(username))
+        elif(not email == None):
+                cur.execute("select * from person where email = '{}'".format(email))
+        else:
+                return False
+        validation = cur.fetchone()
+        cur.close()
+        return validation == None
 
 
 def check_password(password, username = None, email = None):
