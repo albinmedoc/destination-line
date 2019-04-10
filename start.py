@@ -1,6 +1,6 @@
 # coding: UTF-8
 import psycopg2
-from flask import Flask, flash, session, render_template, request, url_for, redirect
+from flask import Flask, flash, session, render_template, request, url_for, redirect, jsonify
 from os import urandom
 from sys import exit, argv
 import User
@@ -28,13 +28,12 @@ def login():
         username = request.form.get("username")
         password = request.form.get("password")
         
-        
         if(username.strip() and password.strip()):
                 if(User.check_password(password, username = username)):
                         session["username"] = username
-                        return redirect("/#login")
-                return redirect("/")
-        return "<h1>Fyll i alla fälten</h1>"
+                        return jsonify({"result":True})
+                return jsonify({"result":False})
+        return jsonify({"result":"missingInput"})
 
 @app.route("/logout")
 def logout():
@@ -43,18 +42,19 @@ def logout():
 
 @app.route("/register", methods = ["POST"])
 def register():
+        result = None
         firstname = request.form.get("firstname")
         lastname = request.form.get("lastname")
         username = request.form.get("username")
         email = request.form.get("email")
-        password = request.form.get("password")
+        password = request.form.get("password1")
         password2 = request.form.get("password2")
         if(password == password2):
                 if(User.create_user(firstname, lastname, username, email, password)):
-                        return redirect("/")
+                        return jsonify({"result":True})
                 else:
-                        return "Något gick fel"
-        return "password stämmer inte överrens"
+                        return jsonify({"result":False})
+        return jsonify({"result":"password_no_valid"})
 
 @app.route("/profile/<username>")
 def profile(username):
