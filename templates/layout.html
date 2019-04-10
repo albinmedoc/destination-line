@@ -29,7 +29,7 @@
         <section class=flashes>
                 {% for category, message in messages %}
                 <div class="{{ category }}">{{ message }}
-                    <button id=confirm_cookies type="button"> confirm cookies </button> 
+                    <button class=confirm_cookies type="button"> confirm cookies </button> 
                 </div>             
                 {% endfor %}
         </section>           
@@ -38,6 +38,7 @@
     <!-- JAVASCRIPT -->
     {% block javascript %}
     <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/login_signup.js') }}"></script>
     {% endblock javascript %}
 </body>
 
