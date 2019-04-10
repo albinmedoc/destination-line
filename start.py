@@ -1,6 +1,6 @@
 # coding: UTF-8
 import psycopg2
-from flask import Flask, flash, session, render_template, request, url_for, redirect
+from flask import Flask, flash, session, render_template, request, url_for, redirect, jsonify
 from os import urandom
 from sys import exit, argv
 import User, ajax_requests
@@ -32,9 +32,8 @@ def login():
         if(username.strip() and password.strip()):
                 if(User.check_password(password, username = username)):
                         session["username"] = username
-                        return redirect("/#login")
-                return redirect("/")
-        return "<h1>Fyll i alla fälten</h1>"
+                        return jsonify(True)
+        return jsonify(False)
 
 @app.route("/logout")
 def logout():

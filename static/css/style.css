@@ -55,18 +55,18 @@ i{
     padding: 10px;
 }
 
-.error{
+.flashes > div.error{
     background-color: rgb(223, 71, 71);
     display: none;
 }
-.success{
+.flashes > div.success{
     background-color: rgb(126, 201, 126);
 }
 
-.cookie{
+.flashes > div.cookie{
     background-color: rgba(0, 0, 0, 0.5)
 }
 
-#confirm_cookies{
+.confirm_cookies{
     background-color: beige;
 }

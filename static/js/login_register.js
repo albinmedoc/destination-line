@@ -10,7 +10,9 @@
         var pass1 = $("#register > fieldset > .form_row > .input_container > input[name='password']").val()
         var pass2 = $(this).val();
         if($(this).val() != "" && pass1 != pass2){
-            console.log("Lösenord matchar inte");
+            $(this).addClass("error");
+        }else{
+            $(this).removeClass("error");
         }
     });
 
@@ -24,11 +26,15 @@
                 username: $(this).val()
             }
         })
-        .done(function(response){
+        .done(function(exist){
             //response, True eller False
             //Sant om användaren finns
             //$(this) är input för användarnamn
-            console.log("Username:" + response);
+            if(exist){
+                $("#register > fieldset > .form_row > .input_container > input[name='username']").addClass("error");
+            }else{
+                $("#register > fieldset > .form_row > .input_container > input[name='username']").removeClass("error");
+            }
         });
     });
 
@@ -42,10 +48,33 @@
                 email: $(this).val()
             }
         })
-        .done(function(response){
-            //response, True eller False
-            //Sant om användaren finns
-            //$(this) är input för email
-            console.log("Email:" + response);
+        .done(function(exist){
+            if(exist){
+                $("#register > fieldset > .form_row > .input_container > input[name='email']").addClass("error");
+            }else{
+                $("#register > fieldset > .form_row > .input_container > input[name='email']").removeClass("error");
+            }
         });
+    });
+
+
+    $('#login').on('submit', function(e) {
+        $.ajax({
+            method: "POST",
+            url: $SCRIPT_ROOT + "/login",
+            data: {
+                username: $("#login > fieldset > .form_row > .input_container > input[name='username']").val(),
+                password: $("#login > fieldset > .form_row > .input_container > input[name='password']").val()
+            }
+        })
+        .done(function(valid){
+            if(!valid){
+                $("#login > fieldset > .form_row > .input_container > input[name='username']").addClass("error");
+                $("#login > fieldset > .form_row > .input_container > input[name='password']").addClass("error");
+
+            }else{
+                location.reload();
+            }
+        });
+        e.preventDefault();
     });

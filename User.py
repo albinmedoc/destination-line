@@ -32,9 +32,9 @@ def user_exists(username=None, email=None):
 def check_password(password, username = None, email = None):
         ''' Kontrollerar användares lösenord '''
         cur = conn.cursor()
-        if(not username == None):
+        if(not username == None and user_exists(username=username)):
                 cur.execute("select password from person where username='{}'".format(username))
-        elif(not email == None):
+        elif(not email == None and user_exists(email=email)):
                 cur.execute("select password from person where email='{}'".format(email))
         else:
                 #Användaren hittades inte
