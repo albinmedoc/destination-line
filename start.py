@@ -17,7 +17,7 @@ app.secret_key = urandom(24)
 
 @app.route("/")
 def index():
-        flash(u'Invalid password provided, blablabldnabdlsabdlsa ', 'error')
+        flash(u'Invalid password provided, blablabldnabdlsabdlsa', 'success')
         return render_template("index.html")
 
 @app.route("/login", methods = ["POST"])
