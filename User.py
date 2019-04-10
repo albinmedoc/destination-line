@@ -14,8 +14,8 @@ def create_user(firstname, lastname, username, email, password):
                         return True
                         #Sätt session ifall det lyckades
         return False
-                
-             
+
+#Kontrollera att användarnamn är unikt      
 def validate_username(username):
         cur = conn.cursor()
         cur.execute("select * from person where username = '{}'".format(username))
@@ -25,7 +25,7 @@ def validate_username(username):
                 return True
 
 
-
+#kontrollerar att email är unikt
 def validate_email(email):
         cur = conn.cursor()
         cur.execute("select * from person where email = '{}'".format(email))
