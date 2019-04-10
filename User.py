@@ -5,13 +5,36 @@ def create_user(firstname, lastname, username, email, password):
         ''' Skapar en ny användare '''
         if(firstname.strip() and lastname.strip() and username.strip() and email.strip() and password.strip()):
                 cur = conn.cursor()
-                password = bcrypt.hashpw(password.encode("utf8"), bcrypt.gensalt(12)).decode("utf8").replace("'", '"')
-                cur.execute("insert into person(firstname, lastname, username, email, password) values (%s, %s, %s, %s, %s)", (firstname, lastname, username, email, password))
-                #Kontrollera ifall det lyckades
-                cur.close()
-                conn.commit()
+                if (validate_username(username) and validate_email(email)):
+                        password = bcrypt.hashpw(password.encode("utf8"), bcrypt.gensalt(12)).decode("utf8").replace("'", '"')
+                        cur.execute("insert into person(firstname, lastname, username, email, password) values (%s, %s, %s, %s, %s)", (firstname, lastname, username, email, password))
+                        #Kontrollera ifall det lyckades
+                        cur.close()
+                        conn.commit()
+                        return True
+                        #Sätt session ifall det lyckades
+        return False
+                
+             
+def validate_username(username):
+        cur = conn.cursor()
+        cur.execute("select * from person where username = '{}'".format(username))
+        validates = cur.fetchone()
+        print(validates)
+        if validates == None:
                 return True
-                #Sätt session ifall det lyckades
+
+
+
+def validate_email(email):
+        cur = conn.cursor()
+        cur.execute("select * from person where email = '{}'".format(email))
+        validates = cur.fetchone()
+        print(validates)
+        if validates == None:
+                return True
+    
+
 
 def check_password(password, username = None, email = None):
         ''' Kontrollerar användares lösenord '''

@@ -1,3 +1,4 @@
+# coding: UTF-8
 import psycopg2
 from flask import Flask, session, render_template, request, url_for, redirect
 from os import urandom
@@ -24,7 +25,7 @@ def login():
         username = request.form.get("username")
         password = request.form.get("password")
         
-        # Kontrollerar så alla fält är ifyllda
+        
         if(username.strip() and password.strip()):
                 if(User.check_password(password, username = username)):
                         session["username"] = username
