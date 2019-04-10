@@ -1,5 +1,5 @@
 import psycopg2
-from flask import Flask, session, render_template, request, url_for, redirect
+from flask import Flask, flash, session, render_template, request, url_for, redirect
 from os import urandom
 from sys import exit, argv
 import User
@@ -17,6 +17,7 @@ app.secret_key = urandom(24)
 
 @app.route("/")
 def index():
+        flash(u'Invalid password provided, blablabldnabdlsabdlsa ', 'error')
         return render_template("index.html")
 
 @app.route("/login", methods = ["POST"])
@@ -28,8 +29,8 @@ def login():
         if(username.strip() and password.strip()):
                 if(User.check_password(password, username = username)):
                         session["username"] = username
-                        return redirect("/")
-                return "<h1>Fel inloggningsuppgifter</h1>"
+                        return redirect("/#login")
+                return redirect("/")
         return "<h1>Fyll i alla fälten</h1>"
 
 @app.route("/logout")
