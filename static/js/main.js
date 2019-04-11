@@ -4,7 +4,7 @@ window.onload = function() {
             location.hash = '';
         }
     });
-    $("#confirm_cookies").click(function(e){
+    $(".close_flash").click(function(e){
         $(this).closest('div').remove();
     });
 }

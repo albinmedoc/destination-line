@@ -27,9 +27,6 @@
             }
         })
         .done(function(exist){
-            //response, True eller False
-            //Sant om användaren finns
-            //$(this) är input för användarnamn
             if(exist){
                 $("#register > fieldset > .form_row > .input_container > input[name='username']").addClass("error");
             }else{
