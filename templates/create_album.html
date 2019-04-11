@@ -5,7 +5,7 @@
 {% endblock head %}
 
 {% block main %}
-<form>
+<form id="upload_form">
     <h2>Create Album</h2>
 
     <label for="country">Country</label>
@@ -19,18 +19,11 @@
 
     <label for="date_end">To</label>
     <input id="date_end" type="date">
+    <input type="submit" value="Upload">
 </form>
 <section id="test">
-    <div id="upload_btn" class="locked"></div>
     <input id="upload" type="file" multiple>
-    {%for i in range(1, 30)%}
-    <div class="post">
-        <p>{{ i }}</p>
-        <i class="material-icons">close</i>
-        <img src="https://www.w3schools.com/howto/img_parallax.jpg">
-        <i class="material-icons">list</i>
-    </div>
-    {%endfor%}
+    <div id="upload_btn" class="locked"></div>
 </section>
 {% endblock main %}
 {% block javascript %}
