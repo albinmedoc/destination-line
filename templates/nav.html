@@ -7,6 +7,11 @@
                 <input type="text" placeholder="Search for places...">
             </div>
         </li>
+        {% if("username" in session) %}
+        <li>
+            <a href="{{ url_for('image.upload') }}"><i class="material-icons">create_new_folder</i><span>New Album</span></a>
+        </li>
+        {% endif %}
         <li>
             <a href="#"><i class="material-icons">info_outline</i><span>Info</span></a>
         </li>
