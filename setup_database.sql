@@ -32,7 +32,7 @@ create table album(
 
 create table post(
 	album integer references album(id),
-	order integer not null,
+	index integer not null,
 	img_name text not null,
 	text varchar(500) not null
 );
