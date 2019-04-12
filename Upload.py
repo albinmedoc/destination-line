@@ -16,7 +16,11 @@ def upload():
         for key in request.files:
                 file = request.files[key]
                 if(validate_image(file)):
-                        path = os.path.join(os.path.abspath(os.curdir) + "/images", secure_filename(file.filename))
+                        directory = os.path.join(os.path.abspath(os.curdir) + "/images")
+                        if(not os.path.exists(directory)):
+                                print("Images folder don´t exist. Creating one..")
+                                os.makedirs(directory)
+                        path = os.path.join(directory, secure_filename(file.filename))
                         print("Image saved to: " + path)
                         file.save(path)
         return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
