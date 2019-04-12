@@ -1,6 +1,7 @@
 from flask import Blueprint, request, session, render_template, json, send_from_directory
 import os
 from werkzeug.utils import secure_filename
+from PIL import Image
 
 app = Blueprint("image", __name__, template_folder="templates")
 
@@ -26,12 +27,14 @@ def upload():
                         if(not os.path.exists(UPLOAD_FOLDER)):
                                 print("Images folder don´t exist. Creating one..")
                                 os.makedirs(UPLOAD_FOLDER)
-                        path = os.path.join(UPLOAD_FOLDER, secure_filename(file.filename))
                         try:
-                                file.save(path)
-                                print("Image saved to: " + path)
+                                #Laddar bild
+                                img = Image.open(file.stream)
+                                #Sparar som WebP format
+                                img.save(os.path.join(UPLOAD_FOLDER, secure_filename(key + ".webp")))
                         except:
                                 print("Image " + file.filename + " couldn´t be saved. Skipping..")
+                                continue
 
         return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
