@@ -1,5 +1,4 @@
 \set ON_ERROR_STOP on
-create database if not exists temp;
 \c temp
 drop database destinationline;
 create database destinationline;
