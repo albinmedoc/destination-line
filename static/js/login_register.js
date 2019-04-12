@@ -70,7 +70,7 @@ $('#login').on('submit', function(e) {
             $("#login > fieldset > .form_row > .input_container > input[name='password']").addClass("error");
 
         }else{
-            location.reload();
+            location.replace("/");
         }
     });
     e.preventDefault();
