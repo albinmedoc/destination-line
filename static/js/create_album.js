@@ -46,7 +46,20 @@ $(document).ready(function(){
             data.append("file" + i, images[index]);
             i++;
         });
-
+        $.ajax({
+            url: $SCRIPT_ROOT + "/upload",
+            type: 'POST',
+            contentType: false,
+            data: data,
+            processData: false,
+            cache: false,
+            success: function() {
+                alert("Uploaded");
+            },
+            error: function(){
+                alert("Error");
+            }
+        });
     });
 
     Sortable.create(test, {
