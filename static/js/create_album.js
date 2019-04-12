@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    var images = [];
+    var images = new Object();
 
     $("#upload_btn").click(function(){
         $("#upload").trigger("click");
@@ -13,8 +13,8 @@ $(document).ready(function(){
                     var reader = new FileReader();
                     reader.onload = (function(file){
                         return function(e){
-                            if(images.indexOf(e.target.result) < 0){
-                                images.push(e.target.result);
+                            if(!(e.target.result in images)){
+                                images[e.target.result] = file;
                                 var post = "<div class='post'><i class='material-icons close'>close</i><img src='" + e.target.result + "'><i class='material-icons info'>list</i>";
                                 $("#upload_btn").after(post);
                             }else{
@@ -33,14 +33,19 @@ $(document).ready(function(){
 
     $("#upload_btn").parent().on("click", ".post > i.close", function(){
         var index = $(this).next().attr("src");
-        console.log(index);
-        images.splice(images.indexOf(index), 1);
+        delete images[index];
         $(this).parent().remove();
     });
 
     $("#upload_form").on("submit", function(e){
         e.preventDefault();
-        console.log(images);
+        var data = new FormData();
+        var i = 1;
+        $("#upload_btn").parent().children(".post").each(function(){
+            var index = $(this).children("img").attr("src");
+            data.append("file" + i, images[index]);
+            i++;
+        });
 
     });
 

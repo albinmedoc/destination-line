@@ -3,7 +3,7 @@ import psycopg2
 from flask import Flask, flash, session, render_template, request, url_for, redirect, jsonify
 from os import urandom
 from sys import exit, argv
-import User, ajax_requests
+import User, Upload, ajax_requests
 
 conn = None
 try:
@@ -64,12 +64,6 @@ def profile(username):
 def timeline():
         return render_template("timeline.html")
 
-@app.route("/upload")
-def upload():
-        if("username" not in session):
-                return "<h1>Du måste vara inloggad</h1>"
-        return render_template("create_album.html")
-
 if __name__ == "__main__":
         if(len(argv) > 1 and argv[1].lower() == "server"):
                 ipaddress = "192.168.1.18"
@@ -77,6 +71,7 @@ if __name__ == "__main__":
                 ipaddress = "localhost"
         #Importera routes från ajax_request.py
         app.register_blueprint(ajax_requests.app)
+        app.register_blueprint(Upload.app)
         
         app.run(host = ipaddress, port = 80, debug = DEBUG_MODE, threaded = True)
         conn.close()
