@@ -3,7 +3,7 @@ import psycopg2
 from flask import Flask, flash, session, render_template, request, url_for, redirect, jsonify
 from os import urandom
 from sys import exit, argv
-import User, Upload, ajax_requests
+import User, Image, ajax_requests
 
 conn = None
 try:
@@ -71,7 +71,7 @@ if __name__ == "__main__":
                 ipaddress = "localhost"
         #Importera routes från ajax_request.py
         app.register_blueprint(ajax_requests.app)
-        app.register_blueprint(Upload.app)
+        app.register_blueprint(Image.app)
         
         app.run(host = ipaddress, port = 80, debug = DEBUG_MODE, threaded = True)
         conn.close()
