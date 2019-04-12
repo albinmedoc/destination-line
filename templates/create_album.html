@@ -9,19 +9,20 @@
     <h2>Create Album</h2>
 
     <label for="country">Country</label>
-    <input id="country" type="text">
+    <input id="country" type="text" required>
 
     <label for="city">City</label>
-    <input id="city" type="text">
+    <input id="city" name="city" type="text">
 
     <label for="date_start">From</label>
-    <input id="date_start" type="date">
+    <input id="date_start" type="date" required>
 
     <label for="date_end">To</label>
-    <input id="date_end" type="date">
+    <input id="date_end" type="date" required>
+
     <input type="submit" value="Upload">
 </form>
-<section id="test">
+<section id="preview">
     <input id="upload" type="file" multiple>
     <div id="upload_btn" class="locked"></div>
 </section>

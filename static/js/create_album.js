@@ -40,6 +40,11 @@ $(document).ready(function(){
     $("#upload_form").on("submit", function(e){
         e.preventDefault();
         var data = new FormData();
+        data.append("country", $("#country").val());
+        data.append("city", $("#city").val());
+        data.append("date_start", $("#date_start").val());
+        data.append("date_end", $("#date_end").val());
+
         var i = 1;
         $("#upload_btn").parent().children(".post").each(function(){
             var index = $(this).children("img").attr("src");
@@ -62,7 +67,7 @@ $(document).ready(function(){
         });
     });
 
-    Sortable.create(test, {
+    Sortable.create(preview, {
         animation: 500,
         draggable: ".post",
         scroll: true,
