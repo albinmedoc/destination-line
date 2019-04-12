@@ -7,6 +7,7 @@
                 <input type="text" placeholder="Search for places...">
             </div>
         </li>
+        <!-- Visa uppladdningsknapp om inloggad -->
         {% if("username" in session) %}
         <li>
             <a href="{{ url_for('image.upload') }}"><i class="material-icons">create_new_folder</i><span>New Album</span></a>
