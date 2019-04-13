@@ -5,6 +5,8 @@ from os import urandom
 from sys import argv
 import User, Image, ajax_requests
 
+SERVER_IP = "192.168.1.18"
+
 DEBUG_MODE = True
 
 app = Flask(__name__)
@@ -60,12 +62,11 @@ def timeline():
         return render_template("timeline.html")
 
 if __name__ == "__main__":
-        if(len(argv) > 1 and argv[1].lower() == "server"):
-                ipaddress = "192.168.1.18"
-        else:
-                ipaddress = "localhost"
-        #Importera routes från ajax_request.py
+        #Importera Blueprints
         app.register_blueprint(ajax_requests.app)
         app.register_blueprint(Image.app)
-        
-        app.run(host = ipaddress, port = 80, debug = DEBUG_MODE, threaded = True)
+        #Startar servern på olika adresser beroende på attribut
+        if(len(argv) > 1 and argv[1].lower() == "server"):
+                app.run(host = SERVER_IP, port = 80, debug = DEBUG_MODE, threaded = True)
+        else:
+                app.run(host = "localhost", port = 80, debug = DEBUG_MODE, threaded = True)
