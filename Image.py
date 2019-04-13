@@ -3,6 +3,7 @@ import os
 from uuid import uuid4
 from werkzeug.utils import secure_filename
 from PIL import Image
+from Database import Databse
 
 app = Blueprint("image", __name__, template_folder="templates")
 
@@ -22,6 +23,10 @@ def upload():
         print(request.form.get("city"))
         print(request.form.get("date_start"))
         print(request.form.get("date_end"))
+        #Fixa så man kollar om filer och information skickades med
+        db = Databse()
+        cur = db.conn.cursor()
+        
         for key in request.files:
                 file = request.files[key]
                 if(validate_image(file)):
@@ -31,11 +36,12 @@ def upload():
                         #Laddar bild
                         img = Image.open(file.stream)
                         #Sparar som WebP format
-                        filename = str(uuid4())
-                        while os.path.isfile(filename + ".webp"):
-                                filename = str(uuid4())
-                        img.save(os.path.join(UPLOAD_FOLDER, secure_filename(filename + ".webp")))
-
+                        filename = str(uuid4()) + ".webp"
+                        while os.path.isfile(filename):
+                                filename = str(uuid4()) + ".webp"
+                        img.save(os.path.join(UPLOAD_FOLDER, secure_filename(filename)))
+                        cur.execute("insert into post(album, index, img_name, text) values(1, 1, %s, %s)", (filename, "This is Destination Lines first image."))
+        db.conn.commit()
         return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
 @app.route("/image/<image_id>", methods = ["GET"])
