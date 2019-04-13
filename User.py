@@ -1,5 +1,50 @@
+from flask import Blueprint, request, session, redirect, jsonify
 import bcrypt
 from Database import Databse
+
+app = Blueprint("user", __name__, template_folder="templates")
+
+@app.route("/request/<incomming_request>", methods = ["POST"])
+def callback(incomming_request):
+        if(incomming_request == "username_exists"):
+                username = request.form.get("username")
+                return jsonify(user_exists(username=username))
+        elif(incomming_request == "email_exists"):
+                email = request.form.get("email")
+        return jsonify(user_exists(email=email))
+
+@app.route("/login", methods = ["POST"])
+def login():
+        username = request.form.get("username")
+        password = request.form.get("password")
+        
+        
+        if(username.strip() and password.strip()):
+                if(check_password(password, username = username)):
+                        session["username"] = username
+                        return jsonify(True)
+        return jsonify(False)
+
+@app.route("/logout")
+def logout():
+        session.clear()
+        return redirect("/")
+
+@app.route("/register", methods = ["POST"])
+def register():
+        firstname = request.form.get("firstname")
+        lastname = request.form.get("lastname")
+        username = request.form.get("username")
+        email = request.form.get("email")
+        password = request.form.get("password")
+        password2 = request.form.get("password2")
+        if(password == password2):
+                if(create_user(firstname, lastname, username, email, password)):
+                        session["username"] = username
+                        return redirect("/")
+                else:
+                        return "Något gick fel"
+        return "password stämmer inte överrens"
 
 def create_user(firstname, lastname, username, email, password):
         ''' Skapar en ny användare '''
@@ -13,7 +58,6 @@ def create_user(firstname, lastname, username, email, password):
                         db.conn.commit()
                         return True
         return False
-                
              
 def user_exists(username=None, email=None):
         db = Databse()
