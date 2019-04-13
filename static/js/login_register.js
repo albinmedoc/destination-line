@@ -20,9 +20,8 @@ $("#register > fieldset > .form_row > .input_container > input[name='password2']
 $("#register > fieldset > .form_row > .input_container > input[name='username']").focusout(function(){
     $.ajax({
         method: "POST",
-        url: $SCRIPT_ROOT + "/request",
+        url: $SCRIPT_ROOT + "/request/username_exists",
         data: {
-            request: "username_exists",
             username: $(this).val()
         }
     })
@@ -39,9 +38,8 @@ $("#register > fieldset > .form_row > .input_container > input[name='username']"
 $("#register > fieldset > .form_row > .input_container > input[name='email']").focusout(function(){
     $.ajax({
         method: "POST",
-        url: $SCRIPT_ROOT + "/request",
+        url: $SCRIPT_ROOT + "/request/email_exists",
         data: {
-            request: "email_exists",
             email: $(this).val()
         }
     })
