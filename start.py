@@ -2,14 +2,8 @@
 import psycopg2
 from flask import Flask, flash, session, render_template, request, url_for, redirect, jsonify
 from os import urandom
-from sys import exit, argv
+from sys import argv
 import User, Image, ajax_requests
-
-conn = None
-try:
-        conn = psycopg2.connect(dbname="destinationline", user="pi", host="destinationline.ml", password="DestinationLine")
-except:
-        exit("Could not connect to database...")
 
 DEBUG_MODE = True
 
@@ -50,6 +44,7 @@ def register():
         password2 = request.form.get("password2")
         if(password == password2):
                 if(User.create_user(firstname, lastname, username, email, password)):
+                        session["username"] = username
                         return redirect("/")
                 else:
                         return "Något gick fel"
@@ -74,4 +69,3 @@ if __name__ == "__main__":
         app.register_blueprint(Image.app)
         
         app.run(host = ipaddress, port = 80, debug = DEBUG_MODE, threaded = True)
-        conn.close()

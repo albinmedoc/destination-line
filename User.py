@@ -1,23 +1,23 @@
 import bcrypt
-from start import conn
+from Database import Databse
 
 def create_user(firstname, lastname, username, email, password):
         ''' Skapar en ny användare '''
         if(firstname.strip() and lastname.strip() and username.strip() and email.strip() and password.strip()):
                 if (not user_exists(username=username) and not user_exists(email=email)):
+                        db = Databse()
                         password = bcrypt.hashpw(password.encode("utf8"), bcrypt.gensalt(12)).decode("utf8").replace("'", '"')
-                        cur = conn.cursor()
+                        cur = db.conn.cursor()
                         cur.execute("insert into person(firstname, lastname, username, email, password) values (%s, %s, %s, %s, %s)", (firstname, lastname, username, email, password))
-                        #Kontrollera ifall det lyckades
                         cur.close()
-                        conn.commit()
+                        db.conn.commit()
                         return True
-                        #Sätt session ifall det lyckades
         return False
                 
              
 def user_exists(username=None, email=None):
-        cur = conn.cursor()
+        db = Databse()
+        cur = db.conn.cursor()
         if(not username == None):
                 cur.execute("select * from person where username = '{}'".format(username))
         elif(not email == None):
@@ -31,7 +31,8 @@ def user_exists(username=None, email=None):
 
 def check_password(password, username = None, email = None):
         ''' Kontrollerar användares lösenord '''
-        cur = conn.cursor()
+        db = Databse()
+        cur = db.conn.cursor()
         if(not username == None and user_exists(username=username)):
                 cur.execute("select password from person where username='{}'".format(username))
         elif(not email == None and user_exists(email=email)):
