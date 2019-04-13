@@ -9,12 +9,16 @@ $(document).ready(function(){
         if(this.files && this.files.length <= 60){
             for(var i = 0; i < this.files.length; i++){
                 var file = this.files[i];
+                //Kollar om filen har bildformat
                 if(file.type.match("image.*")){
                     var reader = new FileReader();
                     reader.onload = (function(file){
                         return function(e){
+                            //Kollar om bilden redan är i listan
                             if(!(e.target.result in images)){
+                                //Sparar filen i Listan
                                 images[e.target.result] = file;
+                                //Visar bilder
                                 var post = "<div class='post'><i class='material-icons close'>close</i><img src='" + e.target.result + "'><i class='material-icons info'>list</i>";
                                 $("#upload_btn").after(post);
                             }else{
@@ -29,6 +33,7 @@ $(document).ready(function(){
                 }
             }
         }
+        $(this).val("");
     });
 
     $("#upload_btn").parent().on("click", ".post > i.close", function(){
