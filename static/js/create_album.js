@@ -45,17 +45,21 @@ $(document).ready(function(){
     $("#upload_form").on("submit", function(e){
         e.preventDefault();
         var data = new FormData();
+        //Lägger till album information i FormData
         data.append("country", $("#country").val());
         data.append("city", $("#city").val());
         data.append("date_start", $("#date_start").val());
         data.append("date_end", $("#date_end").val());
 
         var i = 1;
+        //Lägger till alla filer i FormData
         $("#upload_btn").parent().children(".post").each(function(){
+            //Hämtar index/bildurl från src
             var index = $(this).children("img").attr("src");
             data.append("file" + i, images[index]);
             i++;
         });
+        //Skickar Post-request
         $.ajax({
             url: $SCRIPT_ROOT + "/upload",
             type: 'POST',
@@ -72,6 +76,7 @@ $(document).ready(function(){
         });
     });
 
+    //Gör inläggen flyttbara
     Sortable.create(preview, {
         animation: 500,
         draggable: ".post",
