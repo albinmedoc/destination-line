@@ -7,7 +7,7 @@ from Database import Databse
 
 app = Blueprint("image", __name__, template_folder="templates")
 
-ALLOWED_EXTENSIONS = set(["pdf", "png", "jpg", "jpeg"])
+ALLOWED_EXTENSIONS = set(["pdf", "png", "jpg", "jpeg", "webp"])
 
 UPLOAD_FOLDER = os.path.join(os.path.abspath(os.curdir) + "/images")
 
