@@ -48,12 +48,14 @@ def upload():
         db.conn.commit()
         return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
-@app.route("/edit/album/<album_id>", methods = ["GET"])
+@app.route("/edit/album/<int:album_id>", methods = ["GET"])
 def edit_album(album_id):
         if("username" not in session):
                 return "<h1>Du måste vara inloggad</h1>"
         if(owns_album(album_id, username=session["username"])):
                 return "<h1>Du äger Albumet</h1>"
+        else:
+                return "<h1>Du äger inte albumet eller så finns det inte</h1>"
 
 
 @app.route("/image/<image_id>", methods = ["GET"])
