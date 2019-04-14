@@ -45,6 +45,7 @@ def register():
                         return "Något gick fel"
         return "password stämmer inte överrens"
 
+#Skapa en ny användare
 def create_user(firstname, lastname, username, email, password):
         ''' Skapar en ny användare '''
         if(firstname.strip() and lastname.strip() and username.strip() and email.strip() and password.strip()):
@@ -57,7 +58,8 @@ def create_user(firstname, lastname, username, email, password):
                         db.conn.commit()
                         return True
         return False
-             
+
+#Kolla om användare existerar             
 def user_exists(username=None, email=None, user_id=None):
         db = Database()
         cur = db.conn.cursor()
@@ -73,7 +75,7 @@ def user_exists(username=None, email=None, user_id=None):
         cur.close()
         return row is not None
 
-
+#Kontrollera lösenord baserat på username eller email
 def check_password(password, username = None, email = None):
         ''' Kontrollerar användares lösenord '''
         db = Database()
@@ -94,6 +96,7 @@ def check_password(password, username = None, email = None):
                 return bcrypt.checkpw(password.encode("utf8"), hashpassword)
         return False
 
+#Hämta användarens id från username eller email
 def get_user_id(username=None, email=None):
         db = Database()
         cur = db.conn.cursor()
@@ -106,12 +109,10 @@ def get_user_id(username=None, email=None):
         id = cur.fetchone()[0]
         cur.close()
         if(id is not None):
-                #Retunerar True/False beroende på om det stämmer överrens eller inte
                 return int(id)
-        return False
+        return None
 
 #Kontrollerar om angiven användare äger angivet album
-#Fixa så man kan kontrollera med användarnamn och email
 def owns_album(album_id, username=None, email=None, user_id=None):
         db = Database()
         cur = db.conn.cursor()
