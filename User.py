@@ -17,10 +17,9 @@ def callback(incomming_request):
 def login():
         username = request.form.get("username")
         password = request.form.get("password")
-        
-        
         if(username.strip() and password.strip()):
                 if(check_password(password, username = username)):
+                        session.permanent = True
                         session["username"] = username
                         return jsonify(True)
         return jsonify(False)
