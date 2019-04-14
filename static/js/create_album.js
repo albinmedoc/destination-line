@@ -61,7 +61,7 @@ $(document).ready(function(){
         });
         //Skickar Post-request
         $.ajax({
-            url: $SCRIPT_ROOT + "/upload",
+            url: $SCRIPT_ROOT + "/new/album",
             type: 'POST',
             contentType: false,
             data: data,
