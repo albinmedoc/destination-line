@@ -3,8 +3,9 @@ import os
 from uuid import uuid4
 from werkzeug.utils import secure_filename
 from PIL import Image
-from Database import Databse
+from Database import Database
 from datetime import datetime
+from User import get_user_id, owns_album
 
 app = Blueprint("image", __name__, template_folder="templates")
 
@@ -24,11 +25,11 @@ def upload():
         city = request.form.get("city")
         date_start = datetime.strptime(request.form.get("date_start"), "%Y-%m-%d")
         date_end = datetime.strptime(request.form.get("date_end"), "%Y-%m-%d")
-
+        user_id = get_user_id(session["username"])
         #Fixa så man kollar om filer och information skickades med
-        db = Databse()
+        db = Database()
         cur = db.conn.cursor()
-        cur.execute("insert into album(published, country, city, date_start, date_end) values(%s, %s, %s, %s, %s) returning id", (datetime.utcnow(), country, city, date_start, date_end))
+        cur.execute("insert into album(owner, published, country, city, date_start, date_end) values(%s, %s, %s, %s, %s, %s) returning id", (user_id, datetime.utcnow(), country, city, date_start, date_end))
         album_id = cur.fetchone()[0]
         for key in request.files:
                 file = request.files[key]
@@ -46,6 +47,14 @@ def upload():
                         cur.execute("insert into post(album, index, img_name, text) values(%s, 1, %s, %s)", (album_id, filename, "This is Destination Lines first image."))
         db.conn.commit()
         return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
+
+@app.route("/edit/album/<album_id>", methods = ["GET"])
+def edit_album(album_id):
+        if("username" not in session):
+                return "<h1>Du måste vara inloggad</h1>"
+        if(owns_album(album_id, username=session["username"])):
+                return "<h1>Du äger Albumet</h1>"
+
 
 @app.route("/image/<image_id>", methods = ["GET"])
 def uploaded_images(image_id):
