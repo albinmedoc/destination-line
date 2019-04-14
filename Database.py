@@ -6,7 +6,7 @@ DATABASE_USER = "pi"
 DATABASE_HOST = "destinationline.ml"
 DATABASE_PASSWORD = "DestinationLine"
 
-class Databse():
+class Database():
 
     def __init__(self):
         try: 
