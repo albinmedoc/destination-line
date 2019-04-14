@@ -1,6 +1,6 @@
 from flask import Blueprint, request, session, redirect, jsonify
 import bcrypt
-from Database import Databse
+from Database import Database
 
 app = Blueprint("user", __name__, template_folder="templates")
 
@@ -49,7 +49,7 @@ def create_user(firstname, lastname, username, email, password):
         ''' Skapar en ny användare '''
         if(firstname.strip() and lastname.strip() and username.strip() and email.strip() and password.strip()):
                 if (not user_exists(username=username) and not user_exists(email=email)):
-                        db = Databse()
+                        db = Database()
                         password = bcrypt.hashpw(password.encode("utf8"), bcrypt.gensalt(12)).decode("utf8").replace("'", '"')
                         cur = db.conn.cursor()
                         cur.execute("insert into person(firstname, lastname, username, email, password) values (%s, %s, %s, %s, %s)", (firstname, lastname, username, email, password))
@@ -58,13 +58,15 @@ def create_user(firstname, lastname, username, email, password):
                         return True
         return False
              
-def user_exists(username=None, email=None):
-        db = Databse()
+def user_exists(username=None, email=None, user_id=None):
+        db = Database()
         cur = db.conn.cursor()
         if(not username == None):
                 cur.execute("select * from person where username = '{}'".format(username))
         elif(not email == None):
                 cur.execute("select * from person where email = '{}'".format(email))
+        elif(not user_id == None):
+                cur.execute("select * from person where id = '{}'".format(user_id))
         else:
                 return False
         row = cur.fetchone()
@@ -74,7 +76,7 @@ def user_exists(username=None, email=None):
 
 def check_password(password, username = None, email = None):
         ''' Kontrollerar användares lösenord '''
-        db = Databse()
+        db = Database()
         cur = db.conn.cursor()
         if(not username == None and user_exists(username=username)):
                 cur.execute("select password from person where username='{}'".format(username))
@@ -91,3 +93,39 @@ def check_password(password, username = None, email = None):
                 #Retunerar True/False beroende på om det stämmer överrens eller inte
                 return bcrypt.checkpw(password.encode("utf8"), hashpassword)
         return False
+
+def get_user_id(username=None, email=None):
+        db = Database()
+        cur = db.conn.cursor()
+        if(not username == None and user_exists(username=username)):
+                cur.execute("select id from person where username='{}'".format(username))
+        elif(not email == None and user_exists(email=email)):
+                cur.execute("select id from person where email='{}'".format(email))
+        else:
+                return None
+        id = cur.fetchone()[0]
+        cur.close()
+        if(id is not None):
+                #Retunerar True/False beroende på om det stämmer överrens eller inte
+                return int(id)
+        return False
+
+#Kontrollerar om angiven användare äger angivet album
+#Fixa så man kan kontrollera med användarnamn och email
+def owns_album(album_id, username=None, email=None, user_id=None):
+        db = Database()
+        cur = db.conn.cursor()
+        if(username != None or email != None or user_id != None):
+                cur.execute("select owner from album where id='{}'".format(int(album_id)))
+                owner_id = cur.fetchone()
+                if(owner_id is None):
+                        return False
+                owner_id = int(owner_id)
+                if(not user_id == None and user_exists(user_id=user_id)):
+                        return int(user_id) == owner_id
+                elif(not username == None and user_exists(username=username)):
+                        return int(get_user_id(username=username)) == owner_id
+                elif(not email == None and user_exists(email=email)):
+                        return int(get_user_id(email=email)) == owner_id
+        return False
+        
