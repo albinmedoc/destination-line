@@ -23,6 +23,7 @@ create table follow(
 
 create table album(
 	id serial primary key,
+	owner integer not null,
 	published timestamp not null,
 	country varchar(50) not null,
 	city varchar(60) not null,
@@ -35,9 +36,4 @@ create table post(
 	index integer not null,
 	img_name text not null,
 	text varchar(500) not null
-);
-
-create table owns(
-	person integer references person(id),
-	album integer references album(id)
 );
