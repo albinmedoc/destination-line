@@ -14,13 +14,16 @@ window.onscroll = function() {
         }
         if(diffrence >= 200){
             $("#top-users").addClass("isVisible");
+            $("nav").addClass("isVisible");
+            $("#explore_tabs").addClass("isVisible");
         }
     } else {
         if(diffrence >= 200){
             diffrence = 0;
         }
         if(diffrence <= -200){
-            $("#top-users").removeClass("isVisible");
+            $("nav").removeClass("isVisible");
+            $("#explore_tabs").removeClass("isVisible");
         }
     }
     prevScrollpos = currentScrollPos;
