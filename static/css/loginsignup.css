@@ -40,19 +40,19 @@
     transition: .5s cubic-bezier(.57, .66, 0, 1);
 }
 
-#modal > form > fieldset > .form_row{
+form > fieldset > .form_row{
     display: flex;
     flex-wrap: wrap;
 }
 
-#modal .input_container{
+.input_container{
     position: relative;
     flex-grow: 1;
     min-width: 200px;
     margin: 10px;
 }
 
-#modal span{
+form span{
     pointer-events: none;
     position:absolute;
     line-height:40px;
@@ -62,7 +62,7 @@
     opacity:0.5;
 }
 
-#modal fieldset input, #modal fieldset button{
+form fieldset input, form fieldset button{
     height: 40px;
     width: 100%;
     border: 1px solid #efefef;
@@ -71,15 +71,15 @@
     transition: box-shadow .2s;
 }
 
-#modal fieldset input, #modal fieldset .input_container > span, #modal > form > fieldset > .form_row{
+form fieldset input, form fieldset .input_container > span, form > form > fieldset > .form_row{
     padding: 0 10px;
 }
 
-#modal fieldset input:focus{
+form fieldset input:focus{
     box-shadow: 0 0 3px rgb(221, 221, 221);
 }
 
-#modal fieldset input.error{
+form fieldset input.error{
     border: 2px solid red;
 }
 
@@ -89,7 +89,7 @@ input:focus + span, input:not(:placeholder-shown) + span {
   transform: translateY(-30px) translateX(-10px);
 }
 
-#modal fieldset button{
+form fieldset button{
     border: none;
     margin: 20px 0;
     font-size: 16px;
@@ -104,7 +104,7 @@ input:focus + span, input:not(:placeholder-shown) + span {
     z-index: 0;
 }
 
-#modal fieldset button::before{
+form fieldset button::before{
     content: '';
     position: absolute;
     background: rgba(230, 230, 230, 0.63);
@@ -116,17 +116,17 @@ input:focus + span, input:not(:placeholder-shown) + span {
     z-index: -1;
 }
 
-#modal fieldset button:hover::before{
+form fieldset button:hover::before{
     transform: scaleX(1);
 }
 
-#login > fieldset button::after, #register > fieldset button::after{
+form > fieldset button::after, #register > fieldset button::after{
     font-family: "Material Icons";
     content: 'input';
     margin-left: 7px;
 }
 
-#modal .cancel_modal > i{
+form .cancel_modal > i{
     position: absolute;
     top: 12px;
     right: 15px;

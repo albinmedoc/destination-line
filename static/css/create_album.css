@@ -1,27 +1,24 @@
 main{
     display: grid;
-    grid-template-columns: 200px 1fr;
+    grid-template-columns: 100%;
     padding: 15px;
-}
-
-main > form > label{
-    margin-top: 12px;
-    display: block;
 }
 
 main > section{
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    margin:2px;
 }
 
 #upload_btn{
     border: none;
     background-color: rgba(0, 0, 0, 0.3);
     width: 200px;
-    height: 150px;
+    height: 123px;
     cursor: pointer;
 }
+
 #upload_btn::before{
     position: absolute;
     font-family: "Material Icons";
@@ -32,6 +29,7 @@ main > section{
     font-size: 75px;
     color: white;
 }
+ 
 #upload{
     display: none;
 }
@@ -66,4 +64,132 @@ main > section{
 }
 .post > i:last-child{
     bottom: 5px;
+}
+
+#upload_form fieldset{
+    background-color: white;
+    margin: 0;
+    position: relative;
+    width: 100%;
+    height: auto;
+    max-width: 500px;
+    border: none;
+    border-radius: 50px;
+    text-align: center;
+    overflow-y: auto;
+}
+
+form > fieldset > .form_row{
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.input_container{
+    position: relative;
+    flex-grow: 1;
+    min-width: 200px;
+    margin: 20px;
+}
+
+form span{
+    pointer-events: none;
+    position:absolute;
+    line-height:40px;
+    left:0;
+    top:0;
+    transition: .2s ease;
+    opacity:0.5;
+}
+
+form fieldset input, form fieldset button{
+    height: 40px;
+    width: 100%;
+    border: 1px solid #efefef;
+    outline: none;
+    box-shadow: 0 0 3px rgba(232, 232, 232, 0);
+    transition: box-shadow .2s;
+}
+
+form fieldset input, form fieldset .input_container > span, form > form > fieldset > .form_row{
+    padding: 0 10px;
+}
+
+form fieldset input:focus{
+    box-shadow: 0 0 3px rgb(221, 221, 221);
+}
+
+form fieldset input.error{
+    border: 2px solid red;
+}
+
+input:focus + span, input:not(:placeholder-shown) + span {
+  opacity:1;
+    font-size: 11px;
+  transform: translateY(-30px) translateX(-10px);
+}
+
+form fieldset button{
+    border: none;
+    margin: 20px 0;
+    font-size: 16px;
+    background: rgba(230, 230, 230, 0.27);
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.22);
+    cursor: pointer;
+    transition: box-shadow .2s, background-color .2s;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    z-index: 0;
+}
+
+form fieldset button::before{
+    content: '';
+    position: absolute;
+    background: rgba(230, 230, 230, 0.63);
+    width: 100%;
+    height: 100%;
+    transform: scaleX(0);
+    transition: .4s cubic-bezier(.51, .03, 0, 1);
+    transform-origin: right;
+    z-index: -1;
+}
+
+form fieldset button:hover::before{
+    transform: scaleX(1);
+}
+
+form > fieldset button::after, #register > fieldset button::after{
+    font-family: "Material Icons";
+    content: 'input';
+    margin-left: 7px;
+}
+
+form .cancel_modal > i{
+    position: absolute;
+    top: 12px;
+    right: 15px;
+    border-radius: 100%;
+    transition: .2s cubic-bezier(.19, .83, .34, .97);
+}
+
+.post > img{
+    width: 100%;
+}
+
+.post, #upload_btn{
+    width: 48%;
+    margin:1%;
+}
+
+@media (min-width:768px){
+    main{ 
+        display: grid;
+        grid-template-columns: 300px 1fr;
+    }
+
+    .post, #upload_btn{
+            width: 28%;
+            margin:1%;
+        }
 }
