@@ -16,9 +16,14 @@ $(document).ready(function(){
                         var reader = new FileReader();
                         reader.onload = (function(file){
                             return function(e){
-                                console.log(file.width);
-                                console.log(file.height);
-
+                                image = new Image();
+                                image.onload = function(e){
+                                    return function(e){
+                                        console.log(image.width);
+                                        console.log(image.height);
+                                    }
+                                }(e);
+                                image.src = e.target.result;
                                 //Kollar om bilden redan är i listan
                                 if(!(e.target.result in images)){
                                     //Sparar filen i Listan
