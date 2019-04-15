@@ -14,9 +14,6 @@ app.secret_key = urandom(24)
 
 @app.route("/")
 def index():
-        flash(u'Welcome to Destination Line', 'success')
-        flash(u'controll your information', 'error')
-        flash(u'This website uses cookies', 'cookie')
         return render_template("index.html")
 
 @app.route("/profile/<username>")

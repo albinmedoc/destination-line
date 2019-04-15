@@ -1,4 +1,4 @@
-from flask import Blueprint, request, session, redirect, jsonify
+from flask import Blueprint, request, session, redirect, jsonify, flash
 import bcrypt
 from Database import Database
 
@@ -40,6 +40,7 @@ def register():
         if(password == password2):
                 if(create_user(firstname, lastname, username, email, password)):
                         session["username"] = username
+                        flash(u'Welcome to Destination Line', 'success')
                         return redirect("/")
                 else:
                         return "Något gick fel"
