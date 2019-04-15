@@ -119,7 +119,7 @@ def owns_album(album_id, username=None, email=None, user_id=None):
         cur = db.conn.cursor()
         if(username != None or email != None or user_id != None):
                 cur.execute("select owner from album where id='{}'".format(int(album_id)))
-                owner_id = cur.fetchone()
+                owner_id = cur.fetchone()[0]
                 if(owner_id is None):
                         return False
                 owner_id = int(owner_id)
