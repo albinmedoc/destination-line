@@ -1,5 +1,5 @@
 #explore_tabs{
-    position: absolute;
+    position: fixed;
     top: 60px;
     height: 60px;
     width: 100%;
@@ -8,7 +8,12 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    
+    transform: translateY(-60px);
+    transition: .2s ease;
+}
+
+#explore_tabs.isVisible{
+    transform: none;
 }
 .explore_tab{
     position: relative;
