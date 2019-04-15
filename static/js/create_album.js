@@ -11,28 +11,37 @@ $(document).ready(function(){
                 var file = this.files[i];
                 //Kollar om filen har bildformat
                 if(file.type.match("image.*")){
-                    var reader = new FileReader();
-                    reader.onload = (function(file){
-                        return function(e){
-                            //Kollar om bilden redan är i listan
-                            if(!(e.target.result in images)){
-                                //Sparar filen i Listan
-                                images[e.target.result] = file;
-                                //Visar bilder
-                                var post = "<div class='post'><i class='material-icons close'>close</i><img src='" + e.target.result + "'><i class='material-icons info'>list</i>";
-                                $("#upload_btn").after(post);
-                            }else{
-                                alert("The image " + file.name + " has already been uploaded. Skipping..")
+                    console.log(file.size)
+                    if(file.size <= 6000000){
+                        var reader = new FileReader();
+                        reader.onload = (function(file){
+                            return function(e){
+                                console.log(file.width);
+                                console.log(file.height);
+
+                                //Kollar om bilden redan är i listan
+                                if(!(e.target.result in images)){
+                                    //Sparar filen i Listan
+                                    images[e.target.result] = file;
+                                    //Visar bilder
+                                    var post = "<div class='post'><i class='material-icons close'>close</i><img src='" + e.target.result + "'><i class='material-icons info'>list</i>";
+                                    $("#upload_btn").after(post);
+                                }else{
+                                    alert("The image " + file.name + " has already been uploaded. Skipping..")
+                                }
                             }
-                        }
-                    })(file);
-                    reader.readAsDataURL(file);
-                    console.log(file);
+                        })(file);
+                        reader.readAsDataURL(file);
+                        console.log(file);
+                    }else{
+                        alert("The image " + file.name + " is too large. Skipping..");
+                    }
                 }else{
                     alert("The file " + file.name + " is not an image. Skipping..");
                 }
             }
         }
+        //Rensa fil-input
         $(this).val("");
     });
 

@@ -33,17 +33,6 @@
         </li>
     </ul>
 </nav>
-{% if("username" in session) %}
-<section id="explore_tabs">
-    <div id="followers" class="explore_tab">
-        <p>Followers</p>
-    </div>
-    <div id="explore" class="explore_tab">
-        <p>Explore</p>
-    </div>
-
-</section>
-{% endif %}
 <!-- Inkludera endast ifall användaren i utloggad -->
 {% if("username" not in session) %}
 {% include 'login_register.html' %}
