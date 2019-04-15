@@ -1,14 +1,24 @@
 #explore_tabs{
-    position: relative;
-    height: 40px;
+    position: absolute;
+    top: 60px;
+    height: 60px;
     width: 100%;
     background-color: rgba(255, 255, 255, 0.918);
     z-index: 1;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(60px)
+    
 }
-
+#explore_tabs.isVisible{
+    visibility: visible;
+    transform: none;
+    opacity: 1;
+    
+}
 .explore_tab{
     position: relative;
     display: flex;
