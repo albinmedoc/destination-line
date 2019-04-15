@@ -25,6 +25,10 @@ def profile(username):
 def timeline():
         return render_template("timeline.html")
 
+@app.route("/about")
+def about():
+        return render_template("about.html")
+
 if __name__ == "__main__":
         #Importera Blueprints
         app.register_blueprint(User.app)
