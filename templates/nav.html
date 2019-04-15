@@ -14,14 +14,20 @@
         </li>
         {% endif %}
         <li>
-            <a href="#"><i class="material-icons">info_outline</i><span>Info</span></a>
+            <a href="/about"><i class="material-icons">info_outline</i><span>Info</span></a>
         </li>
         <li>
-            <div id="account_container">
+            <div class="dropdown">
                 {% if("username" not in session) %}
                 <a href="#login"><i class="material-icons">account_circle</i><span>Login</span></a>
                 {% else %}
-                <a href="/logout"><i class="material-icons">account_circle</i><span>Logout</span></a>
+                
+                <a href="#"><i class="material-icons">account_circle</i><span>Profile</span></a>
+                <div class="dropdown-content">
+                        <a href="#">My Profile</a>
+                        <a href="#">Settings</a>
+                        <a href="/logout">Logout</a>
+                      </div>
                 {% endif %}
             </div>
         </li>

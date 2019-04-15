@@ -1,4 +1,4 @@
-from flask import Blueprint, request, session, redirect, jsonify
+from flask import Blueprint, request, session, redirect, jsonify, flash
 import bcrypt
 from Database import Database
 
@@ -40,6 +40,7 @@ def register():
         if(password == password2):
                 if(create_user(firstname, lastname, username, email, password)):
                         session["username"] = username
+                        flash(u'Welcome to Destination Line', 'success')
                         return redirect("/")
                 else:
                         return "Något gick fel"
@@ -118,7 +119,7 @@ def owns_album(album_id, username=None, email=None, user_id=None):
         cur = db.conn.cursor()
         if(username != None or email != None or user_id != None):
                 cur.execute("select owner from album where id='{}'".format(int(album_id)))
-                owner_id = cur.fetchone()
+                owner_id = cur.fetchone()[0]
                 if(owner_id is None):
                         return False
                 owner_id = int(owner_id)

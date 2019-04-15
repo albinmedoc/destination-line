@@ -9,7 +9,7 @@ from User import get_user_id, owns_album
 
 app = Blueprint("image", __name__, template_folder="templates")
 
-ALLOWED_EXTENSIONS = set(["pdf", "png", "jpg", "jpeg", "webp"])
+ALLOWED_EXTENSIONS = set(["png", "jpg", "jpeg", "webp"])
 
 UPLOAD_FOLDER = os.path.join(os.path.abspath(os.curdir) + "/images")
 
@@ -52,10 +52,15 @@ def upload():
 def edit_album(album_id):
         if("username" not in session):
                 return "<h1>Du måste vara inloggad</h1>"
-        if(owns_album(album_id, username=session["username"])):
-                return "<h1>Du äger Albumet</h1>"
-        else:
+        if(not owns_album(album_id, username=session["username"])):
                 return "<h1>Du äger inte albumet eller så finns det inte</h1>"
+        db = Database()
+        cur = db.conn.cursor()
+        cur.execute("select post.img_name from album join post on album.id=post.album where album.id={}".format(album_id))
+        img_urls = cur.fetchall()
+        for img_url in img_urls:
+                print(img_url)
+        return "<h1>Du äger albumet</h1>"
 
 
 @app.route("/image/<image_id>", methods = ["GET"])

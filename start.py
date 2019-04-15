@@ -14,9 +14,6 @@ app.secret_key = urandom(24)
 
 @app.route("/")
 def index():
-        flash(u'Welcome to Destination Line', 'success')
-        flash(u'controll your information', 'error')
-        flash(u'This website uses cookies', 'cookie')
         return render_template("index.html")
 
 @app.route("/profile/<username>")
@@ -27,6 +24,10 @@ def profile(username):
 @app.route("/timeline")
 def timeline():
         return render_template("timeline.html")
+
+@app.route("/about")
+def about():
+        return render_template("about.html")
 
 if __name__ == "__main__":
         #Importera Blueprints
