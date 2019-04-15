@@ -1,7 +1,7 @@
 nav {
-    top:0;
+    top:0px;
     width: 100%;
-    position: fixed;
+    position: sticky;
     height: 60px;
     display: flex;
     flex-direction: row;
@@ -37,6 +37,7 @@ nav > ul {
     padding: 10px 15px;
     display: flex;
     align-items: center;
+    height: 100%;
 }
 
 #logo > a, nav > ul{
@@ -51,6 +52,7 @@ nav a > span{
 nav a{
     display: flex;
     align-items: center;
+    height: 60px;
 }
 
 #search_container{
@@ -93,6 +95,38 @@ nav a{
     opacity: 1;
     transition: .4s cubic-bezier(.83, .27, 0, 1);
 }
+
+  
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+  
+  .dropdown-content a {
+    height: 40px;
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+    
+  }
+  
+  .dropdown-content a:hover {background-color: #f1f1f1}
+  
+  .dropdown:hover .dropdown-content {
+    display: block;
+  }
+  
+  
 
 /*För större skärmar*/
 @media (min-width:768px){

@@ -17,16 +17,33 @@
             <a href="#"><i class="material-icons">info_outline</i><span>Info</span></a>
         </li>
         <li>
-            <div id="account_container">
+            <div id="account_container" class="dropdown">
                 {% if("username" not in session) %}
                 <a href="#login"><i class="material-icons">account_circle</i><span>Login</span></a>
                 {% else %}
-                <a href="/logout"><i class="material-icons">account_circle</i><span>Logout</span></a>
+                
+                <a href="#"><i class="material-icons">account_circle</i><span>Profile</span></a>
+                <div class="dropdown-content">
+                        <a href="#">Link 1</a>
+                        <a href="#">Link 2</a>
+                        <a href="/logout">Logout</a>
+                      </div>
                 {% endif %}
             </div>
         </li>
     </ul>
 </nav>
+{% if("username" in session) %}
+<section id="explore_tabs">
+    <div id="followers" class="explore_tab">
+        <p>Followers</p>
+    </div>
+    <div id="explore" class="explore_tab">
+        <p>Explore</p>
+    </div>
+
+</section>
+{% endif %}
 <!-- Inkludera endast ifall användaren i utloggad -->
 {% if("username" not in session) %}
 {% include 'login_register.html' %}
