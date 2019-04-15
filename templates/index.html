@@ -1,14 +1,15 @@
 {% extends "layout.html" %}
 {% block head %}
-{{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/album.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/topusers.css') }}">
-<!-- Endast ifall användaren är utloggad -->
-{% if("username" in session) %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/logged_in.css') }}">
-{% else %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/loginsignup.css') }}">
-{% endif %}
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/album.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/topusers.css') }}">
+    
+    <!-- Endast ifall användaren är utloggad -->
+    {% if("username" in session) %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/logged_in.css') }}">
+    {% else %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/loginsignup.css') }}">
+    {% endif %}
 {% endblock head %}
 
 {% block main %}
