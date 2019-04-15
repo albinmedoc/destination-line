@@ -8,15 +8,6 @@
     display: flex;
     justify-content: space-around;
     align-items: center;
-    opacity: 0;
-    visibility: hidden;
-    transform: translateY(60px)
-    
-}
-#explore_tabs.isVisible{
-    visibility: visible;
-    transform: none;
-    opacity: 1;
     
 }
 .explore_tab{
