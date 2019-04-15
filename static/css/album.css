@@ -1,7 +1,7 @@
 .album{
     position: relative;
     width: 100%;
-    margin: 10px 0;
+    margin: 0 0 20px 0;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.281);
     transition: box-shadow .2s;
 }
