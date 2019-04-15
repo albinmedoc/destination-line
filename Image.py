@@ -60,7 +60,7 @@ def edit_album(album_id):
         img_urls = cur.fetchall()
         for img_url in img_urls:
                 print(img_url)
-        return "<h1>DU äger albumet</h1>"
+        return "<h1>Du äger albumet</h1>"
 
 
 @app.route("/image/<image_id>", methods = ["GET"])

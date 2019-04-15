@@ -16,6 +16,9 @@ $(document).ready(function(){
                         var reader = new FileReader();
                         reader.onload = (function(file){
                             return function(e){
+                                console.log(file.width);
+                                console.log(file.height);
+
                                 //Kollar om bilden redan är i listan
                                 if(!(e.target.result in images)){
                                     //Sparar filen i Listan
