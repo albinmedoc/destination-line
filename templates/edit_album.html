@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/responsive_form.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/edit_album.css') }}">
+{% endblock head %}
+
+{% block main %}
+<div class="progress_bar">
+    <div class="progress"></div>
+</div>
+<!-- Album information -->
+<form id="upload_form" class="responsive_form">
+    <h1>Create Album</h1>
+    <div class="form_row">
+        <div class="input_container">
+            <input id="country" type="text" name="country" placeholder=" " required>
+            <span>Country</span>
+        </div>
+        <div class="input_container">
+            <input id="city" type="text" name="city" placeholder=" " required>
+            <span>City</span>
+        </div>
+    </div>
+    <div class="form_row">
+        <div class="input_container">
+            <input id="date_start" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" max="2020-12-31" placeholder=" " required>
+            <span>From</span>
+        </div>
+        <div class="input_container">
+            <input id="date_end" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" max="2020-12-31" placeholder=" " required>
+            <span>Till</span>
+        </div>
+    </div>
+
+    <div class="input_container">
+        <button type="submit">Upload album</button>
+    </div>
+</form>
+<!-- Förhandsvisningav bilder, samt sortera dem -->
+<section id="preview">
+    <input id="upload" type="file" multiple>
+    <div id="upload_btn" class="locked"></div>
+</section>
+
+<!-- Ruta för att lägga till text för bilder -->
+<section id="modal">
+    <form class="image_info responsive_form">
+        <a href="#" class="cancel_modal"><i class="material-icons">close</i></a>
+        <h2>Image info</h2>
+        <img class="img_preview">
+        <div class="input_container">
+            <input type="text" name="headline" placeholder=" " required>
+            <span>Headline</span>
+        </div>
+        <div class="input_container">
+            <textarea placeholder=" "></textarea>
+            <span>Image discription</span>
+        </div>
+    </form>
+</section>
+
+{% endblock main %}
+{% block javascript %}
+{{ super() }}
+<script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
+<script src="{{ url_for('static', filename='js/edit_album.js') }}"></script>
+{% endblock javascript %}

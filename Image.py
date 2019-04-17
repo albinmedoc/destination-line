@@ -19,7 +19,7 @@ def upload():
         if(request.method == "GET"):
                 if("username" not in session):
                         return "<h1>Du måste vara inloggad</h1>"
-                return render_template("create_album.html")
+                return render_template("edit_album.html")
         
         country = request.form.get("country")
         city = request.form.get("city")
