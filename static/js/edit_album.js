@@ -1,5 +1,6 @@
 $(document).ready(function () {
     var images = new Object();
+//images[key] = ["Fil", "Titel", "Beskrivning"]
 
     $("#upload_btn").click(function () {
         $("#upload").trigger("click");
@@ -27,7 +28,8 @@ $(document).ready(function () {
                                 //Kollar om bilden redan är i listan
                                 if (!(e.target.result in images)) {
                                     //Sparar filen i Listan
-                                    images[e.target.result] = file;
+                                    images[e.target.result] = [];
+                                    images[e.target.result][0] = file;
                                     //Visar bilder
                                     var post = "<div class='post'><i class='material-icons close'>close</i><img src='" + e.target.result + "'><i class='material-icons info'>list</i>";
                                     $("#upload_btn").after(post);
@@ -57,6 +59,7 @@ $(document).ready(function () {
     });
 
     $("#upload_form").on("submit", function (e) {
+        console.log(images);
         e.preventDefault();
         var data = new FormData();
         //Lägger till album information i FormData
@@ -70,7 +73,7 @@ $(document).ready(function () {
         $("#upload_btn").parent().children(".post").each(function () {
             //Hämtar index/bildurl från src
             var index = $(this).children("img").attr("src");
-            data.append("file" + i, images[index]);
+            data.append("file" + i, images[index][0]);
             i++;
         });
         //Skickar Post-request
@@ -91,12 +94,25 @@ $(document).ready(function () {
     });
 
     $("#upload_btn").parent().on("click", ".post > i.info", function () {
-        $("#modal .img_preview").attr("src", $(this).siblings("img").attr("src"));
+        var img_url =  $(this).siblings("img").attr("src");
+        if(typeof images[img_url][1] !== 'undefined') {
+            $("#modal input[name='headline']").val(images[img_url][1])
+        }
+        if(typeof images[img_url][2] !== 'undefined') {
+            $("#modal textarea[name='description']").val(images[img_url][2]);
+        }
+        $("#modal .img_preview").attr("src", img_url);
         $("#modal").addClass("is_visible");
     });
 
     $(".cancel_modal").click(function () {
+        var img_url = $("#modal .img_preview").attr("src");
+        images[img_url][1] = $("#modal input[name='headline']").val();
+        images[img_url][2] = $("#modal textarea[name='description']").val();
+        //Kontrollera så ovanstående inte är tomma
         $("#modal").removeClass("is_visible");
+        $("#modal input[name='headline']").val("");
+        $("#modal textarea[name='description']").val("");
     });
 
     //Gör inläggen flyttbara
