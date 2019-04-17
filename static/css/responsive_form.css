@@ -1,26 +1,28 @@
-.responsive_form .form_row{
+.responsive_form .form_row {
     display: flex;
     flex-wrap: wrap;
 }
 
-.responsive_form .input_container{
+.responsive_form .input_container {
     position: relative;
     flex-grow: 1;
     min-width: 200px;
     margin: 20px;
 }
 
-.responsive_form span{
+.responsive_form span {
     pointer-events: none;
-    position:absolute;
-    line-height:40px;
-    left:0;
-    top:0;
+    position: absolute;
+    line-height: 40px;
+    left: 0;
+    top: 0;
     transition: .2s ease;
-    opacity:0.5;
+    opacity: 0.5;
 }
 
-.responsive_form input, .responsive_form button{
+.responsive_form input,
+.responsive_form textarea,
+.responsive_form button {
     height: 40px;
     width: 100%;
     border: 1px solid #efefef;
@@ -29,20 +31,27 @@
     transition: box-shadow .2s;
 }
 
-.fresponsive_form input, .responsive_form .input_container > span, .responsive_form > .form_row{
+.responsive_form input,
+.responsive_form textarea,
+.responsive_form .input_container>span,
+.responsive_form>.form_row {
     padding: 0 10px;
 }
 
-.responsive_form input:focus{
+.responsive_form input:focus,
+.responsive_form textarea:focus {
     box-shadow: 0 0 3px rgb(221, 221, 221);
 }
 
-.responsive_form input.error{
+.responsive_form input.error {
     border: 2px solid red;
 }
 
-.responsive_form input:focus + span, .responsive_form input:not(:placeholder-shown) + span {
-  opacity:1;
+.responsive_form input:focus+span,
+.responsive_form input:not(:placeholder-shown)+span,
+.responsive_form textarea:focus+span,
+.responsive_form textarea:not(:placeholder-shown)+span{
+    opacity: 1;
     font-size: 11px;
-  transform: translateY(-30px) translateX(-10px);
+    transform: translateY(-30px) translateX(-10px);
 }
