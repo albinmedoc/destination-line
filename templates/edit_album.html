@@ -32,7 +32,7 @@
             <span>Till</span>
         </div>
     </div>
-
+    <!-- Knapp för att ladda upp alla bilder -->
     <div class="input_container">
         <button type="submit">Upload album</button>
     </div>
@@ -40,13 +40,14 @@
 <!-- Förhandsvisningav bilder, samt sortera dem -->
 <section id="preview">
     <input id="upload" type="file" multiple>
+    <!-- Knapp för uppladdning av bilder -->
     <div id="upload_btn" class="locked"></div>
 </section>
 
 <!-- Ruta för att lägga till text för bilder -->
 <section id="modal">
     <form class="image_info responsive_form">
-        <a href="#" class="cancel_modal"><i class="material-icons">close</i></a>
+        <a class="cancel_modal"><i class="material-icons">close</i></a>
         <h2>Image info</h2>
         <img class="img_preview">
         <div class="input_container">
@@ -54,8 +55,8 @@
             <span>Headline</span>
         </div>
         <div class="input_container">
-            <textarea placeholder=" "></textarea>
-            <span>Image discription</span>
+            <textarea name="description" placeholder=" "></textarea>
+            <span>Image description</span>
         </div>
     </form>
 </section>
