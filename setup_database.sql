@@ -35,5 +35,6 @@ create table post(
 	album integer references album(id),
 	index integer not null,
 	img_name text not null,
-	text varchar(500) not null
+	headline varchar(40),
+	text varchar(500)
 );
