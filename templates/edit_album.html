@@ -3,6 +3,7 @@
 {{ super() }}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive_form.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/edit_album.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/lightpick.css') }}">  
 {% endblock head %}
 
 {% block main %}
@@ -12,25 +13,17 @@
 <!-- Album information -->
 <form id="upload_form" class="responsive_form">
     <h1>Create Album</h1>
-    <div class="form_row">
-        <div class="input_container">
-            <input id="country" type="text" name="country" placeholder=" " required>
-            <span>Country</span>
-        </div>
-        <div class="input_container">
-            <input id="city" type="text" name="city" placeholder=" " required>
-            <span>City</span>
-        </div>
+    <div class="input_container">
+        <input id="country" type="text" name="country" placeholder=" " required>
+        <span>Country</span>
     </div>
-    <div class="form_row">
-        <div class="input_container">
-            <input id="date_start" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" max="2020-12-31" placeholder=" " required>
-            <span>From</span>
-        </div>
-        <div class="input_container">
-            <input id="date_end" type="text" onfocus="(this.type='date')" onblur="(this.type='text')" max="2020-12-31" placeholder=" " required>
-            <span>Till</span>
-        </div>
+    <div class="input_container">
+        <input id="city" type="text" name="city" placeholder=" " required>
+        <span>City</span>
+    </div>
+    <div class="input_container">
+        <input id="period" type="text" placeholder=" " required>
+        <span>Date period</span>
     </div>
     <!-- Knapp för att ladda upp alla bilder -->
     <div class="input_container">
@@ -65,5 +58,7 @@
 {% block javascript %}
 {{ super() }}
 <script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
+<script src="{{ url_for('static', filename='js/moment.js') }}"></script>
+<script src="{{ url_for('static', filename='js/lightpick.js') }}"></script>
 <script src="{{ url_for('static', filename='js/edit_album.js') }}"></script>
 {% endblock javascript %}

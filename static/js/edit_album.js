@@ -2,6 +2,12 @@ $(document).ready(function () {
     var images = new Object();
 //images[key] = ["Fil", "Titel", "Beskrivning"]
 
+    var period = new Lightpick({
+        field: document.getElementById("period"),
+        singleDate: false,
+        format: "YYYY-MM-DD"
+    });
+
     $("#upload_btn").click(function () {
         $("#upload").trigger("click");
     });
@@ -65,8 +71,8 @@ $(document).ready(function () {
         //Lägger till album information i FormData
         data.append("country", $("#country").val());
         data.append("city", $("#city").val());
-        data.append("date_start", $("#date_start").val());
-        data.append("date_end", $("#date_end").val());
+        data.append("date_start", period.getStartDate().format("YYYY-MM-DD"));
+        data.append("date_end", period.getEndDate().format("YYYY-MM-DD"));
 
         var i = 1;
         //Lägger till alla filer i FormData
