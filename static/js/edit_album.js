@@ -72,8 +72,18 @@ $(document).ready(function () {
         //Lägger till alla filer i FormData
         $("#upload_btn").parent().children(".post").each(function () {
             //Hämtar index/bildurl från src
-            var index = $(this).children("img").attr("src");
-            data.append("file" + i, images[index][0]);
+            var img_url = $(this).children("img").attr("src");
+            data.append("post" + i, images[img_url][0]);
+            //Kollar om rubrik är angivet
+            if(typeof images[img_url][1] !== 'undefined') {
+                //Skickar med rubrik
+                data.append("headline" + i, images[img_url][1]);
+            }
+            //Kollar om beskrivning är angivet
+            if(typeof images[img_url][2] !== 'undefined') {
+                //Skickar med beskrivning
+                data.append("description" + i, images[img_url][2]);
+            }
             i++;
         });
         //Skickar Post-request
