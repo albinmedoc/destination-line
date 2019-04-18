@@ -137,6 +137,7 @@ $(document).ready(function () {
         draggable: ".post",
         scroll: true,
         scrollSensitivity: 50,
+        delay: 200
     });
 
 });
