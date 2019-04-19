@@ -3,7 +3,7 @@
 {{ super() }}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive_form.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/edit_album.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/lightpick.css') }}">  
+<link rel="stylesheet" href="{{ url_for('static', filename='css/lightpick.css') }}">
 {% endblock head %}
 
 {% block main %}
@@ -35,6 +35,7 @@
     <input id="upload" type="file" multiple>
     <!-- Knapp för uppladdning av bilder -->
     <div id="upload_btn" class="locked"></div>
+    <!-- Uppladdade bilder kommer hamna här -->
 </section>
 
 <!-- Ruta för att lägga till text för bilder -->

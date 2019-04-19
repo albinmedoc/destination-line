@@ -64,15 +64,20 @@ main{
 
 .post > i{
     position: absolute;
-    right: 5px;
     cursor: pointer;
     color: blue;
 }
-.post > i:first-child{
+.post > i.close{
     top: 5px;
+    right: 5px;
 }
-.post > i:last-child{
+.post > i.info{
     bottom: 5px;
+    left: 5px;
+}
+.post > i.reorder{
+    bottom: 5px;
+    right: 5px;
 }
 .image_info{
     z-index: 3;
@@ -117,6 +122,9 @@ main{
     }
     .post, #upload_btn{
         width: 250px;
+    }
+    .post > i.reorder{
+        display: none;
     }
     #modal{
         z-index: 3;
