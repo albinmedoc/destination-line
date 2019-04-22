@@ -2,6 +2,12 @@ $(document).ready(function () {
     var images = new Object();
 //images[key] = ["Fil", "Titel", "Beskrivning"]
 
+    var period = new Lightpick({
+        field: document.getElementById("period"),
+        singleDate: false,
+        format: "YYYY-MM-DD"
+    });
+
     $("#upload_btn").click(function () {
         $("#upload").trigger("click");
     });
@@ -31,7 +37,7 @@ $(document).ready(function () {
                                     images[e.target.result] = [];
                                     images[e.target.result][0] = file;
                                     //Visar bilder
-                                    var post = "<div class='post'><i class='material-icons close'>close</i><img src='" + e.target.result + "'><i class='material-icons info'>list</i>";
+                                    var post = "<div class='post'><i class='material-icons close'>close</i><i class='material-icons info'>info_outline</i><img src='" + e.target.result + "'><i class='material-icons reorder'>reorder</i></div";
                                     $("#upload_btn").after(post);
                                 } else {
                                     alert("The image " + file.name + " has already been uploaded. Skipping..")
@@ -65,8 +71,8 @@ $(document).ready(function () {
         //Lägger till album information i FormData
         data.append("country", $("#country").val());
         data.append("city", $("#city").val());
-        data.append("date_start", $("#date_start").val());
-        data.append("date_end", $("#date_end").val());
+        data.append("date_start", period.getStartDate().format("YYYY-MM-DD"));
+        data.append("date_end", period.getEndDate().format("YYYY-MM-DD"));
 
         var i = 1;
         //Lägger till alla filer i FormData
@@ -125,12 +131,21 @@ $(document).ready(function () {
         $("#modal textarea[name='description']").val("");
     });
 
-    //Gör inläggen flyttbara
-    Sortable.create(preview, {
-        animation: 500,
-        draggable: ".post",
-        scroll: true,
-        scrollSensitivity: 50,
-    });
-
+    //Gör inläggen flyttbara, är det mobil måste man dra på ".reorder"-elementet
+    if(window.mobileAndTabletcheck()){
+        Sortable.create(preview, {
+            animation: 500,
+            draggable: ".post",
+            scroll: true,
+            scrollSensitivity: 50,
+            handle: ".reorder"
+        });
+    }else{
+        Sortable.create(preview, {
+            animation: 500,
+            draggable: ".post",
+            scroll: true,
+            scrollSensitivity: 50
+        });
+    }
 });

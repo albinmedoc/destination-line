@@ -1,5 +1,6 @@
 main{
     padding-top: 20px;
+    height: 400vh;
 }
 .progress_bar{
     position: fixed;
@@ -18,11 +19,14 @@ main{
     flex-wrap: wrap;
     align-items: center;
 }
+ 
+#upload{
+    display: none;
+}
 
 #upload_btn{
     border: none;
     background-color: rgba(0, 0, 0, 0.3);
-    width: 200px;
     height: 123px;
     cursor: pointer;
 }
@@ -37,19 +41,16 @@ main{
     font-size: 75px;
     color: white;
 }
- 
-#upload{
-    display: none;
-}
 
 .post, #upload_btn{
     position: relative;
     display: block;
     margin: 15px;
+    width: calc(50% - 30px);
 }
 
 .post > img{
-    width: 200px;
+    width: 100%;
     display: block;
 }
 
@@ -63,15 +64,20 @@ main{
 
 .post > i{
     position: absolute;
-    right: 5px;
     cursor: pointer;
     color: blue;
 }
-.post > i:first-child{
+.post > i.close{
     top: 5px;
+    right: 5px;
 }
-.post > i:last-child{
+.post > i.info{
     bottom: 5px;
+    left: 5px;
+}
+.post > i.reorder{
+    bottom: 5px;
+    right: 5px;
 }
 .image_info{
     z-index: 3;
@@ -113,6 +119,12 @@ main{
     #preview{
         margin-left: 300px;
         width: calc(100vw - 300px);
+    }
+    .post, #upload_btn{
+        width: 250px;
+    }
+    .post > i.reorder{
+        display: none;
     }
     #modal{
         z-index: 3;
