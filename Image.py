@@ -45,7 +45,7 @@ def upload():
                         while os.path.isfile(filename):
                                 filename = str(uuid4()) + ".webp"
                         img.save(os.path.join(UPLOAD_FOLDER, secure_filename(filename)))
-                        #index för bildens ordning i albumet
+                        #index för bildens ordning i albumet || post1 blir index 1
                         index = key[-1]
                         #Bildens rubrik
                         headline = request.form.get("headline" + index)
@@ -64,11 +64,15 @@ def edit_album(album_id):
                 return "<h1>Du äger inte albumet eller så finns det inte</h1>"
         db = Database()
         cur = db.conn.cursor()
-        cur.execute("select post.img_name from album join post on album.id=post.album where album.id={}".format(album_id))
-        img_urls = cur.fetchall()
-        for img_url in img_urls:
-                print(img_url)
-        return "<h1>Du äger albumet</h1>"
+        #Hämtar information om album
+        cur.execute("select country, city, date_start, date_end from album where id={}".format(album_id))
+        album_info = cur.fetchone()
+        #Hämtar information om alla bilder
+        cur.execute("select img_name, headline, text from post where album={} order by index asc".format(album_id))
+        posts = cur.fetchall()
+        print(album_info)
+        print(posts)
+        return render_template("edit_album.html", album_info=album_info, posts=posts)
 
 
 @app.route("/image/<image_id>", methods = ["GET"])
