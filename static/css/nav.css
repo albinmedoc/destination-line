@@ -14,7 +14,7 @@ nav {
     transition: .2s ease;
 }
 
-nav.isVisible{
+nav.is_visible{
     transform: none;
 }
 

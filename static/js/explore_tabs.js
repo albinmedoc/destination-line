@@ -11,16 +11,16 @@ window.onscroll = function() {
             diffrence = 0;
         }
         if(diffrence >= 200){
-            $("nav").addClass("isVisible");
-            $("#explore_tabs").addClass("isVisible");
+            $("nav").addClass("is_visible");
+            $("#explore_tabs").addClass("is_visible");
         }
     } else {
         if(diffrence >= 200){
             diffrence = 0;
         }
         if(diffrence <= -200){
-            $("nav").removeClass("isVisible");
-            $("#explore_tabs").removeClass("isVisible");
+            $("nav").removeClass("is_visible");
+            $("#explore_tabs").removeClass("is_visible");
         }
     }
     prevScrollpos = currentScrollPos;
