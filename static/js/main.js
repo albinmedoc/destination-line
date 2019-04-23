@@ -4,6 +4,8 @@ window.onload = function() {
             location.hash = '';
         }
     });
+
+    //stänger flash rutan
     $(".close_flash").click(function(e){
         $(this).closest('div').remove();
     });

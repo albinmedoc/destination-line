@@ -1,6 +1,6 @@
 var prevScrollpos = window.pageYOffset;
 
-// diffrence < 0 = down, diffrence > 0 = up
+// diffrence < 0 = ner, diffrence > 0 = upp
 var diffrence = 0;
 
 window.onscroll = function() {
