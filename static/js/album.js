@@ -1,5 +1,5 @@
 window.onload = function() {
-    $(".flexFont").each(function(){
+    $(".flex_font").each(function(){
         if($(this).text().length > 9 && $(this).text().length < 15){
             if($(this).hasClass("country")){
                 $(this).css("font-size", "3.5vw");

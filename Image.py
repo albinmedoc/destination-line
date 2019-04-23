@@ -19,16 +19,17 @@ def upload():
         if(request.method == "GET"):
                 if("username" not in session):
                         return "<h1>Du måste vara inloggad</h1>"
-                return render_template("create_album.html")
-        
+                return render_template("edit_album.html")
+        #Inkommande information
         country = request.form.get("country")
         city = request.form.get("city")
         date_start = datetime.strptime(request.form.get("date_start"), "%Y-%m-%d")
         date_end = datetime.strptime(request.form.get("date_end"), "%Y-%m-%d")
-        user_id = get_user_id(session["username"])
+
         #Fixa så man kollar om filer och information skickades med
         db = Database()
         cur = db.conn.cursor()
+        user_id = get_user_id(session["username"])
         cur.execute("insert into album(owner, published, country, city, date_start, date_end) values(%s, %s, %s, %s, %s, %s) returning id", (user_id, datetime.utcnow(), country, city, date_start, date_end))
         album_id = cur.fetchone()[0]
         for key in request.files:
@@ -44,7 +45,14 @@ def upload():
                         while os.path.isfile(filename):
                                 filename = str(uuid4()) + ".webp"
                         img.save(os.path.join(UPLOAD_FOLDER, secure_filename(filename)))
-                        cur.execute("insert into post(album, index, img_name, text) values(%s, 1, %s, %s)", (album_id, filename, "This is Destination Lines first image."))
+                        #index för bildens ordning i albumet || post1 blir index 1
+                        index = key[-1]
+                        #Bildens rubrik
+                        headline = request.form.get("headline" + index)
+                        #Bildens beskrivning
+                        description = request.form.get("description" + index)
+                        #Ladda upp till databas
+                        cur.execute("insert into post(album, index, img_name, headline, text) values(%s, %s, %s, %s, %s)", (album_id, index, filename, headline, description))
         db.conn.commit()
         return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
@@ -56,11 +64,15 @@ def edit_album(album_id):
                 return "<h1>Du äger inte albumet eller så finns det inte</h1>"
         db = Database()
         cur = db.conn.cursor()
-        cur.execute("select post.img_name from album join post on album.id=post.album where album.id={}".format(album_id))
-        img_urls = cur.fetchall()
-        for img_url in img_urls:
-                print(img_url)
-        return "<h1>Du äger albumet</h1>"
+        #Hämtar information om album
+        cur.execute("select country, city, date_start, date_end from album where id={}".format(album_id))
+        album_info = cur.fetchone()
+        #Hämtar information om alla bilder
+        cur.execute("select img_name, headline, text from post where album={} order by index asc".format(album_id))
+        posts = cur.fetchall()
+        print(album_info)
+        print(posts)
+        return render_template("edit_album.html", album_info=album_info, posts=posts)
 
 
 @app.route("/image/<image_id>", methods = ["GET"])
