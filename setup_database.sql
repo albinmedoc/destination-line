@@ -36,5 +36,5 @@ create table post(
 	index integer not null,
 	img_name text not null,
 	headline varchar(40),
-	text varchar(500)
+	description varchar(500)
 );
