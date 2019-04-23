@@ -2,7 +2,6 @@
 {% block head %}
     {{ super() }}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/album.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/topusers.css') }}">
     
     <!-- Endast ifall användaren är utloggad -->
     {% if("username" in session) %}
@@ -72,9 +71,8 @@
         <h2 class="author">Elin Andersson</h2>
     </div>
 </div>
-{% include 'top_users.html' %}
 {% endblock main %}
 {% block javascript %}
 {{ super() }}
-<script src="{{ url_for('static', filename='js/topusers.js') }}"></script>
+<script src="{{ url_for('static', filename='js/explore_tabs.js') }}"></script>
 {% endblock javascript %}
