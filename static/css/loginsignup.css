@@ -92,7 +92,7 @@ form .cancel_modal > i{
     }
     
     #modal > form:target fieldset{
-        border-radius: 0;
+        border-radius: 0px;
     }
     
     #modal span{
