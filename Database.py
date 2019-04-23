@@ -1,10 +1,6 @@
 import psycopg2
 from sys import exit
-
-DATABASE_NAME = "destinationline"
-DATABASE_USER = "pi"
-DATABASE_HOST = "destinationline.ml"
-DATABASE_PASSWORD = "DestinationLine"
+from Settings import DATABASE_HOST, DATABASE_NAME, DATABASE_PASSWORD, DATABASE_USER
 
 class Database():
 
