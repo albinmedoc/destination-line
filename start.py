@@ -18,8 +18,8 @@ def index():
 
 @app.route("/profile/<username>")
 def profile(username):
-        # Kolla om användaren besöker sin egna profil
-        return render_template("profile.html")
+        # Kolla om användaren besöker sin egna profil, skickar med användarens profil
+        return render_template("profile.html", user_profile = User.get_info(username))
 
 @app.route("/timeline")
 def timeline():

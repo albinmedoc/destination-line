@@ -4,6 +4,7 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
 <!-- Endast ifall användaren är utloggad -->
 <link rel="stylesheet" href="{{ url_for('static', filename='css/loginsignup.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/responsive_form.css') }}">
 {% endblock head %}
 {% block main %}
 <section id="profile_container">
@@ -18,7 +19,7 @@
             <i class="material-icons">add_a_photo</i>
         </section>
         <section id="profile_info">
-            <h2>Hanna Bengtsson</h2>
+            <h2>{{user_profile[0][1]}} {{user_profile[0][2]}}</h2>
             <p>Photographer Photographer Photographer Photographer</p>
         </section>
     </section>

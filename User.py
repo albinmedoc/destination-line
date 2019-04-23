@@ -130,5 +130,11 @@ def owns_album(album_id, username=None, email=None, user_id=None):
                 elif(not email == None and user_exists(email=email)):
                         return int(get_user_id(email=email)) == owner_id
         return False
-        
-        
+
+#Hämtar profilinformation om användaren
+def get_info(username):
+                db = Database()
+                cur = db.conn.cursor()
+                cur.execute("select username, firstname, lastname, biography, background from person where username='{}'".format(username))
+                user_profile = cur.fetchall()
+                return user_profile
