@@ -5,7 +5,8 @@ $(document).ready(function () {
     var period = new Lightpick({
         field: document.getElementById("period"),
         singleDate: false,
-        format: "YYYY-MM-DD"
+        format: "YYYY-MM-DD",
+        maxDate: moment()
     });
 
     $("#upload_btn").click(function () {
