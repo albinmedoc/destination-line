@@ -39,9 +39,20 @@ i {
 
 main {
     margin-top: 60px;
+    animation: enter_anim .2s forwards;
 }
 
 img {
     -webkit-user-select: none;
     -webkit-touch-callout: none;
+}
+
+@keyframes enter_anim {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
