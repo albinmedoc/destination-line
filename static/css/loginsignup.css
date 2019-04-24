@@ -1,4 +1,4 @@
-#modal > form{
+#modal>form {
     position: fixed;
     height: 100%;
     width: 100%;
@@ -13,12 +13,12 @@
     transition: opacity .4s, visibility .3s;
 }
 
-#modal > form:target{
+#modal>form:target {
     opacity: 1;
     visibility: visible;
 }
 
-#modal fieldset{
+#modal fieldset {
     background-color: white;
     margin: 0;
     position: relative;
@@ -34,13 +34,13 @@
     overflow-y: auto;
 }
 
-#modal > form:target > fieldset{
+#modal>form:target>fieldset {
     transform: none;
     border-radius: .5vw;
     transition: .5s cubic-bezier(.57, .66, 0, 1);
 }
 
-form fieldset button{
+form fieldset button {
     border: none;
     margin: 20px 0;
     font-size: 16px;
@@ -55,7 +55,7 @@ form fieldset button{
     z-index: 0;
 }
 
-form fieldset button::before{
+form fieldset button::before {
     content: '';
     position: absolute;
     background: rgba(230, 230, 230, 0.63);
@@ -67,17 +67,18 @@ form fieldset button::before{
     z-index: -1;
 }
 
-form fieldset button:hover::before{
+form fieldset button:hover::before {
     transform: scaleX(1);
 }
 
-form > fieldset button::after, #register > fieldset button::after{
+form>fieldset button::after,
+#register>fieldset button::after {
     font-family: "Material Icons";
     content: 'input';
     margin-left: 7px;
 }
 
-form .cancel_modal > i{
+form .cancel_modal>i {
     position: absolute;
     top: 12px;
     right: 15px;
@@ -85,17 +86,17 @@ form .cancel_modal > i{
     transition: .2s cubic-bezier(.19, .83, .34, .97);
 }
 
-@media (max-width:768px){
-    #modal > form fieldset{
+@media (max-width:768px) {
+    #modal>form fieldset {
         height: 100%;
         max-width: none;
     }
-    
-    #modal > form:target fieldset{
+
+    #modal>form:target fieldset {
         border-radius: 0px;
     }
-    
-    #modal span{
+
+    #modal span {
         transition-delay: .2s;
     }
 }

@@ -1,5 +1,5 @@
 nav {
-    top:0;
+    top: 0;
     width: 100%;
     position: fixed;
     height: 60px;
@@ -14,26 +14,26 @@ nav {
     transition: .2s ease;
 }
 
-nav.isVisible{
+nav.is_visible {
     transform: none;
 }
 
 #logo {
-	margin: 0 0 0 10px;
+    margin: 0 0 0 10px;
     position: absolute;
     font-family: Parisienne;
     z-index: 1;
 }
 
-#logo_wide{
-    display:none;
+#logo_wide {
+    display: none;
 }
 
-nav a{
+nav a {
     color: rgb(66, 66, 66);
 }
 
-nav > ul {
+nav>ul {
     margin: 0;
     padding: 0;
     list-style: none;
@@ -41,7 +41,7 @@ nav > ul {
     font-size: 16px;
 }
 
-nav > #left{
+nav>#left {
     justify-content: space-between;
     flex-grow: 1;
     display: flex;
@@ -49,19 +49,21 @@ nav > #left{
     z-index: 2;
 }
 
-#logo > a, nav > ul > li{
+#logo>a,
+nav>ul>li {
     padding: 0;
     display: flex;
     align-items: center;
     height: 100%;
 }
 
-nav a > label, nav a > span{
+nav a>label,
+nav a>span {
     margin-left: 10px;
     display: none;
 }
 
-nav a:not(.dropdown_link){
+nav a:not(.dropdown_link) {
     display: flex;
     align-items: center;
     height: 60px;
@@ -70,7 +72,7 @@ nav a:not(.dropdown_link){
     padding: 0 10px;
 }
 
-#search_container{
+#search_container {
     position: relative;
     align-items: center;
     display: flex;
@@ -80,23 +82,23 @@ nav a:not(.dropdown_link){
     transition: background-color .3s cubic-bezier(.83, .27, 0, 1), flex-grow .3s cubic-bezier(.83, .27, 0, 1);
 }
 
-#search_container label{
+#search_container label {
     z-index: 1;
     transition: .4s cubic-bezier(.87, .06, .23, .97);
     transition-delay: .3s;
 }
 
-#search_container:focus-within label{
+#search_container:focus-within label {
     transition: transform .4s;
 }
 
-#search_container > input[type=text]{
+#search_container>input[type=text] {
     z-index: 2;
     position: fixed;
     font-family: "Titillium Web";
     display: block;
     width: calc(100% - 20px);
-    height:40px;
+    height: 40px;
     border: solid rgb(206, 206, 206) 1px;
     border-radius: 5px;
     outline: none;
@@ -109,7 +111,7 @@ nav a:not(.dropdown_link){
     text-indent: 10px;
 }
 
-#search_container:focus-within > input[type=text]{
+#search_container:focus-within>input[type=text] {
     visibility: visible;
     transform: none;
     opacity: 1;
@@ -147,16 +149,16 @@ nav a:not(.dropdown_link){
     transition: background-color .2s;
 }
 
-.dropdown-content a:last-child{
+.dropdown-content a:last-child {
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
 }
 
-.dropdown-content a:hover{
+.dropdown-content a:hover {
     background-color: rgba(245, 245, 245, 0.918);
 }
 
-.dropdown i{
+.dropdown i {
     z-index: -1;
 }
 
@@ -168,26 +170,28 @@ nav a:not(.dropdown_link){
 }
 
 /*För större skärmar*/
-@media (min-width:480px){
-    #logo_icon{
-        display:none;
+@media (min-width:480px) {
+    #logo_icon {
+        display: none;
     }
 
-    #logo_wide{
+    #logo_wide {
         display: block;
     }
 }
 
-@media (min-width:768px){
-    nav a > label, nav a > span{
+@media (min-width:768px) {
+
+    nav a>label,
+    nav a>span {
         display: block;
     }
-    
-    #search_container > input[type=text]{
+
+    #search_container>input[type=text] {
         position: relative;
         transform-origin: right;
         transform: scaleX(0);
-        margin:0 10px;
+        margin: 0 10px;
         right: 0;
     }
 }

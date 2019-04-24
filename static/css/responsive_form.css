@@ -50,7 +50,7 @@
 .responsive_form input:focus+span,
 .responsive_form input:not(:placeholder-shown)+span,
 .responsive_form textarea:focus+span,
-.responsive_form textarea:not(:placeholder-shown)+span{
+.responsive_form textarea:not(:placeholder-shown)+span {
     opacity: 1;
     font-size: 11px;
     transform: translateY(-30px) translateX(-10px);

@@ -1,25 +1,25 @@
 {% extends "layout.html" %}
 {% block head %}
-    {{ super() }}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/album.css') }}">
-    
-    <!-- Endast ifall användaren är utloggad -->
-    {% if("username" in session) %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/explore_tabs.css') }}">
-    {% else %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/loginsignup.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive_form.css') }}">
-    {% endif %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/album.css') }}">
+
+<!-- Endast ifall användaren är utloggad -->
+{% if("username" in session) %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/explore_tabs.css') }}">
+{% else %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/loginsignup.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/responsive_form.css') }}">
+{% endif %}
 {% endblock head %}
 
 {% block main %}
 {% if("username" in session) %}
-<section id="explore_tabs" class="isVisible">
+<section id="explore_tabs" class="is_visible">
     <a href="#" id="followers" class="explore_tab">
-        <p>Followers</p>
+        <h2>Follow</h2>
     </a>
     <a href="#" id="explore" class="explore_tab">
-        <p>Explore</p>
+        <h2>Explore</h2>
     </a>
 </section>
 {% endif %}

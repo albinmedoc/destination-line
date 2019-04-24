@@ -1,16 +1,16 @@
-body{
+body {
     margin: 0;
 }
 
-.timeline{
+.timeline {
     position: fixed;
     margin-left: 15px;
     top: 70px;
     height: calc(100% - 95px);
-    z-index: 1; 
+    z-index: 1;
 }
 
-.timeline_container{
+.timeline_container {
     max-height: 100%;
     overflow: auto;
     width: 80px;
@@ -29,15 +29,16 @@ body{
 }
 
 /* Tar bort scrollbar, det går ändå att scrolla */
-.timeline_container::-webkit-scrollbar { 
-    display: none; 
+.timeline_container::-webkit-scrollbar {
+    display: none;
 }
 
-.timeline_year > .year, .timeline_date{
+.timeline_year>.year,
+.timeline_date {
     position: relative;
     width: 60px;
     height: 60px;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4);
     text-align: center;
     color: #fff;
     font-size: 20px;
@@ -45,17 +46,20 @@ body{
     cursor: pointer;
 }
 
-.timeline_year > .year{
+.timeline_year>.year {
     border-radius: 30%;
     /* Line-height är 60px eftersom .timeline_year har höjden 60px, då placeras texten i mitten (vertikalt) */
     line-height: 60px;
     width: 80px;
 }
-.timeline_date{
+
+.timeline_date {
     margin-left: 10px;
     border-radius: 50%;
 }
-.timeline_year > .year::before, .timeline_date::before{
+
+.timeline_year>.year::before,
+.timeline_date::before {
     content: "";
     position: absolute;
     width: 4px;
@@ -63,10 +67,10 @@ body{
     top: -15px;
     /* right är calc(50% - 2px) eftersom bredden på linjen är 4. Då hamnar det exakt i mitten */
     right: calc(50% - 2px);
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4);
 }
 
-.timeline_date > *{
+.timeline_date>* {
     width: 100%;
     margin: 0;
     /* Line-height är 30px eftersom .timeline_date har höjden 60px och det ska finnas två rader,
@@ -75,12 +79,13 @@ body{
 }
 
 @media only screen and (max-width: 600px) {
-    .timeline{
+    .timeline {
         width: calc(100% - 20px);
         height: 80px;
     }
 
-    .timeline_year > .year::before, .timeline_date::before{
+    .timeline_year>.year::before,
+    .timeline_date::before {
         content: "";
         position: absolute;
         height: 4px;
@@ -88,6 +93,6 @@ body{
         /* top är 60px eftersom .timeline_year och .timeline_date har höjden 60px */
         top: calc(50% - 2px);
         right: -15px;
-        background-color: rgba(0,0,0,0.4);
+        background-color: rgba(0, 0, 0, 0.4);
     }
 }

@@ -52,7 +52,7 @@ def upload():
                         #Bildens beskrivning
                         description = request.form.get("description" + index)
                         #Ladda upp till databas
-                        cur.execute("insert into post(album, index, img_name, headline, text) values(%s, %s, %s, %s, %s)", (album_id, index, filename, headline, description))
+                        cur.execute("insert into post(album, index, img_name, headline, description) values(%s, %s, %s, %s, %s)", (album_id, index, filename, headline, description))
         db.conn.commit()
         return json.dumps({'success':True}), 200, {'ContentType':'application/json'} 
 
@@ -68,7 +68,7 @@ def edit_album(album_id):
         cur.execute("select country, city, date_start, date_end from album where id={}".format(album_id))
         album_info = cur.fetchone()
         #Hämtar information om alla bilder
-        cur.execute("select img_name, headline, text from post where album={} order by index asc".format(album_id))
+        cur.execute("select img_name, headline, description from post where album={} order by index asc".format(album_id))
         posts = cur.fetchall()
         print(album_info)
         print(posts)
