@@ -22,9 +22,9 @@ def profile(username):
 def timeline():
         return render_template("timeline.html")
 
-@app.route("/about")
+@app.route("/info")
 def about():
-        return render_template("about.html")
+        return render_template("info.html")
 
 if __name__ == "__main__":
         #Importera Blueprints
