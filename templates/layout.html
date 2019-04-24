@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     {% block head %}
@@ -15,27 +15,33 @@
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script type=text/javascript>$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};</script>
+    <script>
+        $SCRIPT_ROOT = {
+            {
+                request.script_root | tojson | safe
+            }
+        };
+    </script>
     {% endblock head %}
 </head>
 
 <body>
-    
+
     {% include 'nav.html' %}
     <main>
         {% block main %}
         {% endblock main %}
     </main>
     {% with messages = get_flashed_messages(with_categories=true) %}
-        {% if messages %}
-        <section class=flashes>
-                {% for category, message in messages %}
-                <div class="{{ category }}">{{ message }}
-                    <button class=close_flash type="button"> confirm cookies </button> 
-                </div>             
-                {% endfor %}
-        </section>           
-        {% endif %}
+    {% if messages %}
+    <section class=flashes>
+        {% for category, message in messages %}
+        <div class="{{ category }}">{{ message }}
+            <button class=close_flash type="button"> confirm cookies </button>
+        </div>
+        {% endfor %}
+    </section>
+    {% endif %}
     {% endwith %}
     <!-- JAVASCRIPT -->
     {% block javascript %}

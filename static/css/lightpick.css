@@ -74,7 +74,7 @@
     border-radius: 4px;
 }
 
-.lightpick__month-title > .lightpick__select {
+.lightpick__month-title>.lightpick__select {
     border: none;
     background-color: transparent;
     outline: none;
@@ -82,11 +82,12 @@
     -webkit-appearance: none;
     appearance: none;
 }
-.lightpick__month-title > .lightpick__select:disabled {
+
+.lightpick__month-title>.lightpick__select:disabled {
     color: #333;
 }
 
-.lightpick__month-title > .lightpick__select-months {
+.lightpick__month-title>.lightpick__select-months {
     font-weight: bold;
     font-size: 1em;
     margin-right: .5em;
@@ -182,6 +183,7 @@
 .lightpick__day.is-disabled.is-forward-selected {
     opacity: 1;
 }
+
 .lightpick__day.is-disabled.is-forward-selected:not(.is-start-date) {
     background-color: rgba(38, 139, 210, 0.1);
     background-image: none;
@@ -273,20 +275,24 @@
     border-left: 4px solid transparent;
     content: "";
 }
+
 .lightpick__footer {
     display: flex;
     justify-content: space-between;
 }
+
 .lightpick__reset-action,
 .lightpick__apply-action {
     border-radius: 5px;
     font-size: 12px;
     border: none;
 }
+
 .lightpick__reset-action {
     color: #fff;
     background-color: #aeacad;
 }
+
 .lightpick__apply-action {
     color: #fff;
     background-color: #2495f3;

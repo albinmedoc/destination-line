@@ -7,31 +7,31 @@
 {% block main %}
 
 <form id="upload_form">
-        <fieldset>
-            <a href="#" class="cancel_modal"><i class="material-icons">close</i></a>
-            <h1>Create Album</h1>
-            <div class="input_container">
-                <input id="country" type="text" name="country" placeholder=" " required>
-                <span>Country</span>
-            </div>
-            <div class="input_container">
-                <input id="city" type="text" name="city" placeholder=" " required>
-                <span>City</span>
-            </div>
-            <div class="input_container">
-                <label for="date_start">From</label>
-                <input id="date_start" type="date" max="2020-12-31" required>
-            </div>
-            <div class="input_container">
-                <label for="date_end">To</label>
-                <input id="date_end" type="date" max="2020-12-31" required>
-            </div>
-        
-            <div class="input_container">
-                <button type="submit">Upload album</button>
-            </div>
-        </fieldset>
-    </form>
+    <fieldset>
+        <a href="#" class="cancel_modal"><i class="material-icons">close</i></a>
+        <h1>Create Album</h1>
+        <div class="input_container">
+            <input id="country" type="text" name="country" placeholder=" " required>
+            <span>Country</span>
+        </div>
+        <div class="input_container">
+            <input id="city" type="text" name="city" placeholder=" " required>
+            <span>City</span>
+        </div>
+        <div class="input_container">
+            <label for="date_start">From</label>
+            <input id="date_start" type="date" max="2020-12-31" required>
+        </div>
+        <div class="input_container">
+            <label for="date_end">To</label>
+            <input id="date_end" type="date" max="2020-12-31" required>
+        </div>
+
+        <div class="input_container">
+            <button type="submit">Upload album</button>
+        </div>
+    </fieldset>
+</form>
 
 <section id="preview">
     <input id="upload" type="file" multiple>

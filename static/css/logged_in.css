@@ -1,4 +1,4 @@
-#explore_tabs{
+#explore_tabs {
     position: fixed;
     top: 60px;
     height: 60px;
@@ -15,10 +15,11 @@
     right: 0;
 }
 
-#explore_tabs.is_visible{
+#explore_tabs.is_visible {
     transform: none;
 }
-.explore_tab{
+
+.explore_tab {
     position: relative;
     display: flex;
     width: 50%;
@@ -27,7 +28,7 @@
     height: 100%;
 }
 
-.explore_tab::after{
+.explore_tab::after {
     content: '';
     position: absolute;
     height: 2px;
@@ -39,25 +40,28 @@
     transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.explore_tab:hover::after{
+.explore_tab:hover::after {
     transform: none;
     opacity: 1;
 }
 
-#followers p::before, #explore p::before, #profile::before{
+#followers p::before,
+#explore p::before,
+#profile::before {
     font-family: "Material Icons";
     position: absolute;
     top: 20px;
     transform: translateX(-21px);
 }
 
-#followers p::before{
+#followers p::before {
     content: "people";
 }
-   
-#explore p::before{
+
+#explore p::before {
     content: "public";
 }
-#profile::before{
+
+#profile::before {
     content: "person";
 }

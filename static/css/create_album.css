@@ -1,17 +1,17 @@
-main{
+main {
     display: grid;
     grid-template-columns: 100%;
     padding: 15px;
 }
 
-main > section{
+main>section {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
-    margin:2px;
+    margin: 2px;
 }
 
-#upload_btn{
+#upload_btn {
     border: none;
     background-color: rgba(0, 0, 0, 0.3);
     width: 200px;
@@ -19,7 +19,7 @@ main > section{
     cursor: pointer;
 }
 
-#upload_btn::before{
+#upload_btn::before {
     position: absolute;
     font-family: "Material Icons";
     content: "add_circle";
@@ -29,23 +29,24 @@ main > section{
     font-size: 75px;
     color: white;
 }
- 
-#upload{
+
+#upload {
     display: none;
 }
 
-.post, #upload_btn{
+.post,
+#upload_btn {
     position: relative;
     display: block;
     margin: 15px;
 }
 
-.post > img{
+.post>img {
     width: 200px;
     display: block;
 }
 
-.post > p{
+.post>p {
     position: absolute;
     margin: 0;
     left: 5px;
@@ -53,20 +54,22 @@ main > section{
     color: blue;
 }
 
-.post > i{
+.post>i {
     position: absolute;
     right: 5px;
     cursor: pointer;
     color: blue;
 }
-.post > i:first-child{
+
+.post>i:first-child {
     top: 5px;
 }
-.post > i:last-child{
+
+.post>i:last-child {
     bottom: 5px;
 }
 
-#upload_form fieldset{
+#upload_form fieldset {
     background-color: white;
     margin: 0;
     position: relative;
@@ -79,29 +82,30 @@ main > section{
     overflow-y: auto;
 }
 
-form > fieldset > .form_row{
+form>fieldset>.form_row {
     display: flex;
     flex-wrap: wrap;
 }
 
-.input_container{
+.input_container {
     position: relative;
     flex-grow: 1;
     min-width: 200px;
     margin: 20px;
 }
 
-form span{
+form span {
     pointer-events: none;
-    position:absolute;
-    line-height:40px;
-    left:0;
-    top:0;
+    position: absolute;
+    line-height: 40px;
+    left: 0;
+    top: 0;
     transition: .2s ease;
-    opacity:0.5;
+    opacity: 0.5;
 }
 
-form fieldset input, form fieldset button{
+form fieldset input,
+form fieldset button {
     height: 40px;
     width: 100%;
     border: 1px solid #efefef;
@@ -110,25 +114,28 @@ form fieldset input, form fieldset button{
     transition: box-shadow .2s;
 }
 
-form fieldset input, form fieldset .input_container > span, form > form > fieldset > .form_row{
+form fieldset input,
+form fieldset .input_container>span,
+form>form>fieldset>.form_row {
     padding: 0 10px;
 }
 
-form fieldset input:focus{
+form fieldset input:focus {
     box-shadow: 0 0 3px rgb(221, 221, 221);
 }
 
-form fieldset input.error{
+form fieldset input.error {
     border: 2px solid red;
 }
 
-input:focus + span, input:not(:placeholder-shown) + span {
-  opacity:1;
+input:focus+span,
+input:not(:placeholder-shown)+span {
+    opacity: 1;
     font-size: 11px;
-  transform: translateY(-30px) translateX(-10px);
+    transform: translateY(-30px) translateX(-10px);
 }
 
-form fieldset button{
+form fieldset button {
     border: none;
     margin: 20px 0;
     font-size: 16px;
@@ -143,7 +150,7 @@ form fieldset button{
     z-index: 0;
 }
 
-form fieldset button::before{
+form fieldset button::before {
     content: '';
     position: absolute;
     background: rgba(230, 230, 230, 0.63);
@@ -155,17 +162,18 @@ form fieldset button::before{
     z-index: -1;
 }
 
-form fieldset button:hover::before{
+form fieldset button:hover::before {
     transform: scaleX(1);
 }
 
-form > fieldset button::after, #register > fieldset button::after{
+form>fieldset button::after,
+#register>fieldset button::after {
     font-family: "Material Icons";
     content: 'input';
     margin-left: 7px;
 }
 
-form .cancel_modal > i{
+form .cancel_modal>i {
     position: absolute;
     top: 12px;
     right: 15px;
@@ -173,23 +181,25 @@ form .cancel_modal > i{
     transition: .2s cubic-bezier(.19, .83, .34, .97);
 }
 
-.post > img{
+.post>img {
     width: 100%;
 }
 
-.post, #upload_btn{
+.post,
+#upload_btn {
     width: 48%;
-    margin:1%;
+    margin: 1%;
 }
 
-@media (min-width:768px){
-    main{ 
+@media (min-width:768px) {
+    main {
         display: grid;
         grid-template-columns: 300px 1fr;
     }
 
-    .post, #upload_btn{
-            width: 28%;
-            margin:1%;
-        }
+    .post,
+    #upload_btn {
+        width: 28%;
+        margin: 1%;
+    }
 }

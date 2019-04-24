@@ -24,12 +24,12 @@ a {
     color: purple;
 }
 
-i{
+i {
     color: rgb(66, 66, 66);
     transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.material-icons{
+.material-icons {
     -moz-user-select: none;
     -khtml-user-select: none;
     -webkit-user-select: none;
@@ -37,11 +37,11 @@ i{
     user-select: none;
 }
 
-main{
+main {
     margin-top: 60px;
 }
 
-img{
-    -webkit-user-select:none;
-    -webkit-touch-callout:none;
+img {
+    -webkit-user-select: none;
+    -webkit-touch-callout: none;
 }

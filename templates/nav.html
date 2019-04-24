@@ -1,19 +1,19 @@
 <nav class="is_visible">
     <div id="left">
         <a id="logo" href="{{ url_for('index') }}">
-            <h1 id="logo_wide">Destination Line</h1>
-            <h1 id="logo_icon">DL</h1>
+            <h2 id="logo_wide">Destination Line</h2>
+            <h2 id="logo_icon">DL</h2>
         </a>
         <div id="search_container">
             <input id="search" type="text" placeholder="Search for places...">
             <a href="#search">
                 <i class="material-icons">search</i>
-                <label for="search">Search</label>
+                <p>Search</p>
             </a>
         </div>
     </div>
     <ul id="right">
-        
+
         <!-- Visa uppladdningsknapp om inloggad -->
         {% if("username" in session) %}
         <li>
@@ -37,7 +37,7 @@
                     <span>Login</span>
                 </a>
                 {% else %}
-                
+
                 <a href="#">
                     <i class="material-icons">account_circle</i>
                     <span>Profile</span>
