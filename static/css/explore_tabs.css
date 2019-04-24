@@ -3,10 +3,10 @@
     top: 60px;
     height: 60px;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.918);
+    background-color: rgba(255, 255, 255, 0.986);
     z-index: 1;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     align-items: center;
     transform: translateY(-60px);
     transition: .2s ease;
@@ -21,9 +21,10 @@
 .explore_tab{
     position: relative;
     display: flex;
-    width: 50%;
-    justify-content: center;
-    color: black;
+    flex-grow: 1;
+    max-width: 250px;
+    justify-content:space-around;
+    color: rgb(66, 66, 66);
     height: 100%;
 }
 
@@ -32,7 +33,7 @@
     position: absolute;
     height: 2px;
     width: 100%;
-    background-color: rgb(26, 26, 26);
+    background-color: rgb(66, 66, 66);
     bottom: 0;
     transform: scaleX(0);
     opacity: 0;
