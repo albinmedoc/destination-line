@@ -4,6 +4,7 @@
     margin: 0 0 20px 0;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.281);
     transition: box-shadow .2s;
+    overflow: hidden;
 }
 
 .album:last-child {
@@ -20,8 +21,8 @@
 }
 
 .info_circle {
-    height: 40vw;
-    width: 40vw;
+    height: 50vw;
+    width: 50vw;
     left: 50%;
     top: 50%;
     border-radius: 100%;
@@ -66,15 +67,4 @@
     font-size: 3vw;
     font-family: 'Parisienne', cursive;
     font-weight: 500;
-}
-
-@media (max-width:480px) {
-    .album {
-        overflow: hidden;
-    }
-
-    .info_circle {
-        width: 50vw;
-        height: 50vw;
-    }
 }

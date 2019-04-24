@@ -18,13 +18,13 @@
     visibility: visible;
 }
 
-#modal fieldset {
+#modal>form>fieldset {
     background-color: white;
     margin: 0;
     position: relative;
     width: 100%;
-    height: auto;
-    max-width: 500px;
+    height: 100%;
+    max-width: auto;
     border: none;
     border-radius: 50px;
     transform: scale(0) translate(-200px, 300px);
@@ -36,8 +36,12 @@
 
 #modal>form:target>fieldset {
     transform: none;
-    border-radius: .5vw;
+    border-radius: 0px;
     transition: .5s cubic-bezier(.57, .66, 0, 1);
+}
+
+#modal span {
+    transition-delay: .3s;
 }
 
 form fieldset button {
@@ -86,17 +90,17 @@ form .cancel_modal>i {
     transition: .2s cubic-bezier(.19, .83, .34, .97);
 }
 
-@media (max-width:768px) {
+@media (min-width:768px) {
     #modal>form fieldset {
-        height: 100%;
-        max-width: none;
+        height: auto;
+        max-width: 500px;
     }
 
     #modal>form:target fieldset {
-        border-radius: 0px;
+        border-radius: .5vw;
     }
 
     #modal span {
-        transition-delay: .2s;
+        transition-delay: 0s;
     }
 }
