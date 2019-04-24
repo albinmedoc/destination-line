@@ -1,5 +1,9 @@
 #profile_container {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    overflow: hidden;
 }
 
 #profile_container>i,
@@ -18,7 +22,6 @@
 
 #profile_container>i.change_background {
     left: 10px;
-    ;
 }
 
 #profile_container>i.settings {
@@ -33,16 +36,20 @@
 
 #profile_container>#background_img {
     width: 100%;
-    -webkit-filter: blur(5px);
+    -webkit-filter: blur(3px);
     /*Safari 6.0 - 9.0 */
-    filter: blur(5px);
+    filter: blur(3px);
+    position: absolute;
 }
 
-#profile_container>section {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+#profile_container>#profile_info_container {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    top: 20px;
 }
 
 #profile_img {
@@ -81,4 +88,30 @@
     font-size: 2.5vw;
     font-family: 'Parisienne', cursive;
     text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.507);
+}
+
+#follow_followers{
+    text-align: center;
+    left: 50%;
+    z-index: 1;
+    justify-content: center;
+    align-items: center;
+    color: aliceblue;
+    display: flex;
+}
+
+#follow_followers > a{
+    padding: 5vw;
+    text-decoration: none;
+    color: white;
+}
+
+#follow_followers > a > div{
+    width: 10vw;
+    height: 10vw;
+    background-color: rgba(0, 0, 0, 0.411);
+    border-radius: 50%;
+    align-items: center;
+    justify-content: center;
+    display: flex;
 }

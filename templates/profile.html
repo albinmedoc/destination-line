@@ -13,7 +13,7 @@
     <i class="material-icons follow">favorite_border</i>
     <img id="background_img"
         src="https://images.mentalfloss.com/sites/default/files/styles/mf_image_16x9/public/111798556-565x376_1.jpg?itok=CX04tBbz&resize=1100x1100">
-    <section>
+    <section id="profile_info_container">
         <section id="profile_img">
             <img src="https://iso.500px.com/wp-content/uploads/2016/03/pedroquintela.jpg">
             <i class="material-icons">add_a_photo</i>
@@ -22,6 +22,12 @@
             <h2>{{user_profile[0][1]}} {{user_profile[0][2]}}</h2>
             <p>Photographer Photographer Photographer Photographer</p>
         </section>
+        <section id="follow_followers">
+            <a href="follow_page"><div><span>Follow</span></div></a>
+            <a href="followers_page"><div><span>Followers</span></div></a>
+        </section>
     </section>
+    
+    
 </section>
 {% endblock main %}
