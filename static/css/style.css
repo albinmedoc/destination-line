@@ -39,7 +39,7 @@ i {
 
 main {
     margin-top: 60px;
-    animation: enter_anim .2s forwards;
+    animation: enter_anim .4s forwards;
 }
 
 img {
