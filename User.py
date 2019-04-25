@@ -1,4 +1,4 @@
-from flask import Blueprint, request, session, redirect, jsonify, flash
+from flask import Blueprint, request, session, redirect, jsonify, flash, render_template
 import bcrypt
 from Database import Database
 
@@ -15,6 +15,11 @@ def callback(incomming_request):
                 email = request.form.get("email")
                 return jsonify(user_exists(email=email))
         return jsonify(False)
+
+@app.route("/profile/<username>")
+def profile(username):
+        # Kolla om användaren besöker sin egna profil, det kan göras i template
+        return render_template("profile.html")
 
 @app.route("/login", methods = ["POST"])
 def login():

@@ -13,11 +13,6 @@ app.secret_key = urandom(24)
 def index():
         return render_template("index.html")
 
-@app.route("/profile/<username>")
-def profile(username):
-        # Kolla om användaren besöker sin egna profil, skickar med användarens profil
-        return render_template("profile.html")
-
 @app.route("/timeline")
 def timeline():
         return render_template("timeline.html")
