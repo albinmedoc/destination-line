@@ -200,3 +200,4 @@ def setup_follow(userid, targetid):
         db = Database()
         cur = db.conn.cursor()
         cur.execute("insert into follow(follower, followinf) values(%s, %s)", (userid, targetid))
+        db.conn.commit()
