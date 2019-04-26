@@ -16,10 +16,31 @@ def callback(incomming_request):
                 return jsonify(user_exists(email=email))
         return jsonify(False)
 
+@app.route("/profile")
 @app.route("/profile/<username>")
-def profile(username):
+def profile(username=None):
         # Kolla om användaren besöker sin egna profil, det kan göras i template
-        return render_template("profile.html", user_info=get_info(username), profile_username=username)
+        if(username is None):
+                #Kontrollerar om användaren är utloggad
+                if("username" not in session):
+                        #Visar felmeddelande
+                        flash(u"You have to be logged in to visit your profile", 'error')
+                        #Hänvisar användaren till förstasidan
+                        return redirect("/")
+                #Är användaren inloggad sätts variablen username till användarens användarnamn
+                username = session["username"]
+        #Kontrollerar om användaren existerar
+        if(user_exists(username=username)):
+                db = Database()
+                cur = db.conn.cursor()
+                cur.execute("select username, firstname, lastname, biography, background from person where username='{}'".format(username))
+                user_info = cur.fetchone()
+                #Kontrollerar så en rad hittades
+                if(user_info is not None):
+                        #Visar profilsidan med informationen hämtad från databasen
+                   return render_template("profile.html", user_info=get_info(username), profile_username=username)
+        #Kunde inte hitta information om användaren
+        return "Could not find profile"
 
 @app.route("/login", methods = ["POST"])
 def login():
@@ -29,6 +50,8 @@ def login():
         if(username.strip() and password.strip()):
                 #Kontrollerar så användarnamnet och lösenorder matchar
                 if(check_password(password, username = username)):
+                        #Visar ett vällkommstmeddelande
+                        flash(u'Welcome back!', 'success')
                         #Gör så användaren förblir inloggad
                         session.permanent = True
                         session["username"] = username
@@ -37,6 +60,7 @@ def login():
 
 @app.route("/logout")
 def logout():
+        #Rensa cookies och hänvisa till förstasidan
         session.clear()
         return redirect("/")
 
@@ -166,11 +190,3 @@ def owns_album(album_id, username=None, email=None, user_id=None):
                 elif(not email == None and user_exists(email=email)):
                         return int(get_user_id(email=email)) == owner_id
         return False
-
-#Hämtar profilinformation om användaren
-def get_info(username):
-        db = Database()
-        cur = db.conn.cursor()
-        cur.execute("select username, firstname, lastname, biography, background from person where username='{}'".format(username))
-        user_profile = cur.fetchall()
-        return user_profile
