@@ -58,7 +58,7 @@ nav>ul>li {
 }
 
 nav a>label,
-nav a>span {
+nav a>span, #search_container p {
     margin-left: 10px;
     display: none;
 }
