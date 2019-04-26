@@ -190,3 +190,7 @@ def owns_album(album_id, username=None, email=None, user_id=None):
                 elif(not email == None and user_exists(email=email)):
                         return int(get_user_id(email=email)) == owner_id
         return False
+
+@app.route("/settings")
+def settings():
+        return render_template("settings.html")
