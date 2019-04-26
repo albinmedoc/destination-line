@@ -38,12 +38,17 @@ def profile(username=None):
         if(user_exists(username=username)):
                 db = Database()
                 cur = db.conn.cursor()
-                cur.execute("select username, firstname, lastname, biography, background from person where username='{}'".format(username))
+                cur.execute("select username, firstname, lastname, biography, background, id from person where username='{}'".format(username))
                 user_info = cur.fetchone()
                 #Kontrollerar så en rad hittades
                 if(user_info is not None):
+                        cur.execute("select count(*) from follow where follower=%s", [user_info[5]])
+                        following_count = cur.fetchone()
+                        cur.execute("select count(*) from follow where following=%s", [user_info[5]])
+                        follower_count = cur.fetchone()
+                        
                         #Visar profilsidan med informationen hämtad från databasen
-                   return render_template("profile.html", user_info=user_info)
+                        return render_template("profile.html", user_info=user_info, following_count=following_count, follower_count=follower_count)
         #Kunde inte hitta information om användaren
         return "Could not find profile"
 
@@ -199,5 +204,6 @@ def owns_album(album_id, username=None, email=None, user_id=None):
 def setup_follow(userid, targetid):
         db = Database()
         cur = db.conn.cursor()
-        cur.execute("insert into follow(follower, followinf) values(%s, %s)", (userid, targetid))
+        #Lägger till följnings-koppling mellan två personer
+        cur.execute("insert into follow(follower, following) values(%s, %s)", (userid, targetid))
         db.conn.commit()
