@@ -24,14 +24,8 @@
     left: 10px;
 }
 
-#profile_container>i.settings {
+#profile_container>i.settings, #profile_container > i.follow {
     right: 10px;
-}
-
-#profile_container>i.follow {
-    right: 10px;
-    font-size: 4vw;
-    background-color: transparent;
 }
 
 #profile_container>#background_img {
@@ -39,17 +33,16 @@
     -webkit-filter: blur(3px);
     /*Safari 6.0 - 9.0 */
     filter: blur(3px);
-    position: absolute;
+    position: relative;
 }
 
 #profile_container>#profile_info_container {
-    position: relative;
+    position: absolute;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    top: 20px;
+    top: 50px;
 }
 
 #profile_img {

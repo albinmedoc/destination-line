@@ -19,7 +19,7 @@ def callback(incomming_request):
 @app.route("/profile/<username>")
 def profile(username):
         # Kolla om användaren besöker sin egna profil, det kan göras i template
-        return render_template("profile.html", user_info=get_info(username))
+        return render_template("profile.html", user_info=get_info(username), profile_username=username)
 
 @app.route("/login", methods = ["POST"])
 def login():
