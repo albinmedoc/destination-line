@@ -17,13 +17,14 @@ Produkten är en webbaserad social plattform där bildhantering är en stor del.
     - sudo apt-get install python3-pil
     - Fler kommer snart..
 ## Konfiguration ##
-Ta bort ".ex" i slutet av "Settings.py.ex"
-- Server_IP - Ipadress för servern
-- DATABASE_NAME - Namn på databasen
-- DATABASE_USER - Användare som skall användas
-- DATABASE_HOST - Adress för databashanterare
-- DATABASE_PASSWORD - Lösenord för användaren
-- DEBUG_MODE - Visa förklarande meddelanden i consolen.
+- Ta bort ".ex" i slutet av "Settings.py.ex"
+- Justera värdena i filen
+    - Server_IP - Ipadress för servern
+    - DATABASE_NAME - Namn på databasen
+    - DATABASE_USER - Användare som skall användas
+    - DATABASE_HOST - Adress för databashanterare
+    - DATABASE_PASSWORD - Lösenord för användaren
+    - DEBUG_MODE - Visa förklarande meddelanden i consolen.
 ## Användning ##
 Starta serverprogrammet genom "start.py"-filen (python3 start.py).
 Gå till ipadressen för servern i en valfri webbläsare.
