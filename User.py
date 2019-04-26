@@ -38,7 +38,7 @@ def profile(username=None):
                 #Kontrollerar så en rad hittades
                 if(user_info is not None):
                         #Visar profilsidan med informationen hämtad från databasen
-                   return render_template("profile.html", user_info=get_info(username), profile_username=username)
+                   return render_template("profile.html", user_info=user_info)
         #Kunde inte hitta information om användaren
         return "Could not find profile"
 

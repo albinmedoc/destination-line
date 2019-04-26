@@ -24,10 +24,10 @@
             {% endif %}
         </section>
         <section id="profile_info">
-            <h2>{{user_info[0][1]}} {{user_info[0][2]}}</h2>
-            <p>{{user_info[0][3]}}</p>
+            <h2>{{user_info[1]}} {{user_info[2]}}</h2>
+            <p>{{user_info[3]}}</p>
         </section>
-        {% if("username" in session and session["username"] == profile_username) %}
+        {% if session["username"] == user_info[0] %}
         <section id="follow_followers">
             <a href="follow_page"><div><span>Follow</span></div></a>
             <a href="followers_page"><div><span>Followers</span></div></a>
