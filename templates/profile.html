@@ -8,20 +8,19 @@
 {% endblock head %}
 {% block main %}
 <section id="profile_container">
-    {% if("username" in session and session["username"] == profile_username) %}
-    <i class="material-icons settings">create</i>
-    <i class="material-icons change_background">add_a_photo</i>
-{% endif %}
-    {% if("username" in session and not session["username"] == profile_username) %}
-    <i class="material-icons follow">favorite_border</i>
-{% endif %}
+    {% if session["username"] == user_info[0] %}
+        <i class="material-icons change_background">add_a_photo</i>
+        <i class="material-icons settings">create</i>
+    {% elif "username" in session %}
+        <i class="material-icons follow">favorite_border</i>
+    {% endif %}
     <img id="background_img"
         src="https://images.mentalfloss.com/sites/default/files/styles/mf_image_16x9/public/111798556-565x376_1.jpg?itok=CX04tBbz&resize=1100x1100" alt="Profile background">
     <section id="profile_info_container">
         <section id="profile_img">
             <img src="https://iso.500px.com/wp-content/uploads/2016/03/pedroquintela.jpg">
-            {% if("username" in session and session["username"] == profile_username) %}
-            <i class="material-icons">add_a_photo</i>
+            {% if session["username"] == user_info[0] %}
+                <i class="material-icons">add_a_photo</i>
             {% endif %}
         </section>
         <section id="profile_info">
