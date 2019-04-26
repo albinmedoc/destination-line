@@ -14,6 +14,11 @@ def callback(incomming_request):
                 #Skickar tillbaks True/False beroende på om användarnamnet finns
                 email = request.form.get("email")
                 return jsonify(user_exists(email=email))
+        elif(incomming_request == "follow" and "username" in session):
+                user_id = get_user_id(username=session["username"])
+                target_id = request.form.get("target_id")
+                setup_follow(user_id, target_id)
+                return jsonify(True)
         return jsonify(False)
 
 @app.route("/profile")
@@ -190,3 +195,8 @@ def owns_album(album_id, username=None, email=None, user_id=None):
                 elif(not email == None and user_exists(email=email)):
                         return int(get_user_id(email=email)) == owner_id
         return False
+
+def setup_follow(userid, targetid):
+        db = Database()
+        cur = db.conn.cursor()
+        cur.execute("insert into follow(follower, followinf) values(%s, %s)", (userid, targetid))
