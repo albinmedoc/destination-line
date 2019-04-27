@@ -3,25 +3,11 @@
     min-height: 100vh;
     display: flex;
     flex-flow: column;
-    background-color: gray;
     width: 100%;
     background-image: url("https://images.mentalfloss.com/sites/default/files/styles/mf_image_16x9/public/111798556-565x376_1.jpg?itok=CX04tBbz&resize=1100x1100");
     background-position: center;
     background-size: cover;
     background-attachment: fixed;
-}
-
-#profile_header > #icon_row > i{
-    z-index: 1;
-    position: absolute;
-    color: white;
-    font-size: 26px;
-    background-color: rgba(0, 0, 0, 0.411);
-    border-radius: 50%;
-    padding: 8px;
-    top: 10px;
-    cursor: pointer;
-    transition: none;
 }
 
 #profile_container i.change_background {
@@ -34,22 +20,50 @@
 
 #profile_header{
     height: 75vh;
+    width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    position: fixed;
+    z-index: 1;
+    background:inherit;
 }
 
-#profile_header > #icon_row{
+#profile_header::before{
+    content:'';
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    filter: blur(5px);
+    background:inherit;
+}
+
+#icon_row{
     position: fixed;
     width: 100%;
     height: 60px;
     top: 60px;
+    z-index: 3;
 }
+
+#icon_row > i{
+    z-index: 2;
+    position: absolute;
+    color: white;
+    font-size: 26px;
+    background-color: rgba(0, 0, 0, 0.411);
+    border-radius: 50%;
+    padding: 8px;
+    top: 10px;
+    cursor: pointer;
+    transition: none;
+}
+
 #profile_img {
-    position: fixed;
     height: 270px;
     width: 270px;
-    margin: 0 auto;
+    margin: 0 auto 70px auto;
+    position: relative;
 }
 #profile_img>img {
     width: 100%;
@@ -57,6 +71,7 @@
     border-radius: 50%;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.411);
 }
+
 #profile_img>i {
     bottom: 22px;
     right: 22px;
@@ -72,28 +87,28 @@
     display: flex;
     flex-flow: column;
     align-items: center;
-    background-color: rgba(255, 255, 255, 0.925);
+    background-color: rgb(255, 255, 255);
     padding-top: 15px;
-    box-shadow: 0 -10px 50px 50px rgba(255, 255, 255, 0.925);
-    z-index: 1;
+    box-shadow: 0 -10px 100px 100px rgb(255, 255, 255);
     width: 100%;
     text-align: center;
     min-height: calc(100vh - 60px);
     padding: 15px 20px 0 20px;
+    z-index: 1;
+    margin-top: 70vh;
 }
 
+#profile
+
 #profile_main>*{
-    width: 100%;
     max-width: 550px;
 }
 
 #follow_container{
+    position: sticky;
     display: flex;
     justify-content: center;
-    border-top: 1px black solid;
     border-bottom: 1px black solid;
-    border-radius: 5px;
-    padding: 0 20px;
 }
 
 #follow_container > a > h3{

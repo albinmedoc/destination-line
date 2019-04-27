@@ -8,9 +8,7 @@
 {% endblock head %}
 {% block main %}
 <section id="profile_container">
-
-    <section id="profile_header">
-        <div id="icon_row">
+    <div id="icon_row">
         {% if session["username"] == user_info[0] %}
             <i class="material-icons change_background">add_a_photo</i>
             <i class="material-icons settings">create</i>
@@ -18,6 +16,8 @@
             <i class="material-icons follow">favorite_border</i>
         {% endif %}
         </div>
+    <section id="profile_header">
+        
         <section id="profile_img">
             <img src="https://iso.500px.com/wp-content/uploads/2016/03/pedroquintela.jpg">
             {% if session["username"] == user_info[0] %}
@@ -29,12 +29,12 @@
     <section id="profile_main">
         <section id="follow_container">
             <a>
-                <h3>Following</h3>
-                <span>{{ following_count[0] }}</span>
+                <h3>{{ following_count[0] }}</h3>
+                <span>Following</span>
             </a>
             <a>
-                    <h3>Followers</h3>
-                    <span>{{ follower_count[0] }}</span>
+                    <h3>{{ follower_count[0] }}</h3>
+                    <span>Followers</span>
                 </a>
         </section>
         <section id="profile_info">
