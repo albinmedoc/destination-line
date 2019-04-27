@@ -16,7 +16,7 @@ def callback(incomming_request):
                 return jsonify(user_exists(email=email))
         elif(incomming_request == "follow" and "username" in session):
                 user_id = get_user_id(username=session["username"])
-                target_id = request.form.get("target_id")
+                target_id = get_user_id(username=request.form.get("target_name"))
                 setup_follow(user_id, target_id)
                 return jsonify(True)
         return jsonify(False)
