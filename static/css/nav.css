@@ -178,7 +178,7 @@ med i CSS-standarden än */
 @media (min-width:768px) {
 
     nav a>label,
-    nav a>span {
+    nav a>span, #search_container p {
         display: block;
     }
 
