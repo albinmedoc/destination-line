@@ -19,7 +19,7 @@
     transform: none;
 }
 
-.explore_tab {
+#explore_tabs > .explore_tab {
     position: relative;
     display: flex;
     flex-grow: 1;
@@ -29,7 +29,7 @@
     height: 100%;
 }
 
-.explore_tab::after {
+#explore_tabs > .explore_tab::after {
     content: '';
     position: absolute;
     height: 2px;
@@ -41,18 +41,18 @@
     transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.explore_tab:hover::after {
+#explore_tabs > .explore_tab:hover::after {
     transform: none;
     opacity: 1;
 }
 
-.explore_tab > h2{
+#explore_tabs > .explore_tab > h2{
     font-size: 18px;
     font-weight: 500;
 }
 
-#followers h2::before,
-#explore h2::before,
+#explore_tabs > .explore_tab > .following > h2::before,
+#explore_tabs > .explore_tab > .explore > h2::before,
 #profile::before {
     font-family: "Material Icons";
     position: absolute;
@@ -60,10 +60,10 @@
     transform: translateX(-30px);
 }
 
-#followers > h2::before {
+.explore_tab > .following > h2::before {
     content: "people";
 }
 
-#explore > h2::before {
+.explore_tab > .explore > h2::before {
     content: "public";
 }
