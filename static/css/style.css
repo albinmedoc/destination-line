@@ -27,6 +27,7 @@ a {
 i {
     color: rgb(66, 66, 66);
     transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
+    cursor: pointer;
 }
 
 .material-icons {
@@ -45,6 +46,10 @@ main {
 img {
     -webkit-user-select: none;
     -webkit-touch-callout: none;
+}
+
+a{
+    cursor: pointer;
 }
 
 @keyframes enter_anim {
