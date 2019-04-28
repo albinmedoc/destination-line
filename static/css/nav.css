@@ -4,10 +4,10 @@ nav {
     position: fixed;
     display: flex;
     background-color: rgba(255, 255, 255, 0.952);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.116);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.397);
     z-index: 2;
     transform: translateY(-60px);
-    transition: .2s ease;
+    transition: .15s ease;
 }
 
 nav.is_visible {
@@ -18,7 +18,6 @@ nav.is_visible {
     margin: 0 0 0 10px;
     position: absolute;
     font-family: Parisienne;
-    z-index: 1;
 }
 
 #logo_wide {
@@ -64,7 +63,6 @@ nav a:not(.dropdown_link) {
     padding: 0 15px;
     position: relative;
     z-index: 1;
-    background: white;
 }
 
 nav #right a:not(.dropdown_link)::after, #search_container a::after {
