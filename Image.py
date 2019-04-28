@@ -76,7 +76,7 @@ def get_new_albums(limit=30):
         db = Database()
         cur = db.conn.cursor()
         #Hämtar information om nyligen uppladade bilder
-        cur.execute("select album.city, album.country, person.firstname, person.lastname, post.img_name from ((album join post on album.id=post.album) join person on album.owner=person.id) where post.index=1 order by album.published desc limit %s", [limit])
+        cur.execute("select album.city, album.country, person.firstname, person.lastname, post.img_name, person.username from ((album join post on album.id=post.album) join person on album.owner=person.id) where post.index=1 order by album.published desc limit %s", [limit])
         albums = cur.fetchall()
         return albums
 
@@ -86,7 +86,7 @@ def get_new_following_albums(limit=30, username=None):
         db = Database()
         cur = db.conn.cursor()
         #Hämtar information om nyligen uppladade bilder från personer man följer
-        cur.execute("select album.city, album.country, person.firstname, person.lastname, post.img_name from (((album join post on album.id=post.album) join person on album.owner=person.id) join follow on album.owner=follow.following where follow.follower=%s and post.index=1 order by album.published desc limit %s", (username, limit))
+        cur.execute("select album.city, album.country, person.firstname, person.lastname, post.img_name, person.username from (((album join post on album.id=post.album) join person on album.owner=person.id) join follow on album.owner=follow.following) where follow.follower=%s and post.index=1 order by album.published desc limit %s", (get_user_id(username=username), limit))
         albums = cur.fetchall()
         return albums
 
