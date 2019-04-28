@@ -42,13 +42,15 @@ def profile(username=None):
                 user_info = cur.fetchone()
                 #Kontrollerar så en rad hittades
                 if(user_info is not None):
+                        cur.execute("select count(*) from album where owner=%s", [user_info[5]])
+                        album_count = cur.fetchone()
                         cur.execute("select count(*) from follow where follower=%s", [user_info[5]])
                         following_count = cur.fetchone()
                         cur.execute("select count(*) from follow where following=%s", [user_info[5]])
                         follower_count = cur.fetchone()
                         
                         #Visar profilsidan med informationen hämtad från databasen
-                        return render_template("profile.html", user_info=user_info, following_count=following_count, follower_count=follower_count)
+                        return render_template("profile.html", user_info=user_info, album_count=album_count, following_count=following_count, follower_count=follower_count)
         #Kunde inte hitta information om användaren
         return "Could not find profile"
 
