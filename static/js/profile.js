@@ -1,5 +1,5 @@
 window.onload = function () {
-    $("i.follow").click(function(){
+    $(".button_container.follow").click(function(){
         var target_name = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
         $.ajax({
             method: "POST",
