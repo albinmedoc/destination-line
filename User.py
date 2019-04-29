@@ -194,6 +194,10 @@ def owns_album(album_id, username=None, email=None, user_id=None):
                 return False
         return cur.fetchone()[0]
 
+@app.route("/settings")
+def settings():
+        return render_template("settings.html")
+        
 def setup_follow(user_id, target_id):
         db = Database()
         cur = db.conn.cursor()

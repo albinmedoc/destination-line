@@ -1,0 +1,27 @@
+
+
+#background_img{
+    position:absolute;
+}
+
+#profile_img{
+    position:absolute;
+    border-radius: 50%;
+    width: 55vw;
+    height: 55vw;
+    margin: 50px;
+}
+
+#upload_form{
+    position: absolute;
+    flex: right;
+    background-color: white;
+    float: right;
+}
+
+@media (min-width:768px) {
+    #profile_img{
+        width: 30vw;
+        height: 30vw;
+    }
+}
