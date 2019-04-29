@@ -16,7 +16,7 @@ def callback(incomming_request):
                 return jsonify(user_exists(email=email))
         elif(incomming_request == "follow" and "username" in session):
                 user_id = get_user_id(username=session["username"])
-                target_id = request.form.get("target_id")
+                target_id = get_user_id(username=request.form.get("target_name"))
                 setup_follow(user_id, target_id)
                 return jsonify(True)
         return jsonify(False)
@@ -38,12 +38,23 @@ def profile(username=None):
         if(user_exists(username=username)):
                 db = Database()
                 cur = db.conn.cursor()
-                cur.execute("select username, firstname, lastname, biography, background from person where username='{}'".format(username))
+                cur.execute("select username, firstname, lastname, biography, background, id from person where username='{}'".format(username))
                 user_info = cur.fetchone()
                 #Kontrollerar så en rad hittades
                 if(user_info is not None):
+                        cur.execute("select * from follow join person on follow.follower=person.id where person.username=%s", [username])
+                        following = cur.fetchall()
+                        following_count = len(following)
+
+                        cur.execute("select * from follow join person on follow.following=person.id where person.username=%s", [username])
+                        followers = cur.fetchall()
+                        follower_count = len(followers)
+
+                        cur.execute("select count(*) from album where owner=%s", [user_info[5]])
+                        album_count = cur.fetchone()
+                        
                         #Visar profilsidan med informationen hämtad från databasen
-                   return render_template("profile.html", user_info=user_info)
+                        return render_template("profile.html", user_info=user_info, album_count=album_count, following_count=following_count, follower_count=follower_count)
         #Kunde inte hitta information om användaren
         return "Could not find profile"
 
@@ -134,24 +145,21 @@ def check_password(password, username = None, email = None, user_id=None):
         db = Database()
         cur = db.conn.cursor()
         #Om användarnamn är angivet och finns i databasen
-        if(not username == None and user_exists(username=username)):
+        if(not username == None):
                 cur.execute("select password from person where username='{}'".format(username))
         #Om email är angivet och finns i databasen
-        elif(not email == None and user_exists(email=email)):
+        elif(not email == None):
                 cur.execute("select password from person where email='{}'".format(email))
         #Om användarID är angivet och finns i databasen
-        elif(not user_id == None and user_exists(user_id=user_id)):
+        elif(not user_id == None):
                 cur.execute("select password from person where id='{}'".format(user_id))
         else:
-                #Användaren hittades inte
                 return False
-
         #Hämtar det hashade lösenordet från databasen
-        hashpassword = cur.fetchone()[0].replace('"', "'").encode("utf8")
-        cur.close()
+        hashpassword = cur.fetchone()
         if(hashpassword is not None):
                 #Retunerar True/False beroende på om det stämmer överrens eller inte
-                return bcrypt.checkpw(password.encode("utf8"), hashpassword)
+                return bcrypt.checkpw(password.encode("utf8"), hashpassword[0].replace('"', "'").encode("utf8"))
         return False
 
 #Hämta användarens id från username eller email
@@ -176,32 +184,23 @@ def get_user_id(username=None, email=None):
 def owns_album(album_id, username=None, email=None, user_id=None):
         db = Database()
         cur = db.conn.cursor()
-        #Om användarnamn eller email eller användarID är angivet
-        if(username != None or email != None or user_id != None):
-                #Hämtar id för ägaren över albummet
-                cur.execute("select owner from album where id='{}'".format(int(album_id)))
-                owner_id = cur.fetchone()[0]
-                #Om ingen ägare hittades eller albummet inte finns
-                if(owner_id is None):
-                        return False
-                owner_id = int(owner_id)
-                #Om användarID är angivet och finns i databasen
-                if(not user_id == None and user_exists(user_id=user_id)):
-                        #Retunerar True ifall användarID stämmer överrens med albummets ägare
-                        return int(user_id) == owner_id
-                elif(not username == None and user_exists(username=username)):
-                        return int(get_user_id(username=username)) == owner_id
-                #Om email är angivet och finns i databasen
-                elif(not email == None and user_exists(email=email)):
-                        return int(get_user_id(email=email)) == owner_id
-        return False
+        if(username is not None):
+                cur.execute("select exists(select * from album join person on album.owner=person.id where person.username=%s and album.id=%s)", (username, album_id))
+        elif(email is not None):
+                cur.execute("select exists(select * from album join person on album.owner=person.id where person.email=%s and album.id=%s)", (email, album_id))
+        elif(user_id is not None):
+                cur.execute("select exists(select * from album where album.owner=%s and album.id=%s)", (user_id, album_id))
+        else:
+                return False
+        return cur.fetchone()[0]
 
 @app.route("/settings")
 def settings():
         return render_template("settings.html")
         
-def setup_follow(userid, targetid):
+def setup_follow(user_id, target_id):
         db = Database()
         cur = db.conn.cursor()
-        cur.execute("insert into follow(follower, followinf) values(%s, %s)", (userid, targetid))
+        #Lägger till följnings-koppling mellan två personer
+        cur.execute("insert into follow(follower, following) values(%s, %s)", (user_id, target_id))
         db.conn.commit()

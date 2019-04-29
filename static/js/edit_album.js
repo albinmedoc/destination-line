@@ -38,7 +38,7 @@ $(document).ready(function () {
                                     images[e.target.result] = [];
                                     images[e.target.result][0] = file;
                                     //Visar bilder
-                                    var post = "<div class='post'><i class='material-icons close'>close</i><i class='material-icons info'>info_outline</i><img src='" + e.target.result + "'><i class='material-icons reorder'>reorder</i></div>";
+                                    var post = "<div class='post'><div class='button_container img_close'><div class='button_text_container'><span>Delete image</span></div><i class='material-icons button_icon_container'>close</i></div><div class='button_container img_info'><i class='material-icons button_icon_container'>info</i><div class='button_text_container'><span>Image info</span></div></div><img src='" + e.target.result + "'><i class='material-icons reorder'>reorder</i></div>";
                                     $("#upload_btn").after(post);
                                 } else {
                                     alert("The image " + file.name + " has already been uploaded. Skipping..")
@@ -59,7 +59,7 @@ $(document).ready(function () {
         $(this).val("");
     });
 
-    $("#upload_btn").parent().on("click", ".post > i.close", function () {
+    $("#upload_btn").parent().on("click", ".img_close", function () {
         var index = $(this).next().attr("src");
         delete images[index];
         $(this).parent().remove();
@@ -111,7 +111,7 @@ $(document).ready(function () {
         });
     });
 
-    $("#upload_btn").parent().on("click", ".post > i.info", function () {
+    $("#upload_btn").parent().on("click", ".img_info", function () {
         //Hämtar img_url
         var img_url =  $(this).siblings("img").attr("src");
         //Sätter input för rubrik till värdet i data-attributet "headline"
