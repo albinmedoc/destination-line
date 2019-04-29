@@ -41,7 +41,8 @@
     transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-#explore_tabs > .explore_tab:hover::after {
+#explore_tabs > .explore_tab:hover::after,
+#explore_tabs > .explore_tab.active::after {
     transform: none;
     opacity: 1;
 }
