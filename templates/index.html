@@ -23,7 +23,19 @@
     </a>
 </section>
 {% endif %}
-
+{% if albums is defined %}
+    {% for album in albums %}
+    <div class="album">
+        <img src="{{ url_for('image.uploaded_images', image_id=album[4]) }}">
+        <div class="info_circle">
+            <h1 class="city flex_font">{{ album[0] }}</h1>
+            <h2 class="country flex_font">{{ album[1] }}</h2>
+            <i class="material-icons">camera_alt</i>
+            <h2 class="author">{{ album[2] + " " + album[3] }}</h2>
+        </div>
+    </div>
+    {% endfor %}
+{% endif %}
 <div class="album">
     <img src="https://www.w3schools.com/howto/img_parallax.jpg">
     <div class="info_circle">

@@ -34,7 +34,7 @@
     position: absolute;
     height: 2px;
     width: 100%;
-    background-color: rgb(66, 66, 66);
+    background-color: rgb(63, 139, 238);
     bottom: 0;
     transform: scaleX(0);
     opacity: 0;
