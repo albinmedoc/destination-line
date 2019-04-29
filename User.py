@@ -1,4 +1,4 @@
-from flask import Blueprint, request, session, redirect, jsonify, flash
+from flask import Blueprint, request, session, redirect, jsonify, flash, render_template
 import bcrypt
 from Database import Database
 
@@ -7,18 +7,68 @@ app = Blueprint("user", __name__, template_folder="templates")
 @app.route("/request/<incomming_request>", methods = ["POST"])
 def callback(incomming_request):
         if(incomming_request == "username_exists"):
+                #Skickar tillbaks True/False beroende på om användarnamnet finns
                 username = request.form.get("username")
                 return jsonify(user_exists(username=username))
         elif(incomming_request == "email_exists"):
+                #Skickar tillbaks True/False beroende på om användarnamnet finns
                 email = request.form.get("email")
-        return jsonify(user_exists(email=email))
+                return jsonify(user_exists(email=email))
+        elif(incomming_request == "follow" and "username" in session):
+                user_id = get_user_id(username=session["username"])
+                target_id = get_user_id(username=request.form.get("target_name"))
+                setup_follow(user_id, target_id)
+                return jsonify(True)
+        return jsonify(False)
+
+@app.route("/profile")
+@app.route("/profile/<username>")
+def profile(username=None):
+        # Kolla om användaren besöker sin egna profil, det kan göras i template
+        if(username is None):
+                #Kontrollerar om användaren är utloggad
+                if("username" not in session):
+                        #Visar felmeddelande
+                        flash(u"You have to be logged in to visit your profile", 'error')
+                        #Hänvisar användaren till förstasidan
+                        return redirect("/")
+                #Är användaren inloggad sätts variablen username till användarens användarnamn
+                username = session["username"]
+        #Kontrollerar om användaren existerar
+        if(user_exists(username=username)):
+                db = Database()
+                cur = db.conn.cursor()
+                cur.execute("select username, firstname, lastname, biography, background, id from person where username='{}'".format(username))
+                user_info = cur.fetchone()
+                #Kontrollerar så en rad hittades
+                if(user_info is not None):
+                        cur.execute("select * from follow join person on follow.follower=person.id where person.username=%s", [username])
+                        following = cur.fetchall()
+                        following_count = len(following)
+
+                        cur.execute("select * from follow join person on follow.following=person.id where person.username=%s", [username])
+                        followers = cur.fetchall()
+                        follower_count = len(followers)
+
+                        cur.execute("select count(*) from album where owner=%s", [user_info[5]])
+                        album_count = cur.fetchone()
+                        
+                        #Visar profilsidan med informationen hämtad från databasen
+                        return render_template("profile.html", user_info=user_info, album_count=album_count, following_count=following_count, follower_count=follower_count)
+        #Kunde inte hitta information om användaren
+        return "Could not find profile"
 
 @app.route("/login", methods = ["POST"])
 def login():
         username = request.form.get("username")
         password = request.form.get("password")
+        #Kontrollerar så användarnamn och lösenord är ifyllda
         if(username.strip() and password.strip()):
+                #Kontrollerar så användarnamnet och lösenorder matchar
                 if(check_password(password, username = username)):
+                        #Visar ett vällkommstmeddelande
+                        flash(u'Welcome back!', 'success')
+                        #Gör så användaren förblir inloggad
                         session.permanent = True
                         session["username"] = username
                         return jsonify(True)
@@ -26,6 +76,7 @@ def login():
 
 @app.route("/logout")
 def logout():
+        #Rensa cookies och hänvisa till förstasidan
         session.clear()
         return redirect("/")
 
@@ -37,8 +88,12 @@ def register():
         email = request.form.get("email")
         password = request.form.get("password")
         password2 = request.form.get("password2")
+        #Kollar så lössenorden matchar
         if(password == password2):
+                #Om det gick att skapa användare
                 if(create_user(firstname, lastname, username, email, password)):
+                        #Gör så användaren förblir inloggad
+                        session.permanent = True
                         session["username"] = username
                         flash(u'Welcome to Destination Line', 'success')
                         return redirect("/")
@@ -49,11 +104,15 @@ def register():
 #Skapa en ny användare
 def create_user(firstname, lastname, username, email, password):
         ''' Skapar en ny användare '''
+        #Kollar så input-värdena inte är tomma
         if(firstname.strip() and lastname.strip() and username.strip() and email.strip() and password.strip()):
+                #Kollar så användarnamnet och emailen inte redan finns registrerat
                 if (not user_exists(username=username) and not user_exists(email=email)):
                         db = Database()
+                        #Hashar lösenordet
                         password = bcrypt.hashpw(password.encode("utf8"), bcrypt.gensalt(12)).decode("utf8").replace("'", '"')
                         cur = db.conn.cursor()
+                        #Läger in rad i tabellen person
                         cur.execute("insert into person(firstname, lastname, username, email, password) values (%s, %s, %s, %s, %s)", (firstname, lastname, username, email, password))
                         cur.close()
                         db.conn.commit()
@@ -64,45 +123,53 @@ def create_user(firstname, lastname, username, email, password):
 def user_exists(username=None, email=None, user_id=None):
         db = Database()
         cur = db.conn.cursor()
+        #Om användarnamn är angivet
         if(not username == None):
                 cur.execute("select * from person where username = '{}'".format(username))
+        #Om email är angivet
         elif(not email == None):
                 cur.execute("select * from person where email = '{}'".format(email))
+        #Om användarID är angivet
         elif(not user_id == None):
                 cur.execute("select * from person where id = '{}'".format(user_id))
         else:
                 return False
         row = cur.fetchone()
         cur.close()
+        #Retunerar True ifall rad hittades, annars False
         return row is not None
 
 #Kontrollera lösenord baserat på username eller email
-def check_password(password, username = None, email = None):
+def check_password(password, username = None, email = None, user_id=None):
         ''' Kontrollerar användares lösenord '''
         db = Database()
         cur = db.conn.cursor()
-        if(not username == None and user_exists(username=username)):
+        #Om användarnamn är angivet och finns i databasen
+        if(not username == None):
                 cur.execute("select password from person where username='{}'".format(username))
-        elif(not email == None and user_exists(email=email)):
+        #Om email är angivet och finns i databasen
+        elif(not email == None):
                 cur.execute("select password from person where email='{}'".format(email))
+        #Om användarID är angivet och finns i databasen
+        elif(not user_id == None):
+                cur.execute("select password from person where id='{}'".format(user_id))
         else:
-                #Användaren hittades inte
                 return False
-
         #Hämtar det hashade lösenordet från databasen
-        hashpassword = cur.fetchone()[0].replace('"', "'").encode("utf8")
-        cur.close()
+        hashpassword = cur.fetchone()
         if(hashpassword is not None):
                 #Retunerar True/False beroende på om det stämmer överrens eller inte
-                return bcrypt.checkpw(password.encode("utf8"), hashpassword)
+                return bcrypt.checkpw(password.encode("utf8"), hashpassword[0].replace('"', "'").encode("utf8"))
         return False
 
 #Hämta användarens id från username eller email
 def get_user_id(username=None, email=None):
         db = Database()
         cur = db.conn.cursor()
+        #Om användarnamn är angivet och finns i databasen
         if(not username == None and user_exists(username=username)):
                 cur.execute("select id from person where username='{}'".format(username))
+        #Om email är angivet och finns i databasen
         elif(not email == None and user_exists(email=email)):
                 cur.execute("select id from person where email='{}'".format(email))
         else:
@@ -117,24 +184,19 @@ def get_user_id(username=None, email=None):
 def owns_album(album_id, username=None, email=None, user_id=None):
         db = Database()
         cur = db.conn.cursor()
-        if(username != None or email != None or user_id != None):
-                cur.execute("select owner from album where id='{}'".format(int(album_id)))
-                owner_id = cur.fetchone()[0]
-                if(owner_id is None):
-                        return False
-                owner_id = int(owner_id)
-                if(not user_id == None and user_exists(user_id=user_id)):
-                        return int(user_id) == owner_id
-                elif(not username == None and user_exists(username=username)):
-                        return int(get_user_id(username=username)) == owner_id
-                elif(not email == None and user_exists(email=email)):
-                        return int(get_user_id(email=email)) == owner_id
-        return False
+        if(username is not None):
+                cur.execute("select exists(select * from album join person on album.owner=person.id where person.username=%s and album.id=%s)", (username, album_id))
+        elif(email is not None):
+                cur.execute("select exists(select * from album join person on album.owner=person.id where person.email=%s and album.id=%s)", (email, album_id))
+        elif(user_id is not None):
+                cur.execute("select exists(select * from album where album.owner=%s and album.id=%s)", (user_id, album_id))
+        else:
+                return False
+        return cur.fetchone()[0]
 
-#Hämtar profilinformation om användaren
-def get_info(username):
-                db = Database()
-                cur = db.conn.cursor()
-                cur.execute("select username, firstname, lastname, biography, background from person where username='{}'".format(username))
-                user_profile = cur.fetchall()
-                return user_profile
+def setup_follow(user_id, target_id):
+        db = Database()
+        cur = db.conn.cursor()
+        #Lägger till följnings-koppling mellan två personer
+        cur.execute("insert into follow(follower, following) values(%s, %s)", (user_id, target_id))
+        db.conn.commit()

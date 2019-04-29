@@ -43,9 +43,9 @@
                     <span>Profile</span>
                 </a>
                 <div class="dropdown_content">
-                    <a class="dropdown_link" href="/profile/{{session['username']}}">My Profile</a>
+                    <a class="dropdown_link" href="{{ url_for('user.profile') }}">My Profile</a>
                     <a class="dropdown_link" href="#">Settings</a>
-                    <a class="dropdown_link" href="/logout">Logout</a>
+                    <a class="dropdown_link" href="{{ url_for('user.logout') }}">Logout</a>
                 </div>
                 {% endif %}
             </div>

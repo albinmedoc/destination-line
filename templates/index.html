@@ -15,15 +15,44 @@
 {% block main %}
 {% if("username" in session) %}
 <section id="explore_tabs" class="is_visible">
-    <a href="#" id="followers" class="explore_tab">
-        <h2>Follow</h2>
+    <a href="#" class="explore_tab following active">
+        <h2>Following</h2>
     </a>
-    <a href="#" id="explore" class="explore_tab">
+    <a href="#" class="explore_tab explore">
         <h2>Explore</h2>
     </a>
 </section>
 {% endif %}
-
+<section id="explore">
+    {% if explore_albums is defined %}
+        {% for album in explore_albums %}
+        <div class="album">
+            <img src="{{ url_for('image.uploaded_images', image_id=album[4]) }}">
+            <div class="info_circle">
+                <h1 class="city flex_font">{{ album[0] }}</h1>
+                <h2 class="country flex_font">{{ album[1] }}</h2>
+                <i class="material-icons">camera_alt</i>
+                <a href="{{ url_for('user.profile', username=album[5]) }}" class="author">{{ album[2] + " " + album[3] }}</a>
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+</section>
+<section id="following">
+    {% if following_albums is defined %}
+        {% for album in following_albums %}
+        <div class="album">
+            <img src="{{ url_for('image.uploaded_images', image_id=album[4]) }}">
+            <div class="info_circle">
+                <h1 class="city flex_font">{{ album[0] }}</h1>
+                <h2 class="country flex_font">{{ album[1] }}</h2>
+                <i class="material-icons">camera_alt</i>
+                <a href="{{ url_for('user.profile', username=album[5]) }}" class="author">{{ album[2] + " " + album[3] }}</a>
+            </div>
+        </div>
+        {% endfor %}
+    {% endif %}
+</section>
 <div class="album">
     <img src="https://www.w3schools.com/howto/img_parallax.jpg">
     <div class="info_circle">

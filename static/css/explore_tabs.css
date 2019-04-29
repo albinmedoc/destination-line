@@ -1,6 +1,6 @@
 #explore_tabs {
     position: fixed;
-    top: 60px;
+    top: 0;
     height: 60px;
     width: 100%;
     background-color: rgba(255, 255, 255, 0.986);
@@ -8,18 +8,18 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    transform: translateY(-60px);
-    transition: .2s ease;
+    transition: .15s ease;
     margin: auto;
     left: 0;
     right: 0;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.116);
 }
 
 #explore_tabs.is_visible {
-    transform: none;
+    top: 60px;
 }
 
-.explore_tab {
+#explore_tabs > .explore_tab {
     position: relative;
     display: flex;
     flex-grow: 1;
@@ -29,30 +29,31 @@
     height: 100%;
 }
 
-.explore_tab::after {
+#explore_tabs > .explore_tab::after {
     content: '';
     position: absolute;
     height: 2px;
     width: 100%;
-    background-color: rgb(66, 66, 66);
+    background-color: rgb(63, 139, 238);
     bottom: 0;
     transform: scaleX(0);
     opacity: 0;
     transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-.explore_tab:hover::after {
+#explore_tabs > .explore_tab:hover::after,
+#explore_tabs > .explore_tab.active::after {
     transform: none;
     opacity: 1;
 }
 
-.explore_tab > h2{
+#explore_tabs > .explore_tab > h2{
     font-size: 18px;
     font-weight: 500;
 }
 
-#followers h2::before,
-#explore h2::before,
+#explore_tabs > .explore_tab > .following > h2::before,
+#explore_tabs > .explore_tab > .explore > h2::before,
 #profile::before {
     font-family: "Material Icons";
     position: absolute;
@@ -60,10 +61,10 @@
     transform: translateX(-30px);
 }
 
-#followers > h2::before {
+.explore_tab > .following > h2::before {
     content: "people";
 }
 
-#explore > h2::before {
+.explore_tab > .explore > h2::before {
     content: "public";
 }

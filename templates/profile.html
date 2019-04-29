@@ -1,33 +1,77 @@
 {% extends "layout.html" %}
 {% block head %}
 {{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
 <!-- Endast ifall användaren är utloggad -->
 <link rel="stylesheet" href="{{ url_for('static', filename='css/login_signup.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive_form.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
 {% endblock head %}
 {% block main %}
 <section id="profile_container">
-    <!-- <i class="material-icons change_background">add_a_photo</i>
-    <i class="material-icons settings">create</i> -->
-    <i class="material-icons follow">favorite_border</i>
-    <img id="background_img"
-        src="https://images.mentalfloss.com/sites/default/files/styles/mf_image_16x9/public/111798556-565x376_1.jpg?itok=CX04tBbz&resize=1100x1100">
-    <section id="profile_info_container">
-        <section id="profile_img">
-            <img src="https://iso.500px.com/wp-content/uploads/2016/03/pedroquintela.jpg">
-            <i class="material-icons">add_a_photo</i>
+    <div id="icon_row">
+        {% if session["username"] == user_info[0] %}
+        <div class="button_container">
+            <i class="material-icons button_icon_container">add_a_photo</i>
+            <div class="button_text_container">
+                <span>Change Background</span>
+            </div>
+        </div>
+        <div class="button_container">
+            <i class="material-icons button_icon_container">create</i>
+            <div class="button_text_container">
+                <span>Profile Settings</span>
+            </div>
+        </div>
+        {% elif "username" in session %}
+        <div class="button_container follow">
+            <i class="material-icons button_icon_container">favorite_border</i>
+            <div class="button_text_container">
+                <span>Follow</span>
+            </div>
+        </div>
+        {% endif %}
+    </div>
+    <section id="profile_header">
+
+    </section>
+    <section id="profile_main">
+        <section id="stats_container">
+            <a>
+                <h3>{{ following_count }}</h3>
+                <span>Following</span>
+            </a>
+            <a>
+                <section id="profile_img">
+                    <img src="https://iso.500px.com/wp-content/uploads/2016/03/pedroquintela.jpg">
+                    {% if session["username"] == user_info[0] %}
+                    <div class="button_container">
+                        <i class="material-icons button_icon_container">add_a_photo</i>
+                        <div class="button_text_container">
+                            <span>Change profile</span>
+                        </div>
+                    </div>
+                    {% endif %}
+                </section>
+            </a>
+            <a>
+                <h3>{{ follower_count }}</h3>
+                <span>Followers</span>
+            </a>
         </section>
         <section id="profile_info">
-            <h2>{{user_profile[0][1]}} {{user_profile[0][2]}}</h2>
-            <p>Photographer Photographer Photographer Photographer</p>
+            <h2>{{user_info[1]}} {{user_info[2]}}</h2>
+            <blockquote>Photography is what drives me, it's my passion and I love it</blockquote>
         </section>
-        <section id="follow_followers">
-            <a href="follow_page"><div><span>Follow</span></div></a>
-            <a href="followers_page"><div><span>Followers</span></div></a>
+
+        <!-- Här ska album finnas -->
+        <section class="albums_container">
+            <h2>Album: {{album_count[0]}}</h2>
         </section>
     </section>
-    
-    
+</section>
 </section>
 {% endblock main %}
+{% block javascript %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/profile.js') }}"></script>
+{% endblock javascript %}

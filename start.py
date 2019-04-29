@@ -1,6 +1,6 @@
 # coding: UTF-8
 import psycopg2
-from flask import Flask, flash, render_template
+from flask import Flask, flash, render_template, session
 from os import urandom
 from sys import argv
 import User, Image
@@ -11,12 +11,14 @@ app.secret_key = urandom(24)
 
 @app.route("/")
 def index():
+        explore_albums = Image.get_new_albums()
+        if(explore_albums is not None):
+                if("username" in session):
+                        following_albums = Image.get_new_following_albums()
+                        if(following_albums is not None):
+                                return render_template("index.html", explore_albums=explore_albums, following_albums=following_albums)
+                return render_template("index.html", explore_albums=explore_albums)
         return render_template("index.html")
-
-@app.route("/profile/<username>")
-def profile(username):
-        # Kolla om användaren besöker sin egna profil, skickar med användarens profil
-        return render_template("profile.html", user_profile = User.get_info(username))
 
 @app.route("/timeline")
 def timeline():
