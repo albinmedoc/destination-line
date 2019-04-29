@@ -52,14 +52,6 @@ def profile(username=None):
 
                         cur.execute("select count(*) from album where owner=%s", [user_info[5]])
                         album_count = cur.fetchone()
-
-                        print("Following:" )
-                        print(following)
-                        print("Count: " + str(following_count))
-
-                        print("Followers:" )
-                        print(followers)
-                        print("Count: " + str(follower_count))
                         
                         #Visar profilsidan med informationen hämtad från databasen
                         return render_template("profile.html", user_info=user_info, album_count=album_count, following_count=following_count, follower_count=follower_count)
