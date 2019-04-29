@@ -42,12 +42,24 @@ def profile(username=None):
                 user_info = cur.fetchone()
                 #Kontrollerar så en rad hittades
                 if(user_info is not None):
+                        cur.execute("select * from follow join person on follow.follower=person.id where person.username=%s", [username])
+                        following = cur.fetchall()
+                        following_count = len(following)
+
+                        cur.execute("select * from follow join person on follow.following=person.id where person.username=%s", [username])
+                        followers = cur.fetchall()
+                        follower_count = len(followers)
+
                         cur.execute("select count(*) from album where owner=%s", [user_info[5]])
                         album_count = cur.fetchone()
-                        cur.execute("select count(*) from follow where follower=%s", [user_info[5]])
-                        following_count = cur.fetchone()
-                        cur.execute("select count(*) from follow where following=%s", [user_info[5]])
-                        follower_count = cur.fetchone()
+
+                        print("Following:" )
+                        print(following)
+                        print("Count: " + str(following_count))
+
+                        print("Followers:" )
+                        print(followers)
+                        print("Count: " + str(follower_count))
                         
                         #Visar profilsidan med informationen hämtad från databasen
                         return render_template("profile.html", user_info=user_info, album_count=album_count, following_count=following_count, follower_count=follower_count)
@@ -190,9 +202,9 @@ def owns_album(album_id, username=None, email=None, user_id=None):
                 return False
         return cur.fetchone()[0]
 
-def setup_follow(userid, targetid):
+def setup_follow(user_id, target_id):
         db = Database()
         cur = db.conn.cursor()
         #Lägger till följnings-koppling mellan två personer
-        cur.execute("insert into follow(follower, following) values(%s, %s)", (userid, targetid))
+        cur.execute("insert into follow(follower, following) values(%s, %s)", (user_id, target_id))
         db.conn.commit()

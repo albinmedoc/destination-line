@@ -8,56 +8,56 @@
 {% endblock head %}
 {% block main %}
 <section id="profile_container">
-        <div id="icon_row">
-                {% if session["username"] == user_info[0] %}
-                <div class="button_container">
-                    <i class="material-icons button_icon_container">add_a_photo</i>
-                    <div class="button_text_container">
-                        <span>Change Background</span>
-                    </div>
-                </div>
-                <div class="button_container">
-                    <i class="material-icons button_icon_container">create</i>
-                    <div class="button_text_container">
-                        <span>Profile Settings</span>
-                    </div>
-                </div>
-                {% elif "username" in session %}
-                <div class="button_container follow">
-                    <i class="material-icons button_icon_container">favorite_border</i>
-                    <div class="button_text_container">
-                        <span>Follow</span>
-                    </div>
-                </div>
-                {% endif %}
+    <div id="icon_row">
+        {% if session["username"] == user_info[0] %}
+        <div class="button_container">
+            <i class="material-icons button_icon_container">add_a_photo</i>
+            <div class="button_text_container">
+                <span>Change Background</span>
             </div>
+        </div>
+        <div class="button_container">
+            <i class="material-icons button_icon_container">create</i>
+            <div class="button_text_container">
+                <span>Profile Settings</span>
+            </div>
+        </div>
+        {% elif "username" in session %}
+        <div class="button_container follow">
+            <i class="material-icons button_icon_container">favorite_border</i>
+            <div class="button_text_container">
+                <span>Follow</span>
+            </div>
+        </div>
+        {% endif %}
+    </div>
     <section id="profile_header">
-        
+
     </section>
     <section id="profile_main">
-            <section id="stats_container">
-                    <a>
-                        <h3>{{ following_count[0] }}</h3>
-                        <span>Following</span>
-                    </a>
-                    <a>
-                            <section id="profile_img">
-                                    <img src="https://iso.500px.com/wp-content/uploads/2016/03/pedroquintela.jpg">
-                                    {% if session["username"] == user_info[0] %}
-                                    <div class="button_container">
-                                        <i class="material-icons button_icon_container">add_a_photo</i>
-                                        <div class="button_text_container">
-                                            <span>Change profile</span>
-                                        </div>
-                                    </div>
-                                    {% endif %}
-                                </section>
-                    </a>
-                    <a>
-                        <h3>{{ follower_count[0] }}</h3>
-                        <span>Followers</span>
-                    </a>
+        <section id="stats_container">
+            <a>
+                <h3>{{ following_count }}</h3>
+                <span>Following</span>
+            </a>
+            <a>
+                <section id="profile_img">
+                    <img src="https://iso.500px.com/wp-content/uploads/2016/03/pedroquintela.jpg">
+                    {% if session["username"] == user_info[0] %}
+                    <div class="button_container">
+                        <i class="material-icons button_icon_container">add_a_photo</i>
+                        <div class="button_text_container">
+                            <span>Change profile</span>
+                        </div>
+                    </div>
+                    {% endif %}
                 </section>
+            </a>
+            <a>
+                <h3>{{ follower_count }}</h3>
+                <span>Followers</span>
+            </a>
+        </section>
         <section id="profile_info">
             <h2>{{user_info[1]}} {{user_info[2]}}</h2>
             <blockquote>Photography is what drives me, it's my passion and I love it</blockquote>
@@ -65,7 +65,7 @@
 
         <!-- Här ska album finnas -->
         <section class="albums_container">
-                <h2>Album: {{album_count[0]}}</h2>
+            <h2>Album: {{album_count[0]}}</h2>
         </section>
     </section>
 </section>
