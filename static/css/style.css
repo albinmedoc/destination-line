@@ -29,7 +29,7 @@ i {
     transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-input{
+input, button{
     font-family: 'Titillium Web';
 }
 
