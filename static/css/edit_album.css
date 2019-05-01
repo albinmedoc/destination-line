@@ -1,9 +1,7 @@
 .album_grid_container {
     display: grid;
     grid-gap: 20px;
-    grid-template-areas: 
-        "upload_form"
-        "preview";
+    grid-template-columns: 1fr;
 }
 
 .progress_bar {
@@ -11,18 +9,12 @@
     top: 60px;
     width: 100%;
     height: 3px;
+    display: none;
     /*background-color: rgb(111, 202, 255); ska ej synas vid utveckling*/
 }
 
 #upload_form {
-    text-align: center;
     grid-area: "upload_form";
-}
-
-fieldset{
-    border: none;
-    margin: 0;
-    padding: 0;
 }
 
 #preview {
@@ -72,74 +64,47 @@ fieldset{
     position: absolute;
 }
 
-.button_container{
+.post>.button_container, .post>i.reorder{
     position: absolute;
     z-index: 1;
 }
 
-.img_close{
+.post>.button_container.img_close{
     top: 0;
     right: 0;
 }
 
-.img_info{
+.post>.button_container.img_modal_open{
     bottom: 0;
     left: 0;
 }
 
 .post>i.reorder {
-    position: absolute;
     bottom: 5px;
     right: 5px;
-    z-index: 1;
 }
 
-.image_info {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background-color: white;
-    text-align: center;
-    max-width: 800px;
+/* Egen animation för bildinformation-formulär */
+form.image_info{ 
+    transform: translateY(100%);
+    transition: transform .3s cubic-bezier(0.275, 0.82, 0.165, 1);
 }
 
-.image_info>.img_preview {
+form.image_info.is_visible{
+    transform: none;
+}
+
+form.image_info{
+    top: 60px;
+}
+
+form.image_info>.img_preview {
     height: 150px;
 }
 
-.image_info textarea {
+form.image_info textarea {
     resize: none;
     min-height: calc(100vh - 600px);
-}
-
-.cancel_modal {
-    position: absolute;
-    right: 15px;
-    top: 15px;
-}
-
-#modal {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    transform: translateY(100%);
-    transform-origin: bottom;
-    visibility: hidden;
-    transition: transform .5s, visibility .5s, opacity .5s;
-    transition-timing-function: cubic-bezier(0.275, 0.82, 0.165, 1);
-    z-index: 3;
-    background-color: rgba(0, 0, 0, 0.404);
-    position: fixed;
-    top: 60px;
-    right: 0;
-    bottom: 0;
-    left: 0;
-}
-
-#modal.is_visible {
-    transform: none;
-    visibility: visible;
-    opacity: 1;
 }
 
 @media (min-width:768px) {
@@ -155,14 +120,7 @@ fieldset{
         display: none;
     }
 
-    #modal{
-        transform: none;
-        opacity: 0;
-    }
-
     .image_info {
         width: 80vw;
-        height: auto;
-        border-radius: 5px;
     }
 }

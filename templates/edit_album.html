@@ -15,6 +15,7 @@
     <form id="upload_form" class="responsive_form">
         <fieldset>
             <h1>Create Album</h1>
+            <div class="form_row">
             {% if album_info is defined %}
             <div class="input_container">
                 <input id="country" type="text" name="country" placeholder=" " value="{{ album_info[0] }}" required>
@@ -45,7 +46,9 @@
             <div class="input_container">
                 <button type="submit">Upload album</button>
             </div>
+            
             {% endif %}
+            </div>
         </fieldset>
     </form>
     <!-- Förhandsvisningav bilder, samt sortera dem -->
@@ -69,18 +72,22 @@
 </section>
 
 <!-- Ruta för att lägga till text för bilder -->
-<section id="modal">
+<section class="modal" id="img_info_modal">
     <form class="image_info responsive_form">
         <a class="cancel_modal"><i class="material-icons">close</i></a>
         <h2>Image info</h2>
         <img class="img_preview">
-        <div class="input_container">
-            <input type="text" name="headline" placeholder=" " required>
-            <span>Headline</span>
+        <div class="form_row">
+            <div class="input_container">
+                <input type="text" name="headline" placeholder=" " required>
+                <span>Headline</span>
+            </div>
         </div>
-        <div class="input_container">
-            <textarea name="description" placeholder=" "></textarea>
-            <span>Image description</span>
+        <div class="form_row">
+            <div class="input_container">
+                <textarea name="description" placeholder=" "></textarea>
+                <span>Image description</span>
+            </div>
         </div>
     </form>
 </section>

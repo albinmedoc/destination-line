@@ -38,7 +38,7 @@ $(document).ready(function () {
                                     images[e.target.result] = [];
                                     images[e.target.result][0] = file;
                                     //Visar bilder
-                                    var post = "<div class='post'><div class='button_container img_close'><div class='button_text_container'><span>Delete image</span></div><i class='material-icons button_icon_container'>close</i></div><div class='button_container img_info'><i class='material-icons button_icon_container'>info</i><div class='button_text_container'><span>Image info</span></div></div><img src='" + e.target.result + "'><i class='material-icons reorder'>reorder</i></div>";
+                                    var post = "<div class='post'><div class='button_container img_close'><div class='button_text_container'><span>Delete image</span></div><i class='material-icons button_icon_container'>close</i></div><div class='button_container img_modal_open'><i class='material-icons button_icon_container'>info</i><div class='button_text_container'><span>Image info</span></div></div><img src='" + e.target.result + "'><i class='material-icons reorder'>reorder</i></div>";
                                     $("#upload_btn").after(post);
                                 } else {
                                     alert("The image " + file.name + " has already been uploaded. Skipping..")
@@ -111,17 +111,17 @@ $(document).ready(function () {
         });
     });
 
-    $("#upload_btn").parent().on("click", ".img_info", function () {
+    $("#upload_btn").parent().on("click", ".img_modal_open", function () {
         //Hämtar img_url
         var img_url =  $(this).siblings("img").attr("src");
         //Sätter input för rubrik till värdet i data-attributet "headline"
-        $("#modal input[name='headline']").val($(this).parent().data("headline"))
+        $("#img_info_modal input[name='headline']").val($(this).parent().data("headline"))
         //Sätter input för beskrivning till värdet i data-attributet "description"
-        $("#modal textarea[name='description']").val($(this).parent().data("description"));
+        $("#img_info_modal textarea[name='description']").val($(this).parent().data("description"));
         //Sätter rätt img_url
-        $("#modal .img_preview").attr("src", img_url);
+        $("#img_info_modal .img_preview").attr("src", img_url);
         //Visar modal
-        $("#modal").addClass("is_visible");
+        $("#img_info_modal, .image_info").addClass("is_visible");
     });
 
     $(".cancel_modal").click(function () {
@@ -139,7 +139,7 @@ $(document).ready(function () {
         //#Kontrollera så ovanstående inte är tomma innan dem sätts in i data-attributen#
 
         //Döljer modal
-        $("#modal").removeClass("is_visible");
+        $("#img_info_modal, .image_info").removeClass("is_visible");
         //Tömmer fälten för rubrik och beskrivning
         $("#modal input[name='headline']").val("");
         $("#modal textarea[name='description']").val("");
