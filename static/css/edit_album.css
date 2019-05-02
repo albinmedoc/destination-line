@@ -13,15 +13,10 @@
     /*background-color: rgb(111, 202, 255); ska ej synas vid utveckling*/
 }
 
-#upload_form {
-    grid-area: "upload_form";
-}
-
 #preview {
     margin: 20px;
     display: grid;
-    grid-gap: 30px;
-    grid-area: "preview";
+    grid-gap: 20px;
     justify-content: space-evenly;
     grid-template-columns: repeat(auto-fill, minmax(280px, 280px));
 }
@@ -50,11 +45,17 @@
 .post,
 #upload_btn {
     position: relative;
-    display: block;
     height: 200px;
     width: 100%;
-    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.24);
+    transform: none;
+    box-shadow: 0 2px 5px rgb(209, 209, 209);
     animation: fade_in .5s forwards;
+    transition: box-shadow .2s;
+}
+
+.post:hover,
+#upload_btn:hover{
+    box-shadow: 0 5px 10px rgb(177, 177, 177);
 }
 
 .post>img {
@@ -85,8 +86,8 @@
 }
 
 /* Egen animation för bildinformation-formulär */
-form.image_info{ 
-    transform: translateY(100%);
+form.image_info{
+    transform: translateY(500px);
     transition: transform .3s cubic-bezier(0.275, 0.82, 0.165, 1);
 }
 
@@ -96,10 +97,13 @@ form.image_info.is_visible{
 
 form.image_info{
     top: 60px;
+    min-height: 500px;
 }
 
 form.image_info>.img_preview {
     height: 150px;
+    width: 250px;
+    object-fit: cover;
 }
 
 form.image_info textarea {
@@ -111,16 +115,18 @@ form.image_info textarea {
     .album_grid_container{
         grid-template-columns: 350px 3fr;
     }
+
     #upload_form > fieldset{
         position: fixed;
         width: 350px;
+        box-shadow: 0 2px 5px rgb(240, 240, 240);
     }
 
     .post>i.reorder {
         display: none;
     }
 
-    .image_info {
-        width: 80vw;
+    form.image_info {
+        top: 0;
     }
 }
