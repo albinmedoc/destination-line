@@ -4,7 +4,7 @@ nav {
     position: fixed;
     display: flex;
     background-color: rgba(255, 255, 255, 0.952);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.397);
+    box-shadow: 0 0 5px rgb(221, 221, 221);
     z-index: 2;
     transition: .15s ease;
     justify-content: space-between;
