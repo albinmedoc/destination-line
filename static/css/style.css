@@ -15,22 +15,20 @@ body {
     font-weight: 300;
     overflow-x: hidden;
     overflow-y: visible;
-    margin-top: 60px;
     text-shadow: 0 0 1px rgba(0, 0, 0, 0.26);
+    color: rgb(66,66,66);
+    margin-top: 60px;
 }
 
-a {
+a, button, input {
     text-decoration: none;
     color: rgb(66, 66, 66);
+    font-size: 16px;
+    font-family: 'Titillium Web';
 }
 
 i {
-    color: rgb(66, 66, 66);
     transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-
-input, button{
-    font-family: 'Titillium Web';
 }
 
 .material-icons {
