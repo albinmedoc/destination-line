@@ -34,7 +34,7 @@
     position: absolute;
     height: 2px;
     width: 100%;
-    background-color: rgb(63, 139, 238);
+    background-color: rgb(79, 173, 236);
     bottom: 0;
     transform: scaleX(0);
     opacity: 0;
@@ -52,19 +52,19 @@
     font-weight: 500;
 }
 
-#explore_tabs > .explore_tab > .following > h2::before,
-#explore_tabs > .explore_tab > .explore > h2::before,
+#explore_tabs > .explore_tab.following>h2::before,
+#explore_tabs > .explore_tab.explore>h2::before,
 #profile::before {
     font-family: "Material Icons";
+    transform: translateX(-25px);
     position: absolute;
     top: 20px;
-    transform: translateX(-30px);
 }
 
-.explore_tab > .following > h2::before {
+#explore_tabs>.explore_tab.following>h2::before {
     content: "people";
 }
 
-.explore_tab > .explore > h2::before {
+#explore_tabs>.explore_tab.explore>h2::before {
     content: "public";
 }
