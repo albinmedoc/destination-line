@@ -1,7 +1,7 @@
 {% extends "layout.html" %}
 {% block head %}
 {{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/album.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/list_albums.css') }}">
 
 <!-- Endast ifall användaren är utloggad -->
 {% if("username" in session) %}
