@@ -4,16 +4,16 @@
             <h2 id="logo_wide">Destination Line</h2>
             <h2 id="logo_icon">DL</h2>
         </a>
-        <div id="search_container">
+        
+    </div>
+    <ul>
+        <li id="search_container">
             <input id="search" type="text" placeholder="Search for places...">
             <a href="#search">
                 <i class="material-icons">search</i>
-                <p>Search</p>
+                <span>Search</span>
             </a>
-        </div>
-    </div>
-    <ul id="right">
-
+        </li>
         <!-- Visa uppladdningsknapp om inloggad -->
         {% if("username" in session) %}
         <li>
@@ -37,8 +37,7 @@
                     <span>Login</span>
                 </a>
                 {% else %}
-
-                <a href="#">
+                <a>
                     <i class="material-icons">account_circle</i>
                     <span>Profile</span>
                 </a>
