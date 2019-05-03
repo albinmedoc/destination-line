@@ -1,7 +1,9 @@
-$(document).ready(function () {
-    var images = new Object();
-//images[key] = ["Fil", "Titel", "Beskrivning"]
+var UPLOAD_LIMIT = 4;
+var images = new Object();
 
+$(document).ready(function () {
+
+    //Date-picker
     var period = new Lightpick({
         field: document.getElementById("period"),
         singleDate: false,
@@ -9,50 +11,58 @@ $(document).ready(function () {
         maxDate: moment()
     });
 
+    //Knapp för att välja bilder
     $("#upload_btn").click(function () {
         $("#upload").trigger("click");
     });
 
     $("#upload").change(function () {
-        if (this.files && this.files.length <= 60) {
-            for (var i = 0; i < this.files.length; i++) {
-                var file = this.files[i];
-                //Kollar om filen har bildformat
-                if (file.type.match("image.*")) {
-                    console.log(file.size)
-                    if (file.size <= 6000000) {
-                        var reader = new FileReader();
-                        reader.onload = (function (file) {
-                            return function (e) {
-                                image = new Image();
-                                image.onload = function (e) {
-                                    return function (e) {
-                                        console.log(image.width);
-                                        console.log(image.height);
-                                    }
-                                }(e);
-                                image.src = e.target.result;
-                                //Kollar om bilden redan är i listan
-                                if (!(e.target.result in images)) {
-                                    //Sparar filen i Listan
-                                    images[e.target.result] = [];
-                                    images[e.target.result][0] = file;
-                                    //Visar bilder
-                                    var post = "<div class='post' data-headline='' data-description=''><div class='button_container img_close'><div class='button_text_container'><span>Delete image</span></div><i class='material-icons button_icon_container'>close</i></div><div class='button_container img_modal_open'><i class='material-icons button_icon_container'>info</i><div class='button_text_container'><span>Image info</span></div></div><img src='" + e.target.result + "'><i class='material-icons reorder'>reorder</i></div>";
-                                    $("#upload_btn").after(post);
-                                } else {
-                                    alert("The image " + file.name + " has already been uploaded. Skipping..")
-                                }
+        for (var i = 0; i < this.files.length; i++) {
+            var file = this.files[i];
+            //Kollar om filen har bildformat
+            if (file.type.match("image.*")) {
+                console.log(file.size)
+                if (file.size <= 6000000) {
+                    var reader = new FileReader();
+                    reader.onload = (function (file) {
+                        return function (e) {
+
+                            //Kontrollerar att maxgränsen av bilder överstiger
+                            if(Object.keys(images).length >= UPLOAD_LIMIT){
+                                console.log("You can only upload " + UPLOAD_LIMIT + " images in total!");
+                                return;
                             }
-                        })(file);
-                        reader.readAsDataURL(file);
-                        console.log(file);
-                    } else {
-                        alert("The image " + file.name + " is too large. Skipping..");
-                    }
+
+                            image = new Image();
+                            image.onload = function (e) {
+                                return function (e) {
+                                    console.log(image.width);
+                                    console.log(image.height);
+                                }
+                            }(e);
+                            image.src = e.target.result;
+                            
+                            
+                            //Kollar om bilden redan är i listan
+                            if (!(e.target.result in images)) {
+                                //Sparar filen i Listan
+                                images[e.target.result] = [];
+                                images[e.target.result][0] = file;
+                                //Visar bilder
+                                var post = "<div class='post' data-headline='' data-description=''><div class='button_container img_close'><div class='button_text_container'><span>Delete image</span></div><i class='material-icons button_icon_container'>close</i></div><div class='button_container img_modal_open'><i class='material-icons button_icon_container'>info</i><div class='button_text_container'><span>Image info</span></div></div><img src='" + e.target.result + "'><i class='material-icons reorder'>reorder</i></div>";
+                                $("#upload_btn").after(post);
+                            } else {
+                                alert("The image " + file.name + " has already been uploaded. Skipping..")
+                            }
+                        }
+                    })(file);
+                    reader.readAsDataURL(file);
+                    console.log(file);
                 } else {
-                    alert("The file " + file.name + " is not an image. Skipping..");
+                    alert("The image " + file.name + " is too large. Skipping..");
                 }
+            } else {
+                alert("The file " + file.name + " is not an image. Skipping..");
             }
         }
         //Rensa fil-input
