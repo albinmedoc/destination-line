@@ -5,6 +5,7 @@ from os import urandom
 from sys import argv
 import User, Image
 from Settings import SERVER_IP, SERVER_PORT, DEBUG_MODE
+from Database import Database
 
 app = Flask(__name__)
 app.secret_key = urandom(24)
