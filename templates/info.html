@@ -1,13 +1,36 @@
 {% extends "layout.html" %}
 {% block head %}
 {{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/about.css') }}">
 {% if not("username" in session) %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/login_signup.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive_form.css') }}">
 {% endif %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/explore_tabs.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/info.css') }}">
 {% endblock head %}
 
 {% block main %}
-uggyuguyg
+<section id="info_container">
+    <section id="about_video">
+        <video autoplay="autoplay" loop="loop" muted>
+        <source src="static/bali.mp4" type="video/mp4"></video>
+    </section>
+    <section id="explore_tabs" class="is_visible">
+        <a href="#" class="explore_tab active">
+            <h2>About us</h2>
+        </a>
+        <a href="#" class="explore_tab">
+            <h2>Purpose</h2>
+        </a>
+        <a href="#" class="explore_tab">
+            <h2>The Team</h2>
+        </a>
+        <a href="#" class="explore_tab">
+            <h2>Future</h2>
+        </a>
+    </section>
+    <section id="about_us">
+
+    </section>
+</section>
 {% endblock main %}
