@@ -38,7 +38,7 @@ $(document).ready(function () {
                                     images[e.target.result] = [];
                                     images[e.target.result][0] = file;
                                     //Visar bilder
-                                    var post = "<div class='post'><div class='button_container img_close'><div class='button_text_container'><span>Delete image</span></div><i class='material-icons button_icon_container'>close</i></div><div class='button_container img_modal_open'><i class='material-icons button_icon_container'>info</i><div class='button_text_container'><span>Image info</span></div></div><img src='" + e.target.result + "'><i class='material-icons reorder'>reorder</i></div>";
+                                    var post = "<div class='post' data-headline='' data-description=''><div class='button_container img_close'><div class='button_text_container'><span>Delete image</span></div><i class='material-icons button_icon_container'>close</i></div><div class='button_container img_modal_open'><i class='material-icons button_icon_container'>info</i><div class='button_text_container'><span>Image info</span></div></div><img src='" + e.target.result + "'><i class='material-icons reorder'>reorder</i></div>";
                                     $("#upload_btn").after(post);
                                 } else {
                                     alert("The image " + file.name + " has already been uploaded. Skipping..")
@@ -85,13 +85,15 @@ $(document).ready(function () {
             //Kollar om rubrik är angivet
             if(typeof images[img_url][1] !== 'undefined') {
                 //Skickar med rubrik
-                data.append("headline" + i, images[img_url][1]);
+                
             }
             //Kollar om beskrivning är angivet
             if(typeof images[img_url][2] !== 'undefined') {
                 //Skickar med beskrivning
-                data.append("description" + i, images[img_url][2]);
+                
             }
+            data.append("headline" + i, post.attr("data-headline"));
+            data.append("description" + i, post.attr("data-description"));
             i++;
         });
         //Skickar Post-request
@@ -126,23 +128,26 @@ $(document).ready(function () {
 
     $(".cancel_modal").click(function () {
         //Hämtar img_url
-        var img_url = $("#modal .img_preview").attr("src");
+        var img_url = $("#img_info_modal .img_preview").attr("src");
         //Hittar .post-elementet med hjälp av img_url
         var post = $(".post > img[src$='" + img_url + "']").parent();
         //Hämtar rubrik och beskrivning
-        var headline = $("#modal input[name='headline']").val();
-        var description = $("#modal textarea[name='description']").val();
+        var headline = $("#img_info_modal input[name='headline']").val();
+        var description = $("#img_info_modal textarea[name='description']").val();
+        console.log(headline);
+        console.log(description);
 
         //Sparar rubrik och beskrivning i data-attribut
-        post.data("headline", headline);
-        post.data("description", description);
+        post.attr("data-headline", headline);
+        post.attr("data-description", description);
+        console.log(post[0]);
         //#Kontrollera så ovanstående inte är tomma innan dem sätts in i data-attributen#
 
         //Döljer modal
         $("#img_info_modal, .image_info").removeClass("is_visible");
         //Tömmer fälten för rubrik och beskrivning
-        $("#modal input[name='headline']").val("");
-        $("#modal textarea[name='description']").val("");
+        $("#img_info_modal input[name='headline']").val("");
+        $("#img_info_modal textarea[name='description']").val("");
     });
 
     //Gör inläggen flyttbara, är det mobil måste man dra på ".reorder"-elementet
