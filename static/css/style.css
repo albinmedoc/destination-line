@@ -94,6 +94,13 @@ a, i, button, #upload_btn{
     color: black;
 }
 
+.progress_bar {
+    position: fixed;
+    height: 3px;
+    background-color: rgb(111, 202, 255);
+    transition: .3s cubic-bezier(0.075, 0.82, 0.665, 1);
+}
+
 /* Samling av animationer för att användas var som helst på hemsidan */
 @keyframes fade_in {
     from {
@@ -120,5 +127,28 @@ a, i, button, #upload_btn{
     }
     100%{
         transform: none;
+    }
+}
+
+@keyframes width_grow{
+    0%{
+        width:0;
+    }
+    100%{
+        width: 10%;
+    }
+}
+
+@keyframes width_grow_max{
+    0%{
+        width:10%;
+        opacity: 1;
+    }
+    8%{
+        width: 100%;
+    }
+    100%{
+        opacity: 0;
+        width: 100%;
     }
 }

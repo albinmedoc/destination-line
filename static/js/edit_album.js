@@ -15,6 +15,9 @@ $(document).ready(function () {
 
     $("#upload").change(function () {
         if (this.files && this.files.length <= 60) {
+            var steps = 100 / this.files.length;
+            var width = 0;
+            $("#upload_progress_bar").css("width", width + "%");
             for (var i = 0; i < this.files.length; i++) {
                 var file = this.files[i];
                 //Kollar om filen har bildformat
@@ -40,8 +43,12 @@ $(document).ready(function () {
                                     //Visar bilder
                                     var post = "<div class='post' data-headline='' data-description=''><div class='button_container img_close'><div class='button_text_container'><span>Delete image</span></div><i class='material-icons button_icon_container'>close</i></div><div class='button_container img_modal_open'><i class='material-icons button_icon_container'>info</i><div class='button_text_container'><span>Image info</span></div></div><img src='" + e.target.result + "'><i class='material-icons reorder'>reorder</i></div>";
                                     $("#upload_btn").after(post);
+                                    width = width + steps;
+                                    $("#upload_progress_bar").css("width", width + "%");
                                 } else {
-                                    alert("The image " + file.name + " has already been uploaded. Skipping..")
+                                    alert("The image " + file.name + " has already been uploaded. Skipping..");
+                                    width = width + steps;
+                                    $("#upload_progress_bar").css("width", width + "%");
                                 }
                             }
                         })(file);
@@ -49,11 +56,16 @@ $(document).ready(function () {
                         console.log(file);
                     } else {
                         alert("The image " + file.name + " is too large. Skipping..");
+                        width = width + steps;
+                        $("#upload_progress_bar").css("width", width + "%");
                     }
                 } else {
                     alert("The file " + file.name + " is not an image. Skipping..");
+                    width = width + steps;
+                    $("#upload_progress_bar").css("width", width + "%");
                 }
             }
+            
         }
         //Rensa fil-input
         $(this).val("");

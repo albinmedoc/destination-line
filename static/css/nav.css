@@ -139,6 +139,12 @@ med i CSS-standarden än */
     transform: none;
 }
 
+#page_loading_bar{
+    z-index: 5;
+    top: 0;
+    width: 10%;
+}
+
 /*För större skärmar*/
 @media (min-width:480px) {
     #logo_icon {
