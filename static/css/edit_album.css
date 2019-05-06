@@ -35,8 +35,8 @@
 .post,
 #upload_btn {
     position: relative;
-    height: 200px;
-    width: 100%;
+    width: 300px;
+    height: 168px;
     transform: none;
     box-shadow: 0 2px 5px rgb(209, 209, 209);
     animation: fade_in .5s forwards;

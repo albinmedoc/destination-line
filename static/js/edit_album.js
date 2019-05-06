@@ -33,16 +33,6 @@ $(document).ready(function () {
                                 console.log("You can only upload " + UPLOAD_LIMIT + " images in total!");
                                 return;
                             }
-
-                            image = new Image();
-                            image.onload = function (e) {
-                                return function (e) {
-                                    console.log(image.width);
-                                    console.log(image.height);
-                                }
-                            }(e);
-                            image.src = e.target.result;
-                            
                             
                             //Kollar om bilden redan är i listan
                             if (!(e.target.result in images)) {
