@@ -1,24 +1,15 @@
-main {
-    padding-top: 20px;
-    height: 400vh;
-}
-
-.progress_bar {
-    position: fixed;
-    top: 60px;
-    width: 100%;
-    height: 20px;
-}
-
-#upload_form {
-    text-align: center;
+.album_grid_container {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr;
 }
 
 #preview {
-    width: 100%;
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
+    margin: 20px;
+    display: grid;
+    grid-gap: 20px;
+    justify-content: space-evenly;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 280px));
 }
 
 #upload {
@@ -26,10 +17,9 @@ main {
 }
 
 #upload_btn {
+    background-color: rgb(255, 255, 255);
     border: none;
-    background-color: rgba(0, 0, 0, 0.3);
-    height: 123px;
-    cursor: pointer;
+    text-align: center;
 }
 
 #upload_btn::before {
@@ -39,45 +29,45 @@ main {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 75px;
-    color: white;
+    font-size: 55px;
 }
 
 .post,
 #upload_btn {
     position: relative;
-    display: block;
-    margin: 15px;
-    width: calc(50% - 30px);
+    height: 200px;
+    width: 100%;
+    transform: none;
+    box-shadow: 0 2px 5px rgb(209, 209, 209);
+    animation: fade_in .5s forwards;
+    transition: box-shadow .2s;
+}
+
+.post:hover,
+#upload_btn:hover{
+    box-shadow: 0 5px 10px rgb(177, 177, 177);
 }
 
 .post>img {
     width: 100%;
-    display: block;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
 }
 
-.post>p {
+.post>.button_container, .post>i.reorder{
     position: absolute;
-    margin: 0;
-    left: 5px;
+    z-index: 1;
+}
+
+.post>.button_container.img_close{
     top: 0;
-    color: blue;
+    right: 0;
 }
 
-.post>i {
-    position: absolute;
-    cursor: pointer;
-    color: blue;
-}
-
-.post>i.close {
-    top: 5px;
-    right: 5px;
-}
-
-.post>i.info {
-    bottom: 5px;
-    left: 5px;
+.post>.button_container.img_modal_open{
+    bottom: 0;
+    left: 0;
 }
 
 .post>i.reorder {
@@ -85,81 +75,52 @@ main {
     right: 5px;
 }
 
-.image_info {
-    z-index: 3;
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: white;
-    text-align: center;
+/* Egen animation för bildinformation-formulär */
+form.image_info{
+    transform: translateY(500px);
+    transition: transform .3s cubic-bezier(0.275, 0.82, 0.165, 1);
 }
 
-.image_info>.img_preview {
+form.image_info.is_visible{
+    transform: none;
+}
+
+form.image_info{
+    top: 60px;
+    min-height: 500px;
+}
+
+form.image_info>.img_preview {
     height: 150px;
+    width: 250px;
+    object-fit: cover;
 }
 
-.image_info textarea {
+form.image_info textarea {
     resize: none;
     min-height: calc(100vh - 600px);
 }
 
-.cancel_modal {
-    position: relative;
-    right: -47%;
-    bottom: -10px;
-}
-
-#modal {
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .4s, visibility .3s;
-}
-
-#modal.is_visible {
-    opacity: 1;
-    visibility: visible;
+#upload_progress_bar{
+    z-index: 1;
 }
 
 @media (min-width:768px) {
-    #upload_form {
-        width: 300px;
+    .album_grid_container{
+        grid-template-columns: 350px 3fr;
+    }
+
+    #upload_form > fieldset{
         position: fixed;
-        top: 100px;
-    }
-
-    #preview {
-        margin-left: 300px;
-        width: calc(100vw - 300px);
-    }
-
-    .post,
-    #upload_btn {
-        width: 250px;
+        width: 350px;
+        box-shadow: 0 2px 5px rgb(240, 240, 240);
     }
 
     .post>i.reorder {
         display: none;
     }
 
-    #modal {
-        z-index: 3;
-        background-color: rgba(0, 0, 0, 0.404);
-        position: fixed;
+    form.image_info {
         top: 0;
-        right: 0;
-        bottom: 0;
-        left: 0;
-    }
-
-    .image_info {
-        width: 80vw;
-        max-width: 800px;
-        height: auto;
-        top: 50%;
-        left: 50%;
-        transform: translate(-50%, -50%);
-        border-radius: 30px;
     }
 }

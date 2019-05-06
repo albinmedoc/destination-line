@@ -1,0 +1,19 @@
+#info_container{
+    display: grid;
+}
+
+#about_video>video {
+    display:block;
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    object-position: center;
+}
+
+#explore_tabs{
+    position: sticky;
+}
+
+#about_us{
+    min-height: 200vh;
+}

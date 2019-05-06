@@ -1,117 +1,144 @@
 #profile_container {
     position: relative;
+    min-height: 100%;
+    display: grid;
+    grid-template-columns: 1fr;
+}
+
+#profile_header {
     display: flex;
-    flex-direction: column;
-    align-items: center;
-    overflow: hidden;
-}
-
-#profile_container>i,
-#profile_img>i {
-    z-index: 1;
-    position: absolute;
-    color: white;
-    font-size: 2vw;
-    background-color: rgba(0, 0, 0, 0.411);
-    border-radius: 50%;
-    padding: 8px;
-    top: 10px;
-    cursor: pointer;
-    transition: none;
-}
-
-#profile_container>i.change_background {
-    left: 10px;
-}
-
-#profile_container>i.settings {
-    right: 10px;
-}
-
-#profile_container>i.follow {
-    right: 10px;
-    font-size: 4vw;
-    background-color: transparent;
-}
-
-#profile_container>#background_img {
-    width: 100%;
-    -webkit-filter: blur(3px);
-    /*Safari 6.0 - 9.0 */
-    filter: blur(3px);
-    position: absolute;
-}
-
-#profile_container>#profile_info_container {
-    position: relative;
-    display: flex;
-    flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100%;
-    top: 20px;
+    position: relative;
+    background-image: url("https://i.imgur.com/hQPW4K7.jpg");
+    background-position: center;
+    background-size: cover;
+    background-attachment: fixed;
+    padding: 50px 0;
+    height: 400px;
 }
 
+#profile_header::before {
+    content: '';
+    width: 100%;
+    position: absolute;
+    height: 100%;
+    filter: blur(3px);
+    background: inherit;
+    z-index: 0;
+}
+
+#icon_row {
+    position: fixed;
+    width: 100%;
+    top: 60px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: .15s ease;
+    z-index: 1;
+}
+
+
+
 #profile_img {
+    height: 150px;
+    width: 150px;
+    margin: auto;
     position: relative;
-    height: 25vw;
-    width: 25vw;
-    margin: 0 auto;
+    transform: translateY(-80%);
 }
 
 #profile_img>img {
     width: 100%;
     height: 100%;
     border-radius: 50%;
+    object-fit: cover;
     box-shadow: 0 5px 5px rgba(0, 0, 0, 0.411);
 }
 
-#profile_img>i {
-    top: 20vw;
-    right: 3.4vw;
+#profile_img>.button_container {
+    bottom: 0;
+    right: 0;
+    position: absolute;
+    background-color: rgb(255, 255, 255);
+    color: black;
+}
+
+#profile_main {
+    display: grid;
+    grid-auto-rows: min-content;
+    justify-content: center;
+    grid-gap: 20px;
+    background-color: rgb(255, 255, 255);
+    padding-top: 15px;
+    box-shadow: 0 -10px 50px 50px rgb(255, 255, 255);
+    width: 100%;
+    text-align: center;
+    padding: 15px 20px 0 20px;
+    z-index: 1;
+    animation: slide_in_from_bottom .5s forwards cubic-bezier(0.075, 0.82, 0.165, 1);
+}
+
+#profile_main>* {
+    max-width: 550px;
+}
+
+#stats_container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 4;
+    height: 50px;
+}
+
+#stats_container>a>h3 {
+    padding: 0;
+    margin: 0;
+}
+
+#stats_container>a {
+    margin: 0 10px 10px 10px;
+    color: black;
+}
+
+#stats_container>a>span {
+    font-size: 14px;
 }
 
 #profile_info {
-    text-align: center;
-    color: white;
-    max-width: 60vw;
+    display: flex;
+    align-items: center;
+    flex-flow: column;
+    border-bottom: 1px solid rgb(63, 139, 238);
 }
 
 #profile_info>h2 {
+    padding: 10px 0;
     margin: 0;
-    font-size: 3.5vw;
-    text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.507);
-}
-
-#profile_info>p {
-    margin: 0;
-    font-size: 2.5vw;
+    width: 100%;
+    font-size: 30px;
     font-family: 'Parisienne', cursive;
-    text-shadow: 0px 0px 2px rgba(0, 0, 0, 0.507);
 }
 
-#follow_followers{
-    text-align: center;
-    left: 50%;
-    z-index: 1;
-    justify-content: center;
-    align-items: center;
-    color: aliceblue;
-    display: flex;
+#profile_info>blockquote {
+    line-break: strict;
+    padding: 0;
+    margin: 0 40px;
+    font-size: 26px;
+    font-family: 'Parisienne', cursive;
+    line-height: 35px;
+    color: gray;
 }
 
-#follow_followers > a{
-    padding: 5vw;
-    text-decoration: none;
-    color: white;
+#profile_info>blockquote::before,
+#profile_info>blockquote::after {
+    content: '"';
 }
 
-#follow_followers > a > div{
-    width: 10vw;
-    height: 10vw;
-    background-color: rgba(0, 0, 0, 0.411);
-    border-radius: 50%;
-    align-items: center;
-    justify-content: center;
-    display: flex;
+@media (min-width:768px) {
+    #icon_row > .button_container {
+        max-width: none;
+    }
 }

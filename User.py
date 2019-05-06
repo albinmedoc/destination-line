@@ -14,12 +14,52 @@ def callback(incomming_request):
                 #Skickar tillbaks True/False beroende på om användarnamnet finns
                 email = request.form.get("email")
                 return jsonify(user_exists(email=email))
+        elif(incomming_request == "follow" and "username" in session):
+                user_id = get_user_id(username=session["username"])
+                target_id = get_user_id(username=request.form.get("target_name"))
+                setup_follow(user_id, target_id)
+                return jsonify(True)
+        elif(incomming_request == "search"):
+                search = request.form.get("search")
+                return jsonify(get_search_results(search=search))
         return jsonify(False)
 
+@app.route("/profile")
 @app.route("/profile/<username>")
-def profile(username):
+def profile(username=None):
         # Kolla om användaren besöker sin egna profil, det kan göras i template
-        return render_template("profile.html")
+        if(username is None):
+                #Kontrollerar om användaren är utloggad
+                if("username" not in session):
+                        #Visar felmeddelande
+                        flash(u"You have to be logged in to visit your profile", 'error')
+                        #Hänvisar användaren till förstasidan
+                        return redirect("/")
+                #Är användaren inloggad sätts variablen username till användarens användarnamn
+                username = session["username"]
+        #Kontrollerar om användaren existerar
+        if(user_exists(username=username)):
+                db = Database()
+                cur = db.conn.cursor()
+                cur.execute("select username, firstname, lastname, biography, background, id from person where username='{}'".format(username))
+                user_info = cur.fetchone()
+                #Kontrollerar så en rad hittades
+                if(user_info is not None):
+                        cur.execute("select * from follow join person on follow.follower=person.id where person.username=%s", [username])
+                        following = cur.fetchall()
+                        following_count = len(following)
+
+                        cur.execute("select * from follow join person on follow.following=person.id where person.username=%s", [username])
+                        followers = cur.fetchall()
+                        follower_count = len(followers)
+
+                        cur.execute("select count(*) from album where owner=%s", [user_info[5]])
+                        album_count = cur.fetchone()
+                        
+                        #Visar profilsidan med informationen hämtad från databasen
+                        return render_template("profile.html", user_info=user_info, album_count=album_count, following_count=following_count, follower_count=follower_count)
+        #Kunde inte hitta information om användaren
+        return "Could not find profile"
 
 @app.route("/login", methods = ["POST"])
 def login():
@@ -29,6 +69,8 @@ def login():
         if(username.strip() and password.strip()):
                 #Kontrollerar så användarnamnet och lösenorder matchar
                 if(check_password(password, username = username)):
+                        #Visar ett vällkommstmeddelande
+                        flash(u'Welcome back!', 'success')
                         #Gör så användaren förblir inloggad
                         session.permanent = True
                         session["username"] = username
@@ -37,6 +79,7 @@ def login():
 
 @app.route("/logout")
 def logout():
+        #Rensa cookies och hänvisa till förstasidan
         session.clear()
         return redirect("/")
 
@@ -105,24 +148,21 @@ def check_password(password, username = None, email = None, user_id=None):
         db = Database()
         cur = db.conn.cursor()
         #Om användarnamn är angivet och finns i databasen
-        if(not username == None and user_exists(username=username)):
+        if(not username == None):
                 cur.execute("select password from person where username='{}'".format(username))
         #Om email är angivet och finns i databasen
-        elif(not email == None and user_exists(email=email)):
+        elif(not email == None):
                 cur.execute("select password from person where email='{}'".format(email))
         #Om användarID är angivet och finns i databasen
-        elif(not user_id == None and user_exists(user_id=user_id)):
+        elif(not user_id == None):
                 cur.execute("select password from person where id='{}'".format(user_id))
         else:
-                #Användaren hittades inte
                 return False
-
         #Hämtar det hashade lösenordet från databasen
-        hashpassword = cur.fetchone()[0].replace('"', "'").encode("utf8")
-        cur.close()
+        hashpassword = cur.fetchone()
         if(hashpassword is not None):
                 #Retunerar True/False beroende på om det stämmer överrens eller inte
-                return bcrypt.checkpw(password.encode("utf8"), hashpassword)
+                return bcrypt.checkpw(password.encode("utf8"), hashpassword[0].replace('"', "'").encode("utf8"))
         return False
 
 #Hämta användarens id från username eller email
@@ -147,22 +187,34 @@ def get_user_id(username=None, email=None):
 def owns_album(album_id, username=None, email=None, user_id=None):
         db = Database()
         cur = db.conn.cursor()
-        #Om användarnamn eller email eller användarID är angivet
-        if(username != None or email != None or user_id != None):
-                #Hämtar id för ägaren över albummet
-                cur.execute("select owner from album where id='{}'".format(int(album_id)))
-                owner_id = cur.fetchone()[0]
-                #Om ingen ägare hittades eller albummet inte finns
-                if(owner_id is None):
-                        return False
-                owner_id = int(owner_id)
-                #Om användarID är angivet och finns i databasen
-                if(not user_id == None and user_exists(user_id=user_id)):
-                        #Retunerar True ifall användarID stämmer överrens med albummets ägare
-                        return int(user_id) == owner_id
-                elif(not username == None and user_exists(username=username)):
-                        return int(get_user_id(username=username)) == owner_id
-                #Om email är angivet och finns i databasen
-                elif(not email == None and user_exists(email=email)):
-                        return int(get_user_id(email=email)) == owner_id
-        return False
+        if(username is not None):
+                cur.execute("select exists(select * from album join person on album.owner=person.id where person.username=%s and album.id=%s)", (username, album_id))
+        elif(email is not None):
+                cur.execute("select exists(select * from album join person on album.owner=person.id where person.email=%s and album.id=%s)", (email, album_id))
+        elif(user_id is not None):
+                cur.execute("select exists(select * from album where album.owner=%s and album.id=%s)", (user_id, album_id))
+        else:
+                return False
+        return cur.fetchone()[0]
+
+@app.route("/settings")
+def settings():
+        return render_template("settings.html")
+        
+def setup_follow(user_id, target_id):
+        db = Database()
+        cur = db.conn.cursor()
+        #Lägger till följnings-koppling mellan två personer
+        cur.execute("insert into follow(follower, following) values(%s, %s)", (user_id, target_id))
+        db.conn.commit()
+
+def get_search_results(search):
+        db = Database()
+        cur = db.conn.cursor()
+        cur.execute("select country, city from album where country ='{}'".format(country[3]))
+        search_place_user = cur.fetcone()
+        if (search_place_user is not None):
+                cur.execute("Select * from album where country or city =%s",[country])
+                found_placees = cur.fetchall()
+                found_places_count = len(found_placees)
+                return render_template("index.html", search_place_user=search_place_user, found_placees=found_placees, found_places_count=found_places_count)

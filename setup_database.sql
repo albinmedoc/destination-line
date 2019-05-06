@@ -12,7 +12,7 @@ create table person(
 	username varchar(30) not null,
 	email varchar(50) not null,
 	password text not null,
-	biography varchar(40),
+	biography varchar(100),
 	background text
 );
 

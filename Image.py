@@ -71,9 +71,25 @@ def edit_album(album_id):
         #Hämtar information om alla bilder
         cur.execute("select img_name, headline, description from post where album={} order by index asc".format(album_id))
         posts = cur.fetchall()
-        print(album_info)
-        print(posts)
         return render_template("edit_album.html", album_info=album_info, posts=posts)
+
+def get_new_albums(limit=30):
+        db = Database()
+        cur = db.conn.cursor()
+        #Hämtar information om nyligen uppladade bilder
+        cur.execute("select album.city, album.country, person.firstname, person.lastname, post.img_name, person.username, album.id from ((album join post on album.id=post.album) join person on album.owner=person.id) where post.index=1 order by album.published desc limit %s", [limit])
+        albums = cur.fetchall()
+        return albums
+
+def get_new_following_albums(limit=30, username=None):
+        if(username is None):
+                username = session["username"]
+        db = Database()
+        cur = db.conn.cursor()
+        #Hämtar information om nyligen uppladade bilder från personer man följer
+        cur.execute("select album.city, album.country, person.firstname, person.lastname, post.img_name, person.username from (((album join post on album.id=post.album) join person on album.owner=person.id) join follow on album.owner=follow.following) where follow.follower=(select id from person where username=%s) and post.index=1 order by album.published desc limit %s", (username, limit))
+        albums = cur.fetchall()
+        return albums
 
 
 @app.route("/image/<image_id>", methods = ["GET"])
@@ -98,3 +114,14 @@ def crop_to_16_9(img):
         box = (0, upper, width, upper + height)
         cropped_img = img.crop(box)
         return cropped_img
+@app.route("/album/<album_id>")
+def album(album_id):
+        db = Database()
+        cur = db.conn.cursor()
+        #Hämtar information om album
+        cur.execute("select country, city, date_start, date_end from album where id={}".format(album_id))
+        album_info = cur.fetchone()
+        #Hämtar information om alla bilder
+        cur.execute("select img_name, headline, description from post where album={} order by index asc".format(album_id))
+        posts = cur.fetchall()        
+        return render_template("album.html", posts=posts, album_info=album_info)

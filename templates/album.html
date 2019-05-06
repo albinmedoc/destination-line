@@ -1,0 +1,44 @@
+{% extends "layout.html" %}
+{% block head %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/explore_tabs.css') }}">
+{% if not("username" in session) %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login_signup.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/responsive_form.css') }}">
+{% endif %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/album.css') }}">
+{% endblock head %}
+
+{% block main %}
+{% if("username" in session) %}
+<section id="explore_tabs" class="is_visible">
+    <a href="#" class="explore_tab following active">
+        <h2>Following</h2>
+    </a>
+    <a href="#" class="explore_tab explore">
+        <h2>Explore</h2>
+    </a>
+</section>
+<section id="album_container">
+    <section id="post_image_container">
+        <img src="{{  url_for('image.uploaded_images', image_id=posts[0][0]) }}">
+        <section id="post_image_thumbnail_container">
+
+        </section>
+    </section>
+    <section id="post_description_container">
+
+    </section>
+
+</section>
+<h2>{{ posts[0][1] }}</h2>
+<p>{{ album_info[0] }}</p>
+<p>{{ posts[0][2] }}</p>
+
+
+{% endif %}
+{% endblock main %}
+{% block javascript %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/explore_tabs.js') }}"></script>
+{% endblock javascript %}
