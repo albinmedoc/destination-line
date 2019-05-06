@@ -1,9 +1,11 @@
+<div class="progress_bar" id="page_loading_bar"></div>
 <nav class="is_visible">
     <div id="left">
         <a id="logo" href="{{ url_for('index') }}">
             <h2 id="logo_wide">Destination Line</h2>
             <h2 id="logo_icon">DL</h2>
         </a>
+<<<<<<< HEAD
             <form id="search_container">
                 <input id="search" type="text" placeholder="Search for places..." value="{{search_function}}" method="POST" action="/search">
                 <a href="#search">
@@ -14,6 +16,18 @@
     </div>
     <ul id="right">
 
+=======
+        
+    </div>
+    <ul>
+        <li id="search_container">
+            <input id="search" type="text" placeholder="Search for places...">
+            <a href="#search">
+                <i class="material-icons">search</i>
+                <span>Search</span>
+            </a>
+        </li>
+>>>>>>> 323536766e8ec85952f1dcec61820dc533f0721f
         <!-- Visa uppladdningsknapp om inloggad -->
         {% if("username" in session) %}
         <li>
@@ -32,13 +46,12 @@
         <li>
             <div class="dropdown">
                 {% if("username" not in session) %}
-                <a href="#login">
+                <a href="#login" id="login_register_open">
                     <i class="material-icons">account_circle</i>
                     <span>Login</span>
                 </a>
                 {% else %}
-
-                <a href="#">
+                <a>
                     <i class="material-icons">account_circle</i>
                     <span>Profile</span>
                 </a>

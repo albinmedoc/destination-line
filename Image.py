@@ -76,7 +76,7 @@ def get_new_albums(limit=30):
         db = Database()
         cur = db.conn.cursor()
         #Hämtar information om nyligen uppladade bilder
-        cur.execute("select album.city, album.country, person.firstname, person.lastname, post.img_name, person.username from ((album join post on album.id=post.album) join person on album.owner=person.id) where post.index=1 order by album.published desc limit %s", [limit])
+        cur.execute("select album.city, album.country, person.firstname, person.lastname, post.img_name, person.username, album.id from ((album join post on album.id=post.album) join person on album.owner=person.id) where post.index=1 order by album.published desc limit %s", [limit])
         albums = cur.fetchall()
         return albums
 
@@ -102,3 +102,15 @@ def validate_image(file):
                 if(file and '.' in file.filename and file.filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS):
                         return True
         return False
+
+@app.route("/album/<album_id>")
+def album(album_id):
+        db = Database()
+        cur = db.conn.cursor()
+        #Hämtar information om album
+        cur.execute("select country, city, date_start, date_end from album where id={}".format(album_id))
+        album_info = cur.fetchone()
+        #Hämtar information om alla bilder
+        cur.execute("select img_name, headline, description from post where album={} order by index asc".format(album_id))
+        posts = cur.fetchall()        
+        return render_template("album.html", posts=posts, album_info=album_info)

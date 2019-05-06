@@ -1,21 +1,20 @@
 nav {
-    top: 0;
+    top: -60px;
     width: 100%;
     position: fixed;
     display: flex;
-    background-color: rgba(255, 255, 255, 0.952);
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.397);
+    background-color: rgb(255, 255, 255);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.329);
     z-index: 2;
-    transform: translateY(-60px);
     transition: .15s ease;
+    justify-content: space-between;
 }
 
 nav.is_visible {
-    transform: none;
+    top: 0;
 }
 
 #logo {
-    margin: 0 0 0 10px;
     position: absolute;
     font-family: Parisienne;
 }
@@ -24,32 +23,15 @@ nav.is_visible {
     display: none;
 }
 
-nav a {
-    color: rgb(66, 66, 66);
-}
-
 nav>ul {
     margin: 0;
     padding: 0;
     list-style: none;
     display: flex;
-}
-
-nav>#left {
     flex-grow: 1;
-    display: flex;
 }
 
-#logo>a,
-nav>ul>li {
-    padding: 0;
-    display: flex;
-    align-items: center;
-    height: 100%;
-}
-
-nav a>label,
-nav a>span, #search_container p {
+nav a>span {
     margin-left: 10px;
     display: none;
 }
@@ -59,13 +41,12 @@ nav a:not(.dropdown_link) {
     align-items: center;
     height: 60px;
     justify-content: center;
-    min-width: 60px;
     padding: 0 15px;
     position: relative;
     z-index: 1;
 }
 
-nav #right a:not(.dropdown_link)::after, #search_container a::after {
+nav>ul>li a:not(.dropdown_link)::after{/* Animation vid hover */
     content: '';
     position: absolute;
     bottom: 0;
@@ -76,7 +57,7 @@ nav #right a:not(.dropdown_link)::after, #search_container a::after {
     transform: scaleX(0);
 }
 
-nav #right a:not(.dropdown_link):hover::after, #search_container a:hover::after {
+nav>ul>li a:not(.dropdown_link):hover::after, #search_container:focus-within > a::after{/* Triggas här */
     background-color: rgb(79, 173, 236);
     transform: none;
 }
@@ -87,39 +68,28 @@ nav #right a:not(.dropdown_link):hover::after, #search_container a:hover::after 
     display: flex;
     justify-content: flex-end;
     flex-grow: 1;
-    background-color: transparent;
     transition: background-color .3s cubic-bezier(.83, .27, 0, 1), flex-grow .3s cubic-bezier(.83, .27, 0, 1);
 }
 
-#search_container label {
-    z-index: 1;
-}
-
-#search_container>input[type=text] {
+#search {
     z-index: 2;
     position: fixed;
-    font-family: "Titillium Web";
     display: block;
-    width: calc(100% - 20px);
-    height: 40px;
-    border: solid rgb(206, 206, 206) 1px;
-    border-radius: 5px;
+    width: 100%;
+    height: 60px;
+    border:none;
+    border-bottom: 2px solid rgb(79, 173, 236);
     outline: none;
-    font-size: 18px;
-    opacity: 0;
     transform: translateY(-60px);
-    transition: .2s cubic-bezier(.87, .06, .39, 1);
-    right: 10px;
+    transition: .4s cubic-bezier(0.075, 0.82, 0.165, 1);
+    right: 0;
     text-indent: 10px;
 }
 
 /* Validatorn gnäller på :focus-within eftersom den inte finns
 med i CSS-standarden än */
-#search_container:focus-within>input[type=text] {
-    visibility: visible;
+#search_container:focus-within>#search {
     transform: none;
-    opacity: 1;
-    transition: .4s cubic-bezier(.83, .27, 0, 1);
 }
 
 .dropdown {
@@ -133,13 +103,10 @@ med i CSS-standarden än */
     box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.103);
     z-index: 0;
     opacity: 0;
-    transform: scaleY(0);
+    transform: scale(.9);
     transform-origin: top;
-    transition: .3s cubic-bezier(0.175, 0.32, 0.1, 1);
+    transition: .2s cubic-bezier(0.175, 0.32, 0.1, 1);
     right: 0;
-    border-bottom-left-radius: 12px;
-    border-bottom-right-radius: 12px;
-
 }
 
 .dropdown_content a {
@@ -149,17 +116,17 @@ med i CSS-standarden än */
     text-decoration: none;
     display: block;
     text-align: right;
-    background-color: rgba(255, 255, 255, 0.918);
+    background-color: rgb(255, 255, 255);
     transition: background-color .2s;
 }
 
-.dropdown_content a:last-child {
+.dropdown_content, .dropdown_content a:last-child {
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
 }
 
 .dropdown_content a:hover {
-    background-color: rgba(245, 245, 245, 0.918);
+    background-color: rgba(245, 245, 245);
 }
 
 .dropdown i {
@@ -170,7 +137,12 @@ med i CSS-standarden än */
     visibility: visible;
     opacity: 1;
     transform: none;
-    transition: .3s cubic-bezier(0.175, 0.32, 0.1, 1);
+}
+
+#page_loading_bar{
+    z-index: 5;
+    top: 0;
+    width: 10%;
 }
 
 /*För större skärmar*/
@@ -191,11 +163,9 @@ med i CSS-standarden än */
         display: block;
     }
 
-    #search_container>input[type=text] {
+    #search {
         position: relative;
         transform-origin: right;
-        transform: scaleX(0);
-        margin: 0 10px;
-        right: 0;
+        transform:scaleX(0);
     }
 }

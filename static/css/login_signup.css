@@ -1,105 +1,19 @@
-#modal>form {
-    position: fixed;
-    height: 100%;
-    width: 100%;
-    z-index: 3;
-    top: 0;
-    background-color: rgba(0, 0, 0, 0.404);
-    display: flex;
-    justify-content: center;
-    align-items: center;
+#login_register_modal>form {
+    transform: scale(0) translate(-200px, 300px);
+    transform-origin: top right;
+    transition: .4s cubic-bezier(0.375, 0.82, 0.165, 1);
     opacity: 0;
-    visibility: hidden;
-    transition: opacity .4s, visibility .3s;
+    position: absolute;
 }
 
-#modal>form:target {
+#login_register_modal>form:target {
+    transform: none;
     opacity: 1;
     visibility: visible;
 }
 
-#modal>form>fieldset {
-    background-color: white;
-    margin: 0;
-    position: relative;
-    width: 100%;
-    height: 100%;
-    max-width: none;
-    border: none;
-    border-radius: 50px;
-    transform: scale(0) translate(-200px, 300px);
-    transform-origin: top right;
-    transition: .4s cubic-bezier(.8, .23, .23, .99);
-    text-align: center;
-    overflow-y: auto;
-}
-
-#modal>form:target>fieldset {
-    transform: none;
-    border-radius: 0px;
-    transition: .5s cubic-bezier(.57, .66, 0, 1);
-}
-
-#modal span {
-    transition-delay: .3s;
-}
-
-form fieldset button {
-    border: none;
-    margin: 20px 0;
-    font-size: 16px;
-    background: rgba(230, 230, 230, 0.27);
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.22);
-    transition: box-shadow .2s, background-color .2s;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    z-index: 0;
-}
-
-form fieldset button::before {
-    content: '';
-    position: absolute;
-    background: rgba(230, 230, 230, 0.63);
-    width: 100%;
-    height: 100%;
-    transform: scaleX(0);
-    transition: .4s cubic-bezier(.51, .03, 0, 1);
-    transform-origin: right;
-    z-index: -1;
-}
-
-form fieldset button:hover::before {
-    transform: scaleX(1);
-}
-
-form>fieldset button::after,
-#register>fieldset button::after {
-    font-family: "Material Icons";
-    content: 'input';
-    margin-left: 7px;
-}
-
-form .cancel_modal>i {
-    position: absolute;
-    top: 12px;
-    right: 15px;
-    border-radius: 100%;
-    transition: .2s cubic-bezier(.19, .83, .34, .97);
-}
-
-@media (min-width:768px) {
-    #modal>form fieldset {
-        height: auto;
-        max-width: 500px;
-    }
-
-    #modal>form:target fieldset {
-        border-radius: .5vw;
-    }
-
-    #modal span {
-        transition-delay: 0s;
+@media (min-width:768px){
+    #login_register_modal>form{
+        max-width: 400px;
     }
 }

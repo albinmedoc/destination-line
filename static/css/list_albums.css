@@ -1,0 +1,70 @@
+.album {
+    position: relative;
+    width: 100%;
+    margin: 0 0 20px 0;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.281);
+    transition: box-shadow .2s;
+    overflow: hidden;
+}
+
+.album:last-child {
+    margin: 0;
+}
+
+.album:hover {
+    box-shadow: 0 9px 9px rgba(0, 0, 0, 0.438);
+}
+
+.album>img {
+    display: block;
+    width: 100%;
+}
+
+.info_circle {
+    height: 50vw;
+    width: 50vw;
+    left: 50%;
+    top: 50%;
+    border-radius: 100%;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    justify-content: center;
+    background-color: rgba(255, 255, 255, 0.7);
+    transition: background-color 0.3s;
+    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.411);
+}
+
+.info_circle:hover {
+    background-color: rgba(255, 255, 255, 0.9)
+}
+
+.info_circle>* {
+    margin: 0;
+}
+
+.info_circle>.country {
+    font-size: 3vw;
+    font-family: 'Titillium Web', sans-serif;
+    font-weight: 200;
+}
+
+.info_circle>.city {
+    font-size: 8vw;
+    font-family: 'Parisienne', cursive;
+    font-weight: 100;
+}
+
+.info_circle>.material-icons {
+    font-size: 3vw;
+    margin: 4vw 0 0 0;
+}
+
+.info_circle>.author {
+    font-size: 3vw;
+    font-family: 'Parisienne', cursive;
+    font-weight: 500;
+}

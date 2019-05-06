@@ -1,14 +1,15 @@
 {% extends "layout.html" %}
 {% block head %}
 {{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/album.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/list_albums.css') }}">
 
-<!-- Endast ifall användaren är utloggad -->
+<!-- Endast ifall användaren är inloggad -->
 {% if("username" in session) %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/explore_tabs.css') }}">
 {% else %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/login_signup.css') }}">
+<!-- Endast ifall användaren är utloggad -->
 <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive_form.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login_signup.css') }}">
 {% endif %}
 {% endblock head %}
 

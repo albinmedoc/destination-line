@@ -1,7 +1,9 @@
-$(document).ready(function () {
-    var images = new Object();
-//images[key] = ["Fil", "Titel", "Beskrivning"]
+var UPLOAD_LIMIT = 4;
+var images = new Object();
 
+$(document).ready(function () {
+
+    //Date-picker
     var period = new Lightpick({
         field: document.getElementById("period"),
         singleDate: false,
@@ -9,51 +11,60 @@ $(document).ready(function () {
         maxDate: moment()
     });
 
+    //Knapp för att välja bilder
     $("#upload_btn").click(function () {
         $("#upload").trigger("click");
     });
 
     $("#upload").change(function () {
-        if (this.files && this.files.length <= 60) {
-            for (var i = 0; i < this.files.length; i++) {
-                var file = this.files[i];
-                //Kollar om filen har bildformat
-                if (file.type.match("image.*")) {
-                    console.log(file.size)
-                    if (file.size <= 6000000) {
-                        var reader = new FileReader();
-                        reader.onload = (function (file) {
-                            return function (e) {
-                                image = new Image();
-                                image.onload = function (e) {
-                                    return function (e) {
-                                        console.log(image.width);
-                                        console.log(image.height);
-                                    }
-                                }(e);
-                                image.src = e.target.result;
-                                //Kollar om bilden redan är i listan
-                                if (!(e.target.result in images)) {
-                                    //Sparar filen i Listan
-                                    images[e.target.result] = [];
-                                    images[e.target.result][0] = file;
-                                    //Visar bilder
-                                    var post = "<div class='post'><div class='button_container img_close'><div class='button_text_container'><span>Delete image</span></div><i class='material-icons button_icon_container'>close</i></div><div class='button_container img_info'><i class='material-icons button_icon_container'>info</i><div class='button_text_container'><span>Image info</span></div></div><img src='" + e.target.result + "'><i class='material-icons reorder'>reorder</i></div>";
-                                    $("#upload_btn").after(post);
-                                } else {
-                                    alert("The image " + file.name + " has already been uploaded. Skipping..")
-                                }
+        for (var i = 0; i < this.files.length; i++) {
+            var file = this.files[i];
+            //Kollar om filen har bildformat
+            if (file.type.match("image.*")) {
+                console.log(file.size)
+                if (file.size <= 6000000) {
+                    var reader = new FileReader();
+                    reader.onload = (function (file) {
+                        return function (e) {
+
+                            //Kontrollerar att maxgränsen av bilder överstiger
+                            if(Object.keys(images).length >= UPLOAD_LIMIT){
+                                console.log("You can only upload " + UPLOAD_LIMIT + " images in total!");
+                                return;
                             }
-                        })(file);
-                        reader.readAsDataURL(file);
-                        console.log(file);
-                    } else {
-                        alert("The image " + file.name + " is too large. Skipping..");
-                    }
+
+                            image = new Image();
+                            image.onload = function (e) {
+                                return function (e) {
+                                    console.log(image.width);
+                                    console.log(image.height);
+                                }
+                            }(e);
+                            image.src = e.target.result;
+                            
+                            
+                            //Kollar om bilden redan är i listan
+                            if (!(e.target.result in images)) {
+                                //Sparar filen i Listan
+                                images[e.target.result] = [];
+                                images[e.target.result][0] = file;
+                                //Visar bilder
+                                var post = "<div class='post' data-headline='' data-description=''><div class='button_container img_close'><div class='button_text_container'><span>Delete image</span></div><i class='material-icons button_icon_container'>close</i></div><div class='button_container img_modal_open'><i class='material-icons button_icon_container'>info</i><div class='button_text_container'><span>Image info</span></div></div><img src='" + e.target.result + "'><i class='material-icons reorder'>reorder</i></div>";
+                                $("#upload_btn").after(post);
+                            } else {
+                                alert("The image " + file.name + " has already been uploaded. Skipping..")
+                            }
+                        }
+                    })(file);
+                    reader.readAsDataURL(file);
+                    console.log(file);
                 } else {
-                    alert("The file " + file.name + " is not an image. Skipping..");
+                    alert("The image " + file.name + " is too large. Skipping..");
                 }
+            } else {
+                alert("The file " + file.name + " is not an image. Skipping..");
             }
+            
         }
         //Rensa fil-input
         $(this).val("");
@@ -85,13 +96,15 @@ $(document).ready(function () {
             //Kollar om rubrik är angivet
             if(typeof images[img_url][1] !== 'undefined') {
                 //Skickar med rubrik
-                data.append("headline" + i, images[img_url][1]);
+                
             }
             //Kollar om beskrivning är angivet
             if(typeof images[img_url][2] !== 'undefined') {
                 //Skickar med beskrivning
-                data.append("description" + i, images[img_url][2]);
+                
             }
+            data.append("headline" + i, post.attr("data-headline"));
+            data.append("description" + i, post.attr("data-description"));
             i++;
         });
         //Skickar Post-request
@@ -111,38 +124,41 @@ $(document).ready(function () {
         });
     });
 
-    $("#upload_btn").parent().on("click", ".img_info", function () {
+    $("#upload_btn").parent().on("click", ".img_modal_open", function () {
         //Hämtar img_url
         var img_url =  $(this).siblings("img").attr("src");
         //Sätter input för rubrik till värdet i data-attributet "headline"
-        $("#modal input[name='headline']").val($(this).parent().data("headline"))
+        $("#img_info_modal input[name='headline']").val($(this).parent().data("headline"))
         //Sätter input för beskrivning till värdet i data-attributet "description"
-        $("#modal textarea[name='description']").val($(this).parent().data("description"));
+        $("#img_info_modal textarea[name='description']").val($(this).parent().data("description"));
         //Sätter rätt img_url
-        $("#modal .img_preview").attr("src", img_url);
+        $("#img_info_modal .img_preview").attr("src", img_url);
         //Visar modal
-        $("#modal").addClass("is_visible");
+        $("#img_info_modal, .image_info").addClass("is_visible");
     });
 
     $(".cancel_modal").click(function () {
         //Hämtar img_url
-        var img_url = $("#modal .img_preview").attr("src");
+        var img_url = $("#img_info_modal .img_preview").attr("src");
         //Hittar .post-elementet med hjälp av img_url
         var post = $(".post > img[src$='" + img_url + "']").parent();
         //Hämtar rubrik och beskrivning
-        var headline = $("#modal input[name='headline']").val();
-        var description = $("#modal textarea[name='description']").val();
+        var headline = $("#img_info_modal input[name='headline']").val();
+        var description = $("#img_info_modal textarea[name='description']").val();
+        console.log(headline);
+        console.log(description);
 
         //Sparar rubrik och beskrivning i data-attribut
-        post.data("headline", headline);
-        post.data("description", description);
+        post.attr("data-headline", headline);
+        post.attr("data-description", description);
+        console.log(post[0]);
         //#Kontrollera så ovanstående inte är tomma innan dem sätts in i data-attributen#
 
         //Döljer modal
-        $("#modal").removeClass("is_visible");
+        $("#img_info_modal, .image_info").removeClass("is_visible");
         //Tömmer fälten för rubrik och beskrivning
-        $("#modal input[name='headline']").val("");
-        $("#modal textarea[name='description']").val("");
+        $("#img_info_modal input[name='headline']").val("");
+        $("#img_info_modal textarea[name='description']").val("");
     });
 
     //Gör inläggen flyttbara, är det mobil måste man dra på ".reorder"-elementet

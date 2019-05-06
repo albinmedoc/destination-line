@@ -1,8 +1,11 @@
+// Öppnar modal
+$("#login_register_open").click(function() {
+    $("#login_register_modal").addClass("is_visible");
+});
 
-$("#login, #register").mousedown(function(e){
-    if(e.target.id == "login" || e.target.id == "register"){
-        location.hash = '';
-    }
+// Stänger modal
+$(".cancel_modal").click(function() {
+    $(".modal").removeClass("is_visible");
 });
 
 $("#register > fieldset > .form_row > .input_container > input[name='password2']").keyup(function(){
@@ -51,7 +54,6 @@ $("#register > fieldset > .form_row > .input_container > input[name='email']").f
         }
     });
 });
-
 
 $('#login').on('submit', function(e) {
     $.ajax({

@@ -22,3 +22,11 @@ window.onload = function () {
         $(this).closest('div').remove();
     });
 }
+
+$(document).ready(function () {
+    $("#page_loading_bar").css("animation", "width_grow_max 1.5s forwards");
+});
+
+$("a[href*='/']").click(function() {
+    $("#page_loading_bar").css("animation", "width_grow .2s forwards");
+});

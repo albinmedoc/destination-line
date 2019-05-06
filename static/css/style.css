@@ -15,17 +15,19 @@ body {
     font-weight: 300;
     overflow-x: hidden;
     overflow-y: visible;
-    margin-top: 60px;
     text-shadow: 0 0 1px rgba(0, 0, 0, 0.26);
+    color: rgb(66,66,66);
+    margin-top: 60px;
 }
 
-a {
+a, button, input {
     text-decoration: none;
-    color: purple;
+    color: rgb(66, 66, 66);
+    font-size: 16px;
+    font-family: 'Titillium Web';
 }
 
 i {
-    color: rgb(66, 66, 66);
     transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
@@ -92,6 +94,13 @@ a, i, button, #upload_btn{
     color: black;
 }
 
+.progress_bar {
+    position: fixed;
+    height: 3px;
+    background-color: rgb(111, 202, 255);
+    transition: .3s cubic-bezier(0.075, 0.82, 0.665, 1);
+}
+
 /* Samling av animationer för att användas var som helst på hemsidan */
 @keyframes fade_in {
     from {
@@ -118,5 +127,28 @@ a, i, button, #upload_btn{
     }
     100%{
         transform: none;
+    }
+}
+
+@keyframes width_grow{
+    0%{
+        width:0;
+    }
+    100%{
+        width: 10%;
+    }
+}
+
+@keyframes width_grow_max{
+    0%{
+        width:10%;
+        opacity: 1;
+    }
+    8%{
+        width: 100%;
+    }
+    100%{
+        opacity: 0;
+        width: 100%;
     }
 }
