@@ -39,7 +39,8 @@ def upload():
                                 print("Images folder don´t exist. Creating one..")
                                 os.makedirs(UPLOAD_FOLDER)
                         #Laddar bild
-                        img = Image.open(file.stream)
+                        img = crop_to_16_9(Image.open(file.stream))
+
                         #Sparar som WebP format
                         filename = str(uuid4()) + ".webp"
                         while os.path.isfile(filename):
@@ -86,3 +87,14 @@ def validate_image(file):
                 if(file and '.' in file.filename and file.filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS):
                         return True
         return False
+
+def crop_to_16_9(img):
+        original_size = img.size
+        if(original_size[0] * 9 == original_size[1] * 16):
+                return img
+        width = original_size[0]
+        height = original_size[0] * 9 / 16
+        upper = (original_size[1] - height) / 2
+        box = (0, upper, width, upper + height)
+        cropped_img = img.crop(box)
+        return cropped_img
