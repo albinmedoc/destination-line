@@ -209,14 +209,12 @@ def setup_follow(user_id, target_id):
         db.conn.commit()
 
 def get_search_results(search):
-                db = Database()
-                cur = db.conn.cursor()
-                cur.execute("select country, city from album where country ='{}'".format(country[3]))
-                search_place_user = cur.fetcone()
-                if (search_place_user is not None):
-                        cur.execute("Select * from album where country or city =%s",[country])
-                        found_placees = cur.fetchall()
-                        found_places_count = len(found_placees)
-
+        db = Database()
+        cur = db.conn.cursor()
+        cur.execute("select country, city from album where country ='{}'".format(country[3]))
+        search_place_user = cur.fetcone()
+        if (search_place_user is not None):
+                cur.execute("Select * from album where country or city =%s",[country])
+                found_placees = cur.fetchall()
+                found_places_count = len(found_placees)
                 return render_template("index.html", search_place_user=search_place_user, found_placees=found_placees, found_places_count=found_places_count)
-        return "Could not find profile"
