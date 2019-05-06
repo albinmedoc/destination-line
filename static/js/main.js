@@ -21,6 +21,9 @@ window.onload = function () {
     $(".close_flash").click(function (e) {
         $(this).closest('div').remove();
     });
+    $("#login_register_modal button").click(function (e) {
+        $('.loader_container').addClass('is_visible');
+    });
 }
 
 $(document).ready(function () {

@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/flashes.css') }}">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/loader.css') }}">
 
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -22,6 +23,7 @@
 <body>
 
     {% include 'nav.html' %}
+    {% include 'loader.html' %}
     <main>
         {% block main %}
         {% endblock main %}

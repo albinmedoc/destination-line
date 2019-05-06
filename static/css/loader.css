@@ -1,0 +1,58 @@
+.loader_container{
+    height: 100vh;
+    width: 100vw;
+    z-index: 5;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.671);
+    position: fixed;
+    top: 0;
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .2s, visibility .2s;
+}
+
+.loader_container.is_visible{
+    opacity: 1;
+    visibility: visible;
+}
+
+.loader_container>.loader{
+    height: 10px;
+    width: 10px;
+    background-color: rgb(59, 59, 59);
+    margin: 0 7px;
+    border-radius: 50%;
+    animation: loader_animation 1s both infinite;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.37);
+}
+
+.loader_container>.loader:nth-child(2){
+    animation-delay: .1s;
+}
+
+.loader_container>.loader:nth-child(3){
+    animation-delay: .2s;
+}
+
+@keyframes loader_animation{
+    0%{
+        transform: none;
+    }
+    50%{
+        transform: translateY(-30px);
+    }
+    100%{
+        transform: none;
+    }
+}
+
+@keyframes loader_rotate{
+    0%{
+        transform: none;
+    }
+    100%{
+        transform: rotate(360deg);
+    }
+}
