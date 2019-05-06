@@ -17,6 +17,7 @@ $(document).ready(function () {
     });
 
     $("#upload").change(function () {
+        $('.loader_container').addClass('is_visible');
         for (var i = 0; i < this.files.length; i++) {
             var file = this.files[i];
             //Kollar om filen har bildformat
@@ -68,6 +69,7 @@ $(document).ready(function () {
         }
         //Rensa fil-input
         $(this).val("");
+        $('.loader_container').removeClass('is_visible');
     });
 
     $("#upload_btn").parent().on("click", ".img_close", function () {
@@ -77,6 +79,7 @@ $(document).ready(function () {
     });
 
     $("#upload_form").on("submit", function (e) {
+        $('#upload_progress_bar').css('width', '10%');
         console.log(images);
         e.preventDefault();
         var data = new FormData();
@@ -107,6 +110,7 @@ $(document).ready(function () {
             data.append("description" + i, post.attr("data-description"));
             i++;
         });
+        $('#upload_progress_bar').css('width', '30%');
         //Skickar Post-request
         $.ajax({
             url: $SCRIPT_ROOT + "/new/album",
@@ -116,9 +120,12 @@ $(document).ready(function () {
             processData: false,
             cache: false,
             success: function () {
+                $('#upload_progress_bar').css('width', '100%');
                 alert("Uploaded");
             },
             error: function () {
+                $('#upload_progress_bar').css('width', '30%');
+                $('#upload_progress_bar').css('background-color', 'red');
                 alert("Error");
             }
         });

@@ -56,6 +56,7 @@ $("#register > fieldset > .form_row > .input_container > input[name='email']").f
 });
 
 $('#login').on('submit', function(e) {
+    $('.loader_container').addClass('is_visible');
     $.ajax({
         method: "POST",
         url: $SCRIPT_ROOT + "/login",
@@ -72,6 +73,32 @@ $('#login').on('submit', function(e) {
         }else{
             location.replace("/");
         }
+        $('.loader_container').removeClass('is_visible');
+    });
+    e.preventDefault();
+});
+$('#register').on('submit', function(e) {
+    $('.loader_container').addClass('is_visible');
+    $.ajax({
+        method: "POST",
+        url: $SCRIPT_ROOT + "/register",
+        data: {
+            firstname: $("#register > fieldset > .form_row > .input_container > input[name='firstname']").val(),
+            lastname: $("#register > fieldset > .form_row > .input_container > input[name='lastname']").val(),
+            username: $("#register > fieldset > .form_row > .input_container > input[name='username']").val(),
+            email: $("#register > fieldset > .form_row > .input_container > input[name='email']").val(),
+            password: $("#register > fieldset > .form_row > .input_container > input[name='password']").val()
+        }
+    })
+    .done(function(valid){
+        if(!valid){
+            $("#register > fieldset > .form_row > .input_container > input[name='username']").addClass("error");
+            $("#register > fieldset > .form_row > .input_container > input[name='password']").addClass("error");
+
+        }else{
+            location.replace("/");
+        }
+        $('.loader_container').removeClass('is_visible');
     });
     e.preventDefault();
 });
