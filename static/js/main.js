@@ -7,12 +7,6 @@ window.mobileAndTabletcheck = function () {
 };
 
 window.onload = function () {
-    if(window.mobileAndTabletcheck()){
-        console.log("You are using a mobile or tablet");
-    }else{
-        console.log("You are not using a mobile or tablet");
-    }
-
     $("#login, #register").mousedown(function (e) {
         if (e.target.id == "login" || e.target.id == "register") {
             location.hash = '';
