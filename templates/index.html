@@ -28,12 +28,13 @@
     {% if explore_albums is defined %}
         {% for album in explore_albums %}
         <div class="album">
-            <img src="{{ url_for('image.uploaded_images', image_id=album[4]) }}">
+            <a class="album_link" href="{{ url_for('image.album', album_id=album[0]) }}"></a>
+            <img src="{{ url_for('image.uploaded_images', image_id=album[5]) }}">
             <div class="info_circle">
-                <h1 class="city flex_font">{{ album[0] }}</h1>
-                <h2 class="country flex_font">{{ album[1] }}</h2>
+                <h1 class="city flex_font">{{ album[1] }}</h1>
+                <h2 class="country flex_font">{{ album[2] }}</h2>
                 <i class="material-icons">camera_alt</i>
-                <a href="{{ url_for('user.profile', username=album[5]) }}" class="author">{{ album[2] + " " + album[3] }}</a>
+                <a href="{{ url_for('user.profile', username=album[6]) }}" class="author">{{ album[3] + " " + album[4] }}</a>
             </div>
         </div>
         {% endfor %}
@@ -43,12 +44,13 @@
     {% if following_albums is defined %}
         {% for album in following_albums %}
         <div class="album">
-            <img src="{{ url_for('image.uploaded_images', image_id=album[4]) }}">
+            <a class="album_link" href="{{ url_for('image.album', album_id=album[0]) }}"></a>
+            <img src="{{ url_for('image.uploaded_images', image_id=album[5]) }}">
             <div class="info_circle">
-                <h1 class="city flex_font">{{ album[0] }}</h1>
-                <h2 class="country flex_font">{{ album[1] }}</h2>
+                <h1 class="city flex_font">{{ album[1] }}</h1>
+                <h2 class="country flex_font">{{ album[2] }}</h2>
                 <i class="material-icons">camera_alt</i>
-                <a href="{{ url_for('user.profile', username=album[5]) }}" class="author">{{ album[2] + " " + album[3] }}</a>
+                <a href="{{ url_for('user.profile', username=album[6]) }}" class="author">{{ album[3] + " " + album[4] }}</a>
             </div>
         </div>
         {% endfor %}
@@ -105,4 +107,5 @@
 {% block javascript %}
 {{ super() }}
 <script src="{{ url_for('static', filename='js/explore_tabs.js') }}"></script>
+<script src="{{ url_for('static', filename='js/start.js') }}"></script>
 {% endblock javascript %}
