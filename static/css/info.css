@@ -9,9 +9,10 @@
 #about_video>video{
     display:block;
     width: 100%;
-    height: 400px;
+    height: calc(100vh - 120px);
     object-fit: cover;
     object-position: center;
+
 }
 
 #explore_tabs{
@@ -85,7 +86,13 @@ hr{
     font-size: 18px;
   }
 
+  #info_container>profile_cards>card>a{
+    text-decoration: none;
+    font-size: 22px;
+    color: black;
+  }
+
   
-  button:hover, a:hover{
+  profile_card_button:hover, #info_container>profile_cards>card>a:hover{
     opacity: 0.7;
   }
