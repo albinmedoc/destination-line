@@ -58,8 +58,18 @@ hr{
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     margin: 10px;
     text-align: center;
-    width: 40%;
+    width: 300px;
+    
   }
+
+.card>img{
+    border-radius: 50%;
+    box-shadow: 0 2px 5px #c8c8c8;
+    padding: 10px;
+    margin: 5px;
+    width: 45%;
+}
+
 .name{
     margin: 0;
     color: black;
@@ -70,10 +80,11 @@ hr{
   .title{
     color: black;
     font-size: 18px;
+    margin: 10px;
    
   }
   
-  profile_card_button{
+  .card>button{
     border: none;
     outline: 0;
     display: inline-block;
@@ -84,15 +95,18 @@ hr{
     cursor: pointer;
     width: 100%;
     font-size: 18px;
+    display: block;
+    margin-top: 15px;
   }
 
-  #info_container>profile_cards>card>a{
+  #info_container>#profile_cards>.card>#social_icons>a{
     text-decoration: none;
     font-size: 22px;
     color: black;
+    
   }
 
   
-  profile_card_button:hover, #info_container>profile_cards>card>a:hover{
+  .card>button:hover, #info_container>#profile_cards>.card>#social_icons>a:hover{
     opacity: 0.7;
   }
