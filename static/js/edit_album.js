@@ -36,6 +36,7 @@ $(document).ready(function (){
                     return;
                 }
 
+                //Spara bild i variabel, bild-url som nyckel
                 images[e.target.result] = file;
                 
                 //Visa bild
@@ -185,7 +186,6 @@ $("#upload_form").on("submit", function (e) {
         data.append("description" + i, post.attr("data-description"));
         i++;
     });
-    $('#upload_progress_bar').css('width', '30%');
 
     //Skickar Post-request
     $.ajax({
@@ -195,14 +195,17 @@ $("#upload_form").on("submit", function (e) {
         data: data,
         processData: false,
         cache: false,
+        beforeSend: function(){
+            $('.loader_container').addClass('is_visible');
+        },
         success: function () {
-            $('#upload_progress_bar').css('width', '100%');
             alert("Uploaded");
         },
         error: function () {
-            $('#upload_progress_bar').css('width', '30%');
-            $('#upload_progress_bar').css('background-color', 'red');
             alert("Error");
+        },
+        complete: function(){
+            $('.loader_container').removeClass('is_visible');
         }
     });
 });
