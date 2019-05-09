@@ -1,16 +1,15 @@
 <div class="progress_bar" id="page_loading_bar"></div>
 <nav class="is_visible">
     <div id="left">
-        <a id="logo" href="{{ url_for('index') }}">
+        <a id="logo" href="{{ url_for('index') }}" class="nav_link">
             <h2 id="logo_wide">Destination Line</h2>
             <h2 id="logo_icon">DL</h2>
         </a>
-        
     </div>
     <ul>
         <li id="search_container">
-            <input id="search" type="text" placeholder="Search for places...">
-            <a href="#search">
+            <input id="search" type="search" placeholder="Search for places, people and more...">
+            <a class="nav_link">
                 <i class="material-icons">search</i>
                 <span>Search</span>
             </a>
@@ -18,14 +17,14 @@
         <!-- Visa uppladdningsknapp om inloggad -->
         {% if("username" in session) %}
         <li>
-            <a href="{{ url_for('image.upload') }}">
+            <a href="{{ url_for('image.upload') }}" class="nav_link">
                 <i class="material-icons">create_new_folder</i>
                 <span>New Album</span>
             </a>
         </li>
         {% endif %}
         <li>
-            <a href="/info">
+            <a href="/info" class="nav_link">
                 <i class="material-icons">info_outline</i>
                 <span>Info</span>
             </a>
@@ -33,12 +32,12 @@
         <li>
             <div class="dropdown">
                 {% if("username" not in session) %}
-                <a href="#login" id="login_register_open">
+                <a href="#login" id="login_register_open" class="nav_link">
                     <i class="material-icons">account_circle</i>
                     <span>Login</span>
                 </a>
                 {% else %}
-                <a>
+                <a class="nav_link">
                     <i class="material-icons">account_circle</i>
                     <span>Profile</span>
                 </a>
@@ -49,6 +48,14 @@
                 </div>
                 {% endif %}
             </div>
+        </li>
+    </ul>
+    <ul id="search_results">
+        <li class='search_category' id='countries'>
+        </li>
+        <li class='search_category' id='cities'>
+        </li>
+        <li class='search_category' id='users'>
         </li>
     </ul>
 </nav>

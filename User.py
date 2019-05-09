@@ -4,24 +4,24 @@ from Database import Database
 
 app = Blueprint("user", __name__, template_folder="templates")
 
-@app.route("/request/<incomming_request>", methods = ["POST"])
-def callback(incomming_request):
-        if(incomming_request == "username_exists"):
+@app.route("/request/<incoming_request>", methods = ["POST"])
+def callback(incoming_request):
+        if(incoming_request == "username_exists"):
                 #Skickar tillbaks True/False beroende på om användarnamnet finns
                 username = request.form.get("username")
                 return jsonify(user_exists(username=username))
-        elif(incomming_request == "email_exists"):
+        elif(incoming_request == "email_exists"):
                 #Skickar tillbaks True/False beroende på om användarnamnet finns
                 email = request.form.get("email")
                 return jsonify(user_exists(email=email))
-        elif(incomming_request == "follow" and "username" in session):
+        elif(incoming_request == "follow" and "username" in session):
                 user_id = get_user_id(username=session["username"])
                 target_id = get_user_id(username=request.form.get("target_name"))
                 setup_follow(user_id, target_id)
                 return jsonify(True)
-        elif(incomming_request == "search"):
+        elif(incoming_request == "search"):
                 search = request.form.get("search")
-                return jsonify(get_search_results(search=search))
+                return jsonify(countries=get_countries(search), users=get_users(search))
         return jsonify(False)
 
 @app.route("/profile")
@@ -208,13 +208,20 @@ def setup_follow(user_id, target_id):
         cur.execute("insert into follow(follower, following) values(%s, %s)", (user_id, target_id))
         db.conn.commit()
 
-def get_search_results(search):
+def get_countries(search):
         db = Database()
         cur = db.conn.cursor()
-        cur.execute("select country, city from album where country ='{}'".format(country[3]))
-        search_place_user = cur.fetcone()
-        if (search_place_user is not None):
-                cur.execute("Select * from album where country or city =%s",[country])
-                found_placees = cur.fetchall()
-                found_places_count = len(found_placees)
-                return render_template("index.html", search_place_user=search_place_user, found_placees=found_placees, found_places_count=found_places_count)
+        cur.execute("select id, owner, country, city from album where country LIKE '{}%' or city LIKE '{}%'".format(search,search))
+        search_results = cur.fetchall()
+        print(search)
+        print(search_results)
+        return search_results
+
+def get_users(search):
+        db = Database()
+        cur = db.conn.cursor()
+        cur.execute("select id, username, firstname, lastname from person where username LIKE '{}%' or firstname LIKE '{}%' or lastname LIKE '{}%'".format(search,search,search))
+        search_results = cur.fetchall()
+        print(search)
+        print(search_results)
+        return search_results
