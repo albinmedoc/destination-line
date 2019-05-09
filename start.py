@@ -10,6 +10,10 @@ from Database import Database
 app = Flask(__name__)
 app.secret_key = urandom(24)
 
+@app.errorhandler(404)
+def error_404(e):
+        return render_template("404.html"), 404
+
 @app.route("/")
 def index():
         explore_albums = Image.get_new_albums()
