@@ -56,25 +56,27 @@ $("#register > fieldset > .form_row > .input_container > input[name='email']").f
 });
 
 $('#login').on('submit', function(e) {
-    $('.loader_container').addClass('is_visible');
     $.ajax({
         method: "POST",
         url: $SCRIPT_ROOT + "/login",
         data: {
             username: $("#login > fieldset > .form_row > .input_container > input[name='username']").val(),
             password: $("#login > fieldset > .form_row > .input_container > input[name='password']").val()
+        },
+        beforeSend: function(){
+            $('.loader_container').addClass('is_visible');
+        },
+        complete: function(valid){
+            if(!valid){
+                $("#login > fieldset > .form_row > .input_container > input[name='username']").addClass("error");
+                $("#login > fieldset > .form_row > .input_container > input[name='password']").addClass("error");
+    
+            }else{
+                location.replace("/");
+            }
+            $('.loader_container').removeClass('is_visible');
         }
     })
-    .done(function(valid){
-        if(!valid){
-            $("#login > fieldset > .form_row > .input_container > input[name='username']").addClass("error");
-            $("#login > fieldset > .form_row > .input_container > input[name='password']").addClass("error");
-
-        }else{
-            location.replace("/");
-        }
-        $('.loader_container').removeClass('is_visible');
-    });
     e.preventDefault();
 });
 
