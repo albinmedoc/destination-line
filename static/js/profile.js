@@ -9,7 +9,8 @@ window.onload = function () {
             }
         })
         .done(function(){
-            alert("Du följer nu " + target_name);
+            $( ".follow i" ).html("favorite");
+            $( ".follow span" ).html("Unfollow");
         });
     });
 }

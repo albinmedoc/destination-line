@@ -77,7 +77,8 @@ $('#login').on('submit', function(e) {
     });
     e.preventDefault();
 });
-$('#register').on('submit', function(e) {
+
+/* $('#register').on('submit', function(e) {
     $('.loader_container').addClass('is_visible');
     $.ajax({
         method: "POST",
@@ -101,4 +102,4 @@ $('#register').on('submit', function(e) {
         $('.loader_container').removeClass('is_visible');
     });
     e.preventDefault();
-});
+}); */
