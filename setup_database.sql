@@ -18,7 +18,8 @@ create table person(
 
 create table follow(
 	follower int references person(id),
-	following int references person(id)
+	following int references person(id),
+	unique (follower, following)
 );
 
 create table album(
