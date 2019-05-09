@@ -9,6 +9,7 @@ $('#search').keypress(function() {
     timeout = setTimeout(do_search, 500)
 })
 var do_search = function(){
+    $('.loader_container').addClass('is_visible');
     $.ajax({
         method: "POST",
         url: $SCRIPT_ROOT + "/request/search",
@@ -31,6 +32,7 @@ var do_search = function(){
                 $("#users").append("<div class='search_result'><img src='https://i.imgur.com/azjwFrj.jpg'><div class='user_search_info'><span>"+data.users[user][2]+" "+data.users[user][3]+"</span><a href='/profile/"+data.users[user][1]+"' class='username'><span>"+data.users[user][1]+"</span></a><div class='follow_info'><a><b>3</b> Followers</a><a><b>24</b> Following</a></div></div></div>")
             }
         }
+        $('.loader_container').removeClass('is_visible');
     });
 };
 
