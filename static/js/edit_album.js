@@ -8,6 +8,7 @@ $(document).ready(function () {
         field: document.getElementById("period"),
         singleDate: false,
         format: "YYYY-MM-DD",
+        //Gör så det inte går att välja ett datum i framtiden
         maxDate: moment()
     });
 
@@ -28,7 +29,7 @@ $(document).ready(function () {
                     reader.onload = (function (file) {
                         return function (e) {
 
-                            //Kontrollerar att maxgränsen av bilder överstiger
+                            //Om antalet valda bilder stämmer överrens med maxgränsen ska "plus"-knappen avaktiveras och användaren ska få felmeddelande
                             if(Object.keys(images).length >= UPLOAD_LIMIT){
                                 console.log("You can only upload " + UPLOAD_LIMIT + " images in total!");
                                 return;
@@ -69,9 +70,13 @@ $(document).ready(function () {
     });
 
     $("#upload_form").on("submit", function (e) {
+        e.preventDefault();
+        if(Object.keys(images).length == 0){
+            alert("Inga valda bilder");
+            return;
+        }
         $('#upload_progress_bar').css('width', '10%');
         console.log(images);
-        e.preventDefault();
         var data = new FormData();
         //Lägger till album information i FormData
         data.append("country", $("#country").val());
