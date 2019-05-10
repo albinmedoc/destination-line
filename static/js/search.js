@@ -20,15 +20,13 @@ var do_search = function(){
     .done(function(data){
         $(".search_category").html('');
         if(data.countries){
-            $("#countries").append("<h2>Destinations</h2>");
             for (country in data.countries){
                 $("#countries").append("<div class='search_result'><img src='https://i.imgur.com/azjwFrj.jpg'><div class='user_search_info'><span>"+data.countries[country][2]+"</span><a href='/album/"+data.countries[country][0]+"' class='city'><h3>"+data.countries[country][3]+"</h3></a></div></div>")
             }
         }
         if(data.users){
-            $("#users").append("<h2>Users</h2>");
             for (user in data.users){
-                $("#users").append("<div class='search_result'><img src='https://i.imgur.com/azjwFrj.jpg'><div class='user_search_info'><span>"+data.users[user][2]+" "+data.users[user][3]+"</span><a href='/profile/"+data.users[user][1]+"' class='username'><span>"+data.users[user][1]+"</span></a><div class='follow_info'><a><b>3</b> Followers</a><a><b>24</b> Following</a></div></div></div>")
+                $("#users").append("<div class='search_result'><i class='material-icons'>person_outline</i><div class='search_result_top'><img src='https://i.imgur.com/azjwFrj.jpg'><div class='user_search_info'><h3>"+data.users[user][2]+" "+data.users[user][3]+"</h3><div class='follow_info'><a><h4>3</h4> <span>Followers</span></a><a><h4>3</h4> <span>Follow</span></a></div></div></div><a href='/profile/"+data.users[user][1]+"' class='username'><span>"+data.users[user][1]+"</span></a></div>")
             }
         }
     });
@@ -67,5 +65,6 @@ $(document).click(function(e)
         $("#search_container>a").removeClass("is_visible");
         $("#search_container>a>i").html("search");
         $("#search_container>a>span").html("Search");
+        $("body").css("overflow-y", "scroll");
     }
 });
