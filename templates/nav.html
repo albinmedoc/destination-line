@@ -13,6 +13,14 @@
                 <i class="material-icons">search</i>
                 <span>Search</span>
             </a>
+            <ul id="search_results">
+                <li class='search_category' id='countries'>
+                </li>
+                <li class='search_category' id='cities'>
+                </li>
+                <li class='search_category' id='users'>
+                </li>
+            </ul>
         </li>
         <!-- Visa uppladdningsknapp om inloggad -->
         {% if("username" in session) %}
@@ -48,14 +56,6 @@
                 </div>
                 {% endif %}
             </div>
-        </li>
-    </ul>
-    <ul id="search_results">
-        <li class='search_category' id='countries'>
-        </li>
-        <li class='search_category' id='cities'>
-        </li>
-        <li class='search_category' id='users'>
         </li>
     </ul>
 </nav>
