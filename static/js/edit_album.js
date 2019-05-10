@@ -102,7 +102,7 @@ $(document).ready(function (){
     });
 
     //Spara titel och beskrivning när rutan stängs
-    $(".cancel_modal").click(function () {
+    $("#modal_save_img_info").click(function () {
 
         //Hämtar img_url
         var img_url = $("#img_info_modal .img_preview").attr("src");
@@ -124,6 +124,14 @@ $(document).ready(function (){
         //Tömmer fälten för rubrik och beskrivning
         $("#img_info_modal input[name='headline']").val("");
         $("#img_info_modal textarea[name='description']").val("");
+    });
+    
+    $(".cancel_modal").click(function () {
+        
+        //Döljer modal
+        $("#img_info_modal, .image_info").removeClass("is_visible");
+
+  
     });
 
     //Gör inläggen flyttbara, är det mobil måste man dra på ".reorder"-elementet
