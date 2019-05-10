@@ -19,10 +19,6 @@
     position: sticky;
 }
 
-#about_us{
-   
-   
-}
 
 #about_us>h2{
     text-align: center;
@@ -90,7 +86,7 @@ hr{
     display: inline-block;
     padding: 5px;
     color: white;
-    background-color: rgb(80, 79, 79);
+    background-color: rgb(79, 173, 236);
     text-align: center;
     cursor: pointer;
     width: 100%;
