@@ -53,7 +53,7 @@ $("#search_container>a").click(function(){
         $("#search_container>a").removeClass("is_visible");
         $("#search_container>a>i").html("search");
         $("#search_container>a>span").html("Search");
-        $("body").css("overflow-y", "scroll");
+        $("body").css("overflow-y", "auto");
     }
 });
 
@@ -69,5 +69,6 @@ $(document).click(function(e)
         $("#search_container>a").removeClass("is_visible");
         $("#search_container>a>i").html("search");
         $("#search_container>a>span").html("Search");
+        $("body").css("overflow-y", "auto");
     }
 });
