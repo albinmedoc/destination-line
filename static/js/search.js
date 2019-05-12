@@ -22,13 +22,11 @@ var do_search = function(){
         .done(function(data){
             $(".search_category").html('');
             if(data.countries){
-                $("#countries").append("<h2>Destinations</h2>");
                 for (country in data.countries){
                     $("#countries").append("<div class='search_result'><img src='https://i.imgur.com/azjwFrj.jpg'><div class='user_search_info'><span>"+data.countries[country][2]+"</span><a href='/album/"+data.countries[country][0]+"' class='city'><h3>"+data.countries[country][3]+"</h3></a></div></div>")
                 }
             }
             if(data.users){
-                $("#users").append("<h2>Users</h2>");
                 for (user in data.users){
                     $("#users").append("<div class='search_result'><img src='https://i.imgur.com/azjwFrj.jpg'><div class='user_search_info'><span>"+data.users[user][2]+" "+data.users[user][3]+"</span><a href='/profile/"+data.users[user][1]+"' class='username'><span>"+data.users[user][1]+"</span></a><div class='follow_info'><a><b>3</b> Followers</a><a><b>24</b> Following</a></div></div></div>")
                 }
