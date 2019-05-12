@@ -3,7 +3,7 @@ body{
     margin-top: 0;
 }
 
-#info_container{
+main{
     overflow-y:auto;
     overflow-x: hidden;
     height: calc(100vh);
@@ -26,7 +26,7 @@ body{
     transform: translateZ(-1px) scale(1.5);
 }
 
-#info_container>section:last-child{
+section:last-child{
     z-index: 3;
     background-color: white;
 }
