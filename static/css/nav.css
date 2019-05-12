@@ -258,6 +258,6 @@ nav ul li a:hover::after, #search_container > a.is_visible::after{/* Triggas hä
         position: relative;
     }
     #search_results{
-        width: 100%;
+        width: calc(100% - 115px);
     }
 }
