@@ -39,14 +39,12 @@
     z-index: 1;
 }
 
-
-
 #profile_img {
     height: 150px;
     width: 150px;
     margin: auto;
     position: relative;
-    transform: translateY(-80%);
+    transform: translateY(-40%);
 }
 
 #profile_img>img {
