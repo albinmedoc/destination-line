@@ -22,12 +22,12 @@ var do_search = function(){
         $(".search_category").html('');
         if(data.countries){
             for (country in data.countries){
-                $("#destinations").append("<div class='search_result'><img src='https://i.imgur.com/azjwFrj.jpg'><div class='user_search_info'><span>"+data.countries[country][2]+"</span><a href='/album/"+data.countries[country][0]+"' class='city'><h3>"+data.countries[country][3]+"</h3></a></div></div>")
+                $("#destinations").append("<div class='search_result'><i class='material-icons'>place</i><a href='/album/"+data.countries[country][0]+"'><img src='https://i.imgur.com/RhIOo8D.jpg'></a><div class='destinations_search_info'><a href='/album/"+data.countries[country][0]+"' class='city'><h3>"+data.countries[country][3]+"</h3></a><p>"+data.countries[country][2]+"</p><a class='album_owner' href='#'><i class='material-icons'>person_outline</i><span>"+data.countries[country][4]+"</span></a></div></div>");
             }
         }
         if(data.users){
             for (user in data.users){
-                $("#users").append("<div class='search_result'><i class='material-icons'>person_outline</i><div class='search_result_top'><img src='https://i.imgur.com/azjwFrj.jpg'><div class='user_search_info'><h3>"+data.users[user][2]+" "+data.users[user][3]+"</h3><div class='follow_info'><a><h4>3</h4> <span>Followers</span></a><a><h4>3</h4> <span>Follow</span></a></div></div></div><a href='/profile/"+data.users[user][1]+"' class='username'><span>"+data.users[user][1]+"</span></a></div>")
+                $("#users").append("<div class='search_result'><i class='material-icons'>person_outline</i><div class='search_result_top'><img src='https://i.imgur.com/5o1TAya.jpg'><div class='user_search_info'><h3>"+data.users[user][2]+" "+data.users[user][3]+"</h3><div class='follow_info'><a><h4>3</h4> <span>Followers</span></a><a><h4>3</h4> <span>Follow</span></a></div></div></div><a href='/profile/"+data.users[user][1]+"' class='username'><span>"+data.users[user][1]+"</span></a></div>")
             }
         };
         $("nav .loader_container").removeClass("is_visible");
