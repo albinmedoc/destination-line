@@ -211,7 +211,7 @@ def setup_follow(user_id, target_id):
 def get_countries(search):
         db = Database()
         cur = db.conn.cursor()
-        cur.execute("select id, owner, country, city from album where country LIKE '{}%' or city LIKE '{}%'".format(search,search))
+        cur.execute("select album.id, album.owner, country, city, concat(firstname,' ', lastname) from album join person on album.owner=person.id where country LIKE '{}%' or city LIKE '{}%'".format(search,search))
         search_results = cur.fetchall()
         print(search)
         print(search_results)
