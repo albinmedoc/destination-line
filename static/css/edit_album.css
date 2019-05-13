@@ -35,7 +35,6 @@
 .post,
 #upload_btn {
     position: relative;
-    width: 300px;
     height: 168px;
     transform: none;
     box-shadow: 0 2px 5px rgb(209, 209, 209);
@@ -107,12 +106,12 @@ form.image_info textarea {
 
 @media (min-width:768px) {
     .album_grid_container{
-        grid-template-columns: 350px 3fr;
+        grid-template-columns: 300px 3fr;
     }
 
     #upload_form > fieldset{
         position: fixed;
-        width: 350px;
+        width: 300px;
         box-shadow: 0 2px 5px rgb(240, 240, 240);
     }
 

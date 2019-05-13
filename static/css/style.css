@@ -14,7 +14,7 @@ body {
     font-family: 'Titillium Web';
     font-weight: 300;
     overflow-x: hidden;
-    overflow-y: visible;
+    overflow-y: auto;
     text-shadow: 0 0 1px rgba(0, 0, 0, 0.26);
     color: rgb(66,66,66);
     margin-top: 60px;

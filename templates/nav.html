@@ -13,6 +13,15 @@
                 <i class="material-icons">search</i>
                 <span>Search</span>
             </a>
+            <ul id="search_results">
+                {% include 'loader.html' %}
+                <li class='search_category' id='countries'>
+                </li>
+                <li class='search_category' id='cities'>
+                </li>
+                <li class='search_category' id='users'>
+                </li>
+            </ul>
         </li>
         <!-- Visa uppladdningsknapp om inloggad -->
         {% if("username" in session) %}
@@ -37,25 +46,16 @@
                     <span>Login</span>
                 </a>
                 {% else %}
-                <a class="nav_link">
+                <a href="{{ url_for('user.profile') }}" class="nav_link">
                     <i class="material-icons">account_circle</i>
                     <span>Profile</span>
                 </a>
                 <div class="dropdown_content">
-                    <a class="dropdown_link" href="{{ url_for('user.profile') }}">My Profile</a>
-                    <a class="dropdown_link" href="{{ url_for('user.settings') }}">Settings</a>
-                    <a class="dropdown_link" href="{{ url_for('user.logout') }}">Logout</a>
+                    <a class="dropdown_link" href="{{ url_for('user.settings') }}"><span>Settings</span><i class="material-icons">settings</i></a>
+                    <a class="dropdown_link" href="{{ url_for('user.logout') }}"><span>Sign out</span><i class="material-icons">cancel</i></a>
                 </div>
                 {% endif %}
             </div>
-        </li>
-    </ul>
-    <ul id="search_results">
-        <li class='search_category' id='countries'>
-        </li>
-        <li class='search_category' id='cities'>
-        </li>
-        <li class='search_category' id='users'>
         </li>
     </ul>
 </nav>

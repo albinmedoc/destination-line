@@ -8,7 +8,8 @@
 {% endblock head %}
 {% block main %}
 <section id="profile_container">
-    <div id="icon_row">
+    <section id="profile_header"></section>
+    <section id="icon_row">
         {% if session["username"] == user_info[0] %}
         <div class="button_container">
             <i class="material-icons button_icon_container">add_a_photo</i>
@@ -17,9 +18,9 @@
             </div>
         </div>
         <div class="button_container">
-            <i class="material-icons button_icon_container">create</i>
+            <i class="material-icons button_icon_container">settings</i>
             <div class="button_text_container">
-                <span>Profile Settings</span>
+                <span>Edit profile</span>
             </div>
         </div>
         {% elif "username" in session %}
@@ -30,9 +31,6 @@
             </div>
         </div>
         {% endif %}
-    </div>
-    <section id="profile_header">
-
     </section>
     <section id="profile_main">
         <section id="stats_container">

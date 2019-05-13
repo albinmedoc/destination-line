@@ -1,27 +1,38 @@
-#info_container{
-    display: grid;
+body{
+    overflow: hidden;
+    margin-top: 0;
+}
+
+main{
+    overflow-y:auto;
+    overflow-x: hidden;
+    height: calc(100vh);
+    perspective: 2px;
 }
 
 #about_video{
-    overflow:hidden;
+    overflow: hidden;
+    position: relative;
+    height: calc(100vh - 60px);
 }
 
 #about_video>video{
+    position: absolute;
     display:block;
-    width: 100%;
-    height: calc(100vh - 120px);
+    width: 100vw;
+    height: 100%;
     object-fit: cover;
     object-position: center;
+    transform: translateZ(-1px) scale(1.5);
+}
 
+section:last-child{
+    z-index: 3;
+    background-color: white;
 }
 
 #explore_tabs{
     position: sticky;
-}
-
-#about_us{
-   
-   
 }
 
 #about_us>h2{
@@ -51,7 +62,6 @@ hr{
     flex-wrap: wrap;
     justify-content: space-around;
     width: 100%;
-    
 }
 
 .card{
@@ -59,7 +69,6 @@ hr{
     margin: 10px;
     text-align: center;
     width: 300px;
-    
   }
 
 .card>img{
@@ -74,23 +83,22 @@ hr{
     margin: 0;
     color: black;
     font-size: 22px;
-
 }
-  
+
   .title{
     color: black;
     font-size: 18px;
     margin: 10px;
    
   }
-  
+
   .card>button{
     border: none;
     outline: 0;
     display: inline-block;
     padding: 5px;
     color: white;
-    background-color: rgb(80, 79, 79);
+    background-color: rgb(79, 173, 236);
     text-align: center;
     cursor: pointer;
     width: 100%;
@@ -106,7 +114,6 @@ hr{
     
   }
 
-  
   .card>button:hover, #info_container>#profile_cards>.card>#social_icons>a:hover{
     opacity: 0.7;
   }
