@@ -28,7 +28,7 @@
     z-index: 0;
 }
 
-#icon_row {
+#icon_row{
     position: fixed;
     width: 100%;
     top: 60px;
@@ -134,6 +134,7 @@
 #profile_info>blockquote::after {
     content: '"';
 }
+
 
 @media (min-width:768px) {
     #icon_row > .button_container {
