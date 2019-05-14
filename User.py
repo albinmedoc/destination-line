@@ -1,6 +1,7 @@
 from flask import Blueprint, request, session, redirect, jsonify, flash, render_template
 import bcrypt
 from Database import Database
+import os
 
 app = Blueprint("user", __name__, template_folder="templates")
 
@@ -225,3 +226,27 @@ def get_users(search):
         print(search)
         print(search_results)
         return search_results
+@app.route("/test/<username>")
+def delete_user(user_id=None, username=None):
+        db = Database()
+        cur = db.conn.cursor()
+        if(username is not None):
+                user_id = get_user_id(username=username)
+
+        
+        cur.execute("select post.img_name from album join post on album.id=post.album where album.owner=%s", [user_id])
+        images= cur.fetchall()
+        print(images)
+        for image in images:
+                if(os.path.exists("images/" + image[0])):
+                        os.remove("images/" + image[0])
+        
+        cur.execute("delete from follow where follower=%s", [user_id])
+        cur.execute("delete from follow where following=%s", [user_id])
+        cur.execute("delete from post where album in (select id from album where owner=%s)", [user_id])
+        cur.execute("delete from album where owner=%s", [user_id])
+        cur.execute("delete from person where id=%s", [user_id])
+
+        db.conn.commit()
+        cur.close()
+        return "id:" + str(user_id) + " username:" + username
