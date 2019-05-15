@@ -140,4 +140,9 @@
     #icon_row > .button_container {
         max-width: none;
     }
+
+    #profile_img{
+        width: 250px;
+        height: 250px;
+    }
 }
