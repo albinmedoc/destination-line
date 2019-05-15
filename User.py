@@ -267,6 +267,6 @@ def settings_update(username):
          where id = %s""", [username])
         cur.close()
         db.conn.commit()
-        return redirect("profile")
+        return render_template("profile.html")
 
 
