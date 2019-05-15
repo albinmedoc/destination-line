@@ -17,7 +17,7 @@
 }
 
 #upload_btn {
-    background-color: rgb(255, 255, 255);
+    background-color: white;
     border: none;
     text-align: center;
 }
@@ -37,14 +37,14 @@
     position: relative;
     height: 168px;
     transform: none;
-    box-shadow: 0 2px 5px rgb(209, 209, 209);
+    box-shadow: 0 2px 5px var(--shadow_color);
     animation: fade_in .5s forwards;
     transition: box-shadow .2s;
 }
 
 .post:hover,
 #upload_btn:hover{
-    box-shadow: 0 5px 10px rgb(177, 177, 177);
+    box-shadow: 0 5px 10px var(--shadow_color);
 }
 
 .post>img {
@@ -112,7 +112,7 @@ form.image_info textarea {
     #upload_form > fieldset{
         position: fixed;
         width: 300px;
-        box-shadow: 0 2px 5px rgb(240, 240, 240);
+        box-shadow: 0 2px 5px var(--shadow_color);
     }
 
     .post>i.reorder {

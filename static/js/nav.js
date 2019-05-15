@@ -36,37 +36,13 @@ var do_search = function(){
 
 $("#search_container>a").click(function(){
     if(!$(this).hasClass('is_visible')){
-        $("#search_results").addClass("is_visible");
-        $("#search").addClass("is_visible");
-        $("#search_container").addClass("is_visible");
-        $("#search_container>a").addClass("is_visible");
+        $("#search_results, #search, #search_container, #search_container>a").addClass("is_visible");
         $("#search").focus();
         $("#search_container>a>i").html("close");
         $("#search_container>a>span").html("Cancel");
-        $("body").css("overflow-y", "hidden");
     }else if ($(this).hasClass('is_visible')){
-        $("#search_results").removeClass("is_visible");
-        $("#search").removeClass("is_visible");
-        $("#search_container").removeClass("is_visible");
-        $("#search_container>a").removeClass("is_visible");
+        $("#search_results, #search, #search_container, #search_container>a").removeClass("is_visible");
         $("#search_container>a>i").html("search");
         $("#search_container>a>span").html("Search");
-        $("body").css("overflow-y", "auto");
-    }
-});
-
-$(document).click(function(e) 
-{
-    var container = $("#search_container, #search_results, .search_category");
-
-    // if the target of the click isn't the container nor a descendant of the container
-    if (!container.is(e.target) && container.has(e.target).length === 0){
-        $("#search_results").removeClass("is_visible");
-        $("#search").removeClass("is_visible");
-        $("#search_container").removeClass("is_visible");
-        $("#search_container>a").removeClass("is_visible");
-        $("#search_container>a>i").html("search");
-        $("#search_container>a>span").html("Search");
-        $("body").css("overflow-y", "auto");
     }
 });

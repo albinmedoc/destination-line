@@ -4,18 +4,12 @@
     align-items: center;
     width: 100%;
     margin: 0 0 20px 0;
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.281);
-    transition: box-shadow .2s;
-    overflow: hidden;
+    box-shadow: 0 3px 5px var(--shadow_color);
     height: 300px;
 }
 
 .album:last-child {
     margin: 0;
-}
-
-.album:hover {
-    box-shadow: 0 9px 9px rgba(0, 0, 0, 0.438);
 }
 
 .album>img {
@@ -42,11 +36,11 @@
     justify-content: center;
     background-color: rgba(255, 255, 255, 0.7);
     transition: background-color 0.3s;
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.411);
+    box-shadow: 0 5px 5px var(--shadow_color);
 }
 
 .info_circle:hover {
-    background-color: rgba(255, 255, 255, 0.9)
+    background-color: white;
 }
 
 .info_circle>* {
@@ -81,6 +75,7 @@
 @media (min-width:600px){
     .album{
         height: calc(100vh - 60px);
+        min-height: 600px;
     }
     .info_circle{
         height: 380px;
@@ -89,6 +84,9 @@
 }
 
 @media (min-width:768px){
+    .album{
+        min-height: 800px;
+    }
     .info_circle{
         height: 500px;
         width: 500px;

@@ -13,9 +13,9 @@
                 <i class="material-icons">search</i>
                 <span>Search</span>
             </a>
-            <ul id="search_results">
+            <section id="search_results">
                 {% include 'loader.html' %}
-                <li class='search_category' id='destinations'>
+                <article class='search_category' id='destinations'>
                     <!-- <div class='search_result'>
                             <i class="material-icons-outlined">place</i>
                         <a href="#">
@@ -32,10 +32,10 @@
                             </a>
                         </div>
                     </div> -->
-                </li>
-                <li class='search_category' id='users'>
-                </li>
-            </ul>
+                </article>
+                <article class='search_category' id='users'>
+                </article>
+            </section>
         </li>
         <!-- Visa uppladdningsknapp om inloggad -->
         {% if("username" in session) %}
@@ -77,4 +77,4 @@
 {% if("username" not in session) %}
 {% include 'login_register.html' %}
 {% endif %}
-<script src="{{ url_for('static', filename='js/search.js') }}"></script>
+<script src="{{ url_for('static', filename='js/nav.js') }}"></script>
