@@ -6,15 +6,40 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/login_signup.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive_form.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/edit_album.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
 {% endblock head %}
 {% block main %}
-<section id="profile_container_settings">
-        <img id="background_img"
-        src="https://images.mentalfloss.com/sites/default/files/styles/mf_image_16x9/public/111798556-565x376_1.jpg?itok=CX04tBbz&resize=1100x1100" alt="Profile background">
-        <img id="profile_img" src="https://iso.500px.com/wp-content/uploads/2016/03/pedroquintela.jpg">
+<div id="settings_header">
+    <h1>Settings</h1>
+</div>
+<section id="profile_container">
+    <section id="background_img"></section>
+    <section id="icon_row">
+        <div class="button_container">
+            <i class="material-icons button_icon_container">add_a_photo</i>
+            <div class="button_text_container">
+                <span>Change Background</span>
+            </div>
+        </div>
+    </section>
+    <section id="profile_main">
+        <section id="stats_container">
+            <a>
+                <section id="profile_img">
+                    <img src="https://iso.500px.com/wp-content/uploads/2016/03/pedroquintela.jpg">
+                    <div class="button_container">
+                        <i class="material-icons button_icon_container">add_a_photo</i>
+                        <div class="button_text_container">
+                            <span>Change profilepicture</span>
+                        </div>
+                    </div>
+                </section>
+            </a>
+        </section>
+    </section>    
 </section>
+
 <form id="upload_form" class="responsive_form">
-        <h1>Settings</h1>
         <div class="input_container">
             <input id="username" type="text" name="username" placeholder=" " value="Hanna Bengtsson" required>
             <span>Username</span>
@@ -31,9 +56,16 @@
             <input id="biography" type="text" name="biography" placeholder=" " value="Hej Hej!" required>
             <span>Biography</span>
         </div>
+        <div>
+            <h2>Private information</h2>
+        </div>
         <div class="input_container">
             <input id="email" type="text" name="email" placeholder=" " value="elin@hotmail.com" required>
             <span>Email</span>
+        </div>
+        <div class="input_container">
+            <input type="password" name="password" placeholder=" " required>
+            <span>Password</span>
         </div>
         <div class="input_container">
             <button type="submit">Save</button>
