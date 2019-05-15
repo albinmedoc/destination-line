@@ -252,16 +252,21 @@ def delete_user(user_id=None, username=None):
         cur.close()
         return "id:" + str(user_id) + " username:" + username
 
-@app.route('/save_changes_settings', methods=['POST'])
-def save_changes_settings(firstname, lastname, username, email, password):
+@app.route("/update_user_information_form", methods=['POST'])
+def settings_update():
+        db = Database()
+        cur = db.conn.cursor()
         change_username= request.form.get ('username')
         change_firstname= request.form.get ('firstname')
         change_lastname= request.form.get ('lastname')
         change_biography= request.form.get ('biography')
         change_email= request.form.get ('email')
         change_password= request.form.get ('password')
-        sql_save_input = "insert into person (username, firstname, lastname, biography, email, password) values(%s, %s, %s, %s, %s, %s)")
-        cursor.execute(sql_save_input, (change_username, change_firstname, change_lastname, change_biography, change_email,change_password))
-        con.commit()
-        return template("profile")
+        cur.execute("update person(firstname, lastname, username, email, password) values (%s, %s, %s, %s, %s)", (change_firstname, change_lastname, change_username, change_biography, change_email, change_password))
+        cur.close()
+        db.conn.commit()
+        return redirect("/")
+
+
+
 
