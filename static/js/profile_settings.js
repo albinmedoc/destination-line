@@ -8,7 +8,7 @@ $(document).ready(function (){
     $("#save_settings_button").on("click", function(e){
         e.preventDefault();
         //Kontrollera gamalt lösenord här, if-satsen ska sluta i kommentaren "KEBAB"
-        if(old_username != $("new_username").val()){
+        if(old_username != $("input[name='new_username']").val()){
             alert("test");
             $.ajax({
                 method: "POST",
@@ -24,7 +24,7 @@ $(document).ready(function (){
         }
 
         //Nästa if
-        if(old_firstname != $("new_firstname").val()){
+        if(old_firstname != $("input[name='new_firstname']").val()){
             $.ajax({
                 method: "POST",
                 url: $SCRIPT_ROOT + "/request/change_firstname",
@@ -39,7 +39,7 @@ $(document).ready(function (){
         }
 
         //Nästa if
-        if(old_lastname != $("new_lastname").val()){
+        if(old_lastname != $("input[name='new_lastname']").val()){
             $.ajax({
                 method: "POST",
                 url: $SCRIPT_ROOT + "/request/change_lastname",
@@ -54,7 +54,7 @@ $(document).ready(function (){
         }
 
         //Nästa if
-        if(old_biography != $("new_biography").val()){
+        if(old_biography != $("input[name='new_biography']").val()){
             $.ajax({
                 method: "POST",
                 url: $SCRIPT_ROOT + "/request/change_biography",
@@ -68,7 +68,7 @@ $(document).ready(function (){
             });
         }
 
-        if(old_email != $("new_email").val()){
+        if(old_email != $("input[name='new_email']").val()){
             $.ajax({
                 method: "POST",
                 url: $SCRIPT_ROOT + "/request/change_email",
