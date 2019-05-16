@@ -76,7 +76,7 @@ $('#login').on('submit', function(e) {
             }
             $('.loader_container').removeClass('is_visible');
         }
-    })
+    });
     e.preventDefault();
 });
 
