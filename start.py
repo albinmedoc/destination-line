@@ -27,7 +27,7 @@ def index():
 
 @app.route("/timeline")
 def timeline():
-        return render_template("timeline.html")
+        return render_template("timeline1.html")
 
 @app.route("/info")
 def about():

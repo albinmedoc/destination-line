@@ -2,6 +2,8 @@ from flask import Blueprint, request, session, redirect, jsonify, flash, render_
 import bcrypt
 from Database import Database
 import os
+from werkzeug.utils import secure_filename
+from Settings import UPLOAD_FOLDER, ALLOWED_EXTENSIONS
 
 app = Blueprint("user", __name__, template_folder="templates")
 
@@ -284,8 +286,6 @@ def get_countries(search):
         cur = db.conn.cursor()
         cur.execute("select album.id, album.owner, country, city, concat(firstname,' ', lastname) from album join person on album.owner=person.id where country LIKE '{}%' or city LIKE '{}%'".format(search,search))
         search_results = cur.fetchall()
-        print(search)
-        print(search_results)
         return search_results
 
 def get_users(search):
@@ -293,25 +293,26 @@ def get_users(search):
         cur = db.conn.cursor()
         cur.execute("select id, username, firstname, lastname from person where username LIKE '{}%' or firstname LIKE '{}%' or lastname LIKE '{}%'".format(search,search,search))
         search_results = cur.fetchall()
-        print(search)
-        print(search_results)
         return search_results
 
 @app.route("/test/<username>")
 def delete_user(user_id=None, username=None):
         db = Database()
         cur = db.conn.cursor()
+
+        #Hämtar användarID ifall username är angivet
         if(username is not None):
                 user_id = get_user_id(username=username)
-
         
+        #Hämtar alla filnamn för uppladdade bilder från användaren
         cur.execute("select post.img_name from album join post on album.id=post.album where album.owner=%s", [user_id])
-        images= cur.fetchall()
-        print(images)
-        for image in images:
-                if(os.path.exists("images/" + image[0])):
-                        os.remove("images/" + image[0])
+        filenames = cur.fetchall()
+        #Loopar igenom alla filnamn och raderar dem
+        for filename in filenames:
+                if(os.path.isfile(os.path.join(UPLOAD_FOLDER, secure_filename(filename[0])))):
+                        os.remove(os.path.join(UPLOAD_FOLDER, secure_filename(filename[0])))
         
+        #Raderar allt sparat om användaren från databasen
         cur.execute("delete from follow where follower=%s", [user_id])
         cur.execute("delete from follow where following=%s", [user_id])
         cur.execute("delete from post where album in (select id from album where owner=%s)", [user_id])
@@ -319,24 +320,4 @@ def delete_user(user_id=None, username=None):
         cur.execute("delete from person where id=%s", [user_id])
 
         db.conn.commit()
-        cur.close()
-        return "id:" + str(user_id) + " username:" + username
-
-@app.route("/update_user_information_form/<username>", methods=['POST'])
-def settings_update(username):
-        db = Database()
-        cur = db.conn.cursor()
-        change_username= request.form.get ('username')
-        change_firstname= request.form.get ('firstname')
-        change_lastname= request.form.get ('lastname')
-        change_biography= request.form.get ('biography')
-        change_email= request.form.get ('email')
-        change_password= request.form.get ('password')
-        cur.execute("""update person(firstname, lastname, username, biography, email, password)
-         values (%s, %s, %s, %s, %s, %s) (change_firstname, change_lastname, change_username, change_biography, change_email, change_password) 
-         where id = %s""", [username])
-        cur.close()
-        db.conn.commit()
-        return render_template("profile.html")
-
-
+        return "The users saved data was removed!"
