@@ -10,7 +10,6 @@
 {% endblock head %}
 
 {% block main %}
-{% if("username" in session) %}
 <section id="explore_tabs" class="is_visible">
     <a href="#" class="explore_tab following active">
         <h2>Following</h2>
@@ -39,8 +38,6 @@
     <p>{{ posts[0][2] }}</p>
 </section>
 
-
-{% endif %}
 {% endblock main %}
 {% block javascript %}
 {{ super() }}
