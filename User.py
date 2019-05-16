@@ -24,7 +24,7 @@ def callback(incoming_request):
                 search = request.form.get("search")
                 return jsonify(countries=get_countries(search), users=get_users(search))
         elif(incoming_request == "change_username"):
-                if(not user_exists(username=username)):
+                if not (user_exists(username=username)):
                         username = session["username"]
                         change_username = request.form.get("new_username")
                         db = Database()
@@ -59,7 +59,7 @@ def callback(incoming_request):
                 db.conn.commit()
                 cur.close()
         elif(incoming_request == "change_email"):
-                if(not notuser_exists(email=email)):
+                if not (user_exists(email=email)):
                         username = session["username"]
                         change_email = request.form.get("new_email")
                         db = Database()
@@ -265,9 +265,10 @@ def settings():
         db = Database()
         cur = db.conn.cursor()
         username = session["username"]
-        cur.execute("select username, firstname, lastname, email, biography from person where username=%s", [username])
+        cur.execute("select username, firstname, lastname, biography, email from person where username=%s", [username])
         profile_info = cur.fetchone()
-        return render_template("settings.html", profile_info=profile)
+        print (profile_info)
+        return render_template("settings.html", profile_info=profile_info)
         
 def setup_follow(user_id, target_id):
         db = Database()
