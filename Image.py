@@ -6,12 +6,9 @@ from PIL import Image
 from Database import Database
 from datetime import datetime
 from User import get_user_id, owns_album
+from Settings import UPLOAD_FOLDER, ALLOWED_EXTENSIONS, POST_LIMIT
 
 app = Blueprint("image", __name__, template_folder="templates")
-
-ALLOWED_EXTENSIONS = set(["png", "jpg", "jpeg", "webp"])
-
-UPLOAD_FOLDER = os.path.join(os.path.abspath(os.curdir) + "/images")
 
 
 @app.route("/new/album", methods = ["GET", "POST"])
@@ -20,13 +17,16 @@ def upload():
                 if("username" not in session):
                         return "<h1>Du måste vara inloggad</h1>"
                 return render_template("edit_album.html")
+
+        #Användaren laddar upp ett Album (POST)
+        if(len(request.files) <= 0 or len(request.files) > POST_LIMIT):
+                print("Ladda upp max " + POST_LIMIT + " bilder.")
+                return False
         #Inkommande information
         country = request.form.get("country")
         city = request.form.get("city")
         date_start = datetime.strptime(request.form.get("date_start"), "%Y-%m-%d")
         date_end = datetime.strptime(request.form.get("date_end"), "%Y-%m-%d")
-
-        #Fixa så man kollar om filer och information skickades med
         db = Database()
         cur = db.conn.cursor()
         user_id = get_user_id(session["username"])
@@ -43,7 +43,7 @@ def upload():
 
                         #Sparar som WebP format
                         filename = str(uuid4()) + ".webp"
-                        while os.path.isfile(filename):
+                        while os.path.isfile(os.path.join(UPLOAD_FOLDER, secure_filename(filename))):
                                 filename = str(uuid4()) + ".webp"
                         img.save(os.path.join(UPLOAD_FOLDER, secure_filename(filename)))
                         #index för bildens ordning i albumet || post1 blir index 1
@@ -114,6 +114,7 @@ def crop_to_16_9(img):
         box = (0, upper, width, upper + height)
         cropped_img = img.crop(box)
         return cropped_img
+
 @app.route("/album/<album_id>")
 def album(album_id):
         db = Database()
