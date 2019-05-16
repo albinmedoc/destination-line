@@ -10,7 +10,6 @@
 {% endblock head %}
 
 {% block main %}
-{% if("username" in session) %}
 <section id="explore_tabs" class="is_visible">
     <a href="#" class="explore_tab following active">
         <h2>Following</h2>
@@ -19,6 +18,7 @@
         <h2>Explore</h2>
     </a>
 </section>
+
 <section id="album_container">
     <section id="post_image_container">
         <img src="{{  url_for('image.uploaded_images', image_id=posts[0][0]) }}">
@@ -38,8 +38,6 @@
     <p>{{ posts[0][2] }}</p>
 </section>
 
-
-{% endif %}
 {% endblock main %}
 {% block javascript %}
 {{ super() }}

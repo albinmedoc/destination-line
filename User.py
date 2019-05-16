@@ -25,6 +25,70 @@ def callback(incoming_request):
         elif(incoming_request == "search"):
                 search = request.form.get("search")
                 return jsonify(countries=get_countries(search), users=get_users(search))
+
+        elif(incoming_request == "check_password"):
+                password = request.form.get("password")
+                return jsonify(check_password(password, username=session["username"]))
+        elif(incoming_request == "change_username"):
+                change_username = request.form.get("new_username")
+                if not (user_exists(username=change_username)):
+                        username = session["username"]
+                        db = Database()
+                        cur = db.conn.cursor()
+                        cur.execute("update person set username=%s where username =%s", (change_username, username))  
+                        db.conn.commit()
+                        cur.close()
+                        return jsonify(True)
+        elif(incoming_request == "change_firstname"):
+                username = session["username"]
+                change_firstname = request.form.get("new_firstname")
+                db = Database()
+                cur = db.conn.cursor()
+                cur.execute("update person set firstname=%s where username =%s", (change_firstname, username))  
+                db.conn.commit()
+                cur.close()
+                return jsonify(True)
+        elif(incoming_request == "change_lastname"):
+                username = session["username"]
+                change_lastname = request.form.get("new_lastname")
+                db = Database()
+                cur = db.conn.cursor()
+                cur.execute("update person set lastname=%s where username =%s", (change_lastname, username))  
+                db.conn.commit()
+                cur.close()
+                return jsonify(True)
+        elif(incoming_request == "change_biography"):
+                username = session["username"]
+                change_biography = request.form.get("new_biography")
+                db = Database()
+                cur = db.conn.cursor()
+                cur.execute("update person set biography=%s where username =%s", (change_biography, username))  
+                db.conn.commit()
+                cur.close()
+                return jsonify(True)
+        elif(incoming_request == "change_email"):
+                change_email = request.form.get("new_email")
+                if not (user_exists(email=change_email)):
+                        print ("kebabrulle")
+                        username = session["username"]
+                        db = Database()
+                        cur = db.conn.cursor()
+                        cur.execute("update person set email=%s where username =%s", (change_email, username))  
+                        db.conn.commit()
+                        cur.close()
+                        return jsonify(True)
+        elif(incoming_request == "change_password"):
+                username = session["username"]
+                change_password = request.form.get("new_password")
+                db = Database()
+                cur = db.conn.cursor()
+                #Hashar lösenordet
+                change_password = bcrypt.hashpw(change_password.encode("utf8"), bcrypt.gensalt(12)).decode("utf8").replace("'", '"')
+                username = session["username"]
+                cur.execute("update person set password=%s where username =%s", (change_password, username))  
+                db.conn.commit()
+                cur.close()
+                return jsonify(True)
         return jsonify(False)
 
 @app.route("/profile")
@@ -202,7 +266,13 @@ def owns_album(album_id, username=None, email=None, user_id=None):
 
 @app.route("/settings")
 def settings():
-        return render_template("settings.html")
+        db = Database()
+        cur = db.conn.cursor()
+        username = session["username"]
+        cur.execute("select username, firstname, lastname, biography, email from person where username=%s", [username])
+        profile_info = cur.fetchone()
+        print (profile_info)
+        return render_template("settings.html", profile_info=profile_info)
         
 def setup_follow(user_id, target_id):
         db = Database()

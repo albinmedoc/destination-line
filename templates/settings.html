@@ -6,38 +6,89 @@
 <link rel="stylesheet" href="{{ url_for('static', filename='css/login_signup.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive_form.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/edit_album.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
 {% endblock head %}
 {% block main %}
-<section id="profile_container_settings">
-        <img id="background_img"
-        src="https://images.mentalfloss.com/sites/default/files/styles/mf_image_16x9/public/111798556-565x376_1.jpg?itok=CX04tBbz&resize=1100x1100" alt="Profile background">
-        <img id="profile_img" src="https://iso.500px.com/wp-content/uploads/2016/03/pedroquintela.jpg">
-</section>
-<form id="upload_form" class="responsive_form">
-        <h1>Settings</h1>
-        <div class="input_container">
-            <input id="username" type="text" name="username" placeholder=" " value="Hanna Bengtsson" required>
-            <span>Username</span>
+
+<section id="profile_container">
+    <section id="background_img"></section>
+    <section id="icon_row">
+        <div class="button_container">
+            <i class="material-icons button_icon_container">add_a_photo</i>
+            <div class="button_text_container">
+                <span>Change Background</span>
+            </div>
         </div>
+    </section>
+    <section id="profile_main">
+        <section id="stats_container">
+            <a>
+                <section id="profile_img">
+                    <img src="https://iso.500px.com/wp-content/uploads/2016/03/pedroquintela.jpg">
+                    <div class="button_container">
+                        <i class="material-icons button_icon_container">add_a_photo</i>
+                        <div class="button_text_container">
+                            <span>Change profilepicture</span>
+                        </div>
+                    </div>
+                </section>
+            </a>
+        </section>
+    </section>    
+</section>
+
+<div id="settings_header">
+        <h1>Settings</h1>
+</div>
+
+<form id="upload_form" class="responsive_form">
+    <div class="form_row">
         <div class="input_container">
-            <input id="firstname" type="text" name="firstname" placeholder=" " value="Hanna Bengtsson" required>
+            <input id="firstname" type="text" name="new_firstname" placeholder=" " value="{{profile_info[1]}}">
             <span>Firstname</span>
         </div>
         <div class="input_container">
-            <input id="lastname" type="text" name="lastname" placeholder=" " value="Hanna Bengtsson" required>
+            <input id="lastname" type="text" name="new_lastname" placeholder=" " value="{{profile_info[2]}}">
             <span>Lastname</span>
         </div>
+    </div>
+    <div class="form_row">
         <div class="input_container">
-            <input id="biography" type="text" name="biography" placeholder=" " value="Hej Hej!" required>
+            <input id="biography" type="text" name="new_biography" placeholder=" " value="{{profile_info[3]}}">
             <span>Biography</span>
         </div>
+    </div>
+    <div>
+        <h2>Private information</h2>
+    </div>
+    <div class="form_row">
+            <div class="input_container">
+                <input id="username" type="text" name="new_username" placeholder=" " value="{{profile_info[0]}}">
+                <span>Username</span>
+            </div>
+            <div class="input_container">
+                <input id="email" type="text" name="new_email" placeholder=" " value="{{profile_info[4]}}">
+                <span>Email</span>
+            </div>
+        </div>
+    <div class="form_row">
         <div class="input_container">
-            <input id="email" type="text" name="email" placeholder=" " value="elin@hotmail.com" required>
-            <span>Email</span>
+            <input type="password" name="new_password" placeholder=" ">
+            <span>Password</span>
         </div>
         <div class="input_container">
-            <button type="submit">Save</button>
+            <input type="password" name="new_password2" placeholder=" ">
+            <span>Confirm password</span>
         </div>
+    </div>
+    <div class="form_row">
+        <div class="input_container">
+            <button id="save_settings_button">Save</button>
+        </div>
+    </div>
 </form>
-
+{% block javascript %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/profile_settings.js') }}"></script>
+{% endblock javascript%}
 {% endblock main %}

@@ -20,7 +20,7 @@
         <div class="button_container">
             <a href="{{ url_for('user.settings') }}" class="material-icons button_icon_container">settings</a>
             <div class="button_text_container">
-                <span>Edit profile</span>
+            <a href="{{ url_for('user.settings') }}"><span>Edit profile</span></a>   
             </div>
         </div>
         {% elif "username" in session %}
@@ -45,7 +45,7 @@
                     <div class="button_container">
                         <i class="material-icons button_icon_container">add_a_photo</i>
                         <div class="button_text_container">
-                            <span>Change profile</span>
+                            <span>Change profilepicture</span>
                         </div>
                     </div>
                     {% endif %}
@@ -58,7 +58,7 @@
         </section>
         <section id="profile_info">
             <h2>{{user_info[1]}} {{user_info[2]}}</h2>
-            <blockquote>Photography is what drives me, it's my passion and I love it</blockquote>
+            <p>{{user_info[6]}}</p>
         </section>
 
         <!-- Här ska album finnas -->
