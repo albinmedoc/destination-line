@@ -23,6 +23,10 @@ def callback(incoming_request):
         elif(incoming_request == "search"):
                 search = request.form.get("search")
                 return jsonify(countries=get_countries(search), users=get_users(search))
+
+        elif(incoming_request == "check_password"):
+                password = request.form.get("password")
+                return jsonify(check_password(password, username=session["username"]))
         elif(incoming_request == "change_username"):
                 change_username = request.form.get("new_username")
                 if not (user_exists(username=change_username)):

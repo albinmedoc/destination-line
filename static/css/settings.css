@@ -8,6 +8,7 @@
     position: relative;
     display: grid;
     text-align: center;
+    z-index:2;
 }
 
 #background_img{
@@ -20,10 +21,6 @@
     background-size: cover;
     padding: 50px 0;
     height: 250px;
-}
-
-.input_container{
-    padding: 15px;
 }
 
 @media (min-width:768px) {
