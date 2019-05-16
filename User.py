@@ -59,7 +59,7 @@ def callback(incoming_request):
                 db.conn.commit()
                 cur.close()
         elif(incoming_request == "change_email"):
-                if(not notuser_exists(email=email)):
+                if(not user_exists(email=email)):
                         username = session["username"]
                         change_email = request.form.get("new_email")
                         db = Database()
