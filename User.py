@@ -267,10 +267,4 @@ def settings_update(username):
          where id = %s""", [username])
         cur.close()
         db.conn.commit()
-<<<<<<< HEAD
         return redirect("/")
-=======
-        return render_template("profile.html")
-
-
->>>>>>> 466d5d91d8db611103aa67303b356366ae9de907
