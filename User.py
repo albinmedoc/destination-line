@@ -51,6 +51,7 @@ def callback(incoming_request):
                 db.conn.commit()
                 cur.close()
         elif(incoming_request == "change_biography"):
+                print ("Test")
                 username = session["username"]
                 change_biography = request.form.get("new_biography")
                 db = Database()
