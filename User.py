@@ -23,6 +23,10 @@ def callback(incoming_request):
         elif(incoming_request == "search"):
                 search = request.form.get("search")
                 return jsonify(countries=get_countries(search), users=get_users(search))
+        elif(incoming_request == "change_username"):
+                username = session["username"]
+                change_password = request.form.get("new_username")
+                '''UPDATE'''
         return jsonify(False)
 
 @app.route("/profile")
@@ -267,10 +271,4 @@ def settings_update(username):
          where id = %s""", [username])
         cur.close()
         db.conn.commit()
-<<<<<<< HEAD
         return redirect("/")
-=======
-        return render_template("profile.html")
-
-
->>>>>>> 466d5d91d8db611103aa67303b356366ae9de907
