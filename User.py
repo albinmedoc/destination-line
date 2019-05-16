@@ -266,7 +266,3 @@ def settings_update():
         cur.close()
         db.conn.commit()
         return redirect("/")
-
-
-
-
