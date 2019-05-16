@@ -24,9 +24,67 @@ def callback(incoming_request):
                 search = request.form.get("search")
                 return jsonify(countries=get_countries(search), users=get_users(search))
         elif(incoming_request == "change_username"):
+                if not (user_exists(username=username):
+                        username = session["username"]
+                        change_username = request.form.get("new_username")
+                        db = Database()
+                        cur = db.conn.cursor()
+                        cur.execute("update person set username=%s where username =%s", (change_username, username))  
+                        db.conn.commit()
+                        cur.close()
+                else: 
+                        return "Användarnamnet existerar redan"
+        elif(incoming_request == "change_firstname"):
                 username = session["username"]
-                change_password = request.form.get("new_username")
-                '''UPDATE'''
+                change_firstname = request.form.get("new_firstname")
+                db = Database()
+                cur = db.conn.cursor()
+                cur.execute("update person set firstname=%s where username =%s", (change_firstname, username))  
+                db.conn.commit()
+                cur.close()
+        elif(incoming_request == "change_lastname"):
+                username = session["username"]
+                change_lastname = request.form.get("new_lastname")
+                db = Database()
+                cur = db.conn.cursor()
+                cur.execute("update person set lastname=%s where username =%s", (change_lastname, username))  
+                db.conn.commit()
+                cur.close()
+        elif(incoming_request == "change_biography"):
+                username = session["username"]
+                change_biography = request.form.get("new_biography")
+                db = Database()
+                cur = db.conn.cursor()
+                cur.execute("update person set biography=%s where username =%s", (change_biography, username))  
+                db.conn.commit()
+                cur.close()
+        elif(incoming_request == "change_email"):
+                if not (user_exists(email=email):
+                        username = session["username"]
+                        change_email = request.form.get("new_email")
+                        db = Database()
+                        cur = db.conn.cursor()
+                        cur.execute("update person set email=%s where username =%s", (change_email, username))  
+                        db.conn.commit()
+                        cur.close()
+                else:
+                        return: "This email does already exist"
+        elif(incoming_request == "change_password"):
+                username = session["username"]
+                change_password = request.form.get("new_password")
+                change_password2 = request.form.get("new_password2")
+                #Kollar så lössenorden matchar
+                if(change_password == change_password2):
+                        db = Database()
+                        cur = db.conn.cursor()
+                        #Hashar lösenordet
+                        change_password = bcrypt.hashpw(change_password.encode("utf8"), bcrypt.gensalt(12)).decode("utf8").replace("'", '"')
+                        username = session["username"]
+                        cur.execute("update person set password=%s where username =%s", (change_password, username))  
+                        db.conn.commit()
+                        cur.close()
+                else: 
+                        return "Fel lösenord"
         return jsonify(False)
 
 @app.route("/profile")
@@ -255,32 +313,6 @@ def delete_user(user_id=None, username=None):
         db.conn.commit()
         cur.close()
         return "id:" + str(user_id) + " username:" + username
-
-@app.route("/update_user_information_form", methods=['POST'])
-def settings_update():
-        
-        change_firstname= request.form.get ('firstname')
-        change_lastname= request.form.get ('lastname')
-        change_username= request.form.get ('username')
-        change_biography= request.form.get ('biography')
-        change_email= request.form.get ('email')
-        change_password= request.form.get ('password')
-        change_password2 = request.form.get("password2")
-        #Kollar så lössenorden matchar
-        if(change_password == change_password2):
-                db = Database()
-                cur = db.conn.cursor()
-                #Hashar lösenordet
-                change_password = bcrypt.hashpw(change_password.encode("utf8"), bcrypt.gensalt(12)).decode("utf8").replace("'", '"')
-                username = session["username"]
-                cur.execute("""update person set firstname=%s, lastname=%s, username=%s, biography=%s, email=%s, password=%s
-                where username = %s""", (change_firstname, change_lastname, change_username, change_biography, change_email, change_password, username))
-                db.conn.commit()
-                cur.close()
-                session["username"] = change_username
-                return redirect("/profile")
-        else: 
-                return "Fel lösenord"
 
 
 
