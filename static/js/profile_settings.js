@@ -1,9 +1,9 @@
 $(document).ready(function (){
     var old_username = $("input[name='new_username']").val();
-    var old_email = $("input[name='new_email']").val();
     var old_firstname = $("input[name='new_firstname']").val();
     var old_lastname = $("input[name='new_lastname']").val();
     var old_biography = $("input[name='new_biography']").val();
+    var old_email = $("input[name='new_email']").val();
 
     $("#save_settings_button").on("click", function(e){
         e.preventDefault();
