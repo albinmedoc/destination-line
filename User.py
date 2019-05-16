@@ -23,11 +23,11 @@ def callback(incoming_request):
         elif(incoming_request == "search"):
                 search = request.form.get("search")
                 return jsonify(countries=get_countries(search), users=get_users(search))
-
         elif(incoming_request == "check_password"):
                 password = request.form.get("password")
                 return jsonify(check_password(password, username=session["username"]))
         elif(incoming_request == "change_username"):
+                #Ändrar användarnamn och kollar att det inte redan existerar databasen
                 change_username = request.form.get("new_username")
                 if not (user_exists(username=change_username)):
                         username = session["username"]
@@ -38,6 +38,7 @@ def callback(incoming_request):
                         cur.close()
                         return jsonify(True)
         elif(incoming_request == "change_firstname"):
+                #Ändrar användarens förnamn
                 username = session["username"]
                 change_firstname = request.form.get("new_firstname")
                 db = Database()
@@ -47,6 +48,7 @@ def callback(incoming_request):
                 cur.close()
                 return jsonify(True)
         elif(incoming_request == "change_lastname"):
+                #Ändrar användarens efternamn
                 username = session["username"]
                 change_lastname = request.form.get("new_lastname")
                 db = Database()
@@ -56,6 +58,7 @@ def callback(incoming_request):
                 cur.close()
                 return jsonify(True)
         elif(incoming_request == "change_biography"):
+                #Ändrar användarens biografi
                 username = session["username"]
                 change_biography = request.form.get("new_biography")
                 db = Database()
@@ -65,6 +68,7 @@ def callback(incoming_request):
                 cur.close()
                 return jsonify(True)
         elif(incoming_request == "change_email"):
+                #Ändrar användarens email och kollar att det inte redan existerar databasen
                 change_email = request.form.get("new_email")
                 if not (user_exists(email=change_email)):
                         print ("kebabrulle")
@@ -76,6 +80,7 @@ def callback(incoming_request):
                         cur.close()
                         return jsonify(True)
         elif(incoming_request == "change_password"):
+                #Ändrar användarens lösenord och krypterar det
                 username = session["username"]
                 change_password = request.form.get("new_password")
                 db = Database()
@@ -321,22 +326,3 @@ def delete_user(user_id=None, username=None):
         db.conn.commit()
         cur.close()
         return "id:" + str(user_id) + " username:" + username
-
-@app.route("/update_user_information_form/<username>", methods=['POST'])
-def settings_update(username):
-        db = Database()
-        cur = db.conn.cursor()
-        change_username= request.form.get ('username')
-        change_firstname= request.form.get ('firstname')
-        change_lastname= request.form.get ('lastname')
-        change_biography= request.form.get ('biography')
-        change_email= request.form.get ('email')
-        change_password= request.form.get ('password')
-        cur.execute("""update person(firstname, lastname, username, biography, email, password)
-         values (%s, %s, %s, %s, %s, %s) (change_firstname, change_lastname, change_username, change_biography, change_email, change_password) 
-         where id = %s""", [username])
-        cur.close()
-        db.conn.commit()
-        return render_template("profile.html")
-
-
