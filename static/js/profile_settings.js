@@ -7,6 +7,7 @@ $(document).ready(function (){
 
     $("#save_settings_button").on("click", function(e){
         e.preventDefault();
+        //Kontrollera gamalt lösenord här, if-satsen ska sluta i kommentaren "KEBAB"
         if(old_username != $("new_username").val()){
             alert("test");
             $.ajax({
@@ -38,7 +39,7 @@ $(document).ready(function (){
         }
 
         //Nästa if
-        if(old_firstname != $("new_lastname").val()){
+        if(old_lastname != $("new_lastname").val()){
             $.ajax({
                 method: "POST",
                 url: $SCRIPT_ROOT + "/request/change_lastname",
@@ -81,7 +82,7 @@ $(document).ready(function (){
             });
         }
 
-        if(old_password != $("new_password").val()){
+        if($("input[name='new_password']").val() == $("input[name='new_password2']").val()){
             $.ajax({
                 method: "POST",
                 url: $SCRIPT_ROOT + "/request/change_password",
@@ -94,5 +95,6 @@ $(document).ready(function (){
                 }
             });
         }
+        //KEBAB
     });
 });

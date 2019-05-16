@@ -29,14 +29,15 @@
 }
 
 #icon_row{
-    position: fixed;
+    position: absolute;
     width: 100%;
-    top: 60px;
+    top: 0;
     display: flex;
     align-items: center;
     justify-content: space-between;
     transition: .15s ease;
     z-index: 1;
+
 }
 
 #profile_img {

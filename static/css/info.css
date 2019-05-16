@@ -31,10 +31,10 @@ section:last-child{
     background-color: white;
 }
 
-#explore_tabs{
-    position: sticky;
+#info_tabs{
+  position: sticky;
+  top: 60px;
 }
-
 #about_us>h2{
     text-align: center;
     font-size: 28px;
