@@ -82,7 +82,7 @@ $(document).ready(function (){
             });
         }
 
-        if($("input[name='new_password']").val() == $("input[name='new_password2']").val()){
+        if($("input[name='new_password']").val() == $("input[name='new_password2']").val() && $("input[name='new_password']").val() != ""){
             $.ajax({
                 method: "POST",
                 url: $SCRIPT_ROOT + "/request/change_password",
