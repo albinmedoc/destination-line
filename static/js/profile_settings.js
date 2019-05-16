@@ -38,7 +38,7 @@ $(document).ready(function (){
         }
 
         //Nästa if
-        if(old_firstname != $("new_lastname").val()){
+        if(old_lastname != $("new_lastname").val()){
             $.ajax({
                 method: "POST",
                 url: $SCRIPT_ROOT + "/request/change_lastname",
@@ -81,7 +81,7 @@ $(document).ready(function (){
             });
         }
 
-        if(old_password != $("new_password").val()){
+        /* if($("input[name='new_password']").val() == $("input[name='new_password2']").val()){
             $.ajax({
                 method: "POST",
                 url: $SCRIPT_ROOT + "/request/change_password",
@@ -93,6 +93,6 @@ $(document).ready(function (){
                     alert("Password changed!");
                 }
             });
-        }
+        } */
     });
 });

@@ -24,16 +24,15 @@ def callback(incoming_request):
                 search = request.form.get("search")
                 return jsonify(countries=get_countries(search), users=get_users(search))
         elif(incoming_request == "change_username"):
-                if not (user_exists(username=username)):
+                change_username = request.form.get("new_username")
+                if not (user_exists(username=change_username)):
                         username = session["username"]
-                        change_username = request.form.get("new_username")
                         db = Database()
                         cur = db.conn.cursor()
                         cur.execute("update person set username=%s where username =%s", (change_username, username))  
                         db.conn.commit()
                         cur.close()
-                else: 
-                        return "Användarnamnet existerar redan"
+                        return jsonify(True)
         elif(incoming_request == "change_firstname"):
                 username = session["username"]
                 change_firstname = request.form.get("new_firstname")
@@ -42,6 +41,7 @@ def callback(incoming_request):
                 cur.execute("update person set firstname=%s where username =%s", (change_firstname, username))  
                 db.conn.commit()
                 cur.close()
+                return jsonify(True)
         elif(incoming_request == "change_lastname"):
                 username = session["username"]
                 change_lastname = request.form.get("new_lastname")
@@ -50,8 +50,8 @@ def callback(incoming_request):
                 cur.execute("update person set lastname=%s where username =%s", (change_lastname, username))  
                 db.conn.commit()
                 cur.close()
+                return jsonify(True)
         elif(incoming_request == "change_biography"):
-                print ("Test")
                 username = session["username"]
                 change_biography = request.form.get("new_biography")
                 db = Database()
@@ -59,33 +59,30 @@ def callback(incoming_request):
                 cur.execute("update person set biography=%s where username =%s", (change_biography, username))  
                 db.conn.commit()
                 cur.close()
+                return jsonify(True)
         elif(incoming_request == "change_email"):
-                if not (user_exists(email=email)):
+                change_email = request.form.get("new_email")
+                if not (user_exists(email=change_email)):
+                        print ("kebabrulle")
                         username = session["username"]
-                        change_email = request.form.get("new_email")
                         db = Database()
                         cur = db.conn.cursor()
                         cur.execute("update person set email=%s where username =%s", (change_email, username))  
                         db.conn.commit()
                         cur.close()
-                else:
-                        return "This email does already exist"
+                        return jsonify(True)
         elif(incoming_request == "change_password"):
                 username = session["username"]
                 change_password = request.form.get("new_password")
-                change_password2 = request.form.get("new_password2")
-                #Kollar så lössenorden matchar
-                if(change_password == change_password2):
-                        db = Database()
-                        cur = db.conn.cursor()
-                        #Hashar lösenordet
-                        change_password = bcrypt.hashpw(change_password.encode("utf8"), bcrypt.gensalt(12)).decode("utf8").replace("'", '"')
-                        username = session["username"]
-                        cur.execute("update person set password=%s where username =%s", (change_password, username))  
-                        db.conn.commit()
-                        cur.close()
-                else: 
-                        return "Fel lösenord"
+                db = Database()
+                cur = db.conn.cursor()
+                #Hashar lösenordet
+                change_password = bcrypt.hashpw(change_password.encode("utf8"), bcrypt.gensalt(12)).decode("utf8").replace("'", '"')
+                username = session["username"]
+                cur.execute("update person set password=%s where username =%s", (change_password, username))  
+                db.conn.commit()
+                cur.close()
+                return jsonify(True)
         return jsonify(False)
 
 @app.route("/profile")
