@@ -252,25 +252,31 @@ def delete_user(user_id=None, username=None):
         cur.close()
         return "id:" + str(user_id) + " username:" + username
 
-@app.route("/update_user_information_form/<username>", methods=['POST'])
-def settings_update(username):
-        db = Database()
-        cur = db.conn.cursor()
-        change_username= request.form.get ('username')
+@app.route("/update_user_information_form", methods=['POST'])
+def settings_update():
+        
         change_firstname= request.form.get ('firstname')
         change_lastname= request.form.get ('lastname')
+        change_username= request.form.get ('username')
         change_biography= request.form.get ('biography')
         change_email= request.form.get ('email')
         change_password= request.form.get ('password')
-        cur.execute("""update person(firstname, lastname, username, biography, email, password)
-         values (%s, %s, %s, %s, %s, %s) (change_firstname, change_lastname, change_username, change_biography, change_email, change_password) 
-         where id = %s""", [username])
-        cur.close()
-        db.conn.commit()
-<<<<<<< HEAD
-        return redirect("/")
-=======
-        return render_template("profile.html")
+        change_password2 = request.form.get("password2")
+        #Kollar så lössenorden matchar
+        if(change_password == change_password2):
+                db = Database()
+                cur = db.conn.cursor()
+                #Hashar lösenordet
+                change_password = bcrypt.hashpw(change_password.encode("utf8"), bcrypt.gensalt(12)).decode("utf8").replace("'", '"')
+                username = session["username"]
+                cur.execute("""update person set firstname=%s, lastname=%s, username=%s, biography=%s, email=%s, password=%s
+                where username = %s""", (change_firstname, change_lastname, change_username, change_biography, change_email, change_password, username))
+                db.conn.commit()
+                cur.close()
+                session["username"] = change_username
+                return redirect("/profile")
+        else: 
+                return "Fel lösenord"
 
 
->>>>>>> 466d5d91d8db611103aa67303b356366ae9de907
+
