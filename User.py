@@ -204,7 +204,12 @@ def owns_album(album_id, username=None, email=None, user_id=None):
 
 @app.route("/settings")
 def settings():
-        return render_template("settings.html")
+        db = Database()
+        cur = db.conn.cursor()
+        username = session["username"]
+        cur.execute("select username, firstname, lastname, email, biography from person where username=%s", [username])
+        profile_info = cur.fetchone()
+        return render_template("settings.html", profile_info=profile)
         
 def setup_follow(user_id, target_id):
         db = Database()
