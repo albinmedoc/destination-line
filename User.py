@@ -252,8 +252,8 @@ def delete_user(user_id=None, username=None):
         cur.close()
         return "id:" + str(user_id) + " username:" + username
 
-@app.route("/update_user_information_form", methods=['POST'])
-def settings_update():
+@app.route("/update_user_information_form/<username>", methods=['POST'])
+def settings_update(username):
         db = Database()
         cur = db.conn.cursor()
         change_username= request.form.get ('username')
@@ -262,7 +262,15 @@ def settings_update():
         change_biography= request.form.get ('biography')
         change_email= request.form.get ('email')
         change_password= request.form.get ('password')
-        cur.execute("update person(firstname, lastname, username, email, password) values (%s, %s, %s, %s, %s)", (change_firstname, change_lastname, change_username, change_biography, change_email, change_password))
+        cur.execute("""update person(firstname, lastname, username, biography, email, password)
+         values (%s, %s, %s, %s, %s, %s) (change_firstname, change_lastname, change_username, change_biography, change_email, change_password) 
+         where id = %s""", [username])
         cur.close()
         db.conn.commit()
+<<<<<<< HEAD
         return redirect("/")
+=======
+        return render_template("profile.html")
+
+
+>>>>>>> 466d5d91d8db611103aa67303b356366ae9de907
