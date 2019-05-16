@@ -73,7 +73,6 @@ def callback(incoming_request):
                 #Ändrar användarens email och kollar att det inte redan existerar databasen
                 change_email = request.form.get("new_email")
                 if not (user_exists(email=change_email)):
-                        print ("kebabrulle")
                         username = session["username"]
                         db = Database()
                         cur = db.conn.cursor()
@@ -276,7 +275,6 @@ def settings():
         username = session["username"]
         cur.execute("select username, firstname, lastname, biography, email from person where username=%s", [username])
         profile_info = cur.fetchone()
-        print (profile_info)
         return render_template("settings.html", profile_info=profile_info)
         
 def setup_follow(user_id, target_id):

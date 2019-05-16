@@ -20,7 +20,6 @@ def upload():
 
         #Användaren laddar upp ett Album (POST)
         if(len(request.files) <= 0 or len(request.files) > POST_LIMIT):
-                print("Ladda upp max " + POST_LIMIT + " bilder.")
                 return False
         #Inkommande information
         country = request.form.get("country")
@@ -36,7 +35,6 @@ def upload():
                 file = request.files[key]
                 if(validate_image(file)):
                         if(not os.path.exists(UPLOAD_FOLDER)):
-                                print("Images folder don´t exist. Creating one..")
                                 os.makedirs(UPLOAD_FOLDER)
                         #Laddar bild
                         img = crop_to_16_9(Image.open(file.stream))
