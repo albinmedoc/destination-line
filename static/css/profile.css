@@ -53,7 +53,7 @@
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
-    box-shadow: 0 5px 5px rgba(0, 0, 0, 0.411);
+    box-shadow: 0 5px 5px var(--shadow_color);
 }
 
 #profile_img>.button_container {
@@ -61,7 +61,7 @@
     right: 0;
     position: absolute;
     background-color: rgb(255, 255, 255);
-    color: black;
+    color: rgb(66,66,66);
 }
 
 #profile_main {
@@ -110,7 +110,7 @@
     display: flex;
     align-items: center;
     flex-flow: column;
-    border-bottom: 1px solid rgb(63, 139, 238);
+    border-bottom: 1px solid var(--accent);
 }
 
 #profile_info>h2 {
@@ -121,7 +121,7 @@
     font-family: 'Parisienne', cursive;
 }
 
-#profile_info>blockquote {
+#profile_info>p {
     line-break: strict;
     padding: 0;
     margin: 0 40px;
@@ -131,8 +131,8 @@
     color: gray;
 }
 
-#profile_info>blockquote::before,
-#profile_info>blockquote::after {
+#profile_info>p::before,
+#profile_info>p::after {
     content: '"';
 }
 
