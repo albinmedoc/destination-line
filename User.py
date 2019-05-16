@@ -24,7 +24,7 @@ def callback(incoming_request):
                 search = request.form.get("search")
                 return jsonify(countries=get_countries(search), users=get_users(search))
         elif(incoming_request == "change_username"):
-                if not (user_exists(username=username):
+                if(not user_exists(username=username)):
                         username = session["username"]
                         change_username = request.form.get("new_username")
                         db = Database()
@@ -59,7 +59,7 @@ def callback(incoming_request):
                 db.conn.commit()
                 cur.close()
         elif(incoming_request == "change_email"):
-                if not (user_exists(email=email):
+                if(not notuser_exists(email=email)):
                         username = session["username"]
                         change_email = request.form.get("new_email")
                         db = Database()
@@ -68,7 +68,7 @@ def callback(incoming_request):
                         db.conn.commit()
                         cur.close()
                 else:
-                        return: "This email does already exist"
+                        return "This email does already exist"
         elif(incoming_request == "change_password"):
                 username = session["username"]
                 change_password = request.form.get("new_password")
