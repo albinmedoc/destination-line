@@ -265,14 +265,6 @@ def settings_update():
         change_biography= request.form.get ('biography')
         change_email= request.form.get ('email')
         change_password= request.form.get ('password')
-<<<<<<< HEAD
-        cur.execute("""update person(firstname, lastname, username, biography, email, password)
-         values (%s, %s, %s, %s, %s, %s) (change_firstname, change_lastname, change_username, change_biography, change_email, change_password) 
-         where id = %s""", [username])
-        cur.close()
-        db.conn.commit()
-        return redirect("/")
-=======
         change_password2 = request.form.get("password2")
         #Kollar så lössenorden matchar
         if(change_password == change_password2):
@@ -292,4 +284,3 @@ def settings_update():
 
 
 
->>>>>>> 76a935b73e20d1bbb9f2d3c7ccac0ade5f00d4b9
