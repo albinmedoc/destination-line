@@ -47,6 +47,6 @@ if __name__ == "__main__":
         app.register_blueprint(Image.app)
         #Startar servern på olika adresser beroende på attribut
         if(len(argv) > 1 and argv[1].lower() == "server"):
-                app.run(host = SERVER_IP, port = SERVER_PORT, debug = DEBUG_MODE, threaded = True)
+                app.run(host = SERVER_IP, port = 80, debug = DEBUG_MODE, threaded = True)
         else:
                 app.run(host = "localhost", port = SERVER_PORT, debug = DEBUG_MODE, threaded = True)
