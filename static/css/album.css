@@ -1,3 +1,6 @@
+@import url('https://fonts.googleapis.com/css?family=Old+Standard+TT');
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+
 #album_container{
     margin-top: 120px;
 }
@@ -13,34 +16,54 @@
 
 
 #post_description_container{
-   min-height: 10vh;
+  
 }
 
 #post_text_description_container>h1{
     text-align: center;
-    font-size: 5vw;
-    font-family: 'Titillium Web', sans-serif;
+    font-size: 50px;
+    font-family: 'Old Standard TT', serif;
     font-weight: 200;
+   
 
+}
+
+#post_text_description_container>h2{
+    font-size: 25px;
+    font-family: 'Old Standard TT', serif;
+    text-align: center;
+
+   
+}
+
+.dash {
+    width: 10%;
+    height: 2px;
+    background: #111;
+    display: block;
+    position: relative;
+    margin: 0 auto;
+    
 }
 
 #post_text_description_container>h3{
     text-align: center;
-    font-size: 3vw;
-    font-family: 'Titillium Web', sans-serif;
+    font-size: 15px;
+    font-family: 'Old Standard TT', serif;
     font-weight: 200;
-    border-bottom: 2px solid black;
-    margin-left: 300px;
-    margin-right: 300px;
+    margin-bottom: 40px;
+  
+
+
 }
 
 
 #post_text_description_container>p{
-    font-size: 3vw;
-    font-family: 'helvetica', sans-serif;
+    font-size: 16px;;
+    font-family: 'Montserrat', sans-serif;
     font-weight: 100;
-    padding-left: 15px;
-    padding-right: 15px;
-    text-align: center;
+    padding-left: 30px;
+    padding-right: 30px;
+    
     
 }
