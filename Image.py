@@ -113,6 +113,17 @@ def crop_to_16_9(img):
         cropped_img = img.crop(box)
         return cropped_img
 
+def crop_to_1_1(img):
+        original_size = img.size
+        if(original_size[0] * 1 == original_size[1] * 1):
+                return img
+        width = original_size[0]
+        height = original_size[0] * 1
+        upper = (original_size[1] - height) / 2
+        box = (0, upper, width, upper + height)
+        cropped_img = img.crop(box)
+        return cropped_img
+
 @app.route("/album/<album_id>")
 def album(album_id):
         db = Database()
@@ -124,3 +135,30 @@ def album(album_id):
         cur.execute("select img_name, headline, description from post where album={} order by index asc".format(album_id))
         posts = cur.fetchall()        
         return render_template("album.html", posts=posts, album_info=album_info)
+
+@app.route("/upload_profile_img", methods = ["POST"])
+def upload_profile_img():
+        if "username" not in session:
+                print("Inte inloggad")
+                return "Gick ej"
+        print(request.file)
+        if "file" not in request.file:
+                print("2")
+                return "Gick ej"
+        db = Database()
+        cur = db.conn.cursor()   
+        profile_img = request.file["file"]  
+        if profile_img == "":
+                print("3")
+                return "Gick ej"
+        filename = str(uuid4()) + ".webp"
+        while os.path.isfile(os.path.join(UPLOAD_FOLDER, secure_filename(filename))):
+                filename = str(uuid4()) + ".webp"
+        profile_img = crop_to_1_1(profile_img)
+        profile_img.save(os.path.join(UPLOAD_FOLDER, secure_filename(filename))) 
+        cur.execute("update person set profile_img=%s where username=%s", [secure_filename(filename), session["username"]])
+        db.conn.commit()
+        cur.close()
+        return "Gick"
+
+

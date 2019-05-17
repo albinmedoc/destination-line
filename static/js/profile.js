@@ -13,4 +13,7 @@ window.onload = function () {
             $( ".follow span" ).html("Unfollow");
         });
     });
+    $("#change_profile_img_btn").click(function(){
+        $("#input_profile_img").trigger("click");
+    });
 }
