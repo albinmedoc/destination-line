@@ -2,6 +2,8 @@ from flask import Blueprint, request, session, redirect, jsonify, flash, render_
 import bcrypt
 from Database import Database
 import os
+from werkzeug.utils import secure_filename
+from Settings import UPLOAD_FOLDER, ALLOWED_EXTENSIONS
 
 app = Blueprint("user", __name__, template_folder="templates")
 
@@ -23,6 +25,74 @@ def callback(incoming_request):
         elif(incoming_request == "search"):
                 search = request.form.get("search")
                 return jsonify(countries=get_countries(search), users=get_users(search))
+        elif(incoming_request == "check_password"):
+                password = request.form.get("password")
+                return jsonify(check_password(password, username=session["username"]))
+        elif(incoming_request == "change_username"):
+                #Ändrar användarnamn och kollar att det inte redan existerar databasen
+                change_username = request.form.get("new_username")
+                if not (user_exists(username=change_username)):
+                        username = session["username"]
+                        db = Database()
+                        cur = db.conn.cursor()
+                        cur.execute("update person set username=%s where username =%s", (change_username, username))  
+                        db.conn.commit()
+                        cur.close()
+                        return jsonify(True)
+        elif(incoming_request == "change_firstname"):
+                #Ändrar användarens förnamn
+                username = session["username"]
+                change_firstname = request.form.get("new_firstname")
+                db = Database()
+                cur = db.conn.cursor()
+                cur.execute("update person set firstname=%s where username =%s", (change_firstname, username))  
+                db.conn.commit()
+                cur.close()
+                return jsonify(True)
+        elif(incoming_request == "change_lastname"):
+                #Ändrar användarens efternamn
+                username = session["username"]
+                change_lastname = request.form.get("new_lastname")
+                db = Database()
+                cur = db.conn.cursor()
+                cur.execute("update person set lastname=%s where username =%s", (change_lastname, username))  
+                db.conn.commit()
+                cur.close()
+                return jsonify(True)
+        elif(incoming_request == "change_biography"):
+                #Ändrar användarens biografi
+                username = session["username"]
+                change_biography = request.form.get("new_biography")
+                db = Database()
+                cur = db.conn.cursor()
+                cur.execute("update person set biography=%s where username =%s", (change_biography, username))  
+                db.conn.commit()
+                cur.close()
+                return jsonify(True)
+        elif(incoming_request == "change_email"):
+                #Ändrar användarens email och kollar att det inte redan existerar databasen
+                change_email = request.form.get("new_email")
+                if not (user_exists(email=change_email)):
+                        username = session["username"]
+                        db = Database()
+                        cur = db.conn.cursor()
+                        cur.execute("update person set email=%s where username =%s", (change_email, username))  
+                        db.conn.commit()
+                        cur.close()
+                        return jsonify(True)
+        elif(incoming_request == "change_password"):
+                #Ändrar användarens lösenord och krypterar det
+                username = session["username"]
+                change_password = request.form.get("new_password")
+                db = Database()
+                cur = db.conn.cursor()
+                #Hashar lösenordet
+                change_password = bcrypt.hashpw(change_password.encode("utf8"), bcrypt.gensalt(12)).decode("utf8").replace("'", '"')
+                username = session["username"]
+                cur.execute("update person set password=%s where username =%s", (change_password, username))  
+                db.conn.commit()
+                cur.close()
+                return jsonify(True)
         return jsonify(False)
 
 @app.route("/profile")
@@ -200,7 +270,12 @@ def owns_album(album_id, username=None, email=None, user_id=None):
 
 @app.route("/settings")
 def settings():
-        return render_template("settings.html")
+        db = Database()
+        cur = db.conn.cursor()
+        username = session["username"]
+        cur.execute("select username, firstname, lastname, biography, email from person where username=%s", [username])
+        profile_info = cur.fetchone()
+        return render_template("settings.html", profile_info=profile_info)
         
 def setup_follow(user_id, target_id):
         db = Database()
@@ -214,8 +289,6 @@ def get_countries(search):
         cur = db.conn.cursor()
         cur.execute("select album.id, album.owner, country, city, concat(firstname,' ', lastname) from album join person on album.owner=person.id where country LIKE '{}%' or city LIKE '{}%'".format(search,search))
         search_results = cur.fetchall()
-        print(search)
-        print(search_results)
         return search_results
 
 def get_users(search):
@@ -223,25 +296,26 @@ def get_users(search):
         cur = db.conn.cursor()
         cur.execute("select id, username, firstname, lastname from person where username LIKE '{}%' or firstname LIKE '{}%' or lastname LIKE '{}%'".format(search,search,search))
         search_results = cur.fetchall()
-        print(search)
-        print(search_results)
         return search_results
 
 @app.route("/test/<username>")
 def delete_user(user_id=None, username=None):
         db = Database()
         cur = db.conn.cursor()
+
+        #Hämtar användarID ifall username är angivet
         if(username is not None):
                 user_id = get_user_id(username=username)
-
         
+        #Hämtar alla filnamn för uppladdade bilder från användaren
         cur.execute("select post.img_name from album join post on album.id=post.album where album.owner=%s", [user_id])
-        images= cur.fetchall()
-        print(images)
-        for image in images:
-                if(os.path.exists("images/" + image[0])):
-                        os.remove("images/" + image[0])
+        filenames = cur.fetchall()
+        #Loopar igenom alla filnamn och raderar dem
+        for filename in filenames:
+                if(os.path.isfile(os.path.join(UPLOAD_FOLDER, secure_filename(filename[0])))):
+                        os.remove(os.path.join(UPLOAD_FOLDER, secure_filename(filename[0])))
         
+        #Raderar allt sparat om användaren från databasen
         cur.execute("delete from follow where follower=%s", [user_id])
         cur.execute("delete from follow where following=%s", [user_id])
         cur.execute("delete from post where album in (select id from album where owner=%s)", [user_id])
@@ -249,22 +323,4 @@ def delete_user(user_id=None, username=None):
         cur.execute("delete from person where id=%s", [user_id])
 
         db.conn.commit()
-        cur.close()
-        return "id:" + str(user_id) + " username:" + username
-
-@app.route("/update_user_information_form/<username>", methods=['POST'])
-def settings_update(username):
-        db = Database()
-        cur = db.conn.cursor()
-        change_username= request.form.get ('username')
-        change_firstname= request.form.get ('firstname')
-        change_lastname= request.form.get ('lastname')
-        change_biography= request.form.get ('biography')
-        change_email= request.form.get ('email')
-        change_password= request.form.get ('password')
-        cur.execute("""update person(firstname, lastname, username, biography, email, password)
-         values (%s, %s, %s, %s, %s, %s) (change_firstname, change_lastname, change_username, change_biography, change_email, change_password) 
-         where id = %s""", [username])
-        cur.close()
-        db.conn.commit()
-        return redirect("/")
+        return "The users saved data was removed!"

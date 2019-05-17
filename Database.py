@@ -1,6 +1,6 @@
 import psycopg2
 from sys import exit
-from Settings import DATABASE_HOST, DATABASE_NAME, DATABASE_PASSWORD, DATABASE_USER
+from Credentials import DATABASE_HOST, DATABASE_NAME, DATABASE_PASSWORD, DATABASE_USER
 
 class Database():
 

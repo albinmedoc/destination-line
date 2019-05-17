@@ -1,70 +1,70 @@
-#explore_tabs {
+.tabs {
     position: fixed;
     top: 0;
+    transform: translateY(none);
     height: 60px;
     width: 100%;
-    background-color: rgba(255, 255, 255, 0.986);
+    background-color: white;
     z-index: 1;
     display: flex;
     justify-content: center;
     align-items: center;
-    transition: .15s ease;
+    transition: transform .2s ease;
     margin: auto;
     left: 0;
     right: 0;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.116);
+    box-shadow: 0 0 5px var(--shadow_color);
 }
 
 #explore_tabs.is_visible {
-    top: 60px;
+    transform: translateY(60px);
 }
 
-#explore_tabs > .explore_tab {
+.tabs > .explore_tab {
     position: relative;
     display: flex;
     flex-grow: 1;
     max-width: 250px;
     justify-content:space-around;
-    color: rgb(66, 66, 66);
+    color: rgb(66,66,66);
     height: 100%;
 }
 
-#explore_tabs > .explore_tab::after {
+.tabs > .explore_tab::after {
     content: '';
     position: absolute;
     height: 2px;
     width: 100%;
-    background-color: rgb(79, 173, 236);
+    background-color: var(--accent);
     bottom: 0;
     transform: scaleX(0);
     opacity: 0;
     transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-#explore_tabs > .explore_tab:hover::after,
-#explore_tabs > .explore_tab.active::after {
+.tabs > .explore_tab:hover::after,
+.tabs > .explore_tab.active::after {
     transform: none;
     opacity: 1;
 }
 
-#explore_tabs > .explore_tab > h2{
+.tabs > .explore_tab > h2{
     font-size: 18px;
     font-weight: 500;
 }
 
-#explore_tabs > .explore_tab.following>h2::before,
-#explore_tabs > .explore_tab.explore>h2::before,
-#profile::before {
+.tabs > .explore_tab.following>h2::before,
+.tabs > .explore_tab.explore>h2::before{
     font-family: "Material Icons";
     transform: translateX(-25px);
     position: absolute;
     top: 20px;
 }
 
-#explore_tabs>.explore_tab.following>h2::before {
+.tabs>.explore_tab.following>h2::before {
     content: "people";
 }
 
-#explore_tabs>.explore_tab.explore>h2::before {
+.tabs>.explore_tab.explore>h2::before {
     content: "public";
 }

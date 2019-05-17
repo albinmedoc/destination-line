@@ -4,6 +4,10 @@
 /* Generell font för hemsidan */
 @import url('https://fonts.googleapis.com/css?family=Titillium+Web');
 
+:root{
+    --shadow_color:rgba(0, 0, 0, 0.397);
+    --accent:rgb(79, 173, 236);
+}
 * {
     box-sizing: border-box;
 }
@@ -14,8 +18,7 @@ body {
     font-family: 'Titillium Web';
     font-weight: 300;
     overflow-x: hidden;
-    overflow-y: auto;
-    text-shadow: 0 0 1px rgba(0, 0, 0, 0.26);
+    text-shadow: 0 0 1px var(--shadow_color);
     color: rgb(66,66,66);
     margin-top: 60px;
 }
@@ -58,12 +61,12 @@ a, i, button, #upload_btn{
     display: flex;
     margin: 10px;
     padding: 8px;
-    background-color: rgb(255, 255, 255);
+    background-color: white;
     border-radius: 25px;
     cursor: pointer;
-    color: black;
-    box-shadow: 0 0 4px rgba(0, 0, 0, 0.411);
-    transition: .5s ease;
+    color: rgb(66, 66, 66);
+    box-shadow: 0 0 4px var(--shadow_color);
+    transition: max-width .3s ease;
     animation: slide_in_from_top .5s forwards cubic-bezier(0.075, 0.82, 0.165, 1);
     max-width: 40px;
 }
@@ -97,7 +100,7 @@ a, i, button, #upload_btn{
 .progress_bar {
     position: fixed;
     height: 3px;
-    background-color: rgb(111, 202, 255);
+    background-color: var(--accent);
     transition: .3s cubic-bezier(0.075, 0.82, 0.665, 1);
 }
 

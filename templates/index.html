@@ -15,7 +15,7 @@
 
 {% block main %}
 {% if("username" in session) %}
-<section id="explore_tabs" class="is_visible">
+<section id="explore_tabs" class="tabs is_visible">
     <a href="#" class="explore_tab following active">
         <h2>Following</h2>
     </a>
@@ -55,7 +55,7 @@
         </div>
         {% endfor %}
     {% endif %}
-</section>
+<!--</section>
 <div class="album">
     <img src="https://www.w3schools.com/howto/img_parallax.jpg">
     <div class="info_circle">
@@ -102,7 +102,8 @@
         <i class="material-icons">camera_alt</i>
         <h2 class="author">Elin Andersson</h2>
     </div>
-</div>
+</div>-->
+
 {% endblock main %}
 {% block javascript %}
 {{ super() }}

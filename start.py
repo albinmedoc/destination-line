@@ -27,7 +27,12 @@ def index():
 
 @app.route("/timeline")
 def timeline():
-        return render_template("timeline.html")
+        db = Database()
+        cur = db.conn.cursor()
+        cur.execute("select album.country, album.city, post.img_name, album.date_start, album.date_end from album join post on album.id = post.album where post.index=1")
+        albums = cur.fetchall()
+        print(albums)
+        return render_template("timeline1.html", albums=albums)
 
 @app.route("/info")
 def about():

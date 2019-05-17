@@ -1,0 +1,27 @@
+<head>
+    <!-- CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/timeline1.css') }}">
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
+        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+</head>
+
+<!-- Tidslinje -->
+<section class="timeline">
+    {% if albums is defined %}
+    {% set right = False %}
+        {% for album in albums %}
+            {% if right %}
+                <section class="container right">
+                {% set right = False %}
+            {% else %}
+                <section class="container left">
+                {% set right = True %}
+            {% endif %}
+                <section class="content">
+                    <h2>2017</h2>
+                    <p>Lorem ipsum..</p>
+                </section>
+            </section>
+        {% endfor %}
+    {% endif %}
+</section>

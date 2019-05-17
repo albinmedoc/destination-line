@@ -6,9 +6,9 @@ body {
     position: fixed;
     margin-left: 15px;
     top: 70px;
-    height: 80px;
     z-index: 1;
-    width: calc(100% - 20px);
+    height: calc(100% - 95px);
+    width: auto;
 }
 
 .timeline_container {
@@ -63,11 +63,11 @@ body {
 .timeline_date::before {
     content: "";
     position: absolute;
-    width: 15px;
-    height: 4px;
-    /* top är 60px eftersom .timeline_year och .timeline_date har höjden 60px */
-    top: calc(50% - 2px);
-    right: -15px;
+    height: 15px;
+    width: 4px;
+    /* right är calc(50% - 2px) eftersom bredden på linjen är 4. Då hamnar det exakt i mitten */
+    top: -15px;
+    right: calc(50% - 2px);
     background-color: rgba(0, 0, 0, 0.4);
 }
 
@@ -77,20 +77,4 @@ body {
     /* Line-height är 30px eftersom .timeline_date har höjden 60px och det ska finnas två rader,
     då placeras texten i mitten (vertikalt) */
     line-height: 30px;
-}
-
-@media (min-width: 600px) {
-    .timeline {
-        height: calc(100% - 95px);
-        width: auto;
-    }
-
-    .timeline_year>.year::before,
-    .timeline_date::before {
-        height: 15px;
-        width: 4px;
-        /* right är calc(50% - 2px) eftersom bredden på linjen är 4. Då hamnar det exakt i mitten */
-        top: -15px;
-        right: calc(50% - 2px);
-    }
 }
