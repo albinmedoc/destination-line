@@ -15,3 +15,6 @@ ALLOWED_EXTENSIONS = set(["png", "jpg", "jpeg", "webp"])
 
 #Count limit for images in an album
 POST_LIMIT = 50
+
+#List for random videos
+RANDOM_VIDEOS = ["bali", "greece", "maldives", "phuket", "iceland"]
