@@ -12,8 +12,9 @@ create table person(
 	username varchar(30) not null,
 	email varchar(50) not null,
 	password text not null,
-	biography varchar(100),
-	background text
+	profile_img text, 
+	background_img text,
+	biography varchar(100)
 );
 
 create table follow(
