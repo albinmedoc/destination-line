@@ -22,7 +22,7 @@ def callback(incoming_request):
                 user_id = get_user_id(username=session["username"])
                 target_id = get_user_id(username=request.form.get("target_name"))
                 setup_follow(user_id, target_id)
-                sucess = True
+                success = True
         elif(incoming_request == "search"):
                 search = request.form.get("search")
                 return jsonify(countries=get_countries(search), users=get_users(search))
@@ -153,7 +153,7 @@ def register():
                         session.permanent = True
                         session["username"] = username
                         flash(u'Welcome to Destination Line', 'success')
-                        return redirect("/")
+                        return jsonify(True)
                 else:
                         return "Något gick fel"
         return "password stämmer inte överrens"
