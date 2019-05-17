@@ -55,19 +55,27 @@ $("#register > fieldset > .form_row > .input_container > input[name='email']").f
     });
 });
 
+//Tar bort röd boarder efter error
+$("#login > fieldset > .form_row > .input_container > input[name='username'], #login > fieldset > .form_row > .input_container > input[name='password']",).keyup(function(){
+    $("#login > fieldset > .form_row > .input_container > input[name='username']").removeClass("error");
+    $("#login > fieldset > .form_row > .input_container > input[name='password']").removeClass("error");
+   
+});
+
+//Skickar med input och kör funktion beroende på svaret
 $('#login').on('submit', function(e) {
+    e.preventDefault();
     $.ajax({
         method: "POST",
         url: $SCRIPT_ROOT + "/login",
         data: {
             username: $("#login > fieldset > .form_row > .input_container > input[name='username']").val(),
             password: $("#login > fieldset > .form_row > .input_container > input[name='password']").val()
-        },
-        beforeSend: function(){
-            $('.loader_container').addClass('is_visible');
-        },
-        complete: function(valid){
-            if(!valid){
+        }
+    })
+        //Om error lägger till röd boarder
+        .done(function(valid){
+            if(valid==false){
                 $("#login > fieldset > .form_row > .input_container > input[name='username']").addClass("error");
                 $("#login > fieldset > .form_row > .input_container > input[name='password']").addClass("error");
     
@@ -75,9 +83,7 @@ $('#login').on('submit', function(e) {
                 location.replace("/");
             }
             $('.loader_container').removeClass('is_visible');
-        }
-    });
-    e.preventDefault();
+        });
 });
 
 /* $('#register').on('submit', function(e) {
