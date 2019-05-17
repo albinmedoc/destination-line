@@ -1,10 +1,11 @@
 # coding: UTF-8
 import psycopg2
+import random
 from flask import Flask, flash, render_template, session
 from os import urandom
 from sys import argv
 import User, Image
-from Settings import SERVER_IP, SERVER_PORT, DEBUG_MODE
+from Settings import SERVER_IP, SERVER_PORT, DEBUG_MODE, RANDOM_VIDEOS
 from Database import Database
 
 app = Flask(__name__)
@@ -36,7 +37,9 @@ def timeline():
 
 @app.route("/info")
 def about():
-        return render_template("info.html")
+        video = random.choice(RANDOM_VIDEOS)
+        print(video)
+        return render_template("info.html", video=video)
 
 if __name__ == "__main__":
         #Importera Blueprints

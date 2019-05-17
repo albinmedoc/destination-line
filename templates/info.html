@@ -13,7 +13,8 @@
 {% block main %}
 <section id="about_video">
     <video autoplay="autoplay" loop="loop" muted>
-    <source src="static/bali.mp4" type="video/mp4"></video>
+        <source src="{{ url_for('static', filename='videos/' + video + '.mp4') }}" type="video/mp4">
+    </video>
 </section>
 <section>
     <section id="info_tabs" class="tabs is_visible">
@@ -103,5 +104,4 @@
         </div>
     </section>
 </section>
-
 {% endblock main %}
