@@ -95,6 +95,7 @@
 
 .responsive_form input.error {
     border: 2px solid red;
+    animation: shake .3s backwards;
 }
 
 .responsive_form input:focus+span,
