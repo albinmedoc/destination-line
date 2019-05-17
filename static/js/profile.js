@@ -16,4 +16,7 @@ window.onload = function () {
     $("#change_profile_img_btn").click(function(){
         $("#input_profile_img").trigger("click");
     });
+    $("#input_profile_img").change(function(){
+        $
+    });
 }
