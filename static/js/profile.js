@@ -17,6 +17,21 @@ window.onload = function () {
         $("#input_profile_img").trigger("click");
     });
     $("#input_profile_img").change(function(){
-        $
+        alert("kebab");
+        var file = this.files[0];
+        var data = new FormData();
+        data.append("file", file);
+        $.ajax({
+            url: $SCRIPT_ROOT + "/upload_profile_img", 
+            type: "POST", 
+            contentType: false, 
+            procesData: false,
+            cache: false, 
+            data: data,
+            complete: function(){
+                alert("kebabrulle");
+            }
+        });
+
     });
 }

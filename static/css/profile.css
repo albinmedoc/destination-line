@@ -131,12 +131,6 @@
     color: gray;
 }
 
-#profile_info>p::before,
-#profile_info>p::after {
-    content: '"';
-}
-
-
 @media (min-width:768px) {
     #icon_row > .button_container {
         max-width: none;
