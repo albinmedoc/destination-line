@@ -2,7 +2,7 @@ import os
 
 #Host to run server
 SERVER_IP = "192.168.1.18"
-SERVER_PORT = 80
+SERVER_PORT = 8080
 
 #Run server in debug-mode (True/False)
 DEBUG_MODE = True
