@@ -6,6 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta charset="utf-8">
     <title>Destination Line</title>
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
     <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined">
@@ -19,24 +21,23 @@
 </head>
 
 <body>
-
     {% include 'nav.html' %}
     {% include 'loader.html' %}
+    {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+            <section class=flashes>
+                {% for category, message in messages %}
+                <div class="{{ category }}">{{ message }}
+                    <button class=close_flash type="button"> confirm cookies </button>
+                </div>
+                {% endfor %}
+            </section>
+        {% endif %}
+    {% endwith %}
     <main>
         {% block main %}
         {% endblock main %}
     </main>
-    {% with messages = get_flashed_messages(with_categories=true) %}
-    {% if messages %}
-    <section class=flashes>
-        {% for category, message in messages %}
-        <div class="{{ category }}">{{ message }}
-            <button class=close_flash type="button"> confirm cookies </button>
-        </div>
-        {% endfor %}
-    </section>
-    {% endif %}
-    {% endwith %}
     <!-- JAVASCRIPT -->
     {% block javascript %}
         <script src="{{ url_for('static', filename='js/main.js') }}"></script>
