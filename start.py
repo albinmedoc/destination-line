@@ -38,7 +38,6 @@ def timeline():
 @app.route("/info")
 def about():
         video = random.choice(RANDOM_VIDEOS)
-        print(video)
         return render_template("info.html", video=video)
 
 if __name__ == "__main__":
