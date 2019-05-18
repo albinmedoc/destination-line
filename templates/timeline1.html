@@ -8,8 +8,8 @@
 </head>
 
 <!-- Tidslinje -->
+{% if albums is defined %}
 <section class="timeline">
-    {% if albums is defined %}
         {% for album in albums %}
             {% if loop.index % 2 == 0 %}
             <section class="container right">
@@ -27,5 +27,5 @@
                 </a>
             </section>
         {% endfor %}
-    {% endif %}
 </section>
+{% endif %}
