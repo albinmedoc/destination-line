@@ -1,5 +1,5 @@
 body{
-    background-color: #474e5d;
+    background-color: white;
     font-family: Helvetica, sans-serif;
 }
 
@@ -13,7 +13,7 @@ body{
     content: '';
     position: absolute;
     width: 6px;
-    background-color: white;
+    background-color: rgba(0, 0, 0, 0.397);
     top: 0;
     bottom: 0;
     left: 50%;
@@ -34,7 +34,7 @@ body{
     height: 25px;
     right: -17px;
     background-color: white;
-    border: 4px solid #FF9F55;
+    border: 4px solid rgb(79, 173, 236);
     top: 15px;
     border-radius: 50%;
     z-index: 1;
@@ -57,43 +57,44 @@ body{
     top: 22px;
     width: 0;
     z-index: 1;
-    border: medium solid white;
+    border: medium solid rgba(0, 0, 0, 0.397);
 }
 
 .container.left::before{
       right: 30px;
       border-width: 10px 0 10px 10px;
-      border-color: transparent transparent transparent white;
+      border-color: transparent transparent transparent rgba(0, 0, 0, 0.397);
 }
 
 .container.right::before{
     left: 30px;
     border-width: 10px 10px 10px 0;
-    border-color: transparent white transparent transparent;
+    border-color: transparent rgba(0, 0, 0, 0.397) transparent transparent;
 }
 
 .container.right::after{
     left: -16px;
 }
 
-.container > .content{
-    padding: 7px;
-    background-color: white;
+.container .content{
+    padding: 4px;
+    background-color: rgba(0, 0, 0, 0.397);
     position: relative;
     border-radius: 9px;
 }
 
-.container > .content > img{
+.container .content > img{
     position: relative;
     top: 0;
     width: 100%;
     border-radius: 6px;
 }
-.container > .content > .location{
+.container .content > .location{
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    -webkit-text-stroke: 0.7px black;
     color: white;
     font-size: 25px;
     text-align: center;
@@ -113,7 +114,7 @@ body{
     .container.left::before, .container.right::before{
         left: 60px;
         border-width: 10px 10px 10px 0;
-        border-color: transparent white transparent transparent;
+        border-color: transparent #474e5d transparent transparent;
     }
 
     .container.left::after, .container.right::after{
