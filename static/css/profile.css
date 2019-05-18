@@ -1,3 +1,8 @@
+/* Gömmer input fält */
+#input_profile_img, #input_background_img{
+    display: none;
+}
+
 #profile_container {
     position: relative;
     min-height: 100%;
