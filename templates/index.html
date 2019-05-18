@@ -25,7 +25,7 @@
             {% for album in explore_albums %}
             <div class="album">
                 <a class="album_link" href="{{ url_for('image.album', album_id=album[0]) }}"></a>
-                <img src="{{ url_for('image.uploaded_images', image_id=album[5]) }}">
+                <img src="{{ url_for('image.uploaded_images', image_id=album[5]) }}" alt="{{ album[2] }} - {{ album[1] }}">
                 <div class="info_circle">
                     <h1 class="city flex_font">{{ album[1] }}</h1>
                     <h2 class="country flex_font">{{ album[2] }}</h2>
