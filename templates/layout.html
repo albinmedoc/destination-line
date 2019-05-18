@@ -8,10 +8,8 @@
     <title>Destination Line</title>
     <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}">
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons|Material+Icons+Outlined">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/flashes.css') }}">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/loader.css') }}">
 
     <!-- JavaScript -->
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
@@ -41,8 +39,7 @@
     {% endwith %}
     <!-- JAVASCRIPT -->
     {% block javascript %}
-    <script src="{{ url_for('static', filename='js/login_register.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/main.js') }}"></script>
     {% endblock javascript %}
 </body>
 

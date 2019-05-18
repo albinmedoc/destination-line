@@ -1,110 +1,59 @@
 {% extends "layout.html" %}
 {% block head %}
-{{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/list_albums.css') }}">
+    {{ super() }}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/list_albums.css') }}">
 
-<!-- Endast ifall användaren är inloggad -->
-{% if("username" in session) %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/explore_tabs.css') }}">
-{% else %}
-<!-- Endast ifall användaren är utloggad -->
-<link rel="stylesheet" href="{{ url_for('static', filename='css/responsive_form.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/login_signup.css') }}">
-{% endif %}
+    <!-- Endast ifall användaren är inloggad -->
+    {% if("username" in session) %}
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/explore_tabs.css') }}">
+    {% endif %}
 {% endblock head %}
 
 {% block main %}
-{% if("username" in session) %}
-<section id="explore_tabs" class="tabs is_visible">
-    <a href="#" class="explore_tab following active">
-        <h2>Following</h2>
-    </a>
-    <a href="#" class="explore_tab explore">
-        <h2>Explore</h2>
-    </a>
-</section>
-{% endif %}
-<section id="explore">
-    {% if explore_albums is defined %}
-        {% for album in explore_albums %}
-        <div class="album">
-            <a class="album_link" href="{{ url_for('image.album', album_id=album[0]) }}"></a>
-            <img src="{{ url_for('image.uploaded_images', image_id=album[5]) }}">
-            <div class="info_circle">
-                <h1 class="city flex_font">{{ album[1] }}</h1>
-                <h2 class="country flex_font">{{ album[2] }}</h2>
-                <i class="material-icons">camera_alt</i>
-                <a href="{{ url_for('user.profile', username=album[6]) }}" class="author">{{ album[3] + " " + album[4] }}</a>
-            </div>
-        </div>
-        {% endfor %}
+    {% if("username" in session) %}
+    <section id="explore_tabs" class="tabs is_visible">
+        <a href="#" class="explore_tab following active">
+            <h2>Following</h2>
+        </a>
+        <a href="#" class="explore_tab explore">
+            <h2>Explore</h2>
+        </a>
+    </section>
     {% endif %}
-</section>
-<section id="following">
-    {% if following_albums is defined %}
-        {% for album in following_albums %}
-        <div class="album">
-            <a class="album_link" href="{{ url_for('image.album', album_id=album[0]) }}"></a>
-            <img src="{{ url_for('image.uploaded_images', image_id=album[5]) }}">
-            <div class="info_circle">
-                <h1 class="city flex_font">{{ album[1] }}</h1>
-                <h2 class="country flex_font">{{ album[2] }}</h2>
-                <i class="material-icons">camera_alt</i>
-                <a href="{{ url_for('user.profile', username=album[6]) }}" class="author">{{ album[3] + " " + album[4] }}</a>
+    <section id="explore">
+        {% if explore_albums is defined %}
+            {% for album in explore_albums %}
+            <div class="album">
+                <a class="album_link" href="{{ url_for('image.album', album_id=album[0]) }}"></a>
+                <img src="{{ url_for('image.uploaded_images', image_id=album[5]) }}">
+                <div class="info_circle">
+                    <h1 class="city flex_font">{{ album[1] }}</h1>
+                    <h2 class="country flex_font">{{ album[2] }}</h2>
+                    <i class="material-icons">camera_alt</i>
+                    <a href="{{ url_for('user.profile', username=album[6]) }}" class="author">{{ album[3] + " " + album[4] }}</a>
+                </div>
             </div>
-        </div>
-        {% endfor %}
-    {% endif %}
-<!--</section>
-<div class="album">
-    <img src="https://www.w3schools.com/howto/img_parallax.jpg">
-    <div class="info_circle">
-        <h1 class="city flex_font">Malmö</h1>
-        <h2 class="country flex_font">Sweden</h2>
-        <i class="material-icons">camera_alt</i>
-        <h2 class="author">Albin Médoc</h2>
-    </div>
-</div>
-<div class="album">
-    <img src="https://i.imgur.com/zkznLS8.jpg">
-    <div class="info_circle">
-        <h2 class="city flex_font">Oslo</h2>
-        <h1 class="country flex_font">Norway</h1>
-        <i class="material-icons">camera_alt</i>
-        <h2 class="author">Anders Mantarro</h2>
-    </div>
-</div>
-<div class="album">
-    <img
-        src="https://4205lj2o7irz3o3su119jc1e-wpengine.netdna-ssl.com/travel/wp-content/uploads/sites/3/2019/02/Informaci%C3%B3n-%C3%BAtil-sobre-Londres.jpg">
-    <div class="info_circle">
-        <h2 class="city flex_font">London</h2>
-        <h1 class="country flex_font">England</h1>
-        <i class="material-icons">camera_alt</i>
-        <h2 class="author">Elin Andersson</h2>
-    </div>
-</div>
-<div class="album">
-    <img src="https://invictus-travel.com/en/wp-content/uploads/2016/09/dest-vien745d.jpg">
-    <div class="info_circle">
-        <h2 class="city flex_font">Vienna</h2>
-        <h1 class="country flex_font">Austria</h1>
-        <i class="material-icons">camera_alt</i>
-        <h2 class="author">Anders Mantarro</h2>
-    </div>
-</div>
-<div class="album">
-    <img
-        src="https://cdn-image.travelandleisure.com/sites/default/files/styles/1600x1000/public/1507062474/hotel-everest-namche-nepal-mountain-lodge-MOUNTAIN1017.jpg?itok=g-S4SL9n">
-    <div class="info_circle">
-        <h1 class="city flex_font">Katmandu</h1>
-        <h2 class="country flex_font">Nepal</h2>
-        <i class="material-icons">camera_alt</i>
-        <h2 class="author">Elin Andersson</h2>
-    </div>
-</div>-->
-
+            {% endfor %}
+        {% endif %}
+    </section>
+    <section id="following">
+        {% if following_albums is defined %}
+            {% for album in following_albums %}
+            <div class="album">
+                <a class="album_link" href="{{ url_for('image.album', album_id=album[0]) }}"></a>
+                <img src="{{ url_for('image.uploaded_images', image_id=album[5]) }}">
+                <div class="info_circle">
+                    <h1 class="city flex_font">{{ album[1] }}</h1>
+                    <h2 class="country flex_font">{{ album[2] }}</h2>
+                    <i class="material-icons">camera_alt</i>
+                    <a href="{{ url_for('user.profile', username=album[6]) }}" class="author">{{ album[3] + " " + album[4] }}</a>
+                </div>
+            </div>
+            {% endfor %}
+        {% endif %}
+    </section>
 {% endblock main %}
+
 {% block javascript %}
 {{ super() }}
 <script src="{{ url_for('static', filename='js/explore_tabs.js') }}"></script>
