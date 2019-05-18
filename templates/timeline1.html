@@ -8,7 +8,7 @@
 </head>
 
 <!-- Tidslinje -->
-{% if albums is defined %}
+{% if albums is defined and albums|length != 0  %}
 <section class="timeline">
         {% for album in albums %}
             {% if loop.index % 2 == 0 %}
