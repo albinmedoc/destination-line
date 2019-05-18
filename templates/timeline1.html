@@ -16,15 +16,15 @@
             {% else %}
             <section class="container left">
             {% endif %}
-                <section class="content">
-                    <img src="{{ url_for('image.uploaded_images', image_id=album[3]) }}">
-                    <a href="{{ url_for('image.album', album_id=album[0]) }}"></a>
-
-                    <div class="location">
-                        <p>{{ album[1] }}</p>
-                        <p>{{ album[2] }}</p>
-                    </div>
-                </section>
+                <a href="{{ url_for('image.album', album_id=album[0]) }}">
+                    <section class="content">
+                        <img src="{{ url_for('image.uploaded_images', image_id=album[3]) }}" alt="{{ album[1] }} - {{ album[2] }}">
+                        <div class="location">
+                            <p>{{ album[1] }}</p>
+                            <p>{{ album[2] }}</p>
+                        </div>
+                    </section>
+                </a>
             </section>
         {% endfor %}
     {% endif %}
