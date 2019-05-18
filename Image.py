@@ -1,4 +1,4 @@
-from flask import Blueprint, request, session, render_template, json, send_from_directory
+from flask import Blueprint, request, session, render_template, flash, redirect, json, send_from_directory
 import os
 from uuid import uuid4
 from werkzeug.utils import secure_filename
@@ -15,7 +15,8 @@ app = Blueprint("image", __name__, template_folder="templates")
 def upload():
         if(request.method == "GET"):
                 if("username" not in session):
-                        return "<h1>Du måste vara inloggad</h1>"
+                        flash(u'You have to be logged in to visit this page', 'success')
+                        return redirect("/")
                 return render_template("edit_album.html")
 
         #Användaren laddar upp ett Album (POST)

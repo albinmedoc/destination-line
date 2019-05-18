@@ -116,7 +116,8 @@ def profile(username=None):
                         #Visar profilsidan med informationen hämtad från databasen
                         return render_template("profile.html", user_info=user_info, album_count=album_count, following_count=following_count, follower_count=follower_count, albums=albums)
         #Kunde inte hitta information om användaren
-        return "Could not find profile"
+        flash(u'Couldn´t find profile!', 'success')
+        return redirect("/")
 
 @app.route("/login", methods = ["POST"])
 def login():
