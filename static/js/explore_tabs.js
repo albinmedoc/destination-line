@@ -3,7 +3,7 @@ var prevScrollpos = window.pageYOffset;
 // diffrence < 0 = ner, diffrence > 0 = upp
 var diffrence = 0;
 
-window.onscroll = function() {
+window.onscroll = function(){
     var currentScrollPos = window.pageYOffset;
     diffrence = diffrence + (prevScrollpos-currentScrollPos);
     if (prevScrollpos > currentScrollPos) {
@@ -24,4 +24,21 @@ window.onscroll = function() {
         }
     }
     prevScrollpos = currentScrollPos;
+}
+
+window.onload = function(){
+    $("#explore_tabs > .explore_tab").click(function(){
+        //Klickar på following
+        if($(this).hasClass("following")){
+            $("#explore").hide();
+            $("#following").show();
+        }
+        //Klickar på explore
+        else{
+            $("#following").hide();
+            $("#explore").show();
+        }
+        //Bytar plats på active-class
+        $("#explore_tabs > .explore_tab").toggleClass("active");
+    });
 }
