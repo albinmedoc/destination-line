@@ -14,8 +14,10 @@
     width: 100%;
 }
 
-#post_description_container{
-  
+#post_text_description_container{
+    max-width: 800px;
+    margin: auto;
+    padding: 0 30px;
 }
 
 #post_text_description_container>h1{
@@ -23,16 +25,12 @@
     font-size: 50px;
     font-family: 'Old Standard TT', serif;
     font-weight: 200;
-   
-
 }
 
 #post_text_description_container>h2{
     font-size: 25px;
     font-family: 'Old Standard TT', serif;
     text-align: center;
-
-   
 }
 
 .dash {
@@ -42,7 +40,6 @@
     display: block;
     position: relative;
     margin: 0 auto;
-    
 }
 
 #post_text_description_container>h3{
@@ -51,18 +48,11 @@
     font-family: 'Old Standard TT', serif;
     font-weight: 200;
     margin-bottom: 40px;
-  
-
-
 }
 
 
 #post_text_description_container>p{
-    font-size: 16px;;
+    font-size: 16px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 100;
-    padding-left: 30px;
-    padding-right: 30px;
-    
-    
 }
