@@ -25,7 +25,7 @@ def callback(incoming_request):
                 success = True
         elif(incoming_request == "search"):
                 search = request.form.get("search")
-                return jsonify(countries=get_countries(search), users=get_users(search))
+                return jsonify(destinations=get_countries(search), users=get_users(search))
         elif(incoming_request == "check_password"):
                 password = request.form.get("password")
                 return jsonify(check_password(password, username=session["username"]))

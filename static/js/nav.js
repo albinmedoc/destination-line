@@ -20,9 +20,9 @@ var do_search = function(){
     })
     .done(function(data){
         $(".search_category").html('');
-        if(data.countries){
-            for (country in data.countries){
-                $("#destinations").append("<div class='search_result'><i class='material-icons'>place</i><a href='/album/"+data.countries[country][0]+"'><img src='https://i.imgur.com/RhIOo8D.jpg'></a><div class='destinations_search_info'><a href='/album/"+data.countries[country][0]+"' class='city'><h3>"+data.countries[country][3]+"</h3></a><p>"+data.countries[country][2]+"</p><a class='album_owner' href='#'><i class='material-icons'>person_outline</i><span>"+data.countries[country][4]+"</span></a></div></div>");
+        if(data.destinations){
+            for (destination in data.destinations){
+                $("#destinations").append("<div class='search_result'><i class='material-icons'>place</i><a href='/album/"+data.destinations[destination][0]+"'><img src='/image/"+data.destinations[destination][5]+"'></a><div class='destinations_search_info'><a href='/album/"+data.destinations[destination][0]+"' class='city'><h3>"+data.destinations[destination][3]+"</h3></a><p>"+data.destinations[destination][2]+"</p><a class='album_owner' href='#'><i class='material-icons'>person_outline</i><span>"+data.destinations[destination][4]+"</span></a></div></div>");
             }
         }
         if(data.users){
