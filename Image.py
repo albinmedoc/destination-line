@@ -133,7 +133,7 @@ def album(album_id):
         cur.execute("select album.country, album.city, album.date_start, album.date_end, person.firstname, person.lastname from album join person on album.owner=person.id where album.id={}".format(album_id))
         album_info = cur.fetchone()
         #Hämtar information om alla bilder
-        cur.execute("select img_name, headline, description from post where album={} order by index asc".format(album_id))
+        cur.execute("select img_name, headline, description, index from post where album={} order by index asc".format(album_id))
         posts = cur.fetchall()        
         return render_template("album.html", posts=posts, album_info=album_info)
 
