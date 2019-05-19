@@ -17,12 +17,15 @@ def error_404(e):
 
 @app.route("/")
 def index():
+        #Hämta senaste bilder
         explore_albums = Image.get_new_albums()
         if(explore_albums is not None):
+                #Om användaren är inloggad, visa senaste bilder och bilder från följda användare
                 if("username" in session):
+                        #Hämta bilder från följda användare
                         following_albums = Image.get_new_following_albums()
-                        if(following_albums is not None):
-                                return render_template("index.html", explore_albums=explore_albums, following_albums=following_albums)
+                        return render_template("index.html", explore_albums=explore_albums, following_albums=following_albums)
+                #Är användaren inte inloggad visa endast senaste bilder 
                 return render_template("index.html", explore_albums=explore_albums)
         return render_template("index.html")
 
@@ -46,6 +49,6 @@ if __name__ == "__main__":
         app.register_blueprint(Image.app)
         #Startar servern på olika adresser beroende på attribut
         if(len(argv) > 1 and argv[1].lower() == "server"):
-                app.run(host = SERVER_IP, port = 80, debug = DEBUG_MODE, threaded = True)
+                app.run(host = SERVER_IP, port = 80, debug = False, threaded = True)
         else:
                 app.run(host = "localhost", port = SERVER_PORT, debug = DEBUG_MODE, threaded = True)
