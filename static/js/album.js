@@ -9,6 +9,11 @@ function current_slide(n) {
   showSlides(slideIndex = n);
 }
 
+$("#gallery_toggle").click(function(){
+    $("#post_image_thumbnail_container").toggleClass("active");
+    $(this).toggleClass("active");
+});
+
 function showSlides(n) {
     var i;
     var slides = document.getElementsByClassName("slide");

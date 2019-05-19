@@ -10,9 +10,18 @@
 
 {% block main %}
 <section id="album_container">
-    <a id="slide_control_left" class="slide_control" onclick="plus_slides(-1)">❮</a>
-    <a id="slide_control_right" class="slide_control" onclick="plus_slides(1)">❯</a>
+    
     <div id="post_image_container">
+        <div id="gallery_toggle">
+            <div class="button_container">
+                    <i class="material-icons button_icon_container">apps</i>
+                    <div class="button_text_container">
+                        <span>Toggle gallery</span>
+                    </div>
+                </div>
+            </div>
+            <a id="slide_control_left" class="slide_control" onclick="plus_slides(-1)"><i class="material-icons">chevron_left</i></a>
+            <a id="slide_control_right" class="slide_control" onclick="plus_slides(1)"><i class="material-icons">chevron_right</i></a>
             {% for post in posts %}
             <div class="slide">
                 <img src="{{  url_for('image.uploaded_images', image_id=post[0]) }}">
@@ -20,9 +29,10 @@
             {% endfor %}
 
         <div id="post_image_thumbnail_container">
+                
             {%for post in posts%}
             <div class="thumbnail">
-                <img src="{{  url_for('image.uploaded_images', image_id=post[0]) }}" onclick="current_slide({{post[3]}})" alt="The Woods">
+                <img src="{{  url_for('image.uploaded_images', image_id=post[0]) }}" onclick="current_slide('{{post[3]}}')" alt="The Woods">
             </div>
             {% endfor %}
         </div>
