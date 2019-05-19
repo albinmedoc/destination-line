@@ -117,7 +117,3 @@ hr{
   .card>button:hover, #info_container>#profile_cards>.card>#social_icons>a:hover{
     opacity: 0.7;
   }
-
-  #about_us{
-      position: absolute;
-  }
