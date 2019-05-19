@@ -30,7 +30,6 @@ def callback(incoming_request):
                 password = request.form.get("password")
                 return jsonify(check_password(password, username=session["username"]))
 
-        
         db = Database()
         cur = db.conn.cursor()
         if(incoming_request == "change_username"):
@@ -318,3 +317,13 @@ def get_follower_count(username, cur):
         cur.execute("select * from follow join person on follow.following=person.id where person.username=%s", [username])
         followers = cur.fetchall()
         return len(followers)
+
+def get_creators():
+        daniel = ("Daniel Subasic", "97danne97")
+        albin = ("Albin Médoc", "albinmedoc")
+        anders = ("Anders L Mantarro", "anderslmantarro")
+        hanna = ("Hanna Bengtsson", "hannaidabengtsson")
+        elin = ("Elin Andersson", "elinandersson")
+
+        creators = (daniel, albin, anders, hanna, elin)
+        return creators
