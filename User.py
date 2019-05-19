@@ -99,13 +99,8 @@ def profile(username=None):
                 user_info = cur.fetchone()
                 #Kontrollerar så en rad hittades
                 if(user_info is not None):
-                        cur.execute("select * from follow join person on follow.follower=person.id where person.username=%s", [username])
-                        following = cur.fetchall()
-                        following_count = len(following)
-
-                        cur.execute("select * from follow join person on follow.following=person.id where person.username=%s", [username])
-                        followers = cur.fetchall()
-                        follower_count = len(followers)
+                        following_count = get_following_count(username, cur)
+                        follower_count = get_follower_count(username, cur)
 
                         cur.execute("select count(*) from album where owner=%s", [user_info[5]])
                         album_count = cur.fetchone()
@@ -274,7 +269,7 @@ def setup_follow(user_id, target_id):
 def get_countries(search):
         db = Database()
         cur = db.conn.cursor()
-        cur.execute("select album.id, album.owner, country, city, concat(firstname,' ', lastname) from album join person on album.owner=person.id where country LIKE '{}%' or city LIKE '{}%'".format(search,search))
+        cur.execute("select album.id, album.owner, album.country, album.city, concat(person.firstname, ' ', person.lastname), post.img_name from ((album join post on album.id=post.album) join person on album.owner=person.id) where post.index=1 and (country LIKE '{}%' or city LIKE '{}%')".format(search,search))
         search_results = cur.fetchall()
         return search_results
 
@@ -311,3 +306,15 @@ def delete_user(user_id=None, username=None):
 
         db.conn.commit()
         return "The users saved data was removed!"
+
+#Hämtar antalet användare som användaren följer
+def get_following_count(username, cur):
+        cur.execute("select * from follow join person on follow.follower=person.id where person.username=%s", [username])
+        following = cur.fetchall()
+        return len(following)
+
+# Hämtar antalet användare som följer användaren
+def get_follower_count(username, cur):
+        cur.execute("select * from follow join person on follow.following=person.id where person.username=%s", [username])
+        followers = cur.fetchall()
+        return len(followers)
