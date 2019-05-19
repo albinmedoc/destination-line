@@ -6,12 +6,69 @@
 }
 
 #post_image_container{
-    
+    position: relative;
 }
 
-#post_image_container>img{
+.slide_control{
+    top: 50%;
+    position: fixed;
+    color: white;
+    padding: 10px;
+    background-color: var(--shadow_color);
+    z-index: 1;
+}
+
+#slide_control_right{
+    right: 0;
+}
+
+.slide{
+    display: none;
+}
+
+.slide>img{
     display: block;
     width: 100%;
+}
+
+#post_image_thumbnail_container{
+    display: flex;
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    background-color: var(--shadow_color);
+    justify-content: center;
+    flex-flow: nowrap;
+    overflow-x: auto;
+    overflow-y: hidden;
+    bottom: 0;
+    transition: opacity .2s ease;
+    transition-delay: 2s;
+    opacity: 0;
+}
+
+#post_image_container:active>#post_image_thumbnail_container, #post_image_thumbnail_container:hover{
+    opacity: 1;
+    transition: opacity .2s ease;
+}
+
+.thumbnail{
+    width: auto;
+    height: 100%;
+    margin: auto 1px;
+    cursor: pointer;
+    filter: brightness(0.6);
+    transition: filter .2s, border-color .2s;
+    border: 2px solid transparent;
+}
+
+.thumbnail.active{
+    filter: brightness(1);
+    border-color: rgb(226, 226, 226);
+}
+
+.thumbnail>img{
+    height: 100%;
 }
 
 #post_text_description_container{
@@ -20,14 +77,19 @@
     padding: 0 30px;
 }
 
-#post_text_description_container>h1{
+.post_text_description{
+    
+    display: none;
+}
+
+.post_text_description>h1{
     text-align: center;
     font-size: 50px;
     font-family: 'Old Standard TT', serif;
     font-weight: 200;
 }
 
-#post_text_description_container>h2{
+.post_text_description>h2{
     font-size: 25px;
     font-family: 'Old Standard TT', serif;
     text-align: center;
@@ -42,7 +104,7 @@
     margin: 0 auto;
 }
 
-#post_text_description_container>h3{
+.post_text_description>h3{
     text-align: center;
     font-size: 15px;
     font-family: 'Old Standard TT', serif;
@@ -51,7 +113,7 @@
 }
 
 
-#post_text_description_container>p{
+.post_text_description>p{
     font-size: 16px;
     font-family: 'Montserrat', sans-serif;
     font-weight: 100;
