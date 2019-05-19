@@ -1,0 +1,11 @@
+.no_albums{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.no_albums > i{
+    font-size: 70px;
+}

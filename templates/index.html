@@ -2,7 +2,7 @@
 {% block head %}
     {{ super() }}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/list_albums.css') }}">
-
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
     <!-- Endast ifall användaren är inloggad -->
     {% if("username" in session) %}
         <link rel="stylesheet" href="{{ url_for('static', filename='css/explore_tabs.css') }}">
@@ -16,12 +16,14 @@
             <a class="explore_tab following active"><h2>Following</h2></a>
             <a class="explore_tab explore"><h2>Explore</h2></a>
         </section>
-        <!-- Döljer explore-sektion om användaren eftersom det är following som skall visa från början -->
+        <!-- Döljer explore-sektion om användaren är inloggad eftersom det är following som skall visa från början -->
         <section id="explore" style="display: none;">
     {% else %}
         <!-- Är användaren inte inloggad döljs inte explore-sektionen -->
         <section id="explore">
     {% endif %}
+    <!-- Om  explore_albums är definierat och innehåller album -->
+    {% if explore_albums is defined and explore_albums|length > 0 %}
         <!-- Loopa igenom alla album i explore_albums -->
         {% for album in explore_albums %}
             <div class="album">
@@ -35,10 +37,17 @@
                 </div>
             </div>
         {% endfor %}
+    <!-- Inga album att visa, skriv ut meddelande -->
+    {% else %}
+        <div class="no_albums">
+            <i class="material-icons">error_outline</i>
+            <h2>No albums</h2>
+        </div>
+    {% endif %}
     </section>
     <!-- Om  following_albums är definierat och innehåller album -->
-    {% if following_albums is defined and following_albums|length > 0 %}
-        <section id="following">
+    <section id="following">
+        {% if following_albums is defined and following_albums|length > 0 %}
             <!-- Loopar igenom alla album i following_albums -->
             {% for album in following_albums %}
                 <div class="album">
@@ -52,11 +61,14 @@
                     </div>
                 </div>
             {% endfor %}
-        </section>
-    <!-- Inga album att visa, skriv ut meddelande -->
-    {% else %}
-        <h1>KEBABRULLE</h1>
-    {% endif %}
+        <!-- Inga album att visa, skriv ut meddelande -->
+        {% else %}
+            <div class="no_albums">
+                <i class="material-icons">error_outline</i>
+                <h2>No albums</h2>
+            </div>
+        {% endif %}
+    </section>
 {% endblock main %}
 
 {% block javascript %}
