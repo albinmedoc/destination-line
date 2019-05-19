@@ -26,9 +26,12 @@ main{
     transform: translateZ(-1px) scale(1.5);
 }
 
-section:last-child{
+#about_us{
     z-index: 3;
     background-color: white;
+    max-width: 900px;
+    padding: 0 30px;
+    margin: auto;
 }
 
 #info_tabs{
@@ -60,7 +63,7 @@ hr{
 #profile_cards{
     display: flex;
     flex-wrap: wrap;
-    justify-content: space-around;
+    justify-content: center;
     width: 100%;
 }
 
@@ -92,7 +95,7 @@ hr{
    
   }
 
-  .card>button{
+  .card>a{
     border: none;
     outline: 0;
     display: inline-block;
@@ -114,6 +117,6 @@ hr{
     
   }
 
-  .card>button:hover, #info_container>#profile_cards>.card>#social_icons>a:hover{
+  .card>a:hover, #info_container>#profile_cards>.card>#social_icons>a:hover{
     opacity: 0.7;
   }
