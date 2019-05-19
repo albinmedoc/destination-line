@@ -38,7 +38,7 @@ def timeline():
 @app.route("/info")
 def about():
         video = random.choice(RANDOM_VIDEOS)
-        return render_template("info.html", video=video)
+        return render_template("info.html", video=video, creators=User.get_creators())
 
 if __name__ == "__main__":
         #Importera Blueprints
