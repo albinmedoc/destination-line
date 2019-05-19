@@ -1,7 +1,6 @@
 {% extends "layout.html" %}
 {% block head %}
 {{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/explore_tabs.css') }}">
 {% if not("username" in session) %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/login_signup.css') }}">
 <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive_form.css') }}">
@@ -32,7 +31,3 @@
 </section>
 
 {% endblock main %}
-{% block javascript %}
-{{ super() }}
-<script src="{{ url_for('static', filename='js/explore_tabs.js') }}"></script>
-{% endblock javascript %}
