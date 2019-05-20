@@ -24,24 +24,26 @@ $(document).ready(function (){
             }
 
             var reader = new FileReader();
-            reader.onload = function(e){
+            reader.onload = (function(file){
                 //Skippar ifall bild redan vald
-                if(check_if_already_choosed(file, e.target.result)){
-                    return;
+                return function(e){
+                    if(check_if_already_choosed(file, e.target.result)){
+                        return;
+                    }
+    
+                    //Avbryter ifall 50 eller fler bilder är valda
+                    if(Object.keys(images).length >= UPLOAD_LIMIT){
+                        alert(UPLOAD_LIMIT + " images is maximum for an album.");
+                        return;
+                    }
+    
+                    //Spara bild i variabel, bild-url som nyckel
+                    images[e.target.result] = file;
+                    
+                    //Visa bild
+                    display_image(file, e.target.result);
                 }
-
-                //Avbryter ifall 50 eller fler bilder är valda
-                if(Object.keys(images).length >= UPLOAD_LIMIT){
-                    alert(UPLOAD_LIMIT + " images is maximum for an album.");
-                    return;
-                }
-
-                //Spara bild i variabel, bild-url som nyckel
-                images[e.target.result] = file;
-                
-                //Visa bild
-                display_image(file, e.target.result);
-            };
+            })(file);
             reader.readAsDataURL(file);
         }
         $(this).val("");
