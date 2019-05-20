@@ -21,19 +21,23 @@
 </head>
 
 <body>
-    {% include 'nav.html' %}
-    {% include 'loader.html' %}
+    <!-- Hämtar alla flashes som skall visas -->
     {% with messages = get_flashed_messages(with_categories=true) %}
+        <!-- Kontrollerar ifall det finns några flashes -->
         {% if messages %}
-            <section class=flashes>
+            <section id=flashes>
                 {% for category, message in messages %}
-                <div class="{{ category }}">{{ message }}
-                    <button class=close_flash type="button"> confirm cookies </button>
-                </div>
+                    <div class="flash {{ category }}">
+                        <i class="close material-icons">close</i>
+                        <p>{{ message }}</p>
+                    </div>
                 {% endfor %}
             </section>
         {% endif %}
     {% endwith %}
+
+    {% include 'nav.html' %}
+    {% include 'loader.html' %}
     <main>
         {% block main %}
         {% endblock main %}
@@ -41,6 +45,7 @@
     <!-- JAVASCRIPT -->
     {% block javascript %}
         <script src="{{ url_for('static', filename='js/main.js') }}"></script>
+        <script src="{{ url_for('static', filename='js/flashes.js') }}"></script>
     {% endblock javascript %}
 </body>
 
