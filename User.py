@@ -23,6 +23,11 @@ def callback(incoming_request):
                 target_id = get_user_id(username=request.form.get("target_name"))
                 setup_follow(user_id, target_id)
                 success = True
+        elif(incoming_request == "unfollow" and "username" in session):
+                user_id = get_user_id(username=session["username"])
+                target_id = get_user_id(username=request.form.get("target_name"))
+                delete_follow(user_id, target_id)
+                success = True
         elif(incoming_request == "search"):
                 search = request.form.get("search")
                 return jsonify(destinations=get_countries(search), users=get_users(search))
@@ -107,8 +112,15 @@ def profile(username=None):
                         cur.execute("select album.id, album.country, album.city, post.img_name, album.date_start, album.date_end from (person join album on person.id=album.owner) join post on album.id = post.album where post.index=1 and person.username=%s order by album.date_start", [username])
                         albums = cur.fetchall()
 
+                        if("username" in session):
+                                cur.execute("select * from follow where follower=%s and following=%s", (get_user_id(username=session["username"]), get_user_id(username=username)))
+                                is_following = cur.fetchone() is not None
+                        else:
+                                is_following = False
+                        print(is_following)
+
                         #Visar profilsidan med informationen hämtad från databasen
-                        return render_template("profile.html", user_info=user_info, album_count=album_count, following_count=following_count, follower_count=follower_count, albums=albums)
+                        return render_template("profile.html", user_info=user_info, album_count=album_count, following_count=following_count, follower_count=follower_count, albums=albums, is_following=is_following)
         #Kunde inte hitta information om användaren
         flash(u'Couldn´t find profile!', 'success')
         return redirect("/")
@@ -269,6 +281,13 @@ def setup_follow(user_id, target_id):
         cur = db.conn.cursor()
         #Lägger till följnings-koppling mellan två personer
         cur.execute("insert into follow(follower, following) values(%s, %s)", (user_id, target_id))
+        db.conn.commit()
+
+def delete_follow(user_id, target_id):
+        db = Database()
+        cur = db.conn.cursor()
+        #LTar bort följnings-koppling mellan två personer
+        cur.execute("delete from follow where follower=%s and following=%s", (user_id, target_id))
         db.conn.commit()
 
 def get_countries(search):

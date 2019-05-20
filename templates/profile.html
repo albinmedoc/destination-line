@@ -28,9 +28,9 @@
         </div>
         {% elif "username" in session %}
         <div class="button_container follow">
-            <i id="follow_icon" class="material-icons button_icon_container">favorite_border</i>
+            <i id="follow_icon" class="material-icons button_icon_container">{{ "favorite" if is_following else "favorite_border" }}</i>
             <div class="button_text_container">
-                <span>Follow</span>
+                <span>{{ "Unfollow" if is_following else "Follow" }}</span>
             </div>
         </div>
         {% endif %}
