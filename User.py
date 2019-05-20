@@ -161,6 +161,12 @@ def create_user(firstname, lastname, username, email, password):
         ''' Skapar en ny användare '''
         #Kollar så input-värdena inte är tomma
         if(firstname.strip() and lastname.strip() and username.strip() and email.strip() and password.strip()):
+                #Gör så för- och efternamn får första bokstaven versal och resten gemener
+                firstname = firstname.capitalize()
+                lastname = lastname.capitalize()
+                #Gör alla bokstäver i username och email till gemener
+                username = username.lower()
+                email = email.lower()
                 #Kollar så användarnamnet och emailen inte redan finns registrerat
                 if (not user_exists(username=username) and not user_exists(email=email)):
                         db = Database()
@@ -180,10 +186,10 @@ def user_exists(username=None, email=None, user_id=None):
         cur = db.conn.cursor()
         #Om användarnamn är angivet
         if(not username == None):
-                cur.execute("select * from person where username = '{}'".format(username))
+                cur.execute("select * from person where username= %s", [username.lower()])
         #Om email är angivet
         elif(not email == None):
-                cur.execute("select * from person where email = '{}'".format(email))
+                cur.execute("select * from person where email=%s", [email.lower()])
         #Om användarID är angivet
         elif(not user_id == None):
                 cur.execute("select * from person where id = '{}'".format(user_id))
@@ -201,10 +207,10 @@ def check_password(password, username = None, email = None, user_id=None):
         cur = db.conn.cursor()
         #Om användarnamn är angivet och finns i databasen
         if(not username == None):
-                cur.execute("select password from person where username='{}'".format(username))
+                cur.execute("select password from person where username=%s", [username.lower()])
         #Om email är angivet och finns i databasen
         elif(not email == None):
-                cur.execute("select password from person where email='{}'".format(email))
+                cur.execute("select password from person where email=%s", [email.lower()])
         #Om användarID är angivet och finns i databasen
         elif(not user_id == None):
                 cur.execute("select password from person where id='{}'".format(user_id))
@@ -223,10 +229,10 @@ def get_user_id(username=None, email=None):
         cur = db.conn.cursor()
         #Om användarnamn är angivet och finns i databasen
         if(not username == None and user_exists(username=username)):
-                cur.execute("select id from person where username='{}'".format(username))
+                cur.execute("select id from person where username=%s", [username.lower()])
         #Om email är angivet och finns i databasen
         elif(not email == None and user_exists(email=email)):
-                cur.execute("select id from person where email='{}'".format(email))
+                cur.execute("select id from person where email=%s", [email.lower()])
         else:
                 return None
         id = cur.fetchone()[0]
@@ -240,9 +246,9 @@ def owns_album(album_id, username=None, email=None, user_id=None):
         db = Database()
         cur = db.conn.cursor()
         if(username is not None):
-                cur.execute("select exists(select * from album join person on album.owner=person.id where person.username=%s and album.id=%s)", (username, album_id))
+                cur.execute("select exists(select * from album join person on album.owner=person.id where person.username=%s and album.id=%s)", (username.lower(), album_id))
         elif(email is not None):
-                cur.execute("select exists(select * from album join person on album.owner=person.id where person.email=%s and album.id=%s)", (email, album_id))
+                cur.execute("select exists(select * from album join person on album.owner=person.id where person.email=%s and album.id=%s)", (email.lower(), album_id))
         elif(user_id is not None):
                 cur.execute("select exists(select * from album where album.owner=%s and album.id=%s)", (user_id, album_id))
         else:
@@ -254,7 +260,7 @@ def settings():
         db = Database()
         cur = db.conn.cursor()
         username = session["username"]
-        cur.execute("select username, firstname, lastname, biography, email from person where username=%s", [username])
+        cur.execute("select username, firstname, lastname, biography, email from person where username=%s", [username.lower()])
         profile_info = cur.fetchone()
         return render_template("settings.html", profile_info=profile_info)
         
@@ -308,13 +314,13 @@ def delete_user(user_id=None, username=None):
 
 #Hämtar antalet användare som användaren följer
 def get_following_count(username, cur):
-        cur.execute("select * from follow join person on follow.follower=person.id where person.username=%s", [username])
+        cur.execute("select * from follow join person on follow.follower=person.id where person.username=%s", [username.lower()])
         following = cur.fetchall()
         return len(following)
 
 # Hämtar antalet användare som följer användaren
 def get_follower_count(username, cur):
-        cur.execute("select * from follow join person on follow.following=person.id where person.username=%s", [username])
+        cur.execute("select * from follow join person on follow.following=person.id where person.username=%s", [username.lower()])
         followers = cur.fetchall()
         return len(followers)
 

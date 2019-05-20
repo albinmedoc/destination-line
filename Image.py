@@ -86,7 +86,7 @@ def get_new_following_albums(limit=30, username=None):
         db = Database()
         cur = db.conn.cursor()
         #Hämtar information om nyligen uppladade bilder från personer man följer
-        cur.execute("select album.id, album.city, album.country, person.firstname, person.lastname, post.img_name, person.username from (((album join post on album.id=post.album) join person on album.owner=person.id) join follow on album.owner=follow.following) where follow.follower=(select id from person where username=%s) and post.index=1 order by album.published desc limit %s", (username, limit))
+        cur.execute("select album.id, album.city, album.country, person.firstname, person.lastname, post.img_name, person.username from (((album join post on album.id=post.album) join person on album.owner=person.id) join follow on album.owner=follow.following) where follow.follower=(select id from person where username=%s) and post.index=1 order by album.published desc limit %s", (username.lower(), limit))
         albums = cur.fetchall()
         return albums
 
