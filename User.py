@@ -122,7 +122,7 @@ def profile(username=None):
                         #Visar profilsidan med informationen hämtad från databasen
                         return render_template("profile.html", user_info=user_info, album_count=album_count, following_count=following_count, follower_count=follower_count, albums=albums, is_following=is_following)
         #Kunde inte hitta information om användaren
-        flash(u'Couldn´t find profile!', 'success')
+        flash(u'Couldn´t find profile!', 'error')
         return redirect("/")
 
 @app.route("/login", methods = ["POST"])
@@ -269,6 +269,9 @@ def owns_album(album_id, username=None, email=None, user_id=None):
 
 @app.route("/settings")
 def settings():
+        if("username" not in session):
+                flash(u"You have to be logged in to visit settings page", 'error')
+                return redirect("/")
         db = Database()
         cur = db.conn.cursor()
         username = session["username"]
