@@ -1,4 +1,4 @@
-from flask import Blueprint, request, session, render_template, flash, redirect, json, send_from_directory
+from flask import Blueprint, request, session, render_template, flash, redirect, json, send_from_directory, jsonify
 import os
 from uuid import uuid4
 from werkzeug.utils import secure_filename
@@ -9,6 +9,16 @@ from User import get_user_id, owns_album
 from Settings import UPLOAD_FOLDER, ALLOWED_EXTENSIONS, POST_LIMIT
 
 app = Blueprint("image", __name__, template_folder="templates")
+
+@app.route("/request/infinite_albums", methods = ["POST"])
+def infinite_albums():
+        limit = 1 #Begränsning på hur många album som skickas vid scrollning
+        offset = int(request.form.get("get_albums")) #Vilken rad i tabellen som SQL-query startar på
+        flow_type = int(request.form.get("flow_type")) #Follow-flöde eller explore-flöde
+        if flow_type == 1:
+                return jsonify(get_albums=get_new_albums(limit, offset))
+        elif flow_type == 2:
+                return jsonify(get_albums=get_new_following_albums(limit, offset))
 
 
 @app.route("/new/album", methods = ["GET", "POST"])
@@ -72,21 +82,21 @@ def edit_album(album_id):
         posts = cur.fetchall()
         return render_template("edit_album.html", album_info=album_info, posts=posts)
 
-def get_new_albums(limit=30):
+def get_new_albums(limit=2, offset=None):
         db = Database()
         cur = db.conn.cursor()
         #Hämtar information om nyligen uppladade bilder
-        cur.execute("select album.id, album.city, album.country, person.firstname, person.lastname, post.img_name, person.username from ((album join post on album.id=post.album) join person on album.owner=person.id) where post.index=1 order by album.published desc limit %s", [limit])
+        cur.execute("select album.id, album.city, album.country, person.firstname, person.lastname, post.img_name, person.username from ((album join post on album.id=post.album) join person on album.owner=person.id) where post.index=1 order by album.published desc limit %s offset %s", (limit, offset))
         albums = cur.fetchall()
         return albums
 
-def get_new_following_albums(limit=30, username=None):
+def get_new_following_albums(limit=2, offset=None, username=None):
         if(username is None):
                 username = session["username"]
         db = Database()
         cur = db.conn.cursor()
         #Hämtar information om nyligen uppladade bilder från personer man följer
-        cur.execute("select album.id, album.city, album.country, person.firstname, person.lastname, post.img_name, person.username from (((album join post on album.id=post.album) join person on album.owner=person.id) join follow on album.owner=follow.following) where follow.follower=(select id from person where username=%s) and post.index=1 order by album.published desc limit %s", (username.lower(), limit))
+        cur.execute("select album.id, album.city, album.country, person.firstname, person.lastname, post.img_name, person.username from (((album join post on album.id=post.album) join person on album.owner=person.id) join follow on album.owner=follow.following) where follow.follower=(select id from person where username=%s) and post.index=1 order by album.published desc limit %s offset %s", (username.lower(), limit, offset))
         albums = cur.fetchall()
         return albums
 
@@ -161,5 +171,3 @@ def upload_profile_img():
         db.conn.commit()
         cur.close()
         return "Gick"
-
-

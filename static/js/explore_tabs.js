@@ -44,7 +44,7 @@ window.onload = function(){
             $("#explore").show();
         }
         //Bytar plats på active-class
-        $("#explore_tabs > .explore_tab").toggleClass("active");
+        $("#explore_tabs > .explore_tab, #explore, #following").toggleClass("active");
         //Scrollar till toppen
         $("html, body").animate({ scrollTop: 0 }, "fast");
         //Visar både nav och explore_tabs
