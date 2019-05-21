@@ -3,86 +3,88 @@
     {{ super() }}
     <link rel="stylesheet" href="{{ url_for('static', filename='css/explore_tabs.css') }}">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/info.css') }}">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css"> 
 {% endblock head %}
 
 {% block main %}
-    <section id="about_video">
-        <video autoplay="autoplay" loop="loop" muted>
-            <source src="{{ url_for('static', filename='videos/' + video + '.mp4') }}" type="video/mp4">
-        </video>
+<section id="about_video">
+    <video autoplay="autoplay" loop="loop" muted>
+        <source src="{{ url_for('static', filename='videos/' + video + '.mp4') }}" type="video/mp4">
+    </video>
+</section>
+<section>
+    <section id="info_tabs" class="tabs is_visible">
+        <a href="#" class="explore_tab active">
+            <h2>About us</h2>
+        </a>
+        <a href="#" class="explore_tab">
+            <h2>Purpose</h2>
+        </a>
+        <a href="#" class="explore_tab">
+            <h2>The Team</h2>
+        </a>
+        <a href="#" class="explore_tab">
+            <h2>Future</h2>
+        </a>
     </section>
-    <section>
-        <section id="info_tabs" class="tabs is_visible">
-            <a href="#" class="explore_tab active">
-                <h2>About us</h2>
-            </a>
-            <a href="#" class="explore_tab">
-                <h2>Purpose</h2>
-            </a>
-            <a href="#" class="explore_tab">
-                <h2>The Team</h2>
-            </a>
-            <a href="#" class="explore_tab">
-                <h2>Future</h2>
-            </a>
-        </section>
-        <section id="about_us">
-            <section id="about_us_section">
-                <section id="about_us_text">
-                    <h2>Developers - Destination line</h2>
-                    <p>We are a group of five students who study Information architecture at Malmö University. 
-                        Our passion is about travel as much as is it to photograph and remember the highlights. 
-                        The opportunity to share a fully journey from start in a professional way was not possible before we came 
-                        up with our project idea. Our goal was to develop a travel guide made by people's different experiences and 
-                        finally we have achieved our aim.</p>
-                </section>
-                <section id="about_us_img">
-
-            </section>
-            
-            <section id="about_destination_line">
-                <section id="about_destination_line_text">
-                    <p>Destination Line is a social platform where you as a photographer can inspire and guiding people to their next journey. 
-                        Our focus is to put the users travelstories visible to share with the world. </p>
-                </section>
-                <section id="about_destination_line_img">
-                </section>
-            </section>
-            <section id="about_timeline">
-                <section id="about_timeline_text">
-                    <p>Create your own workspace to collect your lifetime experiences in different photo albums on your timeline. 
-                        Get an overview of your own creation and share your gallery with others.</p>
-                </section>
-                <section id="about_timeline_img">
-                </section>
-            </section>
-            <section id="destination_line_feeling">
-                    <section id="destination_line_feeling_text">
-                        <p>We believe that the feeling is as important as the content, therefore destination line is like a luxury magazine with 
-                            qualitative pictures from all around the world present like an photo album with associated text.</p>
-                    </section>
-                    <section id="destination_line_img">
-                    </section>
+    <section id="about_us">
+        <section id="about_us_section">
+            <section id="about_us_text">
+                <h2>Developers - Destination line</h2>
+                <p>We are a group of five students who study Information architecture at Malmö University. This website is
+                    part of a project in the systemdevelopment and project 1 course that is a part of our program. Our passion
+                    is about travel as much as is it to photograph and remember the highlights. The opportunity to share
+                    a full journey from start to finish in a professional way was not possible before we came up with our
+                    project idea. Our goal was to develop a travel guide made by people's different experiences and finally
+                    we have achieved our goal.</p>
             </section>
         </section>
-        <section id="profile_cards">
-            {% for creator in creators %}
-            <div class="card">
-                <img src="https://t4.ftcdn.net/jpg/01/04/01/37/240_F_104013719_0RBp6tC9Q0ryP0bzgTqHGZWPLbmz2Cdt.jpg" alt="Anders Mantarro">
-                <h1 class="name">{{creator[0]}}</h1>
-                <p class="title">Creator</p>
-                <p>Malmö University</p>
-                <div id="social_icons">
-                    <a href="#"><i class="fa fa-instagram"></i></a> 
-                    <a href="#"><i class="fa fa-tumblr"></i></a> 
-                    <a href="#"><i class="fa fa-twitter"></i></a> 
-                    <a href="#"><i class="fa fa-facebook"></i></a> 
-                </div>
-                <a href="profile/{{creator[1]}}">Destination Line Profile</a>
+        <section id="about_destination_line">
+            <section class="about_destination_line_img">
+                <img src="static/img/camera_info_sida.jpeg">
+            </section>
+            <section id="about_destination_line_text">
+                <p>Destination Line is a social platform where you as a photographer can inspire and guide users to their
+                    next journey. Our focus is to make the users travelstories visible to share with the world. </p>
+            </section>
+        </section>
+        <section id="about_timeline">
+            <section class="about_destination_line_img">
+                <img src="static/img/camera_info_sida.jpeg">
+            </section>
+            <section id="about_timeline_text">
+                <p>Create your own workspace to collect your lifetime experiences in different photo albums on your timeline.
+                    Get an overview of your own creation and share your gallery with others.</p>
+            </section>
+         </section>
+        <section id="destination_line_feeling">
+            <section class="about_destination_line_img">
+                    <img src="static/img/camera_info_sida.jpeg">
+            </section>
+            <section id="destination_line_feeling_text">
+                <p>We believe that the feeling is as important as the content, therefore destination line is using a minimalist
+                    design where our goal is to create a good user experience. Like a luxury magazine, destination line is
+                    presenting qualitative pictures from all around the world, take and experienced by the users.</p>
+            </section>
+        </section>
+    </section>
+    <section id="profile_cards">
+        {% for creator in creators %}
+        <div class="card">
+            <img src="https://t4.ftcdn.net/jpg/01/04/01/37/240_F_104013719_0RBp6tC9Q0ryP0bzgTqHGZWPLbmz2Cdt.jpg" alt="Anders Mantarro">
+            <h1 class="name">{{creator[0]}}</h1>
+            <p class="title">Creator</p>
+            <p>Malmö University</p>
+            <div id="social_icons">
+                <a href="#"><i class="fa fa-instagram"></i></a>
+                <a href="#"><i class="fa fa-tumblr"></i></a>
+                <a href="#"><i class="fa fa-twitter"></i></a>
+                <a href="#"><i class="fa fa-facebook"></i></a>
             </div>
-            {%endfor%}
-        </section>
+            <a href="profile/{{creator[1]}}">Destination Line Profile</a>
+        </div>
+        {%endfor%}
     </section>
-    </section>
+</section>
+</section>
 {% endblock main %}
