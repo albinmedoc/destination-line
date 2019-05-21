@@ -349,7 +349,7 @@ def get_follower_count(username, cur):
 def get_creators():
         daniel = ("Daniel Subasic", "97danne97")
         albin = ("Albin Médoc", "albinmedoc")
-        anders = ("Anders L Mantarro", "anderslmantarro")
+        anders = ("Anders Mantarro", "anderslmantarro")
         hanna = ("Hanna Bengtsson", "hannaidabengtsson")
         elin = ("Elin Andersson", "elinandersson")
 
