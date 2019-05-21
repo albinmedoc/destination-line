@@ -1,53 +1,38 @@
-.flashes>div {
+#flashes{
     position: fixed;
-    top: 62px;
-    color: white;
-    text-align: center;
-    box-shadow: 0 0 5px black;
+    top: 0;
     width: 100%;
-    z-index: 1;
-    background-color: gray;
-    display: flex;
-    justify-content: space-between;
-    padding: 10px;
+    z-index: 4;
 }
 
-.flashes>div.error {
-    background-color: rgb(223, 71, 71);
-    display: none;
+#flashes + nav.is_visible, #flashes + nav:focus-within{
+    margin-top: 60px; 
 }
 
-.flashes>div.success {
-    background-color: rgba(99, 187, 114, 0.973);
-    animation-name: fade_out;
-    animation-duration: 0.3s;
-    animation-delay: 5s;
-    animation-fill-mode: forwards;
-    animation-timing-function: cubic-bezier(0.075, 0.32, 0.365, 1);
-
+#flashes > .flash{
+    position: relative;
+    height: 60px;
+    width: 100%;
+    color: #fff;
+    line-height: 60px;
+    text-align: center;
 }
 
-.flashes>div.success>.close_flash {
-    display: none;
+#flashes > .flash > .close{
+    position: absolute;
+    top: 5px;
+    right: 5px;
 }
 
-.flashes>div.cookie {
-    background-color: rgba(0, 0, 0, 0.5);
-    bottom: 0;
-    top: auto;
+#flashes > .flash > p{
+    margin: 0;
+    font-size: 20px;
 }
 
-.close_flash {
-    background-color: beige;
+#flashes > .flash.success{
+    background-color: rgb(99, 187, 114);
 }
 
-@keyframes fade_out {
-    from {
-        opacity: 1;
-    }
-
-    to {
-        opacity: 0;
-        top: 0;
-    }
+#flashes > .flash.error{
+    background-color: red;
 }

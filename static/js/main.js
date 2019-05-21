@@ -6,17 +6,6 @@ window.mobileAndTabletcheck = function () {
     return check;
 };
 
-window.onload = function () {
-    $("#login, #register").mousedown(function (e) {
-        if (e.target.id == "login" || e.target.id == "register") {
-            location.hash = '';
-        }
-    });
-    $(".close_flash").click(function (e) {
-        $(this).closest('div').remove();
-    });
-}
-
 $(document).ready(function () {
     $("#page_loading_bar").css("animation", "width_grow_max 1.5s forwards");
 });

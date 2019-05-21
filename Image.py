@@ -1,4 +1,4 @@
-from flask import Blueprint, request, session, render_template, json, send_from_directory
+from flask import Blueprint, request, session, render_template, flash, redirect, json, send_from_directory
 import os
 from uuid import uuid4
 from werkzeug.utils import secure_filename
@@ -15,7 +15,8 @@ app = Blueprint("image", __name__, template_folder="templates")
 def upload():
         if(request.method == "GET"):
                 if("username" not in session):
-                        return "<h1>Du måste vara inloggad</h1>"
+                        flash(u'You have to be logged in to visit this page', 'success')
+                        return redirect("/")
                 return render_template("edit_album.html")
 
         #Användaren laddar upp ett Album (POST)
@@ -85,7 +86,7 @@ def get_new_following_albums(limit=30, username=None):
         db = Database()
         cur = db.conn.cursor()
         #Hämtar information om nyligen uppladade bilder från personer man följer
-        cur.execute("select album.id, album.city, album.country, person.firstname, person.lastname, post.img_name, person.username from (((album join post on album.id=post.album) join person on album.owner=person.id) join follow on album.owner=follow.following) where follow.follower=(select id from person where username=%s) and post.index=1 order by album.published desc limit %s", (username, limit))
+        cur.execute("select album.id, album.city, album.country, person.firstname, person.lastname, post.img_name, person.username from (((album join post on album.id=post.album) join person on album.owner=person.id) join follow on album.owner=follow.following) where follow.follower=(select id from person where username=%s) and post.index=1 order by album.published desc limit %s", (username.lower(), limit))
         albums = cur.fetchall()
         return albums
 
@@ -132,7 +133,7 @@ def album(album_id):
         cur.execute("select album.country, album.city, album.date_start, album.date_end, person.firstname, person.lastname from album join person on album.owner=person.id where album.id={}".format(album_id))
         album_info = cur.fetchone()
         #Hämtar information om alla bilder
-        cur.execute("select img_name, headline, description from post where album={} order by index asc".format(album_id))
+        cur.execute("select img_name, headline, description, index from post where album={} order by index asc".format(album_id))
         posts = cur.fetchall()        
         return render_template("album.html", posts=posts, album_info=album_info)
 

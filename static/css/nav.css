@@ -258,7 +258,7 @@ nav ul li a:hover::after, .dropdown:hover>a::after{/* Triggas här */
     box-shadow: 0 3px 8px var(--shadow_color);
 }
 #users .username>span:hover{
-    background-color: var(--accent);
+    background-color: rgb(47, 184, 247);
 }
 
 #users>.search_result .follow_info{
