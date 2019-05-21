@@ -29,7 +29,6 @@ $(document).ready(function (){
         if($("input[name='new_password']").val() == $("input[name='new_password2']").val() && $("input[name='new_password']").val() != ""){
             data.append("new_password", $("input[name='new_password']").val());
         }
-<<<<<<< HEAD
 
         var current_password = prompt ("Please enter your current password");
         if (current_password==null || current_password == ""){
@@ -50,36 +49,46 @@ $(document).ready(function (){
             });
         }
         
-=======
+    });
+
+    //Kontrollerar om username redan finns
+    $("#upload_form > .form_row > .input_container > input[name='new_username']").focusout(function(){
         $.ajax({
-            url: $SCRIPT_ROOT + "/request/change_settings",
-            type: "POST",
-            contentType: false,
-            data: data,
-            processData: false,
-            cache: false,
-            complete: function(){
-                alert("Skickades");
+            method: "POST",
+            url: $SCRIPT_ROOT + "/request/username_exists",
+            data: {
+                username: $(this).val()
+            }
+        })
+        .done(function(exist){
+            if(exist){
+                $("#upload_form > .form_row > .input_container > input[name='new_username']").addClass("error");
+            }else{
+                $("#upload_form > .form_row > .input_container > input[name='new_username']").removeClass("error");
             }
         });
->>>>>>> 7e00ca7bc31cd0fe423207b43623afdf13125258
     });
-});
 
-//Kontrollerar om username redan finns
-$("#save_settings > fieldset > .form_row > .input_container > input[name='new_username']").focusout(function(){
-    $.ajax({
-        method: "POST",
-        url: $SCRIPT_ROOT + "/request/username_exists",
-        data: {
-            username: $(this).val()
-        }
-    })
-    .done(function(exist){
-        if(exist){
-            $("#save_setting > fieldset > .form_row > .input_container > input[name='new_username']").addClass("error");
-        }else{
-            $("#save_setting > fieldset > .form_row > .input_container > input[name='new_username']").removeClass("error");
-        }
+    //Kontrollerar om email redan finns
+    $("#upload_form > .form_row > .input_container > input[name='new_email']").focusout(function(){
+        $.ajax({
+            method: "POST",
+            url: $SCRIPT_ROOT + "/request/email_exists",
+            data: {
+                email: $(this).val()
+            }
+        })
+        .done(function(exist){
+            if(exist){
+                $("#upload_form> .form_row > .input_container > input[name='new_email']").addClass("error");
+            }else{
+                $("#upload_form > .form_row > .input_container > input[name='new_email']").removeClass("error");
+            }
+        });
+    });
+    //Tar bort röd border efter error
+    $("#upload_form > .form_row > .input_container > input[name='new_username'], #upload_form > .form_row > .input_container > input[name='new_email']",).keyup(function(){
+        $("#upload_form > .form_row > .input_container > input[name='new_username']").removeClass("error");
+        $("#upload_form > .form_row > .input_container > input[name='new_email']").removeClass("error");
     });
 });
