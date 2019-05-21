@@ -40,7 +40,10 @@ def callback(incoming_request):
 def change_settings(new_settings):
         db = Database()
         cur = db.conn.cursor()
-        if("new_username" in new_settings):
+        if("current_password" not in new_settings or not check_password(new_settings["current_password"], username = session["username"])):
+                return False
+
+        if("new_username" in new_settings and not user_exists(username=new_settings["new_username"])): 
                 cur.execute("update person set username=%s where username=%s", [new_settings["new_username"], session["username"]])
                 session["username"] = new_settings["new_username"]
         if("new_firstname" in new_settings):
@@ -49,7 +52,7 @@ def change_settings(new_settings):
                 cur.execute("update person set lastname=%s where username=%s", [new_settings["new_lastname"], session["username"]])
         if("new_biography" in new_settings):
                 cur.execute("update person set biography=%s where username=%s", [new_settings["new_biography"], session["username"]])
-        if("new_email" in new_settings):
+        if("new_email" in new_settings and not user_exists(email=new_settings["new_email"])): 
                 cur.execute("update person set email=%s where username =%s", [new_settings["new_email"], session["username"]])
         if("new_password" in new_settings):
                 password = bcrypt.hashpw(new_settings["new_password"].encode("utf8"), bcrypt.gensalt(12)).decode("utf8").replace("'", '"')
