@@ -34,5 +34,17 @@ $(document).ready(function (){
         if($("input[name='new_password']").val() == $("input[name='new_password2']").val() && $("input[name='new_password']").val() != ""){
             data.append("new_password", $("input[name='new_password']").val());
         }
+
+        $.ajax({
+            url: $SCRIPT_ROOT + "/request/change_settings",
+            type: "POST",
+            contentType: false,
+            data: data,
+            processData: false,
+            cache: false,
+            complete: function(){
+                alert("Skickades");
+            }
+        });
     });
 });
