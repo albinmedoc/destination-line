@@ -38,6 +38,7 @@ window.onload = function () {
     $("#input_profile_img").change(function(){
         alert("kebab");
         var file = this.files[0];
+        console.log(file);
         var data = new FormData();
         data.append("file", file);
         $.ajax({
