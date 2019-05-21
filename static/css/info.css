@@ -38,6 +38,32 @@ main{
   position: sticky;
   top: 60px;
 }
+
+#about_us>section:not(#about_us_section){
+    display:grid;
+    align-items: center;
+    grid-template-columns: 1fr;
+    grid-gap: 10px;
+    margin-top: 20px;
+    justify-content: center;
+}
+
+#about_us>section>p{
+    
+
+}
+
+#about_us>section>*{
+}
+
+#about_us>section img{
+    height: 400px;
+    width: 100%;
+    object-fit: cover;
+}
+
+
+
 #about_us>h2{
     text-align: center;
     font-size: 28px;
@@ -119,4 +145,11 @@ hr{
 
   .card>a:hover, #info_container>#profile_cards>.card>#social_icons>a:hover{
     opacity: 0.7;
+  }
+
+  @media (min-width: 768px){
+    #about_us>section:not(#about_us_section){
+        grid-template-columns: 1.5fr 1fr;
+        grid-gap: 20px;
+    }
   }
