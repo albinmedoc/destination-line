@@ -24,10 +24,3 @@
     padding: 50px 0;
     height: 250px;
 }
-
-@media (min-width:768px) {
-    #profile_img{
-        width: 30vw;
-        height: 30vw;
-    }
-}
