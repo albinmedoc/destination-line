@@ -13,21 +13,21 @@ def callback(incoming_request):
         if(incoming_request == "username_exists"):
                 #Skickar tillbaks True/False beroende på om användarnamnet finns
                 username = request.form.get("username")
-                success = user_exists(username=username)
+                return jsonify(user_exists(username=username))
         elif(incoming_request == "email_exists"):
                 #Skickar tillbaks True/False beroende på om användarnamnet finns
                 email = request.form.get("email")
-                success = user_exists(email=email)
+                return jsonify(user_exists(email=email))
         elif(incoming_request == "follow" and "username" in session):
                 user_id = get_user_id(username=session["username"])
                 target_id = get_user_id(username=request.form.get("target_name"))
                 setup_follow(user_id, target_id)
-                success = True
+                return jsonify(True)
         elif(incoming_request == "unfollow" and "username" in session):
                 user_id = get_user_id(username=session["username"])
                 target_id = get_user_id(username=request.form.get("target_name"))
                 delete_follow(user_id, target_id)
-                success = True
+                return jsonify(True)
         elif(incoming_request == "search"):
                 search = request.form.get("search")
                 return jsonify(destinations=get_countries(search), users=get_users(search))
