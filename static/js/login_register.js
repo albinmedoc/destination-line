@@ -8,14 +8,14 @@ $(".cancel_modal").click(function() {
     $(".modal").removeClass("is_visible");
 });
 
-$("#register > fieldset > .form_row > .input_container > input[name='password2']").keyup(function(){
+$("#register input[name='password2'], #register input[name='password']").keyup(function(){
     //Kontrollerar att password2 stämmer överrens med password2
     var pass1 = $("#register > fieldset > .form_row > .input_container > input[name='password']").val()
-    var pass2 = $(this).val();
-    if($(this).val() != "" && pass1 != pass2){
-        $(this).addClass("error");
+    var pass2 = $("#register > fieldset > .form_row > .input_container > input[name='password2']").val();
+    if(pass2 != "" && pass1 != pass2){
+        $("#register input[name='password2']").addClass("error");
     }else{
-        $(this).removeClass("error");
+        $("#register input[name='password2']").removeClass("error");
     }
 });
 
@@ -55,16 +55,16 @@ $("#register > fieldset > .form_row > .input_container > input[name='email']").f
     });
 });
 
-//Tar bort röd boarder efter error
+//Tar bort röd border efter error
 $("#login > fieldset > .form_row > .input_container > input[name='username'], #login > fieldset > .form_row > .input_container > input[name='password']",).keyup(function(){
     $("#login > fieldset > .form_row > .input_container > input[name='username']").removeClass("error");
     $("#login > fieldset > .form_row > .input_container > input[name='password']").removeClass("error");
-   
 });
 
 //Skickar med input och kör funktion beroende på svaret
 $('#login').on('submit', function(e) {
     e.preventDefault();
+    $('.loader_container').addClass('is_visible');
     $.ajax({
         method: "POST",
         url: $SCRIPT_ROOT + "/login",
@@ -86,28 +86,29 @@ $('#login').on('submit', function(e) {
         });
 });
 
-/* $('#register').on('submit', function(e) {
-    $('.loader_container').addClass('is_visible');
-    $.ajax({
-        method: "POST",
-        url: $SCRIPT_ROOT + "/register",
-        data: {
-            firstname: $("#register > fieldset > .form_row > .input_container > input[name='firstname']").val(),
-            lastname: $("#register > fieldset > .form_row > .input_container > input[name='lastname']").val(),
-            username: $("#register > fieldset > .form_row > .input_container > input[name='username']").val(),
-            email: $("#register > fieldset > .form_row > .input_container > input[name='email']").val(),
-            password: $("#register > fieldset > .form_row > .input_container > input[name='password']").val()
-        }
-    })
-    .done(function(valid){
-        if(!valid){
-            $("#register > fieldset > .form_row > .input_container > input[name='username']").addClass("error");
-            $("#register > fieldset > .form_row > .input_container > input[name='password']").addClass("error");
-
-        }else{
-            location.replace("/");
-        }
-        $('.loader_container').removeClass('is_visible');
-    });
+$('#register').on('submit', function(e) {
     e.preventDefault();
-}); */
+    if (!$("#register > fieldset > .form_row > .input_container > input[name='username']").hasClass("error") && !$("#register > fieldset > .form_row > .input_container > input[name='email']").hasClass("error")){
+        $('.loader_container').addClass('is_visible');
+        $.ajax({
+            method: "POST",
+            url: $SCRIPT_ROOT + "/register",
+            data: {
+                firstname: $("#register > fieldset > .form_row > .input_container > input[name='firstname']").val(),
+                lastname: $("#register > fieldset > .form_row > .input_container > input[name='lastname']").val(),
+                username: $("#register > fieldset > .form_row > .input_container > input[name='username']").val(),
+                email: $("#register > fieldset > .form_row > .input_container > input[name='email']").val(),
+                password: $("#register > fieldset > .form_row > .input_container > input[name='password']").val(),
+                password2: $("#register > fieldset > .form_row > .input_container > input[name='password2']").val()
+            }
+        })
+        .done(function(valid){
+            if(valid==true){
+                location.replace("/");
+            }else{
+                
+            }
+            $('.loader_container').removeClass('is_visible');
+        });
+    }
+});

@@ -41,6 +41,7 @@
 
 .info_circle:hover {
     background-color: white;
+    cursor: pointer;
 }
 
 .info_circle>* {
@@ -70,6 +71,9 @@
     font-family: 'Titillium Web', sans-serif;
     font-weight: 500;
     word-wrap: break-word;
+}
+.info_circle>.author:hover {
+    text-decoration: underline;
 }
 
 @media (min-width:600px){

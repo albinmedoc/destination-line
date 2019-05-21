@@ -1,27 +1,31 @@
 <head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/timeline1.css') }}">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"
         integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 </head>
 
 <!-- Tidslinje -->
+{% if albums is defined and albums|length != 0  %}
 <section class="timeline">
-    {% if albums is defined %}
-    {% set right = False %}
         {% for album in albums %}
-            {% if right %}
-                <section class="container right">
-                {% set right = False %}
+            {% if loop.index % 2 == 0 %}
+            <section class="container right">
             {% else %}
-                <section class="container left">
-                {% set right = True %}
+            <section class="container left">
             {% endif %}
-                <section class="content">
-                    <h2>2017</h2>
-                    <p>Lorem ipsum..</p>
-                </section>
+                <a href="{{ url_for('image.album', album_id=album[0]) }}">
+                    <section class="content">
+                        <img src="{{ url_for('image.uploaded_images', image_id=album[3]) }}" alt="{{ album[1] }} - {{ album[2] }}">
+                        <div class="location">
+                            <p>{{ album[1] }}</p>
+                            <p>{{ album[2] }}</p>
+                        </div>
+                    </section>
+                </a>
             </section>
         {% endfor %}
-    {% endif %}
 </section>
+{% endif %}

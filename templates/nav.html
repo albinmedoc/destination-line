@@ -1,3 +1,6 @@
+{% block head %}
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}">
+{% endblock head %}
 <div class="progress_bar" id="page_loading_bar"></div>
 <nav class="is_visible">
     <div id="left">
@@ -39,19 +42,15 @@
         </li>
         <!-- Visa uppladdningsknapp om inloggad -->
         {% if("username" in session) %}
-        <li>
-            <a href="{{ url_for('image.upload') }}" class="nav_link">
-                <i class="material-icons">create_new_folder</i>
-                <span>New Album</span>
-            </a>
-        </li>
+        <li><a href="{{ url_for('image.upload') }}" class="nav_link">
+            <i class="material-icons">create_new_folder</i>
+            <span>New Album</span>
+        </a></li>
         {% endif %}
-        <li>
-            <a href="/info" class="nav_link">
-                <i class="material-icons">info_outline</i>
-                <span>Info</span>
-            </a>
-        </li>
+        <li><a href="/info" class="nav_link">
+            <i class="material-icons">info_outline</i>
+            <span>Info</span>
+        </a></li>
         <li>
             <div class="dropdown">
                 {% if("username" not in session) %}
@@ -75,6 +74,8 @@
 </nav>
 <!-- Inkludera endast ifall användaren i utloggad -->
 {% if("username" not in session) %}
-{% include 'login_register.html' %}
+    {% include 'login_register.html' %}
 {% endif %}
-<script src="{{ url_for('static', filename='js/nav.js') }}"></script>
+{% block javascript %}
+    <script src="{{ url_for('static', filename='js/nav.js') }}"></script>
+{% endblock javascript %}
