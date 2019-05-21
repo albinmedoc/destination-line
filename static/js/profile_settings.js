@@ -35,16 +35,24 @@ $(document).ready(function (){
             data.append("new_password", $("input[name='new_password']").val());
         }
 
-        $.ajax({
-            url: $SCRIPT_ROOT + "/request/change_settings",
-            type: "POST",
-            contentType: false,
-            data: data,
-            processData: false,
-            cache: false,
-            complete: function(){
-                alert("Skickades");
-            }
-        });
+        var current_password = prompt ("Please enter your current password");
+        if (current_password==null || current_password == ""){
+            alert("you have to write your password")
+        }
+        else{
+            data.append("current_password", current_password);
+            $.ajax({
+                url: $SCRIPT_ROOT + "/request/change_settings",
+                type: "POST",
+                contentType: false,
+                data: data,
+                processData: false,
+                cache: false,
+                complete: function(){
+                    alert("Skickades");
+                }
+            });
+        }
+        
     });
 });
