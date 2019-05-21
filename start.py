@@ -51,4 +51,4 @@ if __name__ == "__main__":
         if(len(argv) > 1 and argv[1].lower() == "server"):
                 app.run(host = SERVER_IP, port = 80, debug = False, threaded = True)
         else:
-                app.run(host = "localhost", port = SERVER_PORT, debug = DEBUG_MODE, threaded = True)
+                app.run(host = "localhost", port = SERVER_PORT, debug = False, threaded = True)

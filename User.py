@@ -13,74 +13,53 @@ def callback(incoming_request):
         if(incoming_request == "username_exists"):
                 #Skickar tillbaks True/False beroende på om användarnamnet finns
                 username = request.form.get("username")
-                success = user_exists(username=username)
+                return jsonify(user_exists(username=username))
         elif(incoming_request == "email_exists"):
                 #Skickar tillbaks True/False beroende på om användarnamnet finns
                 email = request.form.get("email")
-                success = user_exists(email=email)
+                return jsonify(user_exists(email=email))
         elif(incoming_request == "follow" and "username" in session):
                 user_id = get_user_id(username=session["username"])
                 target_id = get_user_id(username=request.form.get("target_name"))
                 setup_follow(user_id, target_id)
-                success = True
+                return jsonify(True)
         elif(incoming_request == "unfollow" and "username" in session):
                 user_id = get_user_id(username=session["username"])
                 target_id = get_user_id(username=request.form.get("target_name"))
                 delete_follow(user_id, target_id)
-                success = True
+                return jsonify(True)
         elif(incoming_request == "search"):
                 search = request.form.get("search")
                 return jsonify(destinations=get_countries(search), users=get_users(search))
         elif(incoming_request == "check_password"):
                 password = request.form.get("password")
                 return jsonify(check_password(password, username=session["username"]))
+        elif (incoming_request == "change_settings"):
+                return jsonify(change_settings(request.form))
 
+def change_settings(new_settings):
         db = Database()
         cur = db.conn.cursor()
-        if(incoming_request == "change_username"):
-                #Ändrar användarnamn och kollar att det inte redan existerar databasen
-                change_username = request.form.get("new_username")
-                if not (user_exists(username=change_username)):
-                        username = session["username"]
-                        cur.execute("update person set username=%s where username =%s", (change_username, username))
-                        success = True
-        elif(incoming_request == "change_firstname"):
-                #Ändrar användarens förnamn
-                username = session["username"]
-                change_firstname = request.form.get("new_firstname")
-                cur.execute("update person set firstname=%s where username =%s", (change_firstname, username))
-                success = True
-        elif(incoming_request == "change_lastname"):
-                #Ändrar användarens efternamn
-                username = session["username"]
-                change_lastname = request.form.get("new_lastname")
-                cur.execute("update person set lastname=%s where username =%s", (change_lastname, username))
-                success = True
-        elif(incoming_request == "change_biography"):
-                #Ändrar användarens biografi
-                username = session["username"]
-                change_biography = request.form.get("new_biography")
-                cur.execute("update person set biography=%s where username =%s", (change_biography, username))
-                success = True
-        elif(incoming_request == "change_email"):
-                #Ändrar användarens email och kollar att det inte redan existerar databasen
-                change_email = request.form.get("new_email")
-                if not (user_exists(email=change_email)):
-                        username = session["username"]
-                        cur.execute("update person set email=%s where username =%s", (change_email, username))
-                        success = True
-        elif(incoming_request == "change_password"):
-                #Ändrar användarens lösenord och krypterar det
-                username = session["username"]
-                change_password = request.form.get("new_password")
-                #Hashar lösenordet
-                change_password = bcrypt.hashpw(change_password.encode("utf8"), bcrypt.gensalt(12)).decode("utf8").replace("'", '"')
-                username = session["username"]
-                cur.execute("update person set password=%s where username =%s", (change_password, username))  
-                success = True
+        if("current_password" not in new_settings or not check_password(new_settings["current_password"], username = session["username"])):
+                return False
+
+        if("new_username" in new_settings and not user_exists(username=new_settings["new_username"])): 
+                cur.execute("update person set username=%s where username=%s", [new_settings["new_username"], session["username"]])
+                session["username"] = new_settings["new_username"]
+        if("new_firstname" in new_settings):
+                cur.execute("update person set firstname=%s where username=%s", [new_settings["new_firstname"], session["username"]])
+        if("new_lastname" in new_settings):
+                cur.execute("update person set lastname=%s where username=%s", [new_settings["new_lastname"], session["username"]])
+        if("new_biography" in new_settings):
+                cur.execute("update person set biography=%s where username=%s", [new_settings["new_biography"], session["username"]])
+        if("new_email" in new_settings and not user_exists(email=new_settings["new_email"])): 
+                cur.execute("update person set email=%s where username =%s", [new_settings["new_email"], session["username"]])
+        if("new_password" in new_settings):
+                password = bcrypt.hashpw(new_settings["new_password"].encode("utf8"), bcrypt.gensalt(12)).decode("utf8").replace("'", '"')
+                cur.execute("update person set password=%s where username=%s",[password, session["username"]])
         db.conn.commit()
         cur.close()
-        return jsonify(success)
+        return True
 
 @app.route("/profile")
 @app.route("/profile/<username>")
