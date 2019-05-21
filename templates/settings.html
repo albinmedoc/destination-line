@@ -87,8 +87,8 @@
         </div>
     </div>
 </form>
-{% block javascript %}
-{{ super() }}
-<script src="{{ url_for('static', filename='js/profile_settings.js') }}"></script>
-{% endblock javascript%}
 {% endblock main %}
+{% block javascript %}
+    {{ super() }}
+    <script src="{{ url_for('static', filename='js/profile_settings.js') }}"></script>
+{% endblock javascript%}
