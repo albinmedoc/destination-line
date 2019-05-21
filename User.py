@@ -275,14 +275,14 @@ def delete_follow(user_id, target_id):
 def get_countries(search):
         db = Database()
         cur = db.conn.cursor()
-        cur.execute("select album.id, album.owner, album.country, album.city, concat(person.firstname, ' ', person.lastname), post.img_name from ((album join post on album.id=post.album) join person on album.owner=person.id) where post.index=1 and (country LIKE '{}%' or city LIKE '{}%')".format(search,search))
+        cur.execute("select album.id, album.owner, album.country, album.city, concat(person.firstname, ' ', person.lastname), post.img_name from ((album join post on album.id=post.album) join person on album.owner=person.id) where post.index=1 and (lower(country) LIKE lower('{}%') or lower(city) LIKE lower('{}%'))".format(search,search))
         search_results = cur.fetchall()
         return search_results
 
 def get_users(search):
         db = Database()
         cur = db.conn.cursor()
-        cur.execute("select id, username, firstname, lastname from person where username LIKE '{}%' or firstname LIKE '{}%' or lastname LIKE '{}%'".format(search,search,search))
+        cur.execute("select id, username, firstname, lastname from person where lower(username) LIKE lower('{}%') or lower(firstname) LIKE lower('{}%') or lower(lastname) LIKE lower('{}%')".format(search,search,search))
         search_results = cur.fetchall()
         return search_results
 
@@ -328,7 +328,7 @@ def get_follower_count(username, cur):
 def get_creators():
         daniel = ("Daniel Subasic", "97danne97")
         albin = ("Albin Médoc", "albinmedoc")
-        anders = ("Anders L Mantarro", "anderslmantarro")
+        anders = ("Anders Mantarro", "anderslmantarro")
         hanna = ("Hanna Bengtsson", "hannaidabengtsson")
         elin = ("Elin Andersson", "elinandersson")
 

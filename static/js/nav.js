@@ -27,7 +27,7 @@ var do_search = function(){
         }
         if(data.users){
             for (user in data.users){
-                $("#users").append("<div class='search_result'><i class='material-icons'>person_outline</i><div class='search_result_top'><img src='https://i.imgur.com/5o1TAya.jpg'><div class='user_search_info'><h3>"+data.users[user][2]+" "+data.users[user][3]+"</h3><div class='follow_info'><a><h4>3</h4> <span>Followers</span></a><a><h4>3</h4> <span>Follow</span></a></div></div></div><a href='/profile/"+data.users[user][1]+"' class='username'><span>"+data.users[user][1]+"</span></a></div>")
+                $("#users").append("<div class='search_result'><i class='material-icons'>person_outline</i><div class='search_result_top'><img src='https://i.imgur.com/5o1TAya.jpg'><div class='user_search_info'><h3>"+data.users[user][2]+" "+data.users[user][3]+"</h3></div></div><a href='/profile/"+data.users[user][1]+"' class='username'><span>"+data.users[user][1]+"</span></a></div>")
             }
         };
         $("nav .loader_container").removeClass("is_visible");
