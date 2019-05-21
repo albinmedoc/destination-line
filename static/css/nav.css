@@ -218,7 +218,7 @@ nav ul li a:hover::after, .dropdown:hover>a::after{/* Triggas här */
 }
 
 #users>.search_result {
-    min-height: 400px;
+    min-height: 320px;
     justify-content: space-around;
     padding: 20px 0;
 }
