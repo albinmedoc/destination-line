@@ -30,9 +30,11 @@ window.onload = function () {
             });
         }
     });
+   //När man klickar på "kameraikonen" kommer datorns filer för att byta profilbild
     $("#change_profile_img_btn").click(function(){
         $("#input_profile_img").trigger("click");
     });
+    
     $("#input_profile_img").change(function(){
         alert("kebab");
         var file = this.files[0];
