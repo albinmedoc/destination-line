@@ -286,7 +286,7 @@ def get_users(search):
         search_results = cur.fetchall()
         return search_results
 
-@app.route("/test/<username>")
+@app.route("/delete_account/<username>")
 def delete_user(user_id=None, username=None):
         db = Database()
         cur = db.conn.cursor()
