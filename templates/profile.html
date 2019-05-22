@@ -15,15 +15,15 @@
     <section id="icon_row">
         {% if session["username"] == user_info[0] %}
         <div class="button_container">
-            <i class="material-icons button_icon_container">add_a_photo</i>
+            <a href="#" class="material-icons button_icon_container">add_a_photo</a>
             <div class="button_text_container">
-                <span>Change Background</span>
+                <a href="#"><span>Change Background</span></a>
             </div>
         </div>
         <div class="button_container">
             <a href="{{ url_for('user.settings') }}" class="material-icons button_icon_container">settings</a>
             <div class="button_text_container">
-            <a href="{{ url_for('user.settings') }}"><span>Edit profile</span></a>   
+                <a href="{{ url_for('user.settings') }}"><span>Edit profile</span></a>   
             </div>
         </div>
         {% elif "username" in session %}
