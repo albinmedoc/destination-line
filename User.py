@@ -9,7 +9,6 @@ app = Blueprint("user", __name__, template_folder="templates")
 
 @app.route("/request/<incoming_request>", methods = ["POST"])
 def callback(incoming_request):
-        success = False
         if(incoming_request == "username_exists"):
                 #Skickar tillbaks True/False beroende på om användarnamnet finns
                 username = request.form.get("username")
