@@ -4,12 +4,6 @@
     grid-template-columns: 1fr;
 }
 
-.cancel_upload{
-    position: absolute;
-    top: 15px;
-    left: 15px;
-}
-
 #preview {
     margin: 20px;
     display: grid;

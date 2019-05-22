@@ -31,6 +31,12 @@
     top: 13px;
 }
 
+.cancel_form{
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+
 .responsive_form{
     position: relative;
     width: 100%;
