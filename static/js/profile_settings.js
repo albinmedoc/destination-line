@@ -6,7 +6,9 @@ $(document).ready(function (){
     var old_biography = $("input[name='new_biography']").val();
     var old_email = $("input[name='new_email']").val();
 
+    
     $("#save_settings_button").on("click", function(e){
+        //If-satser som kollar om användaren fyller i ett fält med ny data
         e.preventDefault();
         var data = new FormData();
         //Kollar om användaren har ändrat användarnamn
@@ -33,7 +35,11 @@ $(document).ready(function (){
         if($("input[name='new_password']").val() == $("input[name='new_password2']").val() && $("input[name='new_password']").val() != ""){
             data.append("new_password", $("input[name='new_password']").val());
         }
+<<<<<<< HEAD
+        //Pop-up ruta för att bekräfta dina ändringar med ditt nuvarandre lösenord
+=======
         //Ber användaren mata in sitt nuvarande lösenord
+>>>>>>> 7efcac1a884aed2e8a7018cc73594c4a72aca8ce
         var current_password = prompt ("Please enter your current password");
         //Kontrollerar om det inmatade lösenordet lämnades tomt
         if (current_password==null || current_password == ""){
@@ -41,6 +47,7 @@ $(document).ready(function (){
         }
         //Användaren lämnade inte fältet tomt
         else{
+            //Skickar den uppdaterade datan till Ajax
             data.append("current_password", current_password);
             //Skickar Post request
             $.ajax({

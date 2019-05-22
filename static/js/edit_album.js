@@ -179,7 +179,6 @@ $("#upload_form").on("submit", function (e) {
         return;
     }
     $('#upload_progress_bar').css('width', '10%');
-    console.log(images);
     var data = new FormData();
     //Lägger till album information i FormData
     data.append("country", $("#country").val());
@@ -208,6 +207,7 @@ $("#upload_form").on("submit", function (e) {
     $.ajax({
         url: $SCRIPT_ROOT + "/new/album",
         type: 'POST',
+        dataType: "json",
         contentType: false,
         data: data,
         processData: false,
@@ -215,13 +215,13 @@ $("#upload_form").on("submit", function (e) {
         beforeSend: function(){
             $('.loader_container').addClass('is_visible');
         },
-        success: function () {
-            alert("Uploaded");
+        success: function (data) {
+            window.location.assign($SCRIPT_ROOT + "/album/" + data);
         },
         error: function () {
             alert("Error");
         },
-        complete: function(){
+        complete: function(data){
             $('.loader_container').removeClass('is_visible');
             window.location.assign("/profile")
         }
