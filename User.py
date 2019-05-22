@@ -290,9 +290,8 @@ def get_users(search):
 def delete_user(user_id=None):
         db = Database()
         cur = db.conn.cursor()
-        user_id = session["username"]
+        user_id = get_user_id(username=session["username"])
         #Hämtar användarID ifall username är angivet
-        
         
         #Hämtar alla filnamn för uppladdade bilder från användaren
         cur.execute("select post.img_name from album join post on album.id=post.album where album.owner=%s", [user_id])
@@ -308,9 +307,10 @@ def delete_user(user_id=None):
         cur.execute("delete from post where album in (select id from album where owner=%s)", [user_id])
         cur.execute("delete from album where owner=%s", [user_id])
         cur.execute("delete from person where id=%s", [user_id])
-
         db.conn.commit()
-        return "The users saved data was removed!"
+        session.clear()
+        flash(u'Your account has been deleted', 'success')
+        return redirect("/")
 
 #Hämtar antalet användare som användaren följer
 def get_following_count(username, cur):
