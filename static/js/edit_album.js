@@ -80,6 +80,13 @@ function display_image(file, img_url){
 }
 
 $(document).ready(function (){
+    $(".cancel_upload").click(function(){
+
+        var answer = confirm("All your changes will be lost, are you sure you want to cancel?");
+        if (answer == true){
+            window.location.assign("/profile")
+        }
+    });
     //Ta bort bild från variabel och från gränssnittet när användaren klickar kryss på en bild
     $("#upload_btn").parent().on("click", ".img_close", function () {
         var index = $(this).next().attr("src");
@@ -216,6 +223,9 @@ $("#upload_form").on("submit", function (e) {
         },
         complete: function(data){
             $('.loader_container').removeClass('is_visible');
+            window.location.assign("/profile")
         }
     });
+
+    
 });
