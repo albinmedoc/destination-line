@@ -37,30 +37,6 @@ def callback(incoming_request):
         elif (incoming_request == "change_settings"):
                 return jsonify(change_settings(request.form))
 
-def change_settings(new_settings):
-        #Uppdaterar användarens uppgifter
-        db = Database()
-        cur = db.conn.cursor()
-        if("current_password" not in new_settings or not check_password(new_settings["current_password"], username = session["username"])):
-                return False
-        if("new_username" in new_settings and not user_exists(username=new_settings["new_username"])): 
-                cur.execute("update person set username=%s where username=%s", [new_settings["new_username"], session["username"]])
-                session["username"] = new_settings["new_username"]
-        if("new_firstname" in new_settings):
-                cur.execute("update person set firstname=%s where username=%s", [new_settings["new_firstname"], session["username"]])
-        if("new_lastname" in new_settings):
-                cur.execute("update person set lastname=%s where username=%s", [new_settings["new_lastname"], session["username"]])
-        if("new_biography" in new_settings):
-                cur.execute("update person set biography=%s where username=%s", [new_settings["new_biography"], session["username"]])
-        if("new_email" in new_settings and not user_exists(email=new_settings["new_email"])): 
-                cur.execute("update person set email=%s where username =%s", [new_settings["new_email"], session["username"]])
-        if("new_password" in new_settings):
-                password = bcrypt.hashpw(new_settings["new_password"].encode("utf8"), bcrypt.gensalt(12)).decode("utf8").replace("'", '"')
-                cur.execute("update person set password=%s where username=%s",[password, session["username"]])
-        db.conn.commit()
-        cur.close()
-        return True
-
 @app.route("/profile")
 @app.route("/profile/<username>")
 def profile(username=None):
@@ -256,6 +232,31 @@ def settings():
         cur.execute("select username, firstname, lastname, biography, email from person where username=%s", [username.lower()])
         profile_info = cur.fetchone()
         return render_template("settings.html", profile_info=profile_info)
+
+def change_settings(new_settings):
+        db = Database()
+        cur = db.conn.cursor()
+        if("current_password" not in new_settings or not check_password(new_settings["current_password"], username = session["username"])):
+                return False
+
+        if("new_username" in new_settings and not user_exists(username=new_settings["new_username"])): 
+                cur.execute("update person set username=%s where username=%s", [new_settings["new_username"], session["username"]])
+                session["username"] = new_settings["new_username"]
+        if("new_firstname" in new_settings):
+                cur.execute("update person set firstname=%s where username=%s", [new_settings["new_firstname"], session["username"]])
+        if("new_lastname" in new_settings):
+                cur.execute("update person set lastname=%s where username=%s", [new_settings["new_lastname"], session["username"]])
+        if("new_biography" in new_settings):
+                cur.execute("update person set biography=%s where username=%s", [new_settings["new_biography"], session["username"]])
+        if("new_email" in new_settings and not user_exists(email=new_settings["new_email"])): 
+                cur.execute("update person set email=%s where username =%s", [new_settings["new_email"], session["username"]])
+        if("new_password" in new_settings):
+                password = bcrypt.hashpw(new_settings["new_password"].encode("utf8"), bcrypt.gensalt(12)).decode("utf8").replace("'", '"')
+                cur.execute("update person set password=%s where username=%s",[password, session["username"]])
+        db.conn.commit()
+        cur.close()
+        flash(u'Your changes have been updated', 'success')
+        return True
         
 def setup_follow(user_id, target_id):
         db = Database()
@@ -285,14 +286,13 @@ def get_users(search):
         search_results = cur.fetchall()
         return search_results
 
-@app.route("/delete_account/<username>")
-def delete_user(user_id=None, username=None):
+@app.route("/delete_account")
+def delete_user(user_id=None):
         db = Database()
         cur = db.conn.cursor()
-
+        user_id = session["username"]
         #Hämtar användarID ifall username är angivet
-        if(username is not None):
-                user_id = get_user_id(username=username)
+        
         
         #Hämtar alla filnamn för uppladdade bilder från användaren
         cur.execute("select post.img_name from album join post on album.id=post.album where album.owner=%s", [user_id])
