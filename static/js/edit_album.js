@@ -4,9 +4,29 @@ var FILE_SIZE_LIMIT = 6000000;
 var ALLOWED_EXTENSIONS = ["png", "jpg", "jpeg", "webp"];
 
 //Valda bilder sparas i denna variablen
-var images = new Object();
+var images = [];
 
 $(document).ready(function (){
+
+    $("#preview").children(".post").each(function () {
+        var image = new Image();
+        image.src = $(this).children("img").attr("src");
+        image.post = $(this);
+        image.onload = function(){
+            //Skapar en canvas för att kunna hämta DataURL
+            var canvas = document.createElement("canvas");
+            var ctx = canvas.getContext("2d");
+            canvas.width = image.width;
+            canvas.height = image.height;
+            ctx.drawImage(image, 0, 0);
+
+            var data_url = canvas.toDataURL();
+            
+            images.push(data_url);
+            image.post.children("img").attr("src", data_url);
+        }
+    });
+
 
     //Öppna fil-väjare
     $("#upload_btn").click(function () {
@@ -25,9 +45,10 @@ $(document).ready(function (){
 
             var reader = new FileReader();
             reader.onload = (function(file){
-                //Skippar ifall bild redan vald
                 return function(e){
-                    if(check_if_already_choosed(file, e.target.result)){
+                    //Skippar ifall bild redan vald
+                    if(check_if_already_choosed(e.target.result)){
+                        add_flash_message(file.name + " is already choosed.", "error");
                         return;
                     }
     
@@ -38,7 +59,7 @@ $(document).ready(function (){
                     }
     
                     //Spara bild i variabel, bild-url som nyckel
-                    images[e.target.result] = file;
+                    images.push(e.target.result);
                     
                     //Visa bild
                     display_image(file, e.target.result);
@@ -68,9 +89,10 @@ function check_file_size(file){
 
 //Kontrollerar ifall bild redan uppladdad
 function check_if_already_choosed(file, img_url){
-    exists = img_url in images;
-    if(exists) add_flash_message(file.name + " is already choosed.", "error");
-    return exists;
+    $("#preview").children(".post > img").each(function () {
+        if($(this).attr("src") == img_url) return true;
+        return false;
+    });
 }
 
 //Visa bild
@@ -185,10 +207,10 @@ $("#upload_form").on("submit", function (e) {
     data.append("city", $("#city").val());
     var date_start = period.getStartDate();
     var date_end = period.getEndDate();
+
     //Sätter båda datumen till samma ifall endast ett var angivet
-    if(!date_end){
-        date_end = date_start;
-    }
+    if(!date_end) date_end = date_start;
+    
     data.append("date_start", date_start.format("YYYY-MM-DD"));
     data.append("date_end", date_end.format("YYYY-MM-DD"));
     var i = 1;
@@ -197,7 +219,7 @@ $("#upload_form").on("submit", function (e) {
         //Hämtar index/bildurl från src
         var post = $(this);
         var img_url = post.children("img").attr("src");
-        data.append("post" + i, images[img_url]);
+        data.append("post" + i, data_uri_to_blob(img_url));
         data.append("headline" + i, post.attr("data-headline"));
         data.append("description" + i, post.attr("data-description"));
         i++;
@@ -216,16 +238,23 @@ $("#upload_form").on("submit", function (e) {
             $('.loader_container').addClass('is_visible');
         },
         success: function (data) {
-            window.location.assign($SCRIPT_ROOT + "/album/" + data);
         },
         error: function () {
             add_flash_message("Something went wrong...", "error");
         },
         complete: function(data){
             $('.loader_container').removeClass('is_visible');
-            window.location.assign("/profile")
         }
     });
-
-    
 });
+
+function data_uri_to_blob(dataURI){
+    var byteString = atob(dataURI.split(',')[1]);
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    var ab = new ArrayBuffer(byteString.length);
+    var ia = new Uint8Array(ab);
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ab], {type: mimeString});
+}
