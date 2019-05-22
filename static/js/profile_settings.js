@@ -110,4 +110,12 @@ $(document).ready(function (){
         $("#upload_form > .form_row > .input_container > #text_varning_username").removeClass("error");
         $("#upload_form > .form_row > .input_container > #text_varning_email").removeClass("error");
     });
+
+    $("#delete_account_link").click(function(){
+
+        var answer = confirm("All your albums will be lost, are you sure you want to delete your account?");
+        if (answer == true){
+            window.location.assign("/delete_account")
+        }
+    });
 });
