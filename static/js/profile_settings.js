@@ -5,7 +5,9 @@ $(document).ready(function (){
     var old_biography = $("input[name='new_biography']").val();
     var old_email = $("input[name='new_email']").val();
 
+    
     $("#save_settings_button").on("click", function(e){
+        //If-satser som kollar om användaren fyller i ett fält med ny data
         e.preventDefault();
         var data = new FormData();
         if(old_username != $("input[name='new_username']").val()){
@@ -15,11 +17,9 @@ $(document).ready(function (){
         if(old_firstname != $("input[name='new_firstname']").val()){
             data.append("new_firstname", $("input[name='new_firstname']").val());
         }
-        //Nästa if
         if(old_lastname != $("input[name='new_lastname']").val()){ 
             data.append("new_lastname", $("input[name='new_lastname']").val());
         }
-        //Nästa if
         if(old_biography != $("input[name='new_biography']").val()){
             data.append("new_biography", $("input[name='new_biography']").val());  
         }
@@ -29,12 +29,13 @@ $(document).ready(function (){
         if($("input[name='new_password']").val() == $("input[name='new_password2']").val() && $("input[name='new_password']").val() != ""){
             data.append("new_password", $("input[name='new_password']").val());
         }
-
+        //Pop-up ruta för att bekräfta dina ändringar med ditt nuvarandre lösenord
         var current_password = prompt ("Please enter your current password");
         if (current_password==null || current_password == ""){
             alert("you have to write your password")
         }
         else{
+            //Skickar den uppdaterade datan till Ajax
             data.append("current_password", current_password);
             $.ajax({
                 url: $SCRIPT_ROOT + "/request/change_settings",
