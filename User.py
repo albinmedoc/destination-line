@@ -96,7 +96,6 @@ def profile(username=None):
                                 is_following = cur.fetchone() is not None
                         else:
                                 is_following = False
-                        print(is_following)
 
                         #Visar profilsidan med informationen hämtad från databasen
                         return render_template("profile.html", user_info=user_info, album_count=album_count, following_count=following_count, follower_count=follower_count, albums=albums, is_following=is_following)

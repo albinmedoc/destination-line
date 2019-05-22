@@ -150,7 +150,6 @@ def upload_profile_img():
         if "username" not in session:
                 #Användaren är inte inloggad
                 return jsonify(False)
-        print(request.files)
         if "file" not in request.files:
                 #Bild skickades ej med
                 return jsonify(False)
