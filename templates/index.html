@@ -16,7 +16,7 @@
             <a class="explore_tab following active"><h2>Following</h2></a>
             <a class="explore_tab explore"><h2>Explore</h2></a>
         </section>
-        <section id="following">
+        <section id="following" class="active">
             <!-- Om  following_albums är definierat och innehåller album -->
             {% if following_albums is defined and following_albums|length > 0 %}
                 <!-- Loopar igenom alla album i following_albums -->
@@ -44,7 +44,7 @@
         <section id="explore" style="display: none;">
     {% else %}
         <!-- Är användaren inte inloggad döljs inte explore-sektionen -->
-        <section id="explore">
+        <section id="explore" class="active">
     {% endif %}
     <!-- Om  explore_albums är definierat och innehåller album -->
     {% if explore_albums is defined and explore_albums|length > 0 %}
