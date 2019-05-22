@@ -32,12 +32,11 @@
                     <span>Date period</span>
                 </div>
                 <!-- Knapp för att ladda upp alla bilder -->
-                {% if album_info is not defined %}
                 <div class="input_container">
-                    <button type="submit">Upload album</button>
+                    <!-- Det står "Upload album" om ett nytt album skapas och "Save changes" ifall ett album ändras -->
+                    <button type="submit">{{ "Upload album" if(album_info is not defined) else "Save changes" }}</button>
                     <a href="" id="album_info_btn">How to crop your photos</a>
                 </div>
-                {% endif %}
             </div>
         </fieldset>
     </form>
@@ -49,15 +48,24 @@
         <div id="upload_btn" class="locked"></div>
         <!-- Uppladdade bilder kommer hamna här -->
         {% if posts is defined %}
-        {% for post in posts %}
-        <div class="post" {% if post[1] %} data-headline="{{ post[1] }}" {% endif %}{% if post[2] %}
-            data-description="{{ post[2] }}" {% endif %}>
-            <i class="material-icons close">close</i>
-            <i class="material-icons info">info_outline</i>
-            <img src="{{  url_for('image.uploaded_images', image_id=post[0]) }}">
-            <i class="material-icons reorder">reorder</i>
-        </div>
-        {% endfor %}
+            {% for post in posts %}
+                <div class='post' data-headline='{{ post[1] if post[1] }}' data-description='{{ post[2] if post[2]}}'>
+                    <div class='button_container img_close'>
+                        <div class='button_text_container'>
+                            <span>Delete image</span>
+                        </div>
+                        <i class='material-icons button_icon_container'>close</i>
+                    </div>
+                    <div class='button_container img_modal_open'>
+                        <i class='material-icons button_icon_container'>info</i>
+                        <div class='button_text_container'>
+                            <span>Image info</span>
+                        </div>
+                    </div>
+                    <img src="{{  url_for('image.uploaded_images', image_id=post[0]) }}">
+                    <i class='material-icons reorder'>reorder</i>
+                </div>
+            {% endfor %}
         {% endif %}
     </section>
 </section>
