@@ -24,3 +24,13 @@
     padding: 50px 0;
     height: 250px;
 }
+
+#delete_account_link{
+    display: flex;
+    justify-content: flex-end;
+    margin: 20px 30px 15px;
+}
+
+#delete_account_link:hover{
+    color: red;
+}

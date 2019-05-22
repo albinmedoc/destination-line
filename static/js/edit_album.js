@@ -33,7 +33,7 @@ $(document).ready(function (){
     
                     //Avbryter ifall 50 eller fler bilder är valda
                     if(Object.keys(images).length >= UPLOAD_LIMIT){
-                        alert(UPLOAD_LIMIT + " images is maximum for an album.");
+                        add_flash_message(UPLOAD_LIMIT + " images is maximum for an album.", "error");
                         return;
                     }
     
@@ -55,21 +55,21 @@ function check_file_extension(file){
     extension = file.name.split('.').pop().toLowerCase();
     allowed = ALLOWED_EXTENSIONS.indexOf(extension) > -1;
     //Meddelar användaren om filextensionen inte är tillåten
-    if(!allowed) alert(file.name + " doesn´t have an allowed extension.");
+    if(!allowed) add_flash_message(file.name + " doesn´t have an allowed extension.", "error");
     return allowed;
 }
 
 //Kontrollerar att filstorleken inte överstiger maxgränsen
 function check_file_size(file){
     allowed = file.size <= FILE_SIZE_LIMIT;
-    if(!allowed) alert(file.name + " is too big.");
+    if(!allowed) add_flash_message(file.name + " is too big.", "error");
     return allowed;
 }
 
 //Kontrollerar ifall bild redan uppladdad
 function check_if_already_choosed(file, img_url){
     exists = img_url in images;
-    if(exists) alert(file.name + " is already choosed.");
+    if(exists) add_flash_message(file.name + " is already choosed.", "error");
     return exists;
 }
 
@@ -80,6 +80,13 @@ function display_image(file, img_url){
 }
 
 $(document).ready(function (){
+    $(".cancel_upload").click(function(){
+
+        var answer = confirm("All your changes will be lost, are you sure you want to cancel?");
+        if (answer == true){
+            window.location.assign("/profile")
+        }
+    });
     //Ta bort bild från variabel och från gränssnittet när användaren klickar kryss på en bild
     $("#upload_btn").parent().on("click", ".img_close", function () {
         var index = $(this).next().attr("src");
@@ -168,11 +175,10 @@ var period = new Lightpick({
 $("#upload_form").on("submit", function (e) {
     e.preventDefault();
     if(Object.keys(images).length == 0){
-        alert("Inga valda bilder");
+        add_flash_message("No choosen images.", "error");
         return;
     }
     $('#upload_progress_bar').css('width', '10%');
-    console.log(images);
     var data = new FormData();
     //Lägger till album information i FormData
     data.append("country", $("#country").val());
@@ -201,6 +207,7 @@ $("#upload_form").on("submit", function (e) {
     $.ajax({
         url: $SCRIPT_ROOT + "/new/album",
         type: 'POST',
+        dataType: "json",
         contentType: false,
         data: data,
         processData: false,
@@ -208,14 +215,17 @@ $("#upload_form").on("submit", function (e) {
         beforeSend: function(){
             $('.loader_container').addClass('is_visible');
         },
-        success: function () {
-            alert("Uploaded");
+        success: function (data) {
+            window.location.assign($SCRIPT_ROOT + "/album/" + data);
         },
         error: function () {
-            alert("Error");
+            add_flash_message("Something went wrong...", "error");
         },
-        complete: function(){
+        complete: function(data){
             $('.loader_container').removeClass('is_visible');
+            window.location.assign("/profile")
         }
     });
+
+    
 });

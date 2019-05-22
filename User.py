@@ -37,30 +37,6 @@ def callback(incoming_request):
         elif (incoming_request == "change_settings"):
                 return jsonify(change_settings(request.form))
 
-def change_settings(new_settings):
-        db = Database()
-        cur = db.conn.cursor()
-        if("current_password" not in new_settings or not check_password(new_settings["current_password"], username = session["username"])):
-                return False
-
-        if("new_username" in new_settings and not user_exists(username=new_settings["new_username"])): 
-                cur.execute("update person set username=%s where username=%s", [new_settings["new_username"], session["username"]])
-                session["username"] = new_settings["new_username"]
-        if("new_firstname" in new_settings):
-                cur.execute("update person set firstname=%s where username=%s", [new_settings["new_firstname"], session["username"]])
-        if("new_lastname" in new_settings):
-                cur.execute("update person set lastname=%s where username=%s", [new_settings["new_lastname"], session["username"]])
-        if("new_biography" in new_settings):
-                cur.execute("update person set biography=%s where username=%s", [new_settings["new_biography"], session["username"]])
-        if("new_email" in new_settings and not user_exists(email=new_settings["new_email"])): 
-                cur.execute("update person set email=%s where username =%s", [new_settings["new_email"], session["username"]])
-        if("new_password" in new_settings):
-                password = bcrypt.hashpw(new_settings["new_password"].encode("utf8"), bcrypt.gensalt(12)).decode("utf8").replace("'", '"')
-                cur.execute("update person set password=%s where username=%s",[password, session["username"]])
-        db.conn.commit()
-        cur.close()
-        return True
-
 @app.route("/profile")
 @app.route("/profile/<username>")
 def profile(username=None):
@@ -96,7 +72,6 @@ def profile(username=None):
                                 is_following = cur.fetchone() is not None
                         else:
                                 is_following = False
-                        print(is_following)
 
                         #Visar profilsidan med informationen hämtad från databasen
                         return render_template("profile.html", user_info=user_info, album_count=album_count, following_count=following_count, follower_count=follower_count, albums=albums, is_following=is_following)
@@ -257,6 +232,31 @@ def settings():
         cur.execute("select username, firstname, lastname, biography, email from person where username=%s", [username.lower()])
         profile_info = cur.fetchone()
         return render_template("settings.html", profile_info=profile_info)
+
+def change_settings(new_settings):
+        db = Database()
+        cur = db.conn.cursor()
+        if("current_password" not in new_settings or not check_password(new_settings["current_password"], username = session["username"])):
+                return False
+
+        if("new_username" in new_settings and not user_exists(username=new_settings["new_username"])): 
+                cur.execute("update person set username=%s where username=%s", [new_settings["new_username"], session["username"]])
+                session["username"] = new_settings["new_username"]
+        if("new_firstname" in new_settings):
+                cur.execute("update person set firstname=%s where username=%s", [new_settings["new_firstname"], session["username"]])
+        if("new_lastname" in new_settings):
+                cur.execute("update person set lastname=%s where username=%s", [new_settings["new_lastname"], session["username"]])
+        if("new_biography" in new_settings):
+                cur.execute("update person set biography=%s where username=%s", [new_settings["new_biography"], session["username"]])
+        if("new_email" in new_settings and not user_exists(email=new_settings["new_email"])): 
+                cur.execute("update person set email=%s where username =%s", [new_settings["new_email"], session["username"]])
+        if("new_password" in new_settings):
+                password = bcrypt.hashpw(new_settings["new_password"].encode("utf8"), bcrypt.gensalt(12)).decode("utf8").replace("'", '"')
+                cur.execute("update person set password=%s where username=%s",[password, session["username"]])
+        db.conn.commit()
+        cur.close()
+        flash(u'Your changes have been updated', 'success')
+        return True
         
 def setup_follow(user_id, target_id):
         db = Database()
@@ -275,25 +275,23 @@ def delete_follow(user_id, target_id):
 def get_countries(search):
         db = Database()
         cur = db.conn.cursor()
-        cur.execute("select album.id, album.owner, album.country, album.city, concat(person.firstname, ' ', person.lastname), post.img_name from ((album join post on album.id=post.album) join person on album.owner=person.id) where post.index=1 and (lower(country) LIKE lower('{}%') or lower(city) LIKE lower('{}%'))".format(search,search))
+        cur.execute("select album.id, album.owner, album.country, album.city, concat(person.firstname, ' ', person.lastname), post.img_name from ((album join post on album.id=post.album) join person on album.owner=person.id) where post.index=1 and (lower(country) LIKE lower('{}%') or lower(city) LIKE lower('{}%')) limit 5".format(search,search))
         search_results = cur.fetchall()
         return search_results
 
 def get_users(search):
         db = Database()
         cur = db.conn.cursor()
-        cur.execute("select id, username, firstname, lastname from person where lower(username) LIKE lower('{}%') or lower(firstname) LIKE lower('{}%') or lower(lastname) LIKE lower('{}%')".format(search,search,search))
+        cur.execute("select id, username, firstname, lastname from person where lower(username) LIKE lower('{}%') or lower(firstname) LIKE lower('{}%') or lower(lastname) LIKE lower('{}%') limit 5".format(search,search,search))
         search_results = cur.fetchall()
         return search_results
 
-@app.route("/test/<username>")
-def delete_user(user_id=None, username=None):
+@app.route("/delete_account")
+def delete_user(user_id=None):
         db = Database()
         cur = db.conn.cursor()
-
+        user_id = get_user_id(username=session["username"])
         #Hämtar användarID ifall username är angivet
-        if(username is not None):
-                user_id = get_user_id(username=username)
         
         #Hämtar alla filnamn för uppladdade bilder från användaren
         cur.execute("select post.img_name from album join post on album.id=post.album where album.owner=%s", [user_id])
@@ -309,9 +307,10 @@ def delete_user(user_id=None, username=None):
         cur.execute("delete from post where album in (select id from album where owner=%s)", [user_id])
         cur.execute("delete from album where owner=%s", [user_id])
         cur.execute("delete from person where id=%s", [user_id])
-
         db.conn.commit()
-        return "The users saved data was removed!"
+        session.clear()
+        flash(u'Your account has been deleted', 'success')
+        return redirect("/")
 
 #Hämtar antalet användare som användaren följer
 def get_following_count(username, cur):
@@ -326,11 +325,11 @@ def get_follower_count(username, cur):
         return len(followers)
 
 def get_creators():
-        daniel = ("Daniel Subasic", "97danne97")
-        albin = ("Albin Médoc", "albinmedoc")
-        anders = ("Anders Mantarro", "anderslmantarro")
-        hanna = ("Hanna Bengtsson", "hannaidabengtsson")
-        elin = ("Elin Andersson", "elinandersson")
+        daniel = ("Daniel Subasic", "97danne97", "#", "#")
+        albin = ("Albin Médoc", "albinmedoc", "#", "#")
+        anders = ("Anders Mantarro", "anderslmantarro", "#", "#")
+        hanna = ("Hanna Bengtsson", "hannaidabengtsson", "https://www.instagram.com/waterblessings/?hl=sv", "https://www.facebook.com/hanna.bengtsson.779")
+        elin = ("Elin Andersson", "elinandersson", "#", "#")
 
         creators = (daniel, albin, anders, hanna, elin)
         return creators

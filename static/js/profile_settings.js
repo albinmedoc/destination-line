@@ -6,7 +6,9 @@ $(document).ready(function (){
     var old_biography = $("input[name='new_biography']").val();
     var old_email = $("input[name='new_email']").val();
 
+    
     $("#save_settings_button").on("click", function(e){
+        //If-satser som kollar om användaren fyller i ett fält med ny data
         e.preventDefault();
         var data = new FormData();
         //Kollar om användaren har ändrat användarnamn
@@ -33,7 +35,7 @@ $(document).ready(function (){
         if($("input[name='new_password']").val() == $("input[name='new_password2']").val() && $("input[name='new_password']").val() != ""){
             data.append("new_password", $("input[name='new_password']").val());
         }
-        //Ber användaren mata in sitt nuvarande lösenord
+        //Pop-up ruta för att bekräfta dina ändringar med ditt nuvarandre lösenord
         var current_password = prompt ("Please enter your current password");
         //Kontrollerar om det inmatade lösenordet lämnades tomt
         if (current_password==null || current_password == ""){
@@ -41,6 +43,7 @@ $(document).ready(function (){
         }
         //Användaren lämnade inte fältet tomt
         else{
+            //Skickar den uppdaterade datan till Ajax
             data.append("current_password", current_password);
             //Skickar Post request
             $.ajax({
@@ -51,7 +54,8 @@ $(document).ready(function (){
                 processData: false,
                 cache: false,
                 complete: function(){
-                    alert("Skickades");
+                    window.location.assign("/profile");
+                    
                 }
             });
         }
@@ -71,6 +75,7 @@ $(document).ready(function (){
             .done(function(exist){
                 if(exist){
                     $("#upload_form > .form_row > .input_container > input[name='new_username']").addClass("error");
+                    $("#upload_form > .form_row > .input_container > #text_varning_username").addClass("error");
                 }else{
                     $("#upload_form > .form_row > .input_container > input[name='new_username']").removeClass("error");
                 }
@@ -91,15 +96,26 @@ $(document).ready(function (){
             .done(function(exist){
                 if(exist){
                     $("#upload_form> .form_row > .input_container > input[name='new_email']").addClass("error");
+                    $("#upload_form > .form_row > .input_container > #text_varning_email").addClass("error");
                 }else{
                     $("#upload_form > .form_row > .input_container > input[name='new_email']").removeClass("error");
                 }
             });
         }
     });
-    //Tar bort röd border efter error
+    //Tar bort röd border och röd text efter error
     $("#upload_form > .form_row > .input_container > input[name='new_username'], #upload_form > .form_row > .input_container > input[name='new_email']",).keyup(function(){
         $("#upload_form > .form_row > .input_container > input[name='new_username']").removeClass("error");
         $("#upload_form > .form_row > .input_container > input[name='new_email']").removeClass("error");
+        $("#upload_form > .form_row > .input_container > #text_varning_username").removeClass("error");
+        $("#upload_form > .form_row > .input_container > #text_varning_email").removeClass("error");
+    });
+
+    $("#delete_account_link").click(function(){
+
+        var answer = confirm("All your albums will be lost, are you sure you want to delete your account?");
+        if (answer == true){
+            window.location.assign("/delete_account")
+        }
     });
 });

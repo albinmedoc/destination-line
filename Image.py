@@ -10,6 +10,16 @@ from Settings import UPLOAD_FOLDER, ALLOWED_EXTENSIONS, POST_LIMIT
 
 app = Blueprint("image", __name__, template_folder="templates")
 
+@app.route("/request/infinite_albums", methods = ["POST"])
+def infinite_albums():
+        limit = 1 #Begränsning på hur många album som skickas vid scrollning
+        offset = int(request.form.get("get_albums")) #Vilken rad i tabellen som SQL-query startar på
+        flow_type = int(request.form.get("flow_type")) #Follow-flöde eller explore-flöde
+        if flow_type == 1:
+                return jsonify(get_albums=get_new_albums(limit, offset))
+        elif flow_type == 2:
+                return jsonify(get_albums=get_new_following_albums(limit, offset))
+
 
 @app.route("/new/album", methods = ["GET", "POST"])
 def upload():
@@ -21,7 +31,7 @@ def upload():
 
         #Användaren laddar upp ett Album (POST)
         if(len(request.files) <= 0 or len(request.files) > POST_LIMIT):
-                return False
+                return jsonify(False), 413, {"ContentType":"application/json"}
         #Inkommande information
         country = request.form.get("country")
         city = request.form.get("city")
@@ -29,6 +39,7 @@ def upload():
         date_end = datetime.strptime(request.form.get("date_end"), "%Y-%m-%d")
         db = Database()
         cur = db.conn.cursor()
+        #Hämtar user_id från användarnamn
         user_id = get_user_id(session["username"])
         cur.execute("insert into album(owner, published, country, city, date_start, date_end) values(%s, %s, %s, %s, %s, %s) returning id", (user_id, datetime.utcnow(), country, city, date_start, date_end))
         album_id = cur.fetchone()[0]
@@ -54,7 +65,12 @@ def upload():
                         #Ladda upp till databas
                         cur.execute("insert into post(album, index, img_name, headline, description) values(%s, %s, %s, %s, %s)", (album_id, index, filename, headline, description))
         db.conn.commit()
+<<<<<<< HEAD
         return jsonify({'success':True}), 200, {'ContentType':'application/json'}
+=======
+        flash(u'Your album has been uploaded!', 'success')
+        return jsonify(album_id), 200, {"ContentType":"application/json"}
+>>>>>>> 3459fe3664975b8d2bb28de958377bdbe8fdaa5d
 
 @app.route("/edit/album/<int:album_id>", methods = ["GET"])
 def edit_album(album_id):
@@ -72,21 +88,21 @@ def edit_album(album_id):
         posts = cur.fetchall()
         return render_template("edit_album.html", album_info=album_info, posts=posts)
 
-def get_new_albums(limit=30):
+def get_new_albums(limit=4, offset=None):
         db = Database()
         cur = db.conn.cursor()
         #Hämtar information om nyligen uppladade bilder
-        cur.execute("select album.id, album.city, album.country, person.firstname, person.lastname, post.img_name, person.username from ((album join post on album.id=post.album) join person on album.owner=person.id) where post.index=1 order by album.published desc limit %s", [limit])
+        cur.execute("select album.id, album.city, album.country, person.firstname, person.lastname, post.img_name, person.username from ((album join post on album.id=post.album) join person on album.owner=person.id) where post.index=1 order by album.published desc limit %s offset %s", (limit, offset))
         albums = cur.fetchall()
         return albums
 
-def get_new_following_albums(limit=30, username=None):
+def get_new_following_albums(limit=4, offset=None, username=None):
         if(username is None):
                 username = session["username"]
         db = Database()
         cur = db.conn.cursor()
         #Hämtar information om nyligen uppladade bilder från personer man följer
-        cur.execute("select album.id, album.city, album.country, person.firstname, person.lastname, post.img_name, person.username from (((album join post on album.id=post.album) join person on album.owner=person.id) join follow on album.owner=follow.following) where follow.follower=(select id from person where username=%s) and post.index=1 order by album.published desc limit %s", (username.lower(), limit))
+        cur.execute("select album.id, album.city, album.country, person.firstname, person.lastname, post.img_name, person.username from (((album join post on album.id=post.album) join person on album.owner=person.id) join follow on album.owner=follow.following) where follow.follower=(select id from person where username=%s) and post.index=1 order by album.published desc limit %s offset %s", (username.lower(), limit, offset))
         albums = cur.fetchall()
         return albums
 
@@ -140,7 +156,6 @@ def upload_profile_img():
         if "username" not in session:
                 #Användaren är inte inloggad
                 return jsonify(False)
-        print(request.files)
         if "file" not in request.files:
                 #Bild skickades ej med
                 return jsonify(False)
