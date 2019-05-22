@@ -1,12 +1,12 @@
-var slideIndex = 1;
-showSlides(slideIndex);
+var slide_index = 1;
+show_slides(slide_index);
 
 function plus_slides(n) {
-  showSlides(slideIndex += n);
+  show_slides(slide_index += n);
 }
 
 function current_slide(n) {
-  showSlides(slideIndex = n);
+  show_slides(slide_index = n);
 }
 
 $("#gallery_toggle").click(function(){
@@ -14,18 +14,18 @@ $("#gallery_toggle").click(function(){
     $(this).toggleClass("active");
 });
 
-function showSlides(n) {
+function show_slides(n) {
     var i;
     var slides = document.getElementsByClassName("slide");
     var description = document.getElementsByClassName("post_text_description");
     var dots = document.getElementsByClassName("thumbnail");
     
     if (n > slides.length) {
-        slideIndex = 1
+        slide_index = 1
     }
 
     if (n < 1) {
-        slideIndex = slides.length
+        slide_index = slides.length
     }
 
     for (i = 0; i < slides.length; i++) {
@@ -37,7 +37,7 @@ function showSlides(n) {
         dots[i].className = dots[i].className.replace(" active", "");
     }
 
-    slides[slideIndex - 1].style.display = "block";
-    description[slideIndex - 1].style.display = "block";
-    dots[slideIndex - 1].className += " active";
-    }
+    slides[slide_index - 1].style.display = "block";
+    description[slide_index - 1].style.display = "block";
+    dots[slide_index - 1].className += " active";
+}

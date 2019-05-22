@@ -96,7 +96,6 @@ def profile(username=None):
                                 is_following = cur.fetchone() is not None
                         else:
                                 is_following = False
-                        print(is_following)
 
                         #Visar profilsidan med informationen hämtad från databasen
                         return render_template("profile.html", user_info=user_info, album_count=album_count, following_count=following_count, follower_count=follower_count, albums=albums, is_following=is_following)
@@ -275,14 +274,14 @@ def delete_follow(user_id, target_id):
 def get_countries(search):
         db = Database()
         cur = db.conn.cursor()
-        cur.execute("select album.id, album.owner, album.country, album.city, concat(person.firstname, ' ', person.lastname), post.img_name from ((album join post on album.id=post.album) join person on album.owner=person.id) where post.index=1 and (lower(country) LIKE lower('{}%') or lower(city) LIKE lower('{}%'))".format(search,search))
+        cur.execute("select album.id, album.owner, album.country, album.city, concat(person.firstname, ' ', person.lastname), post.img_name from ((album join post on album.id=post.album) join person on album.owner=person.id) where post.index=1 and (lower(country) LIKE lower('{}%') or lower(city) LIKE lower('{}%')) limit 5".format(search,search))
         search_results = cur.fetchall()
         return search_results
 
 def get_users(search):
         db = Database()
         cur = db.conn.cursor()
-        cur.execute("select id, username, firstname, lastname from person where lower(username) LIKE lower('{}%') or lower(firstname) LIKE lower('{}%') or lower(lastname) LIKE lower('{}%')".format(search,search,search))
+        cur.execute("select id, username, firstname, lastname from person where lower(username) LIKE lower('{}%') or lower(firstname) LIKE lower('{}%') or lower(lastname) LIKE lower('{}%') limit 5".format(search,search,search))
         search_results = cur.fetchall()
         return search_results
 
