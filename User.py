@@ -59,6 +59,7 @@ def change_settings(new_settings):
                 cur.execute("update person set password=%s where username=%s",[password, session["username"]])
         db.conn.commit()
         cur.close()
+        flash(u'Your changes have been updated', 'success')
         return True
 
 @app.route("/profile")
@@ -285,14 +286,13 @@ def get_users(search):
         search_results = cur.fetchall()
         return search_results
 
-@app.route("/delete_account/<username>")
-def delete_user(user_id=None, username=None):
+@app.route("/delete_account")
+def delete_user(user_id=None):
         db = Database()
         cur = db.conn.cursor()
-
+        user_id = session["username"]
         #Hämtar användarID ifall username är angivet
-        if(username is not None):
-                user_id = get_user_id(username=username)
+        
         
         #Hämtar alla filnamn för uppladdade bilder från användaren
         cur.execute("select post.img_name from album join post on album.id=post.album where album.owner=%s", [user_id])

@@ -64,6 +64,7 @@ def upload():
                         #Ladda upp till databas
                         cur.execute("insert into post(album, index, img_name, headline, description) values(%s, %s, %s, %s, %s)", (album_id, index, filename, headline, description))
         db.conn.commit()
+        flash(u'Your album has been uploaded', 'success')
         return jsonify({'success':True}), 200, {'ContentType':'application/json'}
 
 @app.route("/edit/album/<int:album_id>", methods = ["GET"])
