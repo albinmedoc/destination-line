@@ -84,7 +84,7 @@ def edit_album(album_id):
         posts = cur.fetchall()
         return render_template("edit_album.html", album_info=album_info, posts=posts)
 
-def get_new_albums(limit=2, offset=None):
+def get_new_albums(limit=4, offset=None):
         db = Database()
         cur = db.conn.cursor()
         #Hämtar information om nyligen uppladade bilder
@@ -92,7 +92,7 @@ def get_new_albums(limit=2, offset=None):
         albums = cur.fetchall()
         return albums
 
-def get_new_following_albums(limit=2, offset=None, username=None):
+def get_new_following_albums(limit=4, offset=None, username=None):
         if(username is None):
                 username = session["username"]
         db = Database()
