@@ -98,6 +98,21 @@
     animation: shake .3s backwards;
 }
 
+.responsive_form .input_container>p{
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity .2s, visibility .2s;
+    color: red;
+    margin: 0;
+    text-align: left;
+    font-size: 14px;
+}
+
+.responsive_form .input_container>p.error{
+    visibility: visible;
+    opacity: 1;
+}
+
 .responsive_form input:focus+span,
 .responsive_form input:not(:placeholder-shown)+span,
 .responsive_form textarea:focus+span,
