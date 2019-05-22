@@ -15,7 +15,7 @@ app = Blueprint("image", __name__, template_folder="templates")
 def upload():
         if(request.method == "GET"):
                 if("username" not in session):
-                        flash(u'You have to be logged in to visit this page', 'success')
+                        flash(u'You have to be logged in to visit this page', 'error')
                         return redirect("/")
                 return render_template("edit_album.html")
 
@@ -54,7 +54,7 @@ def upload():
                         #Ladda upp till databas
                         cur.execute("insert into post(album, index, img_name, headline, description) values(%s, %s, %s, %s, %s)", (album_id, index, filename, headline, description))
         db.conn.commit()
-        return jsonsonify({'success':True}), 200, {'ContentType':'application/json'}
+        return jsonify({'success':True}), 200, {'ContentType':'application/json'}
 
 @app.route("/edit/album/<int:album_id>", methods = ["GET"])
 def edit_album(album_id):
