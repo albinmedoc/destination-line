@@ -3,7 +3,7 @@ $(document).ready(function(){
     offset_nav();
 
     //Användaren vill stänga ned flashen
-    $("#flashes > .flash > .close").click(function(){
+    $("#flashes").on("click", ".flash > .close", function(){
         //Tar bort den valde flashen
         $(this).parent().remove();
         //Flyttar upp navigationen ifall def behövs
