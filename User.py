@@ -38,11 +38,11 @@ def callback(incoming_request):
                 return jsonify(change_settings(request.form))
 
 def change_settings(new_settings):
+        #Uppdaterar användarens uppgifter
         db = Database()
         cur = db.conn.cursor()
         if("current_password" not in new_settings or not check_password(new_settings["current_password"], username = session["username"])):
                 return False
-
         if("new_username" in new_settings and not user_exists(username=new_settings["new_username"])): 
                 cur.execute("update person set username=%s where username=%s", [new_settings["new_username"], session["username"]])
                 session["username"] = new_settings["new_username"]
