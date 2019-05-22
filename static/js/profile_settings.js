@@ -58,7 +58,8 @@ $(document).ready(function (){
                 processData: false,
                 cache: false,
                 complete: function(){
-                    alert("Skickades");
+                    window.location.assign("/profile");
+                    
                 }
             });
         }
