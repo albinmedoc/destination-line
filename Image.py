@@ -25,13 +25,13 @@ def infinite_albums():
 def upload():
         if(request.method == "GET"):
                 if("username" not in session):
-                        flash(u'You have to be logged in to visit this page', 'success')
+                        flash(u"You have to be logged in to visit this page", "error")
                         return redirect("/")
                 return render_template("edit_album.html")
 
         #Användaren laddar upp ett Album (POST)
         if(len(request.files) <= 0 or len(request.files) > POST_LIMIT):
-                return False
+                return jsonify(False), 413, {"ContentType":"application/json"}
         #Inkommande information
         country = request.form.get("country")
         city = request.form.get("city")
@@ -39,6 +39,7 @@ def upload():
         date_end = datetime.strptime(request.form.get("date_end"), "%Y-%m-%d")
         db = Database()
         cur = db.conn.cursor()
+        #Hämtar user_id från användarnamn
         user_id = get_user_id(session["username"])
         cur.execute("insert into album(owner, published, country, city, date_start, date_end) values(%s, %s, %s, %s, %s, %s) returning id", (user_id, datetime.utcnow(), country, city, date_start, date_end))
         album_id = cur.fetchone()[0]
@@ -64,7 +65,8 @@ def upload():
                         #Ladda upp till databas
                         cur.execute("insert into post(album, index, img_name, headline, description) values(%s, %s, %s, %s, %s)", (album_id, index, filename, headline, description))
         db.conn.commit()
-        return jsonify({'success':True}), 200, {'ContentType':'application/json'}
+        flash(u'Your album has been published!', 'success')
+        return jsonify(album_id), 200, {"ContentType":"application/json"}
 
 @app.route("/edit/album/<int:album_id>", methods = ["GET"])
 def edit_album(album_id):
