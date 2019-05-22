@@ -23,17 +23,17 @@
 <body>
     <!-- Hämtar alla flashes som skall visas -->
     {% with messages = get_flashed_messages(with_categories=true) %}
-        <!-- Kontrollerar ifall det finns några flashes -->
-        {% if messages %}
-            <section id=flashes>
+        <section id=flashes>
+            <!-- Kontrollerar ifall det finns några flashes -->
+            {% if messages %}
                 {% for category, message in messages %}
                     <div class="flash {{ category }}">
                         <i class="close material-icons">close</i>
                         <p>{{ message }}</p>
                     </div>
                 {% endfor %}
-            </section>
-        {% endif %}
+            {% endif %}
+        </section>
     {% endwith %}
 
     {% include 'nav.html' %}
