@@ -25,7 +25,7 @@ def infinite_albums():
 def upload():
         if(request.method == "GET"):
                 if("username" not in session):
-                        flash(u"You have to be logged in to visit this page", "error")
+                        flash(u'You have to be logged in to visit this page', 'error')
                         return redirect("/")
                 return render_template("edit_album.html")
 
@@ -45,25 +45,24 @@ def upload():
         album_id = cur.fetchone()[0]
         for key in request.files:
                 file = request.files[key]
-                if(validate_image(file)):
-                        if(not os.path.exists(UPLOAD_FOLDER)):
-                                os.makedirs(UPLOAD_FOLDER)
-                        #Laddar bild
-                        img = crop_to_16_9(Image.open(file.stream))
+                if(not os.path.exists(UPLOAD_FOLDER)):
+                        os.makedirs(UPLOAD_FOLDER)
+                #Laddar bild
+                img = crop_to_16_9(Image.open(file.stream))
 
-                        #Sparar som WebP format
+                #Sparar som WebP format
+                filename = str(uuid4()) + ".webp"
+                while os.path.isfile(os.path.join(UPLOAD_FOLDER, secure_filename(filename))):
                         filename = str(uuid4()) + ".webp"
-                        while os.path.isfile(os.path.join(UPLOAD_FOLDER, secure_filename(filename))):
-                                filename = str(uuid4()) + ".webp"
-                        img.save(os.path.join(UPLOAD_FOLDER, secure_filename(filename)))
-                        #index för bildens ordning i albumet || post1 blir index 1
-                        index = key[-1]
-                        #Bildens rubrik
-                        headline = request.form.get("headline" + index)
-                        #Bildens beskrivning
-                        description = request.form.get("description" + index)
-                        #Ladda upp till databas
-                        cur.execute("insert into post(album, index, img_name, headline, description) values(%s, %s, %s, %s, %s)", (album_id, index, filename, headline, description))
+                img.save(os.path.join(UPLOAD_FOLDER, secure_filename(filename)))
+                #index för bildens ordning i albumet || post1 blir index 1
+                index = key[-1]
+                #Bildens rubrik
+                headline = request.form.get("headline" + index)
+                #Bildens beskrivning
+                description = request.form.get("description" + index)
+                #Ladda upp till databas
+                cur.execute("insert into post(album, index, img_name, headline, description) values(%s, %s, %s, %s, %s)", (album_id, index, filename, headline, description))
         db.conn.commit()
         flash(u'Your album has been uploaded!', 'success')
         return jsonify(album_id), 200, {"ContentType":"application/json"}
@@ -71,16 +70,18 @@ def upload():
 @app.route("/edit/album/<int:album_id>", methods = ["GET"])
 def edit_album(album_id):
         if("username" not in session):
-                return "<h1>Du måste vara inloggad</h1>"
+                flash(u'You have to be logged in to visit this page', 'error')
+                return redirect("/")
         if(not owns_album(album_id, username=session["username"])):
-                return "<h1>Du äger inte albumet eller så finns det inte</h1>"
+                flash(u'You don´t own this album or it doesn´t exists!', 'error')
+                return redirect("/")
         db = Database()
         cur = db.conn.cursor()
         #Hämtar information om album
-        cur.execute("select country, city, date_start, date_end from album where id={}".format(album_id))
+        cur.execute("select country, city, date_start, date_end from album where id=%s", (album_id,))
         album_info = cur.fetchone()
         #Hämtar information om alla bilder
-        cur.execute("select img_name, headline, description from post where album={} order by index asc".format(album_id))
+        cur.execute("select img_name, headline, description from post where album=%s order by index asc", (album_id,))
         posts = cur.fetchall()
         return render_template("edit_album.html", album_info=album_info, posts=posts)
 
@@ -107,13 +108,6 @@ def get_new_following_albums(limit=4, offset=None, username=None):
 def uploaded_images(image_id):
     return send_from_directory(UPLOAD_FOLDER, image_id)
 
-
-#Kollar så filen inte är tom och har rätt filendelse.
-def validate_image(file):
-        if(file.filename != ""):
-                if(file and '.' in file.filename and file.filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS):
-                        return True
-        return False
 
 def crop_to_16_9(img):
         original_size = img.size
