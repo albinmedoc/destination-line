@@ -88,9 +88,9 @@
     <h2>Followers:</h2>
     <div class="follow_list">
         {% for follower in followers %}
-        <a href="{{url_for('user.profile', username=follower[0])}}" class="follow_list_item">
+        <a href="{{ url_for('user.profile', username=follower[0])}}" class="follow_list_item">
             <div>
-                <img src="{{url_for('image.uploaded_images', image_id=follower[1])}}" alt="Follower">
+                <img src="{{ url_for('image.uploaded_images', image_id=follower[1])  if follower[1] else url_for('static', filename='img/avatar.png') }}" alt="Follower">
                 <span>{{follower[0]}}</span>
             </div>
         </a>
