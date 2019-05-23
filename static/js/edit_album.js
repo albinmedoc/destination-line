@@ -35,6 +35,11 @@ $(document).ready(function (){
         }
     });
 
+    $("textarea[name='description']").keyup(function(){
+        if($(this).val().len() > 2500){
+            $(this).addClass("error");
+        }
+    });
 
     //Öppna fil-väjare
     $("#upload_btn").click(function () {
@@ -226,7 +231,7 @@ $("#upload_form").on("submit", function (e) {
     
     data.append("date_start", date_start.format("YYYY-MM-DD"));
     data.append("date_end", date_end.format("YYYY-MM-DD"));
-    var i = 1;
+    var i = 0;
     //Lägger till alla bilder i FormData
     $("#preview").children(".post").each(function () {
         //Hämtar index/bildurl från src
