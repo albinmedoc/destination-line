@@ -98,6 +98,7 @@ form.image_info>.img_preview {
 form.image_info textarea {
     resize: none;
     min-height: calc(100vh - 600px);
+    overflow-y: scroll;
 }
 
 #upload_progress_bar{
