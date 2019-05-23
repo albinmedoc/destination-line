@@ -39,11 +39,24 @@
                 <div class="input_container">
                     <!-- Det står "Upload album" om ett nytt album skapas och "Save changes" ifall ett album ändras -->
                     <button type="submit">{{ "Upload album" if(album_info is not defined) else "Save changes" }}</button>
-                    <a href="" id="album_info_btn">How to crop your photos</a>
                 </div>
             </div>
         </fieldset>
     </form>
+    <section class="modal" id="album_info_modal">
+        <h1>Guide how to crop your photos:</h1> 
+        <p>To get the best result for your albums you should crop your photos before you upload them. 
+            Otherwise Destination line will automatically crop them for you.   
+            <br>
+            1. Use a program where you can crop and export your photos, for example lightroom. <br>
+            2. Make a collection for each album (max 50 photos) <br>
+            3. Crop your photos to landscape images (16:9) <br>
+            4. Export your photos to your computer in: W:1920 x H:1080 pixels
+            </p>
+    </section>
+    <div>
+        <button id="album_info_modal">Guide how to crop your photos</button>
+    </div>
 
     <!-- Förhandsvisningav bilder, samt sortera dem -->
     <section id="preview">

@@ -287,3 +287,15 @@ function blob_to_file(blob, filename){
     console.log(file.size);
     return file;
 }
+
+// Öppnar modal
+$("#album_info_btn").click(function() {
+    $("#album_info_modal").addClass("is_visible");
+});
+
+// Stänger modal
+$(".cancel_modal").click(function() {
+    $(".modal").removeClass("is_visible");
+});
+
+
