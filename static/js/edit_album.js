@@ -5,10 +5,15 @@ var ALLOWED_EXTENSIONS = ["png", "jpg", "jpeg", "webp"];
 
 //Valda bilder sparas i denna variablen
 var images = [];
+var editing = false;
 
 $(document).ready(function (){
+    //Loopar igenom alla posts (endast ifall man ändrar ett album finns dessa)
+    $("#preview").children(".post").each(function (){
+        //Sätter editing till sant eftersom en eller flera posts finns från start
+        editing = true;
 
-    $("#preview").children(".post").each(function () {
+        //Gör om till Image objekt så vi kan rita på canvas
         var image = new Image();
         image.src = $(this).children("img").attr("src");
         image.post = $(this);
@@ -20,9 +25,12 @@ $(document).ready(function (){
             canvas.height = image.height;
             ctx.drawImage(image, 0, 0);
 
+            //Hämtar DataURL
             var data_url = canvas.toDataURL();
             
             images.push(data_url);
+
+            //Uppdaterar post > img till den nya urlen för bilden
             image.post.children("img").attr("src", data_url);
         }
     });
@@ -202,6 +210,8 @@ $("#upload_form").on("submit", function (e) {
     }
     $('#upload_progress_bar').css('width', '10%');
     var data = new FormData();
+    //Lägger till ifall man redigerar album eller ej (true= ändrar album, false=skapar nytt album)
+    data.append("editing", editing);
     //Lägger till album information i FormData
     data.append("country", $("#country").val());
     data.append("city", $("#city").val());
