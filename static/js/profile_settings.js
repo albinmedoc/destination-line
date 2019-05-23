@@ -35,11 +35,7 @@ $(document).ready(function (){
         if($("input[name='new_password']").val() == $("input[name='new_password2']").val() && $("input[name='new_password']").val() != ""){
             data.append("new_password", $("input[name='new_password']").val());
         }
-<<<<<<< HEAD
         //Pop-up ruta för att bekräfta dina ändringar med ditt nuvarandre lösenord
-=======
-        //Ber användaren mata in sitt nuvarande lösenord
->>>>>>> 7efcac1a884aed2e8a7018cc73594c4a72aca8ce
         var current_password = prompt ("Please enter your current password");
         //Kontrollerar om det inmatade lösenordet lämnades tomt
         if (current_password==null || current_password == ""){
@@ -79,6 +75,7 @@ $(document).ready(function (){
             .done(function(exist){
                 if(exist){
                     $("#upload_form > .form_row > .input_container > input[name='new_username']").addClass("error");
+                    $("#upload_form > .form_row > .input_container > #text_varning_username").addClass("error");
                 }else{
                     $("#upload_form > .form_row > .input_container > input[name='new_username']").removeClass("error");
                 }
@@ -99,15 +96,26 @@ $(document).ready(function (){
             .done(function(exist){
                 if(exist){
                     $("#upload_form> .form_row > .input_container > input[name='new_email']").addClass("error");
+                    $("#upload_form > .form_row > .input_container > #text_varning_email").addClass("error");
                 }else{
                     $("#upload_form > .form_row > .input_container > input[name='new_email']").removeClass("error");
                 }
             });
         }
     });
-    //Tar bort röd border efter error
+    //Tar bort röd border och röd text efter error
     $("#upload_form > .form_row > .input_container > input[name='new_username'], #upload_form > .form_row > .input_container > input[name='new_email']",).keyup(function(){
         $("#upload_form > .form_row > .input_container > input[name='new_username']").removeClass("error");
         $("#upload_form > .form_row > .input_container > input[name='new_email']").removeClass("error");
+        $("#upload_form > .form_row > .input_container > #text_varning_username").removeClass("error");
+        $("#upload_form > .form_row > .input_container > #text_varning_email").removeClass("error");
+    });
+
+    $("#delete_account_link").click(function(){
+
+        var answer = confirm("All your albums will be lost, are you sure you want to delete your account?");
+        if (answer == true){
+            window.location.assign("/delete_account")
+        }
     });
 });

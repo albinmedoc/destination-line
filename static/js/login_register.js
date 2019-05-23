@@ -31,8 +31,10 @@ $("#register > fieldset > .form_row > .input_container > input[name='username']"
     .done(function(exist){
         if(exist){
             $("#register > fieldset > .form_row > .input_container > input[name='username']").addClass("error");
+            $("#register > fieldset > .form_row > .input_container > #text_warning_register_username").addClass("error");
         }else{
             $("#register > fieldset > .form_row > .input_container > input[name='username']").removeClass("error");
+            $("#register > fieldset > .form_row > .input_container > #text_warning_register_username").removeClass("error");
         }
     });
 });
@@ -49,8 +51,10 @@ $("#register > fieldset > .form_row > .input_container > input[name='email']").f
     .done(function(exist){
         if(exist){
             $("#register > fieldset > .form_row > .input_container > input[name='email']").addClass("error");
+            $("#register > fieldset > .form_row > .input_container > #text_warning_register_email").addClass("error");
         }else{
             $("#register > fieldset > .form_row > .input_container > input[name='email']").removeClass("error");
+            $("#register > fieldset > .form_row > .input_container > #text_warning_register_email").removeClass("error");
         }
     });
 });
@@ -59,6 +63,7 @@ $("#register > fieldset > .form_row > .input_container > input[name='email']").f
 $("#login > fieldset > .form_row > .input_container > input[name='username'], #login > fieldset > .form_row > .input_container > input[name='password']",).keyup(function(){
     $("#login > fieldset > .form_row > .input_container > input[name='username']").removeClass("error");
     $("#login > fieldset > .form_row > .input_container > input[name='password']").removeClass("error");
+    $("#login > fieldset > .form_row > .input_container > #text_warning_login").removeClass("error");
 });
 
 //Skickar med input och kör funktion beroende på svaret
@@ -73,12 +78,12 @@ $('#login').on('submit', function(e) {
             password: $("#login > fieldset > .form_row > .input_container > input[name='password']").val()
         }
     })
-        //Om error lägger till röd boarder
+        //Om error lägger till röd boarder och varningstext 
         .done(function(valid){
             if(valid==false){
                 $("#login > fieldset > .form_row > .input_container > input[name='username']").addClass("error");
                 $("#login > fieldset > .form_row > .input_container > input[name='password']").addClass("error");
-    
+                $("#login > fieldset > .form_row > .input_container > #text_warning_login").addClass("error");
             }else{
                 location.replace("/");
             }

@@ -9,7 +9,6 @@ app = Blueprint("user", __name__, template_folder="templates")
 
 @app.route("/request/<incoming_request>", methods = ["POST"])
 def callback(incoming_request):
-        success = False
         if(incoming_request == "username_exists"):
                 #Skickar tillbaks True/False beroende på om användarnamnet finns
                 username = request.form.get("username")
@@ -290,9 +289,8 @@ def get_users(search):
 def delete_user(user_id=None):
         db = Database()
         cur = db.conn.cursor()
-        user_id = session["username"]
+        user_id = get_user_id(username=session["username"])
         #Hämtar användarID ifall username är angivet
-        
         
         #Hämtar alla filnamn för uppladdade bilder från användaren
         cur.execute("select post.img_name from album join post on album.id=post.album where album.owner=%s", [user_id])
@@ -308,9 +306,10 @@ def delete_user(user_id=None):
         cur.execute("delete from post where album in (select id from album where owner=%s)", [user_id])
         cur.execute("delete from album where owner=%s", [user_id])
         cur.execute("delete from person where id=%s", [user_id])
-
         db.conn.commit()
-        return "The users saved data was removed!"
+        session.clear()
+        flash(u'Your account has been deleted', 'success')
+        return redirect("/")
 
 #Hämtar antalet användare som användaren följer
 def get_following_count(username, cur):
@@ -325,11 +324,11 @@ def get_follower_count(username, cur):
         return len(followers)
 
 def get_creators():
-        daniel = ("Daniel Subasic", "97danne97")
-        albin = ("Albin Médoc", "albinmedoc")
-        anders = ("Anders Mantarro", "anderslmantarro")
-        hanna = ("Hanna Bengtsson", "hannaidabengtsson")
-        elin = ("Elin Andersson", "elinandersson")
+        daniel = ("Daniel Subasic", "97danne97", "#", "#")
+        albin = ("Albin Médoc", "albinmedoc", "#", "#")
+        anders = ("Anders Mantarro", "anderslmantarro", "#", "#")
+        hanna = ("Hanna Bengtsson", "hannaidabengtsson", "https://www.instagram.com/waterblessings/?hl=sv", "https://www.facebook.com/hanna.bengtsson.779")
+        elin = ("Elin Andersson", "elinandersson", "#", "#")
 
         creators = (daniel, albin, anders, hanna, elin)
         return creators

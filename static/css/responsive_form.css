@@ -31,6 +31,12 @@
     top: 13px;
 }
 
+.cancel_form{
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+
 .responsive_form{
     position: relative;
     width: 100%;
@@ -55,6 +61,7 @@
     flex-grow: 1;
     min-width: 200px;
     margin: 12px 20px;
+    width: calc(50% - 40px); /*  50% minus margin 20px på båda sidorna */
 }
 
 .responsive_form span {
@@ -96,6 +103,23 @@
 .responsive_form input.error {
     border: 2px solid red;
     animation: shake .3s backwards;
+}
+
+.responsive_form .input_container>p{
+    visibility: hidden;
+    max-height: 0;
+    opacity: 0;
+    transition: opacity .2s, visibility .2s, height .2s;
+    color: red;
+    margin: 0;
+    text-align: left;
+    font-size: 14px;
+}
+
+.responsive_form .input_container>p.error{
+    visibility: visible;
+    opacity: 1;
+    max-height: none;
 }
 
 .responsive_form input:focus+span,
