@@ -1,4 +1,13 @@
 window.onload = function () {
+
+    $("#following_button, #followers_button").click(function(){
+        $("#following").addClass("is_visible");
+    });
+    $("#following>i, #followers>i").click(function(){
+        $("#following, #followers").removeClass("is_visible");
+    });
+
+
     $(".button_container.follow").click(function(){
         var target_name = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
         //Användaren skall följa

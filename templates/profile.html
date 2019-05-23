@@ -37,7 +37,7 @@
     </section>
     <section id="profile_main">
         <section id="stats_container">
-            <a>
+            <a id="following_button">
                 <h3>{{ following_count }}</h3>
                 <span>Following</span>
             </a>
@@ -54,7 +54,7 @@
                     {% endif %}
                 </section>
             </a>
-            <a>
+            <a id="followers_button">
                 <h3>{{ follower_count }}</h3>
                 <span>Followers</span>
             </a>
@@ -70,6 +70,26 @@
             </section>
     </section>
 </section>
+<div id="following">
+    <i class="material-icons">close</i>
+    <h2>Following:</h2>
+    <div class="follow_list">
+        <a class="follow_list_item">
+            <div>
+                <img src="https://i.kym-cdn.com/entries/icons/original/000/029/079/hellothere.jpg" alt="">
+                <span>obi-wan kenobi</span>
+            </div>
+            <i class="material-icons">favorite</i>
+        </a>
+    </div>
+</div>
+<div id="followers">
+    <i class="material-icons">close</i>
+    <h2>Followers:</h2>
+    <div class="follow_list">
+
+    </div>
+</div>
 
 <!-- Tidslinje -->
 {% include 'timeline1.html' %}
@@ -78,3 +98,4 @@
 {{ super() }}
 <script src="{{ url_for('static', filename='js/profile.js') }}"></script>
 {% endblock javascript %}
+
