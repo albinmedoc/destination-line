@@ -326,7 +326,7 @@ def get_follower_count(username, cur):
 def get_creators():
         daniel = ("Daniel Subasic", "97danne97", "#", "#")
         albin = ("Albin Médoc", "albinmedoc", "#", "#")
-        anders = ("Anders Mantarro", "anderslmantarro", "#", "#")
+        anders = ("Anders Mantarro", "anders mantarro", "#", "#")
         hanna = ("Hanna Bengtsson", "hannaidabengtsson", "https://www.instagram.com/waterblessings/?hl=sv", "https://www.facebook.com/hanna.bengtsson.779")
         elin = ("Elin Andersson", "elinandersson", "#", "#")
 
