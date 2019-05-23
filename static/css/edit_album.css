@@ -4,6 +4,13 @@
     grid-template-columns: 1fr;
 }
 
+#delete_album{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+}
+
 #preview {
     margin: 20px;
     display: grid;

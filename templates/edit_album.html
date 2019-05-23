@@ -7,12 +7,20 @@
 {% endblock head %}
 
 {% block main %}
+{% if album_info is defined %}
+<div class="button_container" id="delete_album">
+    <a href="{{ url_for('image.delete_album', album_id=album_info[4]) }}" class="button_icon_container"><i class="material-icons">delete</i></a>
+    <div class="button_text_container">
+        <a href="{{ url_for('image.delete_album', album_id=album_info[4]) }}"><span>Delete album</span></a>   
+    </div>
+</div>
+{% endif %}
 <section class="album_grid_container">
+        
     <div class="progress_bar" id="upload_progress_bar"></div>
     <!-- Album information -->
     <form id="upload_form" class="responsive_form">
         <fieldset>
-            <a class="cancel_form"><i class="material-icons">close</i></a>
             <h2>{{ "Edit album" if album_info is defined else "Create album" }}</h2>
             <div class="form_row">
                 <div class="input_container">
