@@ -195,12 +195,14 @@ def upload_profile_img():
 
 @app.route("/delete/album/<album_id>", methods = ["GET"])
 def delete_album(album_id):
-        db = Database()
-        cur = db.conn.cursor()
         user_id = get_user_id(username=session["username"])
         if owns_album(album_id, user_id=user_id):
+                db = Database()
+                cur = db.conn.cursor()
                 cur.execute("delete from post where album in (select id from album where id=%s)", [album_id])
                 cur.execute("delete from album where id=%s", [album_id])
-        db.conn.commit()
-        flash(u'Your album was deleted!', 'success')
+                db.conn.commit()
+                flash(u'Your album was deleted!', 'success')
+        else:
+                flash(u'Could not delete album, you don´t own it!', 'error')
         return redirect("/")
