@@ -4,7 +4,6 @@
     grid-template-columns: 1fr;
 }
 
-<<<<<<< HEAD
 .cancel_upload{
     position: absolute;
     top: 15px;
@@ -17,8 +16,6 @@
     left: 20px;
 
 }
-=======
->>>>>>> 4da38d3ad2ecfe23b654c127f714c60b6593fa07
 #preview {
     margin: 20px;
     display: grid;
