@@ -9,7 +9,7 @@
 {% endblock head %}
 
 {% block main %}
-{% if user_id == album_info[6]%}
+{% if "username" in session and session["username"] == album_info[6]%}
 <div class="button_container" id="edit_album">
     <a href="{{ url_for('image.edit_album', album_id=album_id) }}" class="material-icons button_icon_container">edit</a>
     <div class="button_text_container">

@@ -148,14 +148,13 @@ def crop_to_1_1(img):
 def album(album_id):
         db = Database()
         cur = db.conn.cursor()
-        user_id = get_user_id(username=session["username"])
         #Hämtar information om album
         cur.execute("select album.country, album.city, album.date_start, album.date_end, person.firstname, person.lastname, album.owner from album join person on album.owner=person.id where album.id={}".format(album_id))
         album_info = cur.fetchone()
         #Hämtar information om alla bilder
         cur.execute("select img_name, headline, description, index from post where album={} order by index asc".format(album_id))
         posts = cur.fetchall()        
-        return render_template("album.html", posts=posts, album_info=album_info, album_id=album_id, user_id=user_id)
+        return render_template("album.html", posts=posts, album_info=album_info, album_id=album_id)
 
 @app.route("/upload_profile_img", methods = ["POST"])
 def upload_profile_img():
