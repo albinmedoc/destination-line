@@ -288,7 +288,7 @@ def get_countries(search):
 def get_users(search):
         db = Database()
         cur = db.conn.cursor()
-        cur.execute("select id, username, firstname, lastname from person where lower(username) LIKE lower('{}%') or lower(firstname) LIKE lower('{}%') or lower(lastname) LIKE lower('{}%') limit 5".format(search,search,search))
+        cur.execute("select id, username, firstname, lastname, profile_img from person where lower(username) LIKE lower('{}%') or lower(firstname) LIKE lower('{}%') or lower(lastname) LIKE lower('{}%') limit 5".format(search,search,search))
         search_results = cur.fetchall()
         return search_results
 
