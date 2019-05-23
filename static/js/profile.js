@@ -48,15 +48,18 @@ window.onload = function () {
             cache: false,
             contentType: false,
             processData: false,
+            beforeSend: function(){
+                $('.loader_container').addClass('is_visible');
+            },
             success: function(data){
-                console.log("success");
-                console.log(data);
+                location.reload(true);
             },
             error: function(data){
-                console.log("error");
-                console.log(data);
+                add_flash_message("Could not change profile image...", "error");
+            },
+            complete: function(){
+                $('.loader_container').removeClass('is_visible');
             }
         });
-
     });
 }
