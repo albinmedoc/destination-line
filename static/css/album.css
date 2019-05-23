@@ -1,6 +1,11 @@
 @import url('https://fonts.googleapis.com/css?family=Old+Standard+TT');
 @import url('https://fonts.googleapis.com/css?family=Montserrat');
 
+#edit_album{
+    position: absolute;
+    z-index: 2;
+}
+
 #album_container{
     margin-top: 60px;
 }

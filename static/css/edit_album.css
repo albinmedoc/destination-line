@@ -4,6 +4,30 @@
     grid-template-columns: 1fr;
 }
 
+#delete_album{
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+}
+
+.cancel_upload{
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+
+#album_info_btn{
+    position: absolute;
+    padding: 20px;
+    left: 20px;
+    color: rgb(79, 173, 236);
+}
+
+#album_info_btn:hover{
+    text-decoration: underline;
+
+}
 #preview {
     margin: 20px;
     display: grid;
@@ -98,6 +122,7 @@ form.image_info>.img_preview {
 form.image_info textarea {
     resize: none;
     min-height: calc(100vh - 600px);
+    overflow-y: scroll;
 }
 
 #upload_progress_bar{
