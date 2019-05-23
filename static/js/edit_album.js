@@ -1,12 +1,40 @@
 //Maxgräns för bilder
-var UPLOAD_LIMIT = 4;
+var UPLOAD_LIMIT = 50;
 var FILE_SIZE_LIMIT = 6000000;
 var ALLOWED_EXTENSIONS = ["png", "jpg", "jpeg", "webp"];
 
 //Valda bilder sparas i denna variablen
-var images = new Object();
+var images = [];
+var editing = false;
 
 $(document).ready(function (){
+    //Loopar igenom alla posts (endast ifall man ändrar ett album finns dessa)
+    $("#preview").children(".post").each(function (){
+        //Sätter editing till sant eftersom en eller flera posts finns från start
+        editing = true;
+
+        //Gör om till Image objekt så vi kan rita på canvas
+        var image = new Image();
+        image.src = $(this).children("img").attr("src");
+        image.post = $(this);
+        image.onload = function(){
+            //Skapar en canvas för att kunna hämta DataURL
+            var canvas = document.createElement("canvas");
+            var ctx = canvas.getContext("2d");
+            canvas.width = image.width;
+            canvas.height = image.height;
+            ctx.drawImage(image, 0, 0);
+
+            //Hämtar DataURL
+            var data_url = canvas.toDataURL();
+            
+            images.push(data_url);
+
+            //Uppdaterar post > img till den nya urlen för bilden
+            image.post.children("img").attr("src", data_url);
+        }
+    });
+
 
     //Öppna fil-väjare
     $("#upload_btn").click(function () {
@@ -25,9 +53,10 @@ $(document).ready(function (){
 
             var reader = new FileReader();
             reader.onload = (function(file){
-                //Skippar ifall bild redan vald
                 return function(e){
-                    if(check_if_already_choosed(file, e.target.result)){
+                    //Skippar ifall bild redan vald
+                    if(check_if_already_choosed(e.target.result)){
+                        add_flash_message(file.name + " is already choosed.", "error");
                         return;
                     }
     
@@ -38,7 +67,7 @@ $(document).ready(function (){
                     }
     
                     //Spara bild i variabel, bild-url som nyckel
-                    images[e.target.result] = file;
+                    images.push(e.target.result);
                     
                     //Visa bild
                     display_image(file, e.target.result);
@@ -68,9 +97,10 @@ function check_file_size(file){
 
 //Kontrollerar ifall bild redan uppladdad
 function check_if_already_choosed(file, img_url){
-    exists = img_url in images;
-    if(exists) add_flash_message(file.name + " is already choosed.", "error");
-    return exists;
+    $("#preview").children(".post > img").each(function () {
+        if($(this).attr("src") == img_url) return true;
+        return false;
+    });
 }
 
 //Visa bild
@@ -180,15 +210,20 @@ $("#upload_form").on("submit", function (e) {
     }
     $('#upload_progress_bar').css('width', '10%');
     var data = new FormData();
+    //Lägger till ifall man redigerar album eller ej (true= ändrar album, false=skapar nytt album)
+    if(editing){
+        var album_id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+        data.append("album_id", album_id);
+    }
     //Lägger till album information i FormData
     data.append("country", $("#country").val());
     data.append("city", $("#city").val());
     var date_start = period.getStartDate();
     var date_end = period.getEndDate();
+
     //Sätter båda datumen till samma ifall endast ett var angivet
-    if(!date_end){
-        date_end = date_start;
-    }
+    if(!date_end) date_end = date_start;
+    
     data.append("date_start", date_start.format("YYYY-MM-DD"));
     data.append("date_end", date_end.format("YYYY-MM-DD"));
     var i = 1;
@@ -197,7 +232,7 @@ $("#upload_form").on("submit", function (e) {
         //Hämtar index/bildurl från src
         var post = $(this);
         var img_url = post.children("img").attr("src");
-        data.append("post" + i, images[img_url]);
+        data.append("post" + i, blob_to_file(data_uri_to_blob(img_url), "test.png"));
         data.append("headline" + i, post.attr("data-headline"));
         data.append("description" + i, post.attr("data-description"));
         i++;
@@ -223,9 +258,25 @@ $("#upload_form").on("submit", function (e) {
         },
         complete: function(data){
             $('.loader_container').removeClass('is_visible');
-            window.location.assign("/profile")
         }
     });
-
-    
 });
+
+function data_uri_to_blob(dataURI){
+    var byteString = atob(dataURI.split(',')[1]);
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    var ab = new ArrayBuffer(byteString.length);
+    var ia = new Uint8Array(ab);
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ab], {type: mimeString});
+}
+
+function blob_to_file(blob, filename){
+    console.log(blob);
+    var file = new File([blob], filename, {type: "image/jpeg", lastModified: Date.now()});
+    console.log(file);
+    console.log(file.size);
+    return file;
+}

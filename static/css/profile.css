@@ -5,32 +5,15 @@
 
 #profile_container {
     position: relative;
-    min-height: 100%;
-    display: grid;
-    grid-template-columns: 1fr;
 }
 
 #profile_header {
-    display: flex;
-    justify-content: center;
-    align-items: center;
     position: relative;
-    background-image: url("https://i.imgur.com/hQPW4K7.jpg");
+    background-image: url("https://i.imgur.com/hQPW4K7.png");
     background-position: center;
     background-size: cover;
-    background-attachment: fixed;
-    padding: 50px 0;
-    height: 400px;
-}
-
-#profile_header::before {
-    content: '';
-    width: 100%;
-    position: absolute;
-    height: 100%;
-    filter: blur(3px);
-    background: inherit;
-    z-index: 0;
+    height: 300px;
+    z-index: -1;
 }
 
 #icon_row{
@@ -58,7 +41,7 @@
     height: 100%;
     border-radius: 50%;
     object-fit: cover;
-    box-shadow: 0 5px 5px var(--shadow_color);
+    box-shadow: 0 2px 3px var(--shadow_color);
 }
 
 #profile_img>.button_container {
@@ -74,12 +57,9 @@
     grid-auto-rows: min-content;
     justify-content: center;
     grid-gap: 20px;
-    background-color: rgb(255, 255, 255);
-    padding-top: 15px;
     box-shadow: 0 -10px 50px 50px rgb(255, 255, 255);
     width: 100%;
     text-align: center;
-    padding: 15px 20px 0 20px;
     z-index: 1;
     animation: slide_in_from_bottom .5s forwards cubic-bezier(0.075, 0.82, 0.165, 1);
 }
@@ -115,7 +95,7 @@
     display: flex;
     align-items: center;
     flex-flow: column;
-    border-bottom: 1px solid var(--accent);
+    border-bottom: 1px solid rgb(228, 228, 228);
 }
 
 #profile_info>h2 {

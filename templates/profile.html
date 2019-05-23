@@ -63,36 +63,16 @@
             <h2>{{user_info[1]}} {{user_info[2]}}</h2>
             <p>{{user_info[3] if user_info[3] != None}}</p>
         </section>
-
+        
         <!-- Här ska album finnas -->
         <section class="albums_container">
-            <h2>Album: {{album_count[0]}}</h2>
-        </section>
+                <h2>Album: {{album_count[0]}}</h2>
+            </section>
     </section>
 </section>
 
 <!-- Tidslinje -->
-{% if albums is defined and albums|length != 0 %}
-<section class="timeline">
-    {% for album in albums %}
-        {% if loop.index % 2 == 0 %}
-        <section class="container right">
-        {% else %}
-        <section class="container left">
-        {% endif %}
-            <a href="{{ url_for('image.album', album_id=album[0]) }}">
-                <section class="content">
-                    <img src="{{ url_for('image.uploaded_images', image_id=album[3]) }}" alt="{{ album[1] }} - {{ album[2] }}">
-                    <div class="location">
-                        <p>{{ album[1] }}</p>
-                        <p>{{ album[2] }}</p>
-                    </div>
-                </section>
-            </a>
-        </section>
-    {% endfor %}
-</section>
-{% endif %}
+{% include 'timeline1.html' %}
 {% endblock main %}
 {% block javascript %}
 {{ super() }}
