@@ -1,7 +1,10 @@
 window.onload = function () {
 
-    $("#following_button, #followers_button").click(function(){
+    $("#following_button").click(function(){
         $("#following").addClass("is_visible");
+    });
+    $("#followers_button").click(function(){
+        $("#followers").addClass("is_visible");
     });
     $("#following>i, #followers>i").click(function(){
         $("#following, #followers").removeClass("is_visible");

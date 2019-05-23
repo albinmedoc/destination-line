@@ -40,7 +40,7 @@
             </a>
             <a>
                 <section id="profile_img">
-                    <img src=" {{ url_for('image.uploaded_images', image_id=user_info[4]) if user_info[4] else url_for('static', filename='img/avatar.png') }}">
+                    <img src="{{ url_for('image.uploaded_images', image_id=user_info[4]) if user_info[4] else url_for('static', filename='img/avatar.png') }}">
                     {% if session["username"] == user_info[0] %}
                     <div id="change_profile_img_btn" class="button_container">
                         <i class="material-icons button_icon_container">add_a_photo</i>
@@ -71,20 +71,29 @@
     <i class="material-icons">close</i>
     <h2>Following:</h2>
     <div class="follow_list">
-        <a class="follow_list_item">
+        {% for following in followings %}
+        <a href="{{url_for('user.profile', username=following[0])}}" class="follow_list_item">
             <div>
-                <img src="https://i.kym-cdn.com/entries/icons/original/000/029/079/hellothere.jpg" alt="">
-                <span>obi-wan kenobi</span>
+                <img src="{{ url_for('image.uploaded_images', image_id=following[1]) if following[1] else url_for('static', filename='img/avatar.png') }}">
+                <span>{{following[0]}}</span>
             </div>
             <i class="material-icons">favorite</i>
         </a>
+        {% endfor %}
     </div>
 </div>
 <div id="followers">
     <i class="material-icons">close</i>
     <h2>Followers:</h2>
     <div class="follow_list">
-
+        {% for follower in followers %}
+        <a href="{{url_for('user.profile', username=follower[0])}}" class="follow_list_item">
+            <div>
+                <img src="{{url_for('image.uploaded_images', image_id=follower[1])}}" alt="Follower">
+                <span>{{follower[0]}}</span>
+            </div>
+        </a>
+        {% endfor %}
     </div>
 </div>
 
