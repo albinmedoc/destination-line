@@ -36,8 +36,10 @@ $(document).ready(function (){
     });
 
     $("textarea[name='description']").keyup(function(){
-        if($(this).val().len() > 2500){
+        if($(this).val().length > 2500){
             $(this).addClass("error");
+        }else{
+            $(this).removeClass("error");
         }
     });
 
