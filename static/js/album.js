@@ -6,7 +6,7 @@ function plus_slides(n) {
 }
 
 function current_slide(n) {
-  show_slides(slide_index = n);
+  show_slides(slide_index = parseInt(n));
 }
 
 $("#gallery_toggle").click(function(){

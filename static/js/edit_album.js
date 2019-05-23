@@ -1,14 +1,19 @@
 //Maxgräns för bilder
-var UPLOAD_LIMIT = 4;
+var UPLOAD_LIMIT = 50;
 var FILE_SIZE_LIMIT = 6000000;
 var ALLOWED_EXTENSIONS = ["png", "jpg", "jpeg", "webp"];
 
 //Valda bilder sparas i denna variablen
 var images = [];
+var editing = false;
 
 $(document).ready(function (){
+    //Loopar igenom alla posts (endast ifall man ändrar ett album finns dessa)
+    $("#preview").children(".post").each(function (){
+        //Sätter editing till sant eftersom en eller flera posts finns från start
+        editing = true;
 
-    $("#preview").children(".post").each(function () {
+        //Gör om till Image objekt så vi kan rita på canvas
         var image = new Image();
         image.src = $(this).children("img").attr("src");
         image.post = $(this);
@@ -20,9 +25,12 @@ $(document).ready(function (){
             canvas.height = image.height;
             ctx.drawImage(image, 0, 0);
 
+            //Hämtar DataURL
             var data_url = canvas.toDataURL();
             
             images.push(data_url);
+
+            //Uppdaterar post > img till den nya urlen för bilden
             image.post.children("img").attr("src", data_url);
         }
     });
@@ -202,6 +210,11 @@ $("#upload_form").on("submit", function (e) {
     }
     $('#upload_progress_bar').css('width', '10%');
     var data = new FormData();
+    //Lägger till ifall man redigerar album eller ej (true= ändrar album, false=skapar nytt album)
+    if(editing){
+        var album_id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
+        data.append("album_id", album_id);
+    }
     //Lägger till album information i FormData
     data.append("country", $("#country").val());
     data.append("city", $("#city").val());
@@ -219,7 +232,7 @@ $("#upload_form").on("submit", function (e) {
         //Hämtar index/bildurl från src
         var post = $(this);
         var img_url = post.children("img").attr("src");
-        data.append("post" + i, data_uri_to_blob(img_url));
+        data.append("post" + i, blob_to_file(data_uri_to_blob(img_url), "test.png"));
         data.append("headline" + i, post.attr("data-headline"));
         data.append("description" + i, post.attr("data-description"));
         i++;
@@ -238,6 +251,7 @@ $("#upload_form").on("submit", function (e) {
             $('.loader_container').addClass('is_visible');
         },
         success: function (data) {
+            window.location.assign($SCRIPT_ROOT + "/album/" + data);
         },
         error: function () {
             add_flash_message("Something went wrong...", "error");
@@ -257,4 +271,12 @@ function data_uri_to_blob(dataURI){
         ia[i] = byteString.charCodeAt(i);
     }
     return new Blob([ab], {type: mimeString});
+}
+
+function blob_to_file(blob, filename){
+    console.log(blob);
+    var file = new File([blob], filename, {type: "image/jpeg", lastModified: Date.now()});
+    console.log(file);
+    console.log(file.size);
+    return file;
 }
