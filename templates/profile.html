@@ -9,7 +9,7 @@
 <input id="input_background_img" type="file" accept="images">
 <section id="profile_container">
     <!-- Det visas error nedan, bry dig inte om det. Allting fungerar som det skall -->
-    <section id="profile_header" style="background-image: url('{{ url_for('image.uploaded_images', image_id=user_info[5]) if user_info[5] else url_for('static', filename='img/avatar.png') }}');"></section>
+    <section id="profile_header" style="{{ 'background-image: url(' +  url_for('image.uploaded_images', image_id=user_info[5]) if user_info[5] }}"></section>
     <section id="icon_row">
         {% if session["username"] == user_info[0] %}
         <div id="change_background_img_btn" class="button_container">
