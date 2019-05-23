@@ -35,7 +35,7 @@
     <section id="profile_main">
         <section id="stats_container">
             <a id="following_button">
-                <h3>{{ following_count }}</h3>
+                <h3>{{ followings|length }}</h3>
                 <span>Following</span>
             </a>
             <a>
@@ -52,7 +52,7 @@
                 </section>
             </a>
             <a id="followers_button">
-                <h3>{{ follower_count }}</h3>
+                <h3>{{ followers|length }}</h3>
                 <span>Followers</span>
             </a>
         </section>
