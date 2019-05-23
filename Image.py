@@ -30,6 +30,9 @@ def upload():
                 return render_template("edit_album.html")
 
         #Användaren laddar upp ett Album (POST)
+        if("username" not in session):
+                return jsonify(False), 413, {"ContentType":"application/json"}
+
         if(len(request.files) <= 0 or len(request.files) > POST_LIMIT):
                 return jsonify(False), 413, {"ContentType":"application/json"}
         #Inkommande information
@@ -37,12 +40,26 @@ def upload():
         city = request.form.get("city")
         date_start = datetime.strptime(request.form.get("date_start"), "%Y-%m-%d")
         date_end = datetime.strptime(request.form.get("date_end"), "%Y-%m-%d")
+
         db = Database()
         cur = db.conn.cursor()
-        #Hämtar user_id från användarnamn
-        user_id = get_user_id(session["username"])
-        cur.execute("insert into album(owner, published, country, city, date_start, date_end) values(%s, %s, %s, %s, %s, %s) returning id", (user_id, datetime.utcnow(), country, city, date_start, date_end))
-        album_id = cur.fetchone()[0]
+        album_id = 0
+
+        #Om användaren skall uppdatera ett album
+        if(request.form.get("album_id")):
+                print("editing")
+                album_id = request.form.get("album_id")
+                #Kontrollerar ifall användaren äger albumet
+                if(not owns_album(album_id, username=session["username"])):
+                        return jsonify(False), 413, {"ContentType":"application/json"}
+                cur.execute("update album set country=%s, city=%s, date_start=%s, date_end=%s where id=%s", (country, city, date_start, date_start, album_id))
+                cur.execute("delete from post where album=%s", [album_id])
+        else:
+                print("not editing")
+                #Hämtar user_id från användarnamn
+                user_id = get_user_id(session["username"])
+                cur.execute("insert into album(owner, published, country, city, date_start, date_end) values(%s, %s, %s, %s, %s, %s) returning id", (user_id, datetime.utcnow(), country, city, date_start, date_end))
+                album_id = cur.fetchone()[0]
         for key in request.files:
                 file = request.files[key]
                 if(not os.path.exists(UPLOAD_FOLDER)):
@@ -177,5 +194,3 @@ def upload_profile_img():
         db.conn.commit()
         cur.close()
         return jsonify(True), 200, {'ContentType':'application/json'}
-
-
