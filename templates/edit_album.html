@@ -95,8 +95,8 @@
 {% endblock main %}
 {% block javascript %}
 {{ super() }}
-<script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.js"></script>
-<script src="{{ url_for('static', filename='js/moment.js') }}"></script>
-<script src="{{ url_for('static', filename='js/lightpick.js') }}"></script>
+<script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.min.js"></script>
+<script src="{{ url_for('static', filename='js/moment.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/lightpick.min.js') }}"></script>
 <script src="{{ url_for('static', filename='js/edit_album.js') }}"></script>
 {% endblock javascript %}
