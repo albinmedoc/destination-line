@@ -13,21 +13,12 @@
     z-index:2;
 }
 
-#background_img{
+#delete_account_link{
     display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-    background-image: url("https://i.imgur.com/hQPW4K7.jpg");
-    background-position: center;
-    background-size: cover;
-    padding: 50px 0;
-    height: 250px;
+    justify-content: flex-end;
+    margin: 20px 30px 15px;
 }
 
-@media (min-width:768px) {
-    #profile_img{
-        width: 30vw;
-        height: 30vw;
-    }
+#delete_account_link:hover{
+    color: red;
 }

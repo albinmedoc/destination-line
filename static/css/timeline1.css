@@ -7,120 +7,137 @@ body{
     position: relative;
     width: 100%;
     margin: 25px auto 0 auto;
+    z-index: 1;
+    max-width: 1000px;
 }
 .timeline::after{
     content: '';
     position: absolute;
-    width: 6px;
-    background-color: rgba(0, 0, 0, 0.397);
+    width: 2px;
+    background-color: rgb(201, 201, 201);
     top: 0;
     bottom: 0;
     left: 50%;
     margin-left: -3px;
 }
 
-.container{
+.timeline>.container{
     position: relative;
     background-color: inherit;
     width: 50%;
     box-sizing: border-box;
 }
 
-.container::after{
+.timeline>.container::after{
     content: '';
     position: absolute;
     width: 25px;
     height: 25px;
-    right: -17px;
-    background-color: white;
-    border: 4px solid rgb(79, 173, 236);
+    right: -13px;
+    background-color: rgb(66, 66, 66);
+    border: 3px solid rgb(255, 255, 255);
     top: 15px;
     border-radius: 50%;
     z-index: 1;
+    transition: transform .2s ease, background-color .2s ease;
 }
 
-.container.left{
-    padding: 10px 40px 10px 10px;
-    left: 0;
+.timeline>.container:hover::after{
+    transform: scale(1.5);
+    background-color: var(--accent);
 }
 
-.container.right{
-    padding: 10px 10px 10px 40px;
-    left: 50%;
-}
-
-.container.left::before, .container.right::before{
+.timeline>.container::before{
     content: " ";
     height: 0;
     position: absolute;
     top: 22px;
     width: 0;
     z-index: 1;
-    border: medium solid rgba(0, 0, 0, 0.397);
+    border: medium solid var(--shadow_color);
+    transition: transform .2s ease;
 }
 
-.container.left::before{
+.timeline>.container:nth-child(odd){
+    padding: 10px 40px 10px 10px;
+    left: 0;
+}
+
+.timeline>.container:nth-child(even){
+    padding: 10px 10px 10px 40px;
+    left: 50%;
+}
+
+.timeline>.container:nth-child(odd)::before{
       right: 30px;
       border-width: 10px 0 10px 10px;
-      border-color: transparent transparent transparent rgba(0, 0, 0, 0.397);
+      border-color: transparent transparent transparent rgb(66, 66, 66);
 }
 
-.container.right::before{
+.timeline>.container:nth-child(even)::before{
     left: 30px;
     border-width: 10px 10px 10px 0;
-    border-color: transparent rgba(0, 0, 0, 0.397) transparent transparent;
+    border-color: transparent rgb(66, 66, 66) transparent transparent;
 }
 
-.container.right::after{
-    left: -16px;
+.timeline>.container:nth-child(even)::after{
+    left: -18px;
 }
 
-.container .content{
-    padding: 4px;
-    background-color: rgba(0, 0, 0, 0.397);
+.timeline>.container>a>.content{
+    box-shadow: 0 1px 3px var(--shadow_color);
     position: relative;
-    border-radius: 9px;
+    border-radius: 5px;
+    overflow: hidden;
 }
 
-.container .content > img{
+.timeline>.container>a>.content>img{
     position: relative;
     top: 0;
+    display: block;
     width: 100%;
-    border-radius: 6px;
 }
-.container .content > .location{
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    -webkit-text-stroke: 0.7px black;
-    color: white;
-    font-size: 25px;
+.timeline>.container>a>.content>.location{
+    position: relative;
+    display: flex;
+    bottom: 0;
+    padding: 0 10px;
+    align-items: center;
+    width: 100%;
+    height: 45px;
+    color: rgb(66, 66, 66);
+    font-size: 17px;
     text-align: center;
 }
 
+.location>p{
+    margin: 5px 0 0 12px;
+}
 
 @media screen and (max-width: 750px){
     .timeline::after{
         left: 31px;
     }
 
-    .container.left, .container.right{
+    .timeline>.container:nth-child(even),
+    .timeline>.container:nth-child(odd){
         width: 100%;
         padding: 10px 25px 10px 70px;
     }
 
-    .container.left::before, .container.right::before{
+    .timeline>.container:nth-child(odd)::before,
+    .timeline>.container:nth-child(even)::before{
         left: 60px;
         border-width: 10px 10px 10px 0;
-        border-color: transparent #474e5d transparent transparent;
+        border-color: transparent rgb(66, 66, 66) transparent transparent;
     }
 
-    .container.left::after, .container.right::after{
-        left: 15px;
+    .timeline>.container:nth-child(odd)::after,
+    .timeline>.container:nth-child(even)::after{
+        left: 14px;
     }
 
-    .container.right{
+    .timeline>.container:nth-child(even){
         left: 0%;
     }
 }

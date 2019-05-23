@@ -11,16 +11,19 @@
             <h2>Login</h2>
             <div class="form_row">
                 <div class="input_container">
-                    <input type="text" name="username" placeholder=" " required>
+                    <input class="force_lower" type="text" name="username" placeholder=" " required>
                     <span>Username</span>
                 </div>
                 <div class="input_container">
                     <input type="password" name="password" placeholder=" " required>
                     <span>Password</span>
+                    <p id="text_warning_login">Wrong user credentials, try again!</p>
                 </div>
             </div>
-            <div class="input_container">
-                <button type="submit">Login</button>
+            <div class="form_row">
+                <div class="input_container">
+                    <button type="submit">Login</button>
+                </div>
             </div>
             <p><a href="#register">Don´t have an account? Create one!</a></p>
         </fieldset>
@@ -41,12 +44,14 @@
             </div>
             <div class="form_row">
                 <div class="input_container">
-                    <input type="text" name="username" placeholder=" " required>
+                    <input class="force_lower" type="text" name="username" placeholder=" " required>
                     <span>Username</span>
+                    <p id="text_warning_register_username">That username is taken, try another!</p>
                 </div>
                 <div class="input_container">
-                    <input type="email" name="email" placeholder=" " required>
+                    <input class="force_lower" type="email" name="email" placeholder=" " required>
                     <span>E-mail</span>
+                    <p id="text_warning_register_email">This email is already registered, try another!</p>
                 </div>
             </div>
             <div class="form_row">
@@ -59,8 +64,10 @@
                     <span>Confirm password</span>
                 </div>
             </div>
-            <div class="input_container">
-                <button type="submit">Register</button>
+            <div class="form_row">
+                <div class="input_container">
+                    <button type="submit">Register</button>
+                </div>
             </div>
             <p>
                 <a href="#login">Already have an account? Login!</a>

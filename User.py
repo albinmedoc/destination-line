@@ -9,78 +9,32 @@ app = Blueprint("user", __name__, template_folder="templates")
 
 @app.route("/request/<incoming_request>", methods = ["POST"])
 def callback(incoming_request):
-        success = False
         if(incoming_request == "username_exists"):
                 #Skickar tillbaks True/False beroende på om användarnamnet finns
                 username = request.form.get("username")
-                success = user_exists(username=username)
+                return jsonify(user_exists(username=username))
         elif(incoming_request == "email_exists"):
                 #Skickar tillbaks True/False beroende på om användarnamnet finns
                 email = request.form.get("email")
-                success = user_exists(email=email)
+                return jsonify(user_exists(email=email))
         elif(incoming_request == "follow" and "username" in session):
                 user_id = get_user_id(username=session["username"])
                 target_id = get_user_id(username=request.form.get("target_name"))
                 setup_follow(user_id, target_id)
-                success = True
+                return jsonify(True)
         elif(incoming_request == "unfollow" and "username" in session):
                 user_id = get_user_id(username=session["username"])
                 target_id = get_user_id(username=request.form.get("target_name"))
                 delete_follow(user_id, target_id)
-                success = True
+                return jsonify(True)
         elif(incoming_request == "search"):
                 search = request.form.get("search")
                 return jsonify(destinations=get_countries(search), users=get_users(search))
         elif(incoming_request == "check_password"):
                 password = request.form.get("password")
                 return jsonify(check_password(password, username=session["username"]))
-
-        db = Database()
-        cur = db.conn.cursor()
-        if(incoming_request == "change_username"):
-                #Ändrar användarnamn och kollar att det inte redan existerar databasen
-                change_username = request.form.get("new_username")
-                if not (user_exists(username=change_username)):
-                        username = session["username"]
-                        cur.execute("update person set username=%s where username =%s", (change_username, username))
-                        success = True
-        elif(incoming_request == "change_firstname"):
-                #Ändrar användarens förnamn
-                username = session["username"]
-                change_firstname = request.form.get("new_firstname")
-                cur.execute("update person set firstname=%s where username =%s", (change_firstname, username))
-                success = True
-        elif(incoming_request == "change_lastname"):
-                #Ändrar användarens efternamn
-                username = session["username"]
-                change_lastname = request.form.get("new_lastname")
-                cur.execute("update person set lastname=%s where username =%s", (change_lastname, username))
-                success = True
-        elif(incoming_request == "change_biography"):
-                #Ändrar användarens biografi
-                username = session["username"]
-                change_biography = request.form.get("new_biography")
-                cur.execute("update person set biography=%s where username =%s", (change_biography, username))
-                success = True
-        elif(incoming_request == "change_email"):
-                #Ändrar användarens email och kollar att det inte redan existerar databasen
-                change_email = request.form.get("new_email")
-                if not (user_exists(email=change_email)):
-                        username = session["username"]
-                        cur.execute("update person set email=%s where username =%s", (change_email, username))
-                        success = True
-        elif(incoming_request == "change_password"):
-                #Ändrar användarens lösenord och krypterar det
-                username = session["username"]
-                change_password = request.form.get("new_password")
-                #Hashar lösenordet
-                change_password = bcrypt.hashpw(change_password.encode("utf8"), bcrypt.gensalt(12)).decode("utf8").replace("'", '"')
-                username = session["username"]
-                cur.execute("update person set password=%s where username =%s", (change_password, username))  
-                success = True
-        db.conn.commit()
-        cur.close()
-        return jsonify(success)
+        elif (incoming_request == "change_settings"):
+                return jsonify(change_settings(request.form))
 
 @app.route("/profile")
 @app.route("/profile/<username>")
@@ -117,7 +71,6 @@ def profile(username=None):
                                 is_following = cur.fetchone() is not None
                         else:
                                 is_following = False
-                        print(is_following)
 
                         #Visar profilsidan med informationen hämtad från databasen
                         return render_template("profile.html", user_info=user_info, album_count=album_count, following_count=following_count, follower_count=follower_count, albums=albums, is_following=is_following)
@@ -278,6 +231,31 @@ def settings():
         cur.execute("select username, firstname, lastname, biography, email from person where username=%s", [username.lower()])
         profile_info = cur.fetchone()
         return render_template("settings.html", profile_info=profile_info)
+
+def change_settings(new_settings):
+        db = Database()
+        cur = db.conn.cursor()
+        if("current_password" not in new_settings or not check_password(new_settings["current_password"], username = session["username"])):
+                return False
+
+        if("new_username" in new_settings and not user_exists(username=new_settings["new_username"])): 
+                cur.execute("update person set username=%s where username=%s", [new_settings["new_username"], session["username"]])
+                session["username"] = new_settings["new_username"]
+        if("new_firstname" in new_settings):
+                cur.execute("update person set firstname=%s where username=%s", [new_settings["new_firstname"], session["username"]])
+        if("new_lastname" in new_settings):
+                cur.execute("update person set lastname=%s where username=%s", [new_settings["new_lastname"], session["username"]])
+        if("new_biography" in new_settings):
+                cur.execute("update person set biography=%s where username=%s", [new_settings["new_biography"], session["username"]])
+        if("new_email" in new_settings and not user_exists(email=new_settings["new_email"])): 
+                cur.execute("update person set email=%s where username =%s", [new_settings["new_email"], session["username"]])
+        if("new_password" in new_settings):
+                password = bcrypt.hashpw(new_settings["new_password"].encode("utf8"), bcrypt.gensalt(12)).decode("utf8").replace("'", '"')
+                cur.execute("update person set password=%s where username=%s",[password, session["username"]])
+        db.conn.commit()
+        cur.close()
+        flash(u'Your changes have been updated', 'success')
+        return True
         
 def setup_follow(user_id, target_id):
         db = Database()
@@ -296,25 +274,23 @@ def delete_follow(user_id, target_id):
 def get_countries(search):
         db = Database()
         cur = db.conn.cursor()
-        cur.execute("select album.id, album.owner, album.country, album.city, concat(person.firstname, ' ', person.lastname), post.img_name from ((album join post on album.id=post.album) join person on album.owner=person.id) where post.index=1 and (country LIKE '{}%' or city LIKE '{}%')".format(search,search))
+        cur.execute("select album.id, album.owner, album.country, album.city, concat(person.firstname, ' ', person.lastname), post.img_name from ((album join post on album.id=post.album) join person on album.owner=person.id) where post.index=1 and (lower(country) LIKE lower('{}%') or lower(city) LIKE lower('{}%')) limit 5".format(search,search))
         search_results = cur.fetchall()
         return search_results
 
 def get_users(search):
         db = Database()
         cur = db.conn.cursor()
-        cur.execute("select id, username, firstname, lastname from person where username LIKE '{}%' or firstname LIKE '{}%' or lastname LIKE '{}%'".format(search,search,search))
+        cur.execute("select id, username, firstname, lastname from person where lower(username) LIKE lower('{}%') or lower(firstname) LIKE lower('{}%') or lower(lastname) LIKE lower('{}%') limit 5".format(search,search,search))
         search_results = cur.fetchall()
         return search_results
 
-@app.route("/test/<username>")
-def delete_user(user_id=None, username=None):
+@app.route("/delete_account")
+def delete_user(user_id=None):
         db = Database()
         cur = db.conn.cursor()
-
+        user_id = get_user_id(username=session["username"])
         #Hämtar användarID ifall username är angivet
-        if(username is not None):
-                user_id = get_user_id(username=username)
         
         #Hämtar alla filnamn för uppladdade bilder från användaren
         cur.execute("select post.img_name from album join post on album.id=post.album where album.owner=%s", [user_id])
@@ -330,9 +306,10 @@ def delete_user(user_id=None, username=None):
         cur.execute("delete from post where album in (select id from album where owner=%s)", [user_id])
         cur.execute("delete from album where owner=%s", [user_id])
         cur.execute("delete from person where id=%s", [user_id])
-
         db.conn.commit()
-        return "The users saved data was removed!"
+        session.clear()
+        flash(u'Your account has been deleted', 'success')
+        return redirect("/")
 
 #Hämtar antalet användare som användaren följer
 def get_following_count(username, cur):
@@ -347,11 +324,11 @@ def get_follower_count(username, cur):
         return len(followers)
 
 def get_creators():
-        daniel = ("Daniel Subasic", "97danne97")
-        albin = ("Albin Médoc", "albinmedoc")
-        anders = ("Anders L Mantarro", "anderslmantarro")
-        hanna = ("Hanna Bengtsson", "hannaidabengtsson")
-        elin = ("Elin Andersson", "elinandersson")
+        daniel = ("Daniel Subasic", "97danne97", "#", "#")
+        albin = ("Albin Médoc", "albinmedoc", "#", "#")
+        anders = ("Anders Mantarro", "anderslmantarro", "#", "#")
+        hanna = ("Hanna Bengtsson", "hannaidabengtsson", "https://www.instagram.com/waterblessings/?hl=sv", "https://www.facebook.com/hanna.bengtsson.779")
+        elin = ("Elin Andersson", "elinandersson", "#", "#")
 
         creators = (daniel, albin, anders, hanna, elin)
         return creators

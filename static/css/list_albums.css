@@ -8,6 +8,11 @@
     height: 300px;
 }
 
+#explore,#following{
+    animation: fade_in .4s forwards;
+    opacity: 0;
+}
+
 .album:last-child {
     margin: 0;
 }

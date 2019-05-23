@@ -10,7 +10,7 @@
 {% block main %}
 
 <section id="profile_container">
-    <section id="background_img"></section>
+    <section id="profile_header"></section>
     <section id="icon_row">
         <div class="button_container">
             <i class="material-icons button_icon_container">add_a_photo</i>
@@ -62,28 +62,36 @@
     </div>
     <div class="form_row">
             <div class="input_container">
-                <input id="username" type="text" name="new_username" placeholder=" " value="{{profile_info[0]}}">
+                <input id="username" class="force_lower" type="text" name="new_username" placeholder=" " value="{{profile_info[0]}}">
                 <span>Username</span>
+                <p id="text_varning_username">That username is taken, try another!</p>
             </div>
             <div class="input_container">
-                <input id="email" type="text" name="new_email" placeholder=" " value="{{profile_info[4]}}">
+                <input id="email" class="force_lower" type="email" name="new_email" placeholder=" " value="{{profile_info[4]}}">
                 <span>Email</span>
+                <p id="text_varning_email">This email is already registered, try another!</p>
             </div>
         </div>
+    <div>
+        <h2>Change password</h2>
+    </div>
     <div class="form_row">
         <div class="input_container">
             <input type="password" name="new_password" placeholder=" ">
-            <span>Password</span>
+            <span>New Password</span>
         </div>
         <div class="input_container">
             <input type="password" name="new_password2" placeholder=" ">
-            <span>Confirm password</span>
+            <span>Confirm new password</span>
         </div>
     </div>
     <div class="form_row">
         <div class="input_container">
             <button id="save_settings_button">Save</button>
         </div>
+    </div>
+    <div>
+        <a id="delete_account_link">Delete account</a>
     </div>
 </form>
 {% endblock main %}

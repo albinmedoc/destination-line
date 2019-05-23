@@ -30,23 +30,31 @@ window.onload = function () {
             });
         }
     });
+   //När man klickar på "kameraikonen" kommer datorns filer för att byta profilbild
     $("#change_profile_img_btn").click(function(){
         $("#input_profile_img").trigger("click");
     });
+    
     $("#input_profile_img").change(function(){
-        alert("kebab");
         var file = this.files[0];
+        console.log(file);
         var data = new FormData();
         data.append("file", file);
+
         $.ajax({
-            url: $SCRIPT_ROOT + "/upload_profile_img", 
-            type: "POST", 
-            contentType: false, 
-            procesData: false,
-            cache: false, 
+            type: 'POST',
+            url: $SCRIPT_ROOT + "/upload_profile_img",
             data: data,
-            complete: function(){
-                alert("kebabrulle");
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(data){
+                console.log("success");
+                console.log(data);
+            },
+            error: function(data){
+                console.log("error");
+                console.log(data);
             }
         });
 

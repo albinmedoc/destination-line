@@ -4,9 +4,29 @@ var FILE_SIZE_LIMIT = 6000000;
 var ALLOWED_EXTENSIONS = ["png", "jpg", "jpeg", "webp"];
 
 //Valda bilder sparas i denna variablen
-var images = new Object();
+var images = [];
 
 $(document).ready(function (){
+
+    $("#preview").children(".post").each(function () {
+        var image = new Image();
+        image.src = $(this).children("img").attr("src");
+        image.post = $(this);
+        image.onload = function(){
+            //Skapar en canvas för att kunna hämta DataURL
+            var canvas = document.createElement("canvas");
+            var ctx = canvas.getContext("2d");
+            canvas.width = image.width;
+            canvas.height = image.height;
+            ctx.drawImage(image, 0, 0);
+
+            var data_url = canvas.toDataURL();
+            
+            images.push(data_url);
+            image.post.children("img").attr("src", data_url);
+        }
+    });
+
 
     //Öppna fil-väjare
     $("#upload_btn").click(function () {
@@ -25,20 +45,21 @@ $(document).ready(function (){
 
             var reader = new FileReader();
             reader.onload = (function(file){
-                //Skippar ifall bild redan vald
                 return function(e){
-                    if(check_if_already_choosed(file, e.target.result)){
+                    //Skippar ifall bild redan vald
+                    if(check_if_already_choosed(e.target.result)){
+                        add_flash_message(file.name + " is already choosed.", "error");
                         return;
                     }
     
                     //Avbryter ifall 50 eller fler bilder är valda
                     if(Object.keys(images).length >= UPLOAD_LIMIT){
-                        alert(UPLOAD_LIMIT + " images is maximum for an album.");
+                        add_flash_message(UPLOAD_LIMIT + " images is maximum for an album.", "error");
                         return;
                     }
     
                     //Spara bild i variabel, bild-url som nyckel
-                    images[e.target.result] = file;
+                    images.push(e.target.result);
                     
                     //Visa bild
                     display_image(file, e.target.result);
@@ -55,22 +76,23 @@ function check_file_extension(file){
     extension = file.name.split('.').pop().toLowerCase();
     allowed = ALLOWED_EXTENSIONS.indexOf(extension) > -1;
     //Meddelar användaren om filextensionen inte är tillåten
-    if(!allowed) alert(file.name + " doesn´t have an allowed extension.");
+    if(!allowed) add_flash_message(file.name + " doesn´t have an allowed extension.", "error");
     return allowed;
 }
 
 //Kontrollerar att filstorleken inte överstiger maxgränsen
 function check_file_size(file){
     allowed = file.size <= FILE_SIZE_LIMIT;
-    if(!allowed) alert(file.name + " is too big.");
+    if(!allowed) add_flash_message(file.name + " is too big.", "error");
     return allowed;
 }
 
 //Kontrollerar ifall bild redan uppladdad
 function check_if_already_choosed(file, img_url){
-    exists = img_url in images;
-    if(exists) alert(file.name + " is already choosed.");
-    return exists;
+    $("#preview").children(".post > img").each(function () {
+        if($(this).attr("src") == img_url) return true;
+        return false;
+    });
 }
 
 //Visa bild
@@ -80,6 +102,13 @@ function display_image(file, img_url){
 }
 
 $(document).ready(function (){
+    $(".cancel_upload").click(function(){
+
+        var answer = confirm("All your changes will be lost, are you sure you want to cancel?");
+        if (answer == true){
+            window.location.assign("/profile")
+        }
+    });
     //Ta bort bild från variabel och från gränssnittet när användaren klickar kryss på en bild
     $("#upload_btn").parent().on("click", ".img_close", function () {
         var index = $(this).next().attr("src");
@@ -168,21 +197,20 @@ var period = new Lightpick({
 $("#upload_form").on("submit", function (e) {
     e.preventDefault();
     if(Object.keys(images).length == 0){
-        alert("Inga valda bilder");
+        add_flash_message("No choosen images.", "error");
         return;
     }
     $('#upload_progress_bar').css('width', '10%');
-    console.log(images);
     var data = new FormData();
     //Lägger till album information i FormData
     data.append("country", $("#country").val());
     data.append("city", $("#city").val());
     var date_start = period.getStartDate();
     var date_end = period.getEndDate();
+
     //Sätter båda datumen till samma ifall endast ett var angivet
-    if(!date_end){
-        date_end = date_start;
-    }
+    if(!date_end) date_end = date_start;
+    
     data.append("date_start", date_start.format("YYYY-MM-DD"));
     data.append("date_end", date_end.format("YYYY-MM-DD"));
     var i = 1;
@@ -191,7 +219,7 @@ $("#upload_form").on("submit", function (e) {
         //Hämtar index/bildurl från src
         var post = $(this);
         var img_url = post.children("img").attr("src");
-        data.append("post" + i, images[img_url]);
+        data.append("post" + i, data_uri_to_blob(img_url));
         data.append("headline" + i, post.attr("data-headline"));
         data.append("description" + i, post.attr("data-description"));
         i++;
@@ -201,6 +229,7 @@ $("#upload_form").on("submit", function (e) {
     $.ajax({
         url: $SCRIPT_ROOT + "/new/album",
         type: 'POST',
+        dataType: "json",
         contentType: false,
         data: data,
         processData: false,
@@ -208,14 +237,24 @@ $("#upload_form").on("submit", function (e) {
         beforeSend: function(){
             $('.loader_container').addClass('is_visible');
         },
-        success: function () {
-            alert("Uploaded");
+        success: function (data) {
         },
         error: function () {
-            alert("Error");
+            add_flash_message("Something went wrong...", "error");
         },
-        complete: function(){
+        complete: function(data){
             $('.loader_container').removeClass('is_visible');
         }
     });
 });
+
+function data_uri_to_blob(dataURI){
+    var byteString = atob(dataURI.split(',')[1]);
+    var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
+    var ab = new ArrayBuffer(byteString.length);
+    var ia = new Uint8Array(ab);
+    for (var i = 0; i < byteString.length; i++) {
+        ia[i] = byteString.charCodeAt(i);
+    }
+    return new Blob([ab], {type: mimeString});
+}

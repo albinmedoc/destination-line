@@ -35,7 +35,6 @@ def timeline():
         cur = db.conn.cursor()
         cur.execute("select album.id, album.country, album.city, post.img_name, album.date_start, album.date_end from album join post on album.id = post.album where post.index=1 order by album.date_start")
         albums = cur.fetchall()
-        print(albums)
         return render_template("timeline1.html", albums=albums)
 
 @app.route("/info")
@@ -51,4 +50,4 @@ if __name__ == "__main__":
         if(len(argv) > 1 and argv[1].lower() == "server"):
                 app.run(host = SERVER_IP, port = 80, debug = False, threaded = True)
         else:
-                app.run(host = "localhost", port = SERVER_PORT, debug = DEBUG_MODE, threaded = True)
+                app.run(host = "localhost", port = SERVER_PORT, debug = False, threaded = True)
