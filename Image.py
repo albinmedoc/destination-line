@@ -164,13 +164,10 @@ def upload_profile_img():
         if "file" not in request.files:
                 #Bild skickades ej med
                 return jsonify(False)
-
         db = Database()
         cur = db.conn.cursor()
-
         #Lägger bilder i en variabel
         profile_img = request.files["file"]
-
         #Genererar ett namn för bilden, är namnet upptaget görs detta tills ett ledigt är funnet
         filename = str(uuid4()) + ".webp"
         while os.path.isfile(os.path.join(UPLOAD_FOLDER, secure_filename(filename))):
@@ -191,7 +188,41 @@ def upload_profile_img():
         cur.execute("update person set profile_img=%s where username=%s", [secure_filename(filename), session["username"]])
         db.conn.commit()
         cur.close()
-        return jsonify(True), 200, {'ContentType':'application/json'}
+        return jsonify(filename), 200, {'ContentType':'application/json'}
+
+@app.route("/upload_background_img", methods = ["POST"])
+def upload_background_img():
+        if "username" not in session:
+                #Användaren är inte inloggad
+                return jsonify(False)
+        if "file" not in request.files:
+                #Bild skickades ej med
+                return jsonify(False)
+        db = Database()
+        cur = db.conn.cursor()
+        #Lägger bilder i en variabel
+        background_img = request.files["file"]
+        #Genererar ett namn för bilden, är namnet upptaget görs detta tills ett ledigt är funnet
+        filename = str(uuid4()) + ".webp"
+        while os.path.isfile(os.path.join(UPLOAD_FOLDER, secure_filename(filename))):
+                filename = str(uuid4()) + ".webp"
+
+        #Kontrollerar ifall mappen där bilder ska sparas existeras
+        if(not os.path.exists(UPLOAD_FOLDER)):
+                #Skapa mappen ifall den inte existerar
+                os.makedirs(UPLOAD_FOLDER)
+
+        #Beskär bilden så den blir kvadratisk
+        background_img = crop_to_16_9(Image.open(background_img.stream))
+        
+        #Sparar bilden
+        background_img.save(os.path.join(UPLOAD_FOLDER, secure_filename(filename)))
+        
+        #Uppdaterar profile_img till filnamnet bilden fick
+        cur.execute("update person set background_img=%s where username=%s", [secure_filename(filename), session["username"]])
+        db.conn.commit()
+        cur.close()
+        return jsonify(filename), 200, {'ContentType':'application/json'}
 
 @app.route("/delete/album/<album_id>", methods = ["GET"])
 def delete_album(album_id):
