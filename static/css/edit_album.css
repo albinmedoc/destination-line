@@ -21,6 +21,11 @@
     position: absolute;
     padding: 20px;
     left: 20px;
+    color: rgb(79, 173, 236);
+}
+
+#album_info_btn:hover{
+    text-decoration: underline;
 
 }
 #preview {
