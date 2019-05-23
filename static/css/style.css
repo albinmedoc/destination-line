@@ -35,7 +35,7 @@ h1,h2,h3,h4,h5,h6,a,p,span,input,button{
 }
 
 i {
-    transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: 1.3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
 .material-icons {

@@ -53,7 +53,7 @@ def profile(username=None):
         if(user_exists(username=username)):
                 db = Database()
                 cur = db.conn.cursor()
-                cur.execute("select username, firstname, lastname, biography, background_img, id from person where username='{}'".format(username))
+                cur.execute("select username, firstname, lastname, biography, profile_img, background_img, id from person where username='{}'".format(username))
                 user_info = cur.fetchone()
                 #Kontrollerar så en rad hittades
                 if(user_info is not None):

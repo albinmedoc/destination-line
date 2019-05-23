@@ -115,6 +115,77 @@
     line-height: 35px;
     color: gray;
 }
+#following, #followers{
+    width: 100vw;
+    max-width: 650px;
+    height: 70%;
+    position: absolute;
+    background-color: white;
+    box-shadow: 0 2px 10px var(--shadow_color);
+    top: 55%;
+    padding: 10px;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(.8);
+    z-index: 5;
+    visibility: hidden;
+    opacity: 0;
+    transition: .3s ease;
+}
+
+#following.is_visible, #followers.is_visible{
+    visibility: visible;
+    opacity: 1;
+    transform: translate(-50%, -50%);
+}
+
+#following>i, #followers>i{
+    top: 10px;
+    right: 10px;
+    position: absolute;
+}
+
+.follow_list{
+    display: flex;
+    flex-direction: column;
+}
+
+.follow_list_item{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 30px;
+    width: 100%;
+    margin: 10px auto;
+    box-shadow: 0 1px 4px var(--shadow_color);
+}
+
+.follow_list_item>div{
+    display: flex;
+    align-items: center;
+}
+
+.follow_list_item img{
+    display: block;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.follow_list_item span{
+    margin-left: 25px;
+    font-size: 18px;
+    padding: 7px 20px;
+    background-color: var(--accent);
+    color: white;
+    border-radius: 20px;
+}
+
+.follow_list_item>i{
+    font-size: 25px;
+}
+
+
 
 @media (min-width:768px) {
     #icon_row > .button_container {

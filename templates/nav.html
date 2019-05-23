@@ -47,11 +47,12 @@
                     <span>Login</span>
                 </a>
                 {% else %}
-                <a href="{{ url_for('user.profile') }}" class="nav_link">
+                <a class="nav_link">
                     <i class="material-icons">account_circle</i>
-                    <span>Profile</span>
+                    <span>{{ session["username"] }}</span>
                 </a>
                 <div class="dropdown_content">
+                    <a class="dropdown_link" href="{{ url_for('user.profile') }}"><span>My Profile</span><i class="material-icons">account_circle</i></a>
                     <a class="dropdown_link" href="{{ url_for('user.settings') }}"><span>Settings</span><i class="material-icons">settings</i></a>
                     <a class="dropdown_link" href="{{ url_for('user.logout') }}"><span>Sign out</span><i class="material-icons">cancel</i></a>
                 </div>
