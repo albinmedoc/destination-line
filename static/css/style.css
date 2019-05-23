@@ -18,16 +18,20 @@ body {
     font-family: 'Titillium Web';
     font-weight: 300;
     overflow-x: hidden;
-    text-shadow: 0 0 1px var(--shadow_color);
+    text-shadow: 0 0 1px rgba(0, 0, 0, 0.13);
     color: rgb(66,66,66);
     margin-top: 60px;
 }
 
-a, button, input {
+a, button, input, span {
     text-decoration: none;
-    color: rgb(66, 66, 66);
     font-size: 16px;
+}
+
+h1,h2,h3,h4,h5,h6,a,p,span,input,button{
     font-family: 'Titillium Web';
+    font-weight: 300;
+    color: rgb(66, 66, 66);
 }
 
 i {
@@ -35,10 +39,6 @@ i {
 }
 
 .material-icons {
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
     user-select: none;
 }
 
@@ -106,61 +106,36 @@ a, i, button, #upload_btn{
 
 /* Samling av animationer för att användas var som helst på hemsidan */
 @keyframes fade_in {
-    from {
-        opacity: 0;
-    }
-
-    to {
-        opacity: 1;
-    }
+    0%{opacity: 0}
+    100%{opacity: 1}
 }
 
 @keyframes slide_in_from_top{
-    0%{
-        transform: translateY(-50px);
-    }
-    100%{
-        transform: none;
-    }
+    0%{transform: translateY(-50px)}
+    100%{transform: none}
 }
 
 @keyframes slide_in_from_bottom{
-    0%{
-        transform: translateY(50px);
-    }
-    100%{
-        transform: none;
-    }
+    0%{transform:translateY(50px)}
+    100%{transform:none}
 }
 
 @keyframes width_grow{
-    0%{
-        width:0;
-    }
-    100%{
-        width: 10%;
-    }
+    0%{width:0}
+    100%{width:10%}
 }
 
 @keyframes width_grow_max{
-    0%{
-        width:10%;
-        opacity: 1;
-    }
-    8%{
-        width: 100%;
-    }
-    100%{
-        opacity: 0;
-        width: 100%;
-    }
+    0%{width:10%;opacity: 1}
+    8%{width:100%}
+    100%{opacity:0;width: 100%}
 }
 
 @keyframes shake {
-    0% { transform: none; }
-    20% { transform: translate(-3px, 0px) rotate(1deg); }
-    40% { transform: translate(1px, -1px) rotate(1deg); }
-    60% { transform: translate(-3px, 1px) rotate(0deg); }
-    80% { transform: translate(-1px, -1px) rotate(1deg); }
-    100% { transform: translate(1px, -2px) rotate(-1deg); }
-  }
+    0%{transform: none}
+    20%{transform:translate(-3px, 0px) rotate(1deg)}
+    40%{transform:translate(1px, -1px) rotate(1deg)}
+    60%{transform:translate(-3px, 1px) rotate(0deg)}
+    80%{transform:translate(-1px, -1px) rotate(1deg)}
+    100%{transform:translate(1px, -2px) rotate(-1deg)}
+}

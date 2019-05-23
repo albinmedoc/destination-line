@@ -11,7 +11,7 @@
     </div>
     <ul>
         <li id="search_container">
-            <input id="search" type="search" placeholder="Search for places, people and more...">
+            <input id="search" type="search" placeholder="Search for destinations and people...">
             <a class="nav_link">
                 <i class="material-icons">search</i>
                 <span>Search</span>
@@ -19,22 +19,6 @@
             <section id="search_results">
                 {% include 'loader.html' %}
                 <article class='search_category' id='destinations'>
-                    <!-- <div class='search_result'>
-                            <i class="material-icons-outlined">place</i>
-                        <a href="#">
-                            <img src='https://i.imgur.com/azjwFrj.jpg'>
-                        </a>
-                        <div class='destinations_search_info'>
-                            <a href='/album/"+data.countries[country][0]+"' class='city'>
-                                <h3>"+data.countries[country][3]+"</h3>
-                            </a>
-                            <p>"+data.countries[country][2]+"</p>
-                            <a class="album_owner" href="#">
-                                    <i class="material-icons">person_outline</i>
-                                    <span>Elin Andersson</span>
-                            </a>
-                        </div>
-                    </div> -->
                 </article>
                 <article class='search_category' id='users'>
                 </article>
@@ -42,15 +26,19 @@
         </li>
         <!-- Visa uppladdningsknapp om inloggad -->
         {% if("username" in session) %}
-        <li><a href="{{ url_for('image.upload') }}" class="nav_link">
-            <i class="material-icons">create_new_folder</i>
-            <span>New Album</span>
-        </a></li>
+        <li>
+            <a href="{{ url_for('image.upload') }}" class="nav_link">
+                <i class="material-icons">create_new_folder</i>
+                <span>New Album</span>
+            </a>
+        </li>
         {% endif %}
-        <li><a href="/info" class="nav_link">
-            <i class="material-icons">info_outline</i>
-            <span>Info</span>
-        </a></li>
+        <li>
+            <a href="/info" class="nav_link">
+                <i class="material-icons">info_outline</i>
+                <span>Info</span>
+            </a>
+        </li>
         <li>
             <div class="dropdown">
                 {% if("username" not in session) %}
