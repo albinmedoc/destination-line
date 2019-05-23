@@ -93,7 +93,7 @@ def edit_album(album_id):
         db = Database()
         cur = db.conn.cursor()
         #Hämtar information om album
-        cur.execute("select country, city, date_start, date_end from album where id=%s", (album_id,))
+        cur.execute("select country, city, date_start, date_end, id from album where id=%s", (album_id,))
         album_info = cur.fetchone()
         #Hämtar information om alla bilder
         cur.execute("select img_name, headline, description from post where album=%s order by index asc", (album_id,))
@@ -148,13 +148,14 @@ def crop_to_1_1(img):
 def album(album_id):
         db = Database()
         cur = db.conn.cursor()
+        user_id = get_user_id(username=session["username"])
         #Hämtar information om album
-        cur.execute("select album.country, album.city, album.date_start, album.date_end, person.firstname, person.lastname from album join person on album.owner=person.id where album.id={}".format(album_id))
+        cur.execute("select album.country, album.city, album.date_start, album.date_end, person.firstname, person.lastname, album.owner from album join person on album.owner=person.id where album.id={}".format(album_id))
         album_info = cur.fetchone()
         #Hämtar information om alla bilder
         cur.execute("select img_name, headline, description, index from post where album={} order by index asc".format(album_id))
         posts = cur.fetchall()        
-        return render_template("album.html", posts=posts, album_info=album_info)
+        return render_template("album.html", posts=posts, album_info=album_info, album_id=album_id, user_id=user_id)
 
 @app.route("/upload_profile_img", methods = ["POST"])
 def upload_profile_img():
@@ -192,3 +193,15 @@ def upload_profile_img():
         db.conn.commit()
         cur.close()
         return jsonify(True), 200, {'ContentType':'application/json'}
+
+@app.route("/delete/album/<album_id>", methods = ["GET"])
+def delete_album(album_id):
+        db = Database()
+        cur = db.conn.cursor()
+        user_id = get_user_id(username=session["username"])
+        if owns_album(album_id, user_id=user_id):
+                cur.execute("delete from post where album in (select id from album where id=%s)", [album_id])
+                cur.execute("delete from album where id=%s", [album_id])
+        db.conn.commit()
+        flash(u'Your album was deleted!', 'success')
+        return redirect("/")

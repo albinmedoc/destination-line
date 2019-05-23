@@ -9,6 +9,14 @@
 {% endblock head %}
 
 {% block main %}
+{% if user_id == album_info[6]%}
+<div class="button_container" id="edit_album">
+    <a href="{{ url_for('image.edit_album', album_id=album_id) }}" class="material-icons button_icon_container">edit</a>
+    <div class="button_text_container">
+        <a href="{{ url_for('image.edit_album', album_id=album_id) }}"><span>Edit album</span></a>   
+    </div>
+</div>
+{% endif %}
 <section id="album_container">
     <div id="post_image_container">
         <div id="gallery_toggle">
@@ -30,7 +38,7 @@
         <div id="post_image_thumbnail_container">
             {% for post in posts %}
             <div class="thumbnail">
-                <img src="{{  url_for('image.uploaded_images', image_id=post[0]) }}" onclick="current_slide('{{post[3]}}')" alt="The Woods">
+                <img src="{{  url_for('image.uploaded_images', image_id=post[0]) }}" onclick="current_slide('{{post[3]+1}}')" alt="The Woods">
             </div>
             {% endfor %}
         </div>
@@ -38,11 +46,11 @@
     <section id="post_text_description_container">
         {% for post in posts %}
         <article class="post_text_description">
-            <h1>{{ post[1] }}</h1>
+            <h1>{{ post[1] if not None}}</h1>
             <h2>{{ album_info[0] }}</h2>
             <div class="dash"></div>
             <h3> by {{ album_info[4] }} {{ album_info[5] }}</h3>
-            <p>{{ post[2] }}</p>
+            <p>{{ post[2] if not None}}</p>
         </article>
         {% endfor %}
     </section>
