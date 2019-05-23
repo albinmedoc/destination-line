@@ -34,7 +34,7 @@ $(document).ready(function (){
             image.post.children("img").attr("src", data_url);
         }
     });
-
+    
     $("textarea[name='description']").keyup(function(){
         if($(this).val().length > 2500){
             $(this).addClass("error");
