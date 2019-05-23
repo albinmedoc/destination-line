@@ -75,7 +75,7 @@
       {% for creator in creators %}
         <div class="card">
             <div class="creator_img_container">
-                <img src="https://i.kym-cdn.com/entries/icons/original/000/029/079/hellothere.jpg" alt="Anders Mantarro">
+                <img src="{{ url_for('static', filename='img/profile_image.png') }}" alt="Anders Mantarro">
                 <h1 class="creator_name">{{creator[0]}}</h1>
             </div>
             <p class="title">Creator</p>
