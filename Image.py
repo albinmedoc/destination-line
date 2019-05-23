@@ -47,7 +47,6 @@ def upload():
 
         #Om användaren skall uppdatera ett album
         if(request.form.get("album_id")):
-                print("editing")
                 album_id = request.form.get("album_id")
                 #Kontrollerar ifall användaren äger albumet
                 if(not owns_album(album_id, username=session["username"])):
@@ -55,7 +54,6 @@ def upload():
                 cur.execute("update album set country=%s, city=%s, date_start=%s, date_end=%s where id=%s", (country, city, date_start, date_start, album_id))
                 cur.execute("delete from post where album=%s", [album_id])
         else:
-                print("not editing")
                 #Hämtar user_id från användarnamn
                 user_id = get_user_id(session["username"])
                 cur.execute("insert into album(owner, published, country, city, date_start, date_end) values(%s, %s, %s, %s, %s, %s) returning id", (user_id, datetime.utcnow(), country, city, date_start, date_end))
@@ -73,7 +71,7 @@ def upload():
                         filename = str(uuid4()) + ".webp"
                 img.save(os.path.join(UPLOAD_FOLDER, secure_filename(filename)))
                 #index för bildens ordning i albumet || post1 blir index 1
-                index = key[-1]
+                index = key[4:]
                 #Bildens rubrik
                 headline = request.form.get("headline" + index)
                 #Bildens beskrivning
