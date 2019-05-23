@@ -40,7 +40,7 @@
             </a>
             <a>
                 <section id="profile_img">
-                    <img src=" {{ url_for('image.uploaded_images', image_id=user_info[4]) if user_info[4] else 'https://iso.500px.com/wp-content/uploads/2016/03/pedroquintela.jpg' }}">
+                    <img src=" {{ url_for('image.uploaded_images', image_id=user_info[4]) if user_info[4] else url_for('static', filename='img/avatar.png') }}">
                     {% if session["username"] == user_info[0] %}
                     <div id="change_profile_img_btn" class="button_container">
                         <i class="material-icons button_icon_container">add_a_photo</i>
