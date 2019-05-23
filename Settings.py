@@ -17,4 +17,4 @@ ALLOWED_EXTENSIONS = set(["png", "jpg", "jpeg", "webp"])
 POST_LIMIT = 50
 
 #List for random videos
-RANDOM_VIDEOS = ["bali", "greece", "maldives", "phuket", "iceland"]
+RANDOM_VIDEOS = ["bali", "greece", "newzealand"]
