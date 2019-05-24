@@ -52,6 +52,14 @@ def upload():
                 if(not owns_album(album_id, username=session["username"])):
                         return jsonify(False), 413, {"ContentType":"application/json"}
                 cur.execute("update album set country=%s, city=%s, date_start=%s, date_end=%s where id=%s", (country, city, date_start, date_start, album_id))
+                #Hämtar existerande bilder i album
+                cur.execute("select img_name from post where album=%s", [album_id])
+                filenames = cur.fetchall()
+                #Loopar igenom alla filnamn och raderar dem
+                for filename in filenames:
+                        if(os.path.isfile(os.path.join(UPLOAD_FOLDER, secure_filename(filename[0])))):
+                                #Raderar existerande bilder i album
+                                os.remove(os.path.join(UPLOAD_FOLDER, secure_filename(filename[0])))
                 cur.execute("delete from post where album=%s", [album_id])
         else:
                 #Hämtar user_id från användarnamn
@@ -227,13 +235,21 @@ def upload_background_img():
         cur.close()
         return jsonify(filename), 200, {'ContentType':'application/json'}
 
-@app.route("/delete/album/<album_id>", methods = ["GET"])
+@app.route("/delete/album/<int:album_id>", methods = ["GET"])
 def delete_album(album_id):
         user_id = get_user_id(username=session["username"])
         if owns_album(album_id, user_id=user_id):
                 db = Database()
                 cur = db.conn.cursor()
-                cur.execute("delete from post where album in (select id from album where id=%s)", [album_id])
+                #Hämat filnamn för alla bilder i album
+                cur.execute("select img_name from post where album=%s", [album_id])
+                filenames = cur.fetchall()
+                #Loopar igenom alla filnamn och raderar dem
+                for filename in filenames:
+                        if(os.path.isfile(os.path.join(UPLOAD_FOLDER, secure_filename(filename[0])))):
+                                #Raderar alla sparade bilder
+                                os.remove(os.path.join(UPLOAD_FOLDER, secure_filename(filename[0])))
+                cur.execute("delete from post where album=%s", [album_id])
                 cur.execute("delete from album where id=%s", [album_id])
                 db.conn.commit()
                 flash(u'Your album was deleted!', 'success')
