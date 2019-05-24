@@ -153,8 +153,11 @@ def album(album_id):
         album_info = cur.fetchone()
         #Hämtar information om alla bilder
         cur.execute("select img_name, headline, description, index from post where album={} order by index asc".format(album_id))
-        posts = cur.fetchall()        
-        return render_template("album.html", posts=posts, album_info=album_info, album_id=album_id)
+        posts = cur.fetchall()
+        
+        is_own_album = "username" in session and get_user_id(username=session["username"]) == album_info[6]
+
+        return render_template("album.html", posts=posts, album_info=album_info, album_id=album_id, owns_album=is_own_album)
 
 @app.route("/upload_profile_img", methods = ["POST"])
 def upload_profile_img():
