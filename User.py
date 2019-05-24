@@ -235,7 +235,7 @@ def settings():
         db = Database()
         cur = db.conn.cursor()
         username = session["username"]
-        cur.execute("select username, firstname, lastname, biography, email from person where username=%s", [username.lower()])
+        cur.execute("select username, firstname, lastname, biography, email, background_img, profile_img from person where username=%s", [username.lower()])
         profile_info = cur.fetchone()
         return render_template("settings.html", profile_info=profile_info)
 

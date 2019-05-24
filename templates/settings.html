@@ -10,7 +10,7 @@
 {% block main %}
 
 <section id="profile_container">
-    <section id="profile_header"></section>
+    <section id="profile_header" style="{{ 'background-image: url(' +  url_for('image.uploaded_images', image_id=profile_info[5]) if profile_info[5] }}"></section>
     <section id="icon_row">
         <div class="button_container">
             <i class="material-icons button_icon_container">add_a_photo</i>
@@ -23,7 +23,7 @@
         <section id="stats_container">
             <a>
                 <section id="profile_img">
-                    <img src="https://iso.500px.com/wp-content/uploads/2016/03/pedroquintela.jpg">
+                    <img src="{{ url_for('image.uploaded_images', image_id=profile_info[6]) if profile_info[6] else url_for('static', filename='img/avatar.png') }}">
                     <div class="button_container">
                         <i class="material-icons button_icon_container">add_a_photo</i>
                         <div class="button_text_container">
