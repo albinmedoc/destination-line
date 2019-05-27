@@ -41,7 +41,7 @@
     justify-content: center;
     background-color: rgba(255, 255, 255, 0.7);
     transition: background-color 0.3s;
-    box-shadow: 0 5px 5px var(--shadow_color);
+    box-shadow: 0 2px 5px var(--shadow_color);
 }
 
 .info_circle:hover {
