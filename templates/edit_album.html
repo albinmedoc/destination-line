@@ -7,14 +7,7 @@
 {% endblock head %}
 
 {% block main %}
-{% if album_info is defined %}
-<div class="button_container" id="delete_album">
-    <a href="{{ url_for('image.delete_album', album_id=album_info[4]) }}" class="button_icon_container"><i class="material-icons">delete</i></a>
-    <div class="button_text_container">
-        <a href="{{ url_for('image.delete_album', album_id=album_info[4]) }}"><span>Delete album</span></a>   
-    </div>
-</div>
-{% endif %}
+
 <section class="album_grid_container">
         
     <div class="progress_bar" id="upload_progress_bar"></div>
@@ -41,22 +34,22 @@
                     <button type="submit">{{ "Upload album" if(album_info is not defined) else "Save changes" }}</button>
                 </div>
                 <div class="input_container">
-                    <a id="album_info_btn">Guide how to crop your photos</a>
+                    <a id="album_info_btn">How to crop your photos</a>
                 </div>
             </div>
         </fieldset>
     </form>
     <section class="modal" id="album_info_modal">
         <div class="responsive_form">
-            <a href="#" class="cancel_modal"><i class="material-icons">close</i></a>
-            <h1>Guide how to crop your photos:</h1>
+            <i class="material-icons-outlined cancel_modal">close</i>
+            <h2>Guide how to crop your photos:</h2>
             <p>To get the best result for your albums you should crop your photos before you upload them. 
             Otherwise Destination line will automatically crop them for you.</p>   
             <ol>
-                <li>Use a program where you can crop and export your photos, for example lightroom.</li>
-                <li>Make a collection for each album (max 50 photos)</li>
-                <li>Crop your photos to landscape images (16:9)</li>
-                <li>Export your photos to your computer in: W:1920 x H:1080 pixels</li>
+                <li><p>Use a program where you can crop and export your photos, for example lightroom.</p></li>
+                <li><p>Make a collection for each album (max 50 photos)</p></li>
+                <li><p>Crop your photos to landscape images (16:9)</p></li>
+                <li><p>Export your photos to your computer in: W:1920 x H:1080 pixels</p></li>
             </ol>
         </div>
     </section>
@@ -74,26 +67,36 @@
                         <div class='button_text_container'>
                             <span>Delete image</span>
                         </div>
-                        <i class='material-icons button_icon_container'>close</i>
+                        <i class='material-icons-outlined button_icon_container'>close</i>
                     </div>
                     <div class='button_container img_modal_open'>
-                        <i class='material-icons button_icon_container'>info</i>
+                        <i class='material-icons-outlined button_icon_container'>info</i>
                         <div class='button_text_container'>
                             <span>Image info</span>
                         </div>
                     </div>
                     <img src="{{  url_for('image.uploaded_images', image_id=post[0]) }}">
-                    <i class='material-icons reorder'>reorder</i>
+                    <i class='material-icons-outlined reorder'>reorder</i>
                 </div>
             {% endfor %}
         {% endif %}
     </section>
 </section>
 
+<!-- Knapp för att ta bort album -->
+{% if album_info is defined %}
+<a href="{{ url_for('image.delete_album', album_id=album_info[4]) }}" class="button_container" id="delete_album">
+    <i class="material-icons-outlined button_icon_container">delete</i>
+    <div class="button_text_container">
+        <span>Delete album</span>  
+    </div>
+</div>
+{% endif %}
+
 <!-- Ruta för att lägga till text för bilder -->
 <section class="modal" id="img_info_modal">
     <form class="image_info responsive_form">
-        <a class="cancel_modal"><i class="material-icons">close</i></a>
+        <a class="cancel_modal"><i class="material-icons-outlined">close</i></a>
         <h2>Image info</h2>
         <img class="img_preview">
         <div class="form_row">
