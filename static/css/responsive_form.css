@@ -1,47 +1,9 @@
-.modal {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    visibility: hidden;
-    transition: visibility .3s cubic-bezier(0.275, 0.82, 0.165, 1), opacity .3s cubic-bezier(0.275, 0.82, 0.165, 1);
-    z-index: 3;
-    opacity: 0;
-    background-color: var(--shadow_color);
-    position: fixed;
-    top: 0;
-    right: 0;
-    bottom: 0;
-    left: 0;
-}
-
-.modal.is_visible {
-    opacity: 1;
-    visibility: visible;
-}
-
-.modal>.responsive_form{
-    overflow-y: auto;
-    box-shadow: 0 5px 15px var(--shadow_color);
-    background-color: white;
-}
-
-.cancel_modal {
-    position: absolute;
-    right: 13px;
-    top: 13px;
-}
-
-.cancel_form{
-    position: absolute;
-    top: 15px;
-    left: 15px;
-}
-
 .responsive_form{
     position: relative;
     width: 100%;
     height: 100%;
     text-align: center;
+    background-color: white;
 }
 
 .responsive_form>fieldset{ /* Tar bort standard-CSS */
@@ -161,8 +123,8 @@
 }
 
 .responsive_form button::after {
-    font-family: "Material Icons";
-    content: 'input';
+    font-family: "Material Icons Outlined";
+    content: 'send';
     margin-left: 7px;
 }
 
