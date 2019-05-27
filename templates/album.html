@@ -46,7 +46,7 @@
             <h1>{{ post[1] if not None}}</h1>
             <h2>{{ album_info[0] }}</h2>
             <div class="dash"></div>
-            <h3> by {{ album_info[4] }} {{ album_info[5] }}</h3>
+            <h3> by <a href="{{ url_for('user.profile', username=album_info[7]) }}">{{ album_info[4] }} {{ album_info[5] }}</a></h3>
             <p>{{ post[2] if not None}}</p>
         </article>
         {% endfor %}

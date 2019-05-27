@@ -133,7 +133,7 @@
     margin: 0 auto;
 }
 
-.post_text_description>h3{
+.post_text_description>h3, .post_text_description>h3>a {
     text-align: center;
     font-size: 15px;
     font-family: 'Old Standard TT', serif;
