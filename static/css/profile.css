@@ -142,12 +142,6 @@
     margin: 0 0 20px 0;
 }
 
-#following>i, #followers>i{
-    top: 15px;
-    right: 15px;
-    position: absolute;
-}
-
 .follow_list{
     display: flex;
     flex-direction: column;
