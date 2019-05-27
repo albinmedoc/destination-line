@@ -18,9 +18,6 @@
 }
 
 #album_info_btn{
-    position: absolute;
-    padding: 20px;
-    left: 20px;
     color: rgb(79, 173, 236);
 }
 
@@ -48,12 +45,12 @@
 
 #upload_btn::before {
     position: absolute;
-    font-family: "Material Icons";
-    content: "add_circle";
+    font-family: "Material Icons Outlined";
+    content: "add_a_photo";
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-size: 55px;
+    font-size: 40px;
 }
 
 .post,
@@ -96,6 +93,8 @@
 .post>i.reorder {
     bottom: 5px;
     right: 5px;
+    color: white;
+    text-shadow: 0 0 3px black;
 }
 
 /* Egen animation för bildinformation-formulär */
@@ -120,9 +119,11 @@ form.image_info>.img_preview {
 }
 
 form.image_info textarea {
-    resize: none;
-    min-height: calc(100vh - 600px);
-    overflow-y: scroll;
+    min-height: 100px;
+    max-height: 300px;
+    max-width: 100%;
+    min-width: 100%;
+    overflow-y: auto;
 }
 
 #upload_progress_bar{
@@ -130,22 +131,18 @@ form.image_info textarea {
 }
 
 #album_info_modal{
-    position: absolute;
+    position: fixed;
+    top: 60px;
 }
 
-.responsive_form > h1{
-    margin: 20px;
+#album_info_modal>.responsive_form{
     padding: 20px;
+    text-align: left;
 }
 
-.responsive_form > p{
-    margin: 20px;
-    padding: 20px;
-}
-
-.responsive_form > ol > li{
-    text-align: -webkit-auto;
-    padding: 5px;
+#album_info_modal>.responsive_form>ol{
+    margin: 0 0 0 30px;
+    padding: 0;
 }
 
 @media (min-width:768px) {
