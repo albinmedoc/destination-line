@@ -20,7 +20,7 @@ $(document).ready(function(){
 });
 
 function add_flash_message(message, category){
-    var message = $("<div class='flash " + category + "'><i class='close material-icons'>close</i><p>" + message + "</p></div>")
+    var message = $("<div class='flash " + category + "'><i class='close material-icons-outlined'>close</i><p>" + message + "</p></div>")
     $("#flashes").prepend(message);
     offset_nav();
 }
