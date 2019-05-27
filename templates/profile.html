@@ -13,20 +13,20 @@
     <section id="icon_row">
         {% if session["username"] == user_info[0] %}
         <div id="change_background_img_btn" class="button_container">
-            <a href="#" class="material-icons button_icon_container">add_a_photo</a>
+            <i class="material-icons-outlined button_icon_container">add_photo_alternate</i>
             <div class="button_text_container">
-                <a href="#"><span>Change Background</span></a>
+                <span>Change Background</span>
             </div>
         </div>
-        <div class="button_container">
-            <a href="{{ url_for('user.settings') }}" class="material-icons button_icon_container">settings</a>
+        <a href="{{ url_for('user.settings') }}" class="button_container">
+            <i class="material-icons-outlined button_icon_container">settings</i>
             <div class="button_text_container">
-                <a href="{{ url_for('user.settings') }}"><span>Edit profile</span></a>   
+                <span>Settings</span>   
             </div>
-        </div>
+        </a>
         {% elif "username" in session %}
         <div class="button_container follow">
-            <i id="follow_icon" class="material-icons button_icon_container">{{ "favorite" if is_following else "favorite_border" }}</i>
+            <i id="follow_icon" class="material-icons-outlined button_icon_container">{{ "favorite" if is_following else "favorite_border" }}</i>
             <div class="button_text_container">
                 <span>{{ "Unfollow" if is_following else "Follow" }}</span>
             </div>
@@ -44,7 +44,7 @@
                     <img src="{{ url_for('image.uploaded_images', image_id=user_info[4]) if user_info[4] else url_for('static', filename='img/avatar.png') }}">
                     {% if session["username"] == user_info[0] %}
                     <div id="change_profile_img_btn" class="button_container">
-                        <i class="material-icons button_icon_container">add_a_photo</i>
+                        <i class="material-icons-outlined button_icon_container">add_a_photo</i>
                         <div class="button_text_container">
                             <span>Change profilepicture</span>
                         </div>
@@ -69,7 +69,7 @@
     </section>
 </section>
 <div id="following">
-    <i class="material-icons">close</i>
+    <i class="material-icons-outlined cancel_modal">close</i>
     <h2>Following:</h2>
     <div class="follow_list">
         {% for following in followings %}
@@ -78,13 +78,13 @@
                 <img src="{{ url_for('image.uploaded_images', image_id=following[1]) if following[1] else url_for('static', filename='img/avatar.png') }}">
                 <span>{{following[0]}}</span>
             </div>
-            <i class="material-icons">favorite</i>
+            <i class="material-icons-outlined">favorite</i>
         </a>
         {% endfor %}
     </div>
 </div>
 <div id="followers">
-    <i class="material-icons">close</i>
+    <i class="material-icons-outlined cancel_modal">close</i>
     <h2>Followers:</h2>
     <div class="follow_list">
         {% for follower in followers %}
@@ -105,4 +105,3 @@
 {{ super() }}
 <script src="{{ url_for('static', filename='js/profile.js') }}"></script>
 {% endblock javascript %}
-
