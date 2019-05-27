@@ -11,7 +11,7 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/flashes.css') }}">
 
     <!-- JavaScript -->
@@ -28,7 +28,7 @@
             {% if messages %}
                 {% for category, message in messages %}
                     <div class="flash {{ category }}">
-                        <i class="close material-icons">close</i>
+                        <i class="close material-icons-outlined">close</i>
                         <p>{{ message }}</p>
                     </div>
                 {% endfor %}

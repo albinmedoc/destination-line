@@ -112,7 +112,7 @@ function check_if_already_choosed(file, img_url){
 
 //Visa bild
 function display_image(file, img_url){
-    var post = "<div class='post' data-headline='' data-description=''><div class='button_container img_close'><div class='button_text_container'><span>Delete image</span></div><i class='material-icons button_icon_container'>close</i></div><div class='button_container img_modal_open'><i class='material-icons button_icon_container'>info</i><div class='button_text_container'><span>Image info</span></div></div><img src='" + img_url + "' alt='" + file.name + "'><i class='material-icons reorder'>reorder</i></div>";
+    var post = "<div class='post' data-headline='' data-description=''><div class='button_container img_close'><div class='button_text_container'><span>Delete image</span></div><i class='material-icons-outlined button_icon_container'>close</i></div><div class='button_container img_modal_open'><i class='material-icons-outlined button_icon_container'>info</i><div class='button_text_container'><span>Image info</span></div></div><img src='" + img_url + "' alt='" + file.name + "'><i class='material-icons-outlined reorder'>reorder</i></div>";
     $("#upload_btn").after(post);
 }
 

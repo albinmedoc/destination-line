@@ -27,7 +27,7 @@
                         <div class="info_circle">
                             <h1 class="city">{{ album[1] }}</h1>
                             <h2 class="country">{{ album[2] }}</h2>
-                            <i class="material-icons">camera_alt</i>
+                            <i class="material-icons-outlined">camera_alt</i>
                             <a href="{{ url_for('user.profile', username=album[6]) }}" class="author">{{ album[3] + " " + album[4] }}</a>
                         </div>
                     </div>
@@ -35,7 +35,7 @@
             <!-- Inga album att visa, skriv ut meddelande -->
             {% else %}
                 <div class="no_albums">
-                    <i class="material-icons">error_outline</i>
+                    <i class="material-icons-outlined">error_outline</i>
                     <h2>No albums</h2>
                 </div>
             {% endif %}
@@ -56,7 +56,7 @@
                 <div class="info_circle">
                     <h1 class="city">{{ album[1] }}</h1>
                     <h2 class="country">{{ album[2] }}</h2>
-                    <i class="material-icons">camera_alt</i>
+                    <i class="material-icons-outlined">camera_alt</i>
                     <a href="{{ url_for('user.profile', username=album[6]) }}" class="author">{{ album[3] + " " + album[4] }}</a>
                 </div>
             </div>
@@ -64,7 +64,7 @@
     <!-- Inga album att visa, skriv ut meddelande -->
     {% else %}
         <div class="no_albums">
-            <i class="material-icons">error_outline</i>
+            <i class="material-icons-outlined">error_outline</i>
             <h2>No albums</h2>
         </div>
     {% endif %}
