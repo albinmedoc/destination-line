@@ -10,22 +10,22 @@
 
 {% block main %}
 {% if owns_album %}
-<div class="button_container" id="edit_album">
-    <a href="{{ url_for('image.edit_album', album_id=album_id) }}" class="material-icons button_icon_container">edit</a>
+<a href="{{ url_for('image.edit_album', album_id=album_id) }}" class="button_container" id="edit_album">
+    <i class="material-icons-outlined button_icon_container">edit</i>
     <div class="button_text_container">
-        <a href="{{ url_for('image.edit_album', album_id=album_id) }}"><span>Edit album</span></a>   
+        <span>Edit album</span>   
     </div>
-</div>
+</a>
 {% endif %}
 <section id="album_container">
     <div id="post_image_container">
         <div id="gallery_toggle">
             <div class="button_container">
-                <i class="material-icons button_icon_container">apps</i>
+                <i class="material-icons-outlined button_icon_container">apps</i>
             </div>
             </div>
-            <a id="slide_control_left" class="slide_control" onclick="plus_slides(-1)"><i class="material-icons">chevron_left</i></a>
-            <a id="slide_control_right" class="slide_control" onclick="plus_slides(1)"><i class="material-icons">chevron_right</i></a>
+            <a id="slide_control_left" class="slide_control" onclick="plus_slides(-1)"><i class="material-icons-outlined">chevron_left</i></a>
+            <a id="slide_control_right" class="slide_control" onclick="plus_slides(1)"><i class="material-icons-outlined">chevron_right</i></a>
             {% for post in posts %}
             <div class="slide">
                 <img src="{{  url_for('image.uploaded_images', image_id=post[0]) }}">
