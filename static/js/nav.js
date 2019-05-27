@@ -22,7 +22,7 @@ var do_search = function(){
         $(".search_category").html('');
         if(data.destinations){
             for (destination in data.destinations){
-                $("#destinations").append("<div class='search_result'><i class='material-icons'>place</i><a href='/album/"+data.destinations[destination][0]+"'><img src='/image/"+data.destinations[destination][5]+"'></a><div class='destinations_search_info'><a href='/album/"+data.destinations[destination][0]+"' class='city'><h3>"+data.destinations[destination][3]+"</h3></a><p>"+data.destinations[destination][2]+"</p><a class='album_owner' href='#'><i class='material-icons'>person_outline</i><span>"+data.destinations[destination][4]+"</span></a></div></div>");
+                $("#destinations").append("<div class='search_result'><i class='material-icons-outlined'>place</i><a href='/album/"+data.destinations[destination][0]+"'><img src='/image/"+data.destinations[destination][5]+"'></a><div class='destinations_search_info'><a href='/album/"+data.destinations[destination][0]+"' class='city'><h3>"+data.destinations[destination][3]+"</h3></a><p>"+data.destinations[destination][2]+"</p><a class='album_owner' href='#'><i class='material-icons-outlined'>person</i><span>"+data.destinations[destination][4]+"</span></a></div></div>");
             }
         }
         if(data.users){
@@ -32,7 +32,7 @@ var do_search = function(){
                 if(data.users[user][4]){
                     profile_img = $SCRIPT_ROOT + "/image/" +  data.users[user][4];
                 }
-                $("#users").append("<div class='search_result'><i class='material-icons'>person_outline</i><div class='search_result_top'><img src='" + profile_img + "'><div class='user_search_info'><h3>"+data.users[user][2]+" "+data.users[user][3]+"</h3></div></div><a href='/profile/"+data.users[user][1]+"' class='username'><span>"+data.users[user][1]+"</span></a></div>")
+                $("#users").append("<div class='search_result'><i class='material-icons-outlined'>person</i><div class='search_result_top'><img src='" + profile_img + "'><div class='user_search_info'><h3>"+data.users[user][2]+" "+data.users[user][3]+"</h3></div></div><a href='/profile/"+data.users[user][1]+"' class='username'><span>"+data.users[user][1]+"</span></a></div>")
             }
         };
         $("nav .loader_container").removeClass("is_visible");
