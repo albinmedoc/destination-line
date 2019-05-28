@@ -7,9 +7,9 @@ var ALLOWED_EXTENSIONS = ["png", "jpg", "jpeg", "webp"];
 var images = [];
 var editing = false;
 
-$(document).ready(function (){
+$(document).ready(function () {
     //Loopar igenom alla posts (endast ifall man ändrar ett album finns dessa)
-    $("#preview").children(".post").each(function (){
+    $("#preview").children(".post").each(function () {
         //Sätter editing till sant eftersom en eller flera posts finns från start
         editing = true;
 
@@ -17,7 +17,7 @@ $(document).ready(function (){
         var image = new Image();
         image.src = $(this).children("img").attr("src");
         image.post = $(this);
-        image.onload = function(){
+        image.onload = function () {
             //Skapar en canvas för att kunna hämta DataURL
             var canvas = document.createElement("canvas");
             var ctx = canvas.getContext("2d");
@@ -27,18 +27,18 @@ $(document).ready(function (){
 
             //Hämtar DataURL
             var data_url = canvas.toDataURL();
-            
+
             images.push(data_url);
 
             //Uppdaterar post > img till den nya urlen för bilden
             image.post.children("img").attr("src", data_url);
         }
     });
-    
-    $("textarea[name='description']").keyup(function(){
-        if($(this).val().length > 2500){
+
+    $("textarea[name='description']").keyup(function () {
+        if ($(this).val().length > 2500) {
             $(this).addClass("error");
-        }else{
+        } else {
             $(this).removeClass("error");
         }
     });
@@ -49,33 +49,33 @@ $(document).ready(function (){
     });
 
     //När file-input ändras, dvs när användaren har valt bild/bilder
-    $("#upload").change(function (){
+    $("#upload").change(function () {
         for (var i = 0; i < this.files.length; i++) {
             var file = this.files[i];
 
             //Skippar fil om extensionen eller filstorleken inte tillfredställs
-            if(!check_file_extension(file) || !check_file_size(file)){
+            if (!check_file_extension(file) || !check_file_size(file)) {
                 continue;
             }
 
             var reader = new FileReader();
-            reader.onload = (function(file){
-                return function(e){
+            reader.onload = (function (file) {
+                return function (e) {
                     //Skippar ifall bild redan vald
-                    if(check_if_already_choosed(e.target.result)){
+                    if (check_if_already_choosed(e.target.result)) {
                         add_flash_message(file.name + " is already choosed.", "error");
                         return;
                     }
-    
+
                     //Avbryter ifall 50 eller fler bilder är valda
-                    if(Object.keys(images).length >= UPLOAD_LIMIT){
+                    if (Object.keys(images).length >= UPLOAD_LIMIT) {
                         add_flash_message(UPLOAD_LIMIT + " images is maximum for an album.", "error");
                         return;
                     }
-    
+
                     //Spara bild i variabel, bild-url som nyckel
                     images.push(e.target.result);
-                    
+
                     //Visa bild
                     display_image(file, e.target.result);
                 }
@@ -87,40 +87,40 @@ $(document).ready(function (){
 });
 
 //Kontrollera att filextensionen är tillåten
-function check_file_extension(file){
+function check_file_extension(file) {
     extension = file.name.split('.').pop().toLowerCase();
     allowed = ALLOWED_EXTENSIONS.indexOf(extension) > -1;
     //Meddelar användaren om filextensionen inte är tillåten
-    if(!allowed) add_flash_message(file.name + " doesn´t have an allowed extension.", "error");
+    if (!allowed) add_flash_message(file.name + " doesn´t have an allowed extension.", "error");
     return allowed;
 }
 
 //Kontrollerar att filstorleken inte överstiger maxgränsen
-function check_file_size(file){
+function check_file_size(file) {
     allowed = file.size <= FILE_SIZE_LIMIT;
-    if(!allowed) add_flash_message(file.name + " is too big.", "error");
+    if (!allowed) add_flash_message(file.name + " is too big.", "error");
     return allowed;
 }
 
 //Kontrollerar ifall bild redan uppladdad
-function check_if_already_choosed(file, img_url){
+function check_if_already_choosed(file, img_url) {
     $("#preview").children(".post > img").each(function () {
-        if($(this).attr("src") == img_url) return true;
+        if ($(this).attr("src") == img_url) return true;
         return false;
     });
 }
 
 //Visa bild
-function display_image(file, img_url){
+function display_image(file, img_url) {
     var post = "<div class='post' data-headline='' data-description=''><div class='button_container img_close'><div class='button_text_container'><span>Delete image</span></div><i class='material-icons-outlined button_icon_container'>close</i></div><div class='button_container img_modal_open'><i class='material-icons-outlined button_icon_container'>info</i><div class='button_text_container'><span>Image info</span></div></div><img src='" + img_url + "' alt='" + file.name + "'><i class='material-icons-outlined reorder'>reorder</i></div>";
     $("#upload_btn").after(post);
 }
 
-$(document).ready(function (){
-    $(".cancel_upload").click(function(){
+$(document).ready(function () {
+    $(".cancel_upload").click(function () {
 
         var answer = confirm("All your changes will be lost, are you sure you want to cancel?");
-        if (answer == true){
+        if (answer == true) {
             window.location.assign("/profile")
         }
     });
@@ -171,17 +171,17 @@ $(document).ready(function (){
         $("#img_info_modal input[name='headline']").val("");
         $("#img_info_modal textarea[name='description']").val("");
     });
-    
+
     $(".cancel_modal").click(function () {
-        
+
         //Döljer modal
         $("#img_info_modal, .image_info").removeClass("is_visible");
 
-  
+
     });
 
     //Gör inläggen flyttbara, är det mobil måste man dra på ".reorder"-elementet
-    if(window.mobileAndTabletcheck()){
+    if (window.mobileAndTabletcheck()) {
         Sortable.create(preview, {
             animation: 500,
             draggable: ".post",
@@ -189,7 +189,7 @@ $(document).ready(function (){
             scrollSensitivity: 50,
             handle: ".reorder"
         });
-    }else{
+    } else {
         Sortable.create(preview, {
             animation: 500,
             draggable: ".post",
@@ -211,14 +211,14 @@ var period = new Lightpick({
 //Laddar upp album
 $("#upload_form").on("submit", function (e) {
     e.preventDefault();
-    if(Object.keys(images).length == 0){
+    if (Object.keys(images).length == 0) {
         add_flash_message("No choosen images.", "error");
         return;
     }
     $('#upload_progress_bar').css('width', '10%');
     var data = new FormData();
     //Lägger till ifall man redigerar album eller ej (true= ändrar album, false=skapar nytt album)
-    if(editing){
+    if (editing) {
         var album_id = window.location.href.substr(window.location.href.lastIndexOf('/') + 1);
         data.append("album_id", album_id);
     }
@@ -229,8 +229,8 @@ $("#upload_form").on("submit", function (e) {
     var date_end = period.getEndDate();
 
     //Sätter båda datumen till samma ifall endast ett var angivet
-    if(!date_end) date_end = date_start;
-    
+    if (!date_end) date_end = date_start;
+
     data.append("date_start", date_start.format("YYYY-MM-DD"));
     data.append("date_end", date_end.format("YYYY-MM-DD"));
     var i = 0;
@@ -254,7 +254,7 @@ $("#upload_form").on("submit", function (e) {
         data: data,
         processData: false,
         cache: false,
-        beforeSend: function(){
+        beforeSend: function () {
             $('.loader_container').addClass('is_visible');
         },
         success: function (data) {
@@ -263,13 +263,13 @@ $("#upload_form").on("submit", function (e) {
         error: function () {
             add_flash_message("Something went wrong...", "error");
         },
-        complete: function(data){
+        complete: function (data) {
             $('.loader_container').removeClass('is_visible');
         }
     });
 });
 
-function data_uri_to_blob(dataURI){
+function data_uri_to_blob(dataURI) {
     var byteString = atob(dataURI.split(',')[1]);
     var mimeString = dataURI.split(',')[0].split(':')[1].split(';')[0];
     var ab = new ArrayBuffer(byteString.length);
@@ -277,25 +277,28 @@ function data_uri_to_blob(dataURI){
     for (var i = 0; i < byteString.length; i++) {
         ia[i] = byteString.charCodeAt(i);
     }
-    return new Blob([ab], {type: mimeString});
+    return new Blob([ab], {
+        type: mimeString
+    });
 }
 
-function blob_to_file(blob, filename){
+function blob_to_file(blob, filename) {
     console.log(blob);
-    var file = new File([blob], filename, {type: "image/jpeg", lastModified: Date.now()});
+    var file = new File([blob], filename, {
+        type: "image/jpeg",
+        lastModified: Date.now()
+    });
     console.log(file);
     console.log(file.size);
     return file;
 }
 
 // Öppnar modal
-$("#album_info_btn").click(function() {
+$("#album_info_btn").click(function () {
     $("#album_info_modal").addClass("is_visible");
 });
 
 // Stänger modal
-$(".cancel_modal").click(function() {
+$(".cancel_modal").click(function () {
     $(".modal").removeClass("is_visible");
 });
-
-

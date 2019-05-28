@@ -1,5 +1,6 @@
 /* Gömmer input fält */
-#input_profile_img, #input_background_img{
+#input_profile_img,
+#input_background_img {
     display: none;
 }
 
@@ -15,7 +16,7 @@
     z-index: -1;
 }
 
-#icon_row{
+#icon_row {
     position: absolute;
     width: 100%;
     top: 0;
@@ -48,7 +49,7 @@
     right: 0;
     position: absolute;
     background-color: rgb(255, 255, 255);
-    color: rgb(66,66,66);
+    color: rgb(66, 66, 66);
 }
 
 #profile_main {
@@ -114,7 +115,9 @@
     line-height: 35px;
     color: gray;
 }
-#following, #followers{
+
+#following,
+#followers {
     width: 100%;
     max-width: 650px;
     height: 70%;
@@ -132,22 +135,24 @@
     transition: visibility .2s ease, opacity .2s ease, transform .2s ease;
 }
 
-#following.is_visible, #followers.is_visible{
+#following.is_visible,
+#followers.is_visible {
     visibility: visible;
     opacity: 1;
     transform: translate(-50%, -50%);
 }
 
-#following>h2, #followers>h2{
+#following>h2,
+#followers>h2 {
     margin: 0 0 20px 0;
 }
 
-.follow_list{
+.follow_list {
     display: flex;
     flex-direction: column;
 }
 
-.follow_list_item{
+.follow_list_item {
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -157,12 +162,12 @@
     box-shadow: 0 1px 3px lightgray;
 }
 
-.follow_list_item>div{
+.follow_list_item>div {
     display: flex;
     align-items: center;
 }
 
-.follow_list_item img{
+.follow_list_item img {
     display: block;
     width: 65px;
     height: 65px;
@@ -171,7 +176,7 @@
     box-shadow: 0 2px 3px var(--shadow_color);
 }
 
-.follow_list_item span{
+.follow_list_item span {
     margin-left: 25px;
     font-size: 18px;
     padding: 5px 16px;
@@ -180,16 +185,16 @@
     border-radius: 20px;
 }
 
-.follow_list_item>i{
+.follow_list_item>i {
     font-size: 25px;
 }
 
 @media (min-width:768px) {
-    #icon_row > .button_container {
+    #icon_row>.button_container {
         max-width: none;
     }
 
-    #profile_img{
+    #profile_img {
         width: 250px;
         height: 250px;
     }

@@ -1,5 +1,5 @@
 {% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}">
 {% endblock head %}
 <div class="progress_bar" id="page_loading_bar"></div>
 <nav class="is_visible">
@@ -52,9 +52,12 @@
                     <span>{{ session["username"] }}</span>
                 </a>
                 <div class="dropdown_content">
-                    <a class="dropdown_link" href="{{ url_for('user.profile') }}"><span>My Profile</span><i class="material-icons-outlined">account_circle</i></a>
-                    <a class="dropdown_link" href="{{ url_for('user.settings') }}"><span>Settings</span><i class="material-icons-outlined">settings</i></a>
-                    <a class="dropdown_link" href="{{ url_for('user.logout') }}"><span>Log out</span><i class="material-icons-outlined">exit_to_app</i></a>
+                    <a class="dropdown_link" href="{{ url_for('user.profile') }}"><span>My Profile</span><i
+                            class="material-icons-outlined">account_circle</i></a>
+                    <a class="dropdown_link" href="{{ url_for('user.settings') }}"><span>Settings</span><i
+                            class="material-icons-outlined">settings</i></a>
+                    <a class="dropdown_link" href="{{ url_for('user.logout') }}"><span>Log out</span><i
+                            class="material-icons-outlined">exit_to_app</i></a>
                 </div>
                 {% endif %}
             </div>
@@ -63,8 +66,8 @@
 </nav>
 <!-- Inkludera endast ifall användaren i utloggad -->
 {% if("username" not in session) %}
-    {% include 'login_register.html' %}
+{% include 'login_register.html' %}
 {% endif %}
 {% block javascript %}
-    <script src="{{ url_for('static', filename='js/nav.js') }}"></script>
+<script src="{{ url_for('static', filename='js/nav.js') }}"></script>
 {% endblock javascript %}

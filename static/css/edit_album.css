@@ -4,27 +4,28 @@
     grid-template-columns: 1fr;
 }
 
-#delete_album{
+#delete_album {
     position: fixed;
     bottom: 0;
     right: 0;
     z-index: 2;
 }
 
-.cancel_upload{
+.cancel_upload {
     position: absolute;
     top: 15px;
     left: 15px;
 }
 
-#album_info_btn{
+#album_info_btn {
     color: rgb(79, 173, 236);
 }
 
-#album_info_btn:hover{
+#album_info_btn:hover {
     text-decoration: underline;
 
 }
+
 #preview {
     margin: 20px;
     display: grid;
@@ -64,7 +65,7 @@
 }
 
 .post:hover,
-#upload_btn:hover{
+#upload_btn:hover {
     box-shadow: 0 5px 10px var(--shadow_color);
 }
 
@@ -75,17 +76,18 @@
     position: absolute;
 }
 
-.post>.button_container, .post>i.reorder{
+.post>.button_container,
+.post>i.reorder {
     position: absolute;
     z-index: 1;
 }
 
-.post>.button_container.img_close{
+.post>.button_container.img_close {
     top: 0;
     right: 0;
 }
 
-.post>.button_container.img_modal_open{
+.post>.button_container.img_modal_open {
     bottom: 0;
     left: 0;
 }
@@ -98,16 +100,16 @@
 }
 
 /* Egen animation för bildinformation-formulär */
-form.image_info{
+form.image_info {
     transform: translateY(500px);
     transition: transform .3s cubic-bezier(0.275, 0.82, 0.165, 1);
 }
 
-form.image_info.is_visible{
+form.image_info.is_visible {
     transform: none;
 }
 
-form.image_info{
+form.image_info {
     top: 60px;
     min-height: 500px;
 }
@@ -126,31 +128,31 @@ form.image_info textarea {
     overflow-y: auto;
 }
 
-#upload_progress_bar{
+#upload_progress_bar {
     z-index: 1;
 }
 
-#album_info_modal{
+#album_info_modal {
     position: fixed;
     top: 60px;
 }
 
-#album_info_modal>.responsive_form{
+#album_info_modal>.responsive_form {
     padding: 20px;
     text-align: left;
 }
 
-#album_info_modal>.responsive_form>ol{
+#album_info_modal>.responsive_form>ol {
     margin: 0 0 0 30px;
     padding: 0;
 }
 
 @media (min-width:768px) {
-    .album_grid_container{
+    .album_grid_container {
         grid-template-columns: 300px 3fr;
     }
 
-    #upload_form > fieldset{
+    #upload_form>fieldset {
         position: fixed;
         width: 300px;
         box-shadow: 0 2px 5px var(--shadow_color);
@@ -164,4 +166,3 @@ form.image_info textarea {
         top: 0;
     }
 }
-

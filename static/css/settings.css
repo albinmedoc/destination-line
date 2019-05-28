@@ -1,30 +1,29 @@
-
-#upload_form{
+#upload_form {
     position: relative;
     top: 60px;
     max-width: 800px;
     margin: auto;
 }
 
-#settings_header{
+#settings_header {
     position: relative;
     display: grid;
     text-align: center;
-    z-index:2;
+    z-index: 2;
 }
 
-#delete_account>div>span{
+#delete_account>div>span {
     position: relative;
     line-height: normal;
     opacity: 1;
 }
 
-#delete_account{
+#delete_account {
     right: 0;
     position: absolute;
 }
 
-#delete_account:hover{
+#delete_account:hover {
     max-width: 150px;
     color: red;
 }

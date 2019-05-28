@@ -13,11 +13,11 @@ $(document).ready(function () {
     //Visar alla bokstäver som gemener
     $(".force_lower").css("text-transform", "lowercase");
     //Gör om alla bokstäver till gemener när de skrivs
-    $(".force_lower").keyup(function(){
+    $(".force_lower").keyup(function () {
         $(this).val($(this).val().toLowerCase());
     });
 });
 
-$("a[href*='/']").click(function() {
+$("a[href*='/']").click(function () {
     $("#page_loading_bar").css("animation", "width_grow .2s forwards");
 });

@@ -11,11 +11,13 @@ nav {
     justify-content: space-between;
 }
 
-nav.is_visible, nav:focus-within {
+nav.is_visible,
+nav:focus-within {
     transform: translateY(0px);
 }
 
-#logo_icon, #logo_wide{
+#logo_icon,
+#logo_wide {
     font-family: 'Parisienne';
 }
 
@@ -50,7 +52,9 @@ nav>ul {
     background-color: white;
 }
 
-nav ul li>a::after, .dropdown a::after{/* Animation vid hover */
+nav ul li>a::after,
+.dropdown a::after {
+    /* Animation vid hover */
     content: '';
     position: absolute;
     bottom: 0;
@@ -62,7 +66,9 @@ nav ul li>a::after, .dropdown a::after{/* Animation vid hover */
     transform: scaleX(0);
 }
 
-nav ul li a:hover::after, .dropdown:hover>a::after{/* Triggas här */
+nav ul li a:hover::after,
+.dropdown:hover>a::after {
+    /* Triggas här */
     background-color: var(--accent);
     transform: none;
 }
@@ -75,11 +81,11 @@ nav ul li a:hover::after, .dropdown:hover>a::after{/* Triggas här */
     flex-grow: 1;
 }
 
-#search_container.is_visible{
+#search_container.is_visible {
     width: calc(100vw - 15px);
 }
 
-#search_container>a{
+#search_container>a {
     z-index: 2;
 }
 
@@ -89,7 +95,7 @@ nav ul li a:hover::after, .dropdown:hover>a::after{/* Triggas här */
     display: block;
     width: 100%;
     height: 60px;
-    border:none;
+    border: none;
     outline: none;
     transform: scaleX(0);
     transform-origin: right;
@@ -100,6 +106,7 @@ nav ul li a:hover::after, .dropdown:hover>a::after{/* Triggas här */
     transition-delay: .1s;
     box-shadow: 0 0 5px var(--shadow_color);
 }
+
 #search.is_visible {
     transform: none;
     opacity: 1;
@@ -140,7 +147,8 @@ nav ul li a:hover::after, .dropdown:hover>a::after{/* Triggas här */
     transform-origin: right;
 }
 
-.dropdown_content, .dropdown_content>a:last-child {
+.dropdown_content,
+.dropdown_content>a:last-child {
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
     overflow: hidden;
@@ -150,7 +158,7 @@ nav ul li a:hover::after, .dropdown:hover>a::after{/* Triggas här */
     margin-left: 8px;
 }
 
-.dropdown_content>a:hover>i{
+.dropdown_content>a:hover>i {
     transform: rotate(360deg);
 }
 
@@ -160,13 +168,13 @@ nav ul li a:hover::after, .dropdown:hover>a::after{/* Triggas här */
     transform: none;
 }
 
-#page_loading_bar{
+#page_loading_bar {
     z-index: 5;
     top: 0;
     width: 10%;
 }
 
-#search_results{
+#search_results {
     position: absolute;
     display: flex;
     flex-wrap: wrap;
@@ -179,7 +187,7 @@ nav ul li a:hover::after, .dropdown:hover>a::after{/* Triggas här */
     visibility: hidden;
     opacity: 0;
     transform: translateY(-200px);
-    transition: visibility .2s ease, transform .2s ease, opacity .2s ease; 
+    transition: visibility .2s ease, transform .2s ease, opacity .2s ease;
     padding: 0 20px 20px 20px;
     height: calc(100vh - 60px);
     max-height: calc(100vh - 60px);
@@ -190,16 +198,16 @@ nav ul li a:hover::after, .dropdown:hover>a::after{/* Triggas här */
     min-height: 400px;
 }
 
-#search_results.is_visible{
+#search_results.is_visible {
     visibility: visible;
     opacity: 1;
     transform: none;
     transition-delay: .1s;
 }
 
-.search_category{
+.search_category {
     width: 100%;
-    display:grid;
+    display: grid;
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     grid-auto-rows: max-content;
     grid-gap: 20px;
@@ -207,7 +215,7 @@ nav ul li a:hover::after, .dropdown:hover>a::after{/* Triggas här */
     justify-content: center;
 }
 
-.search_result{
+.search_result {
     text-align: center;
     background-color: white;
     box-shadow: 0 2px 5px var(--shadow_color);
@@ -226,33 +234,33 @@ nav ul li a:hover::after, .dropdown:hover>a::after{/* Triggas här */
     min-height: 320px;
 }
 
-#users>.search_result > i{
+#users>.search_result>i {
     position: absolute;
-    top:10px;
+    top: 10px;
     left: 10px;
-    color: rgb(66,66,66);
+    color: rgb(66, 66, 66);
     font-size: 28px;
 }
 
-#users>.search_result img{
+#users>.search_result img {
     object-fit: cover;
     border-radius: 50%;
-    width:160px;
-    height:160px;
+    width: 160px;
+    height: 160px;
     box-shadow: 0 1px 5px var(--shadow_color);
 }
 
-#users .user_search_info{
+#users .user_search_info {
     display: flex;
     flex-direction: column;
     align-items: center;
 }
 
-#users .user_search_info>*{
+#users .user_search_info>* {
     margin: 5px;
 }
 
-#users .username>span{
+#users .username>span {
     background-color: var(--accent);
     border-radius: 25px;
     display: inline-block;
@@ -262,37 +270,37 @@ nav ul li a:hover::after, .dropdown:hover>a::after{/* Triggas här */
     box-shadow: 0 3px 8px var(--shadow_color);
 }
 
-#users .username>span:hover{
+#users .username>span:hover {
     background-color: rgb(102, 183, 236);
 }
 
-#users>.search_result .follow_info{
+#users>.search_result .follow_info {
     display: flex;
 }
 
-#users>.search_result .follow_info>a{
-    display: flex; 
+#users>.search_result .follow_info>a {
+    display: flex;
     flex-direction: column;
     align-items: center;
     margin: 0 15px;
 
 }
 
-#users>.search_result .follow_info >a>h4{
+#users>.search_result .follow_info>a>h4 {
     margin: 5px 0 0 0;
 }
 
-#destinations> .search_result >a{
+#destinations>.search_result>a {
     height: 300px;
 }
 
-#destinations> .search_result >a>img{
-    width:100%;
+#destinations>.search_result>a>img {
+    width: 100%;
     height: 100%;
     object-fit: cover;
 }
 
-#destinations .destinations_search_info{
+#destinations .destinations_search_info {
     text-align: center;
     position: absolute;
     bottom: 0;
@@ -303,34 +311,35 @@ nav ul li a:hover::after, .dropdown:hover>a::after{/* Triggas här */
     padding: 5px;
 }
 
-#destinations> .search_result:hover >.destinations_search_info{
+#destinations>.search_result:hover>.destinations_search_info {
     transform: none;
 }
 
-#destinations .destinations_search_info h3, #destinations .destinations_search_info p{
+#destinations .destinations_search_info h3,
+#destinations .destinations_search_info p {
     padding: 5px 0;
     margin: 0;
 }
 
-#destinations .destinations_search_info> .album_owner{
+#destinations .destinations_search_info>.album_owner {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-#destinations>.search_result>i{
+#destinations>.search_result>i {
     position: absolute;
     top: 0;
     z-index: 4;
     left: 0;
     color: white;
     text-shadow: 0 0 2px black;
-    font-size:35px;
+    font-size: 35px;
     transition: transform .3s cubic-bezier(0.675, 0.82, 0.165, 1);
     transform: rotate(-15deg) scaleX(0.95) translateY(-200px);
 }
 
-#destinations>.search_result:hover>i{
+#destinations>.search_result:hover>i {
     transform: rotate(-15deg) scaleX(0.95);
 }
 
@@ -344,7 +353,7 @@ nav ul li a:hover::after, .dropdown:hover>a::after{/* Triggas här */
         display: block;
     }
 
-    .search_category{
+    .search_category {
         grid-template-columns: repeat(auto-fit, minmax(250px, 250px));
     }
 }
@@ -352,11 +361,12 @@ nav ul li a:hover::after, .dropdown:hover>a::after{/* Triggas här */
 @media (min-width:768px) {
 
     .nav_link>label,
-    .nav_link>span, #search_container p {
+    .nav_link>span,
+    #search_container p {
         display: block;
     }
 
-    #search_container.is_visible{
+    #search_container.is_visible {
         width: auto;
     }
 
@@ -364,7 +374,7 @@ nav ul li a:hover::after, .dropdown:hover>a::after{/* Triggas här */
         position: relative;
     }
 
-    #search_results{
+    #search_results {
         width: calc(100% - 108px);
         height: auto;
     }
