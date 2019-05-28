@@ -13,7 +13,7 @@
         <li id="search_container">
             <input id="search" type="search" placeholder="Search for destinations and people...">
             <a class="nav_link">
-                <i class="material-icons">search</i>
+                <i class="material-icons-outlined">search</i>
                 <span>Search</span>
             </a>
             <section id="search_results">
@@ -28,14 +28,14 @@
         {% if("username" in session) %}
         <li>
             <a href="{{ url_for('image.upload') }}" class="nav_link">
-                <i class="material-icons">create_new_folder</i>
+                <i class="material-icons-outlined">create_new_folder</i>
                 <span>New Album</span>
             </a>
         </li>
         {% endif %}
         <li>
             <a href="/info" class="nav_link">
-                <i class="material-icons">info_outline</i>
+                <i class="material-icons-outlined">info</i>
                 <span>Info</span>
             </a>
         </li>
@@ -43,17 +43,18 @@
             <div class="dropdown">
                 {% if("username" not in session) %}
                 <a href="#login" id="login_register_open" class="nav_link">
-                    <i class="material-icons">account_circle</i>
-                    <span>Login</span>
+                    <i class="material-icons-outlined">account_circle</i>
+                    <span>Log in</span>
                 </a>
                 {% else %}
-                <a href="{{ url_for('user.profile') }}" class="nav_link">
-                    <i class="material-icons">account_circle</i>
-                    <span>Profile</span>
+                <a class="nav_link">
+                    <i class="material-icons-outlined">account_circle</i>
+                    <span>{{ session["username"] }}</span>
                 </a>
                 <div class="dropdown_content">
-                    <a class="dropdown_link" href="{{ url_for('user.settings') }}"><span>Settings</span><i class="material-icons">settings</i></a>
-                    <a class="dropdown_link" href="{{ url_for('user.logout') }}"><span>Sign out</span><i class="material-icons">cancel</i></a>
+                    <a class="dropdown_link" href="{{ url_for('user.profile') }}"><span>My Profile</span><i class="material-icons-outlined">account_circle</i></a>
+                    <a class="dropdown_link" href="{{ url_for('user.settings') }}"><span>Settings</span><i class="material-icons-outlined">settings</i></a>
+                    <a class="dropdown_link" href="{{ url_for('user.logout') }}"><span>Log out</span><i class="material-icons-outlined">exit_to_app</i></a>
                 </div>
                 {% endif %}
             </div>

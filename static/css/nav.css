@@ -151,7 +151,7 @@ nav ul li a:hover::after, .dropdown:hover>a::after{/* Triggas här */
 }
 
 .dropdown_content>a:hover>i{
-    transform: rotate(90deg);
+    transform: rotate(360deg);
 }
 
 .dropdown:hover>.dropdown_content {

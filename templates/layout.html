@@ -11,13 +11,12 @@
 
     <!-- CSS -->
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/flashes.css') }}">
 
     <!-- JavaScript -->
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-    <script type=text/javascript>$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};</script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    
     {% endblock head %}
 </head>
 
@@ -29,7 +28,7 @@
             {% if messages %}
                 {% for category, message in messages %}
                     <div class="flash {{ category }}">
-                        <i class="close material-icons">close</i>
+                        <i class="close material-icons-outlined">close</i>
                         <p>{{ message }}</p>
                     </div>
                 {% endfor %}
@@ -45,6 +44,7 @@
     </main>
     <!-- JAVASCRIPT -->
     {% block javascript %}
+        <script type=text/javascript>$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};</script>
         <script src="{{ url_for('static', filename='js/main.js') }}"></script>
         <script src="{{ url_for('static', filename='js/flashes.js') }}"></script>
     {% endblock javascript %}

@@ -13,12 +13,18 @@
     z-index:2;
 }
 
-#delete_account_link{
-    display: flex;
-    justify-content: flex-end;
-    margin: 20px 30px 15px;
+#delete_account>div>span{
+    position: relative;
+    line-height: normal;
+    opacity: 1;
 }
 
-#delete_account_link:hover{
+#delete_account{
+    right: 0;
+    position: absolute;
+}
+
+#delete_account:hover{
+    max-width: 150px;
     color: red;
 }

@@ -67,7 +67,7 @@
 
 .tabs > .explore_tab.following>h2::before,
 .tabs > .explore_tab.explore>h2::before{
-    font-family: "Material Icons";
+    font-family: "Material Icons Outlined";
     transform: translateX(-25px);
     position: absolute;
     top: 20px;

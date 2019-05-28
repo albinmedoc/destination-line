@@ -36,9 +36,9 @@ $(document).ready(function (){
             data.append("new_password", $("input[name='new_password']").val());
         }
         //Pop-up ruta för att bekräfta dina ändringar med ditt nuvarandre lösenord
-        var current_password = prompt ("Please enter your current password");
+        var current_password = prompt ("Please enter your current password to save ur changes");
         //Kontrollerar om det inmatade lösenordet lämnades tomt
-        if (current_password==null || current_password == ""){
+        if (current_password == ""){
             alert("You have to write your password")
         }
         //Användaren lämnade inte fältet tomt
@@ -111,7 +111,7 @@ $(document).ready(function (){
         $("#upload_form > .form_row > .input_container > #text_varning_email").removeClass("error");
     });
 
-    $("#delete_account_link").click(function(){
+    $("#delete_account").click(function(){
 
         var answer = confirm("All your albums will be lost, are you sure you want to delete your account?");
         if (answer == true){

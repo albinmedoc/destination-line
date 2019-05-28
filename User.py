@@ -53,14 +53,21 @@ def profile(username=None):
         if(user_exists(username=username)):
                 db = Database()
                 cur = db.conn.cursor()
-                cur.execute("select username, firstname, lastname, biography, background_img, id from person where username='{}'".format(username))
+                cur.execute("select username, firstname, lastname, biography, profile_img, background_img, id from person where username='{}'".format(username))
                 user_info = cur.fetchone()
                 #Kontrollerar så en rad hittades
                 if(user_info is not None):
                         following_count = get_following_count(username, cur)
                         follower_count = get_follower_count(username, cur)
+                        #Hämtar följa personer
+                        cur.execute("select person.username, person.profile_img from follow join person on follow.following=person.id where follow.follower=%s", [user_info[6]])
+                        followings = cur.fetchall()
 
-                        cur.execute("select count(*) from album where owner=%s", [user_info[5]])
+                        #Hämtar personer som följer
+                        cur.execute("select person.username, person.profile_img from follow join person on follow.follower=person.id where follow.following=%s", [user_info[6]])
+                        followers = cur.fetchall()
+
+                        cur.execute("select count(*) from album where owner=%s", [user_info[6]])
                         album_count = cur.fetchone()
                         
                         cur.execute("select album.id, album.country, album.city, post.img_name, album.date_start, album.date_end from (person join album on person.id=album.owner) join post on album.id = post.album where post.index=1 and person.username=%s order by album.date_start", [username])
@@ -73,7 +80,7 @@ def profile(username=None):
                                 is_following = False
 
                         #Visar profilsidan med informationen hämtad från databasen
-                        return render_template("profile.html", user_info=user_info, album_count=album_count, following_count=following_count, follower_count=follower_count, albums=albums, is_following=is_following)
+                        return render_template("profile.html", user_info=user_info, album_count=album_count, followers=followers, followings=followings, albums=albums, is_following=is_following)
         #Kunde inte hitta information om användaren
         flash(u'Couldn´t find profile!', 'error')
         return redirect("/")
@@ -228,7 +235,7 @@ def settings():
         db = Database()
         cur = db.conn.cursor()
         username = session["username"]
-        cur.execute("select username, firstname, lastname, biography, email from person where username=%s", [username.lower()])
+        cur.execute("select username, firstname, lastname, biography, email, background_img, profile_img from person where username=%s", [username.lower()])
         profile_info = cur.fetchone()
         return render_template("settings.html", profile_info=profile_info)
 
@@ -281,7 +288,7 @@ def get_countries(search):
 def get_users(search):
         db = Database()
         cur = db.conn.cursor()
-        cur.execute("select id, username, firstname, lastname from person where lower(username) LIKE lower('{}%') or lower(firstname) LIKE lower('{}%') or lower(lastname) LIKE lower('{}%') limit 5".format(search,search,search))
+        cur.execute("select id, username, firstname, lastname, profile_img from person where lower(username) LIKE lower('{}%') or lower(firstname) LIKE lower('{}%') or lower(lastname) LIKE lower('{}%') limit 5".format(search,search,search))
         search_results = cur.fetchall()
         return search_results
 

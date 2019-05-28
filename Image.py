@@ -52,6 +52,14 @@ def upload():
                 if(not owns_album(album_id, username=session["username"])):
                         return jsonify(False), 413, {"ContentType":"application/json"}
                 cur.execute("update album set country=%s, city=%s, date_start=%s, date_end=%s where id=%s", (country, city, date_start, date_start, album_id))
+                #Hämtar existerande bilder i album
+                cur.execute("select img_name from post where album=%s", [album_id])
+                filenames = cur.fetchall()
+                #Loopar igenom alla filnamn och raderar dem
+                for filename in filenames:
+                        if(os.path.isfile(os.path.join(UPLOAD_FOLDER, secure_filename(filename[0])))):
+                                #Raderar existerande bilder i album
+                                os.remove(os.path.join(UPLOAD_FOLDER, secure_filename(filename[0])))
                 cur.execute("delete from post where album=%s", [album_id])
         else:
                 #Hämtar user_id från användarnamn
@@ -149,12 +157,15 @@ def album(album_id):
         db = Database()
         cur = db.conn.cursor()
         #Hämtar information om album
-        cur.execute("select album.country, album.city, album.date_start, album.date_end, person.firstname, person.lastname, album.owner from album join person on album.owner=person.id where album.id={}".format(album_id))
+        cur.execute("select album.country, album.city, album.date_start, album.date_end, person.firstname, person.lastname, album.owner, person.username from album join person on album.owner=person.id where album.id={}".format(album_id))
         album_info = cur.fetchone()
         #Hämtar information om alla bilder
         cur.execute("select img_name, headline, description, index from post where album={} order by index asc".format(album_id))
-        posts = cur.fetchall()        
-        return render_template("album.html", posts=posts, album_info=album_info, album_id=album_id)
+        posts = cur.fetchall()
+        
+        is_own_album = "username" in session and get_user_id(username=session["username"]) == album_info[6]
+
+        return render_template("album.html", posts=posts, album_info=album_info, album_id=album_id, owns_album=is_own_album)
 
 @app.route("/upload_profile_img", methods = ["POST"])
 def upload_profile_img():
@@ -164,13 +175,10 @@ def upload_profile_img():
         if "file" not in request.files:
                 #Bild skickades ej med
                 return jsonify(False)
-
         db = Database()
         cur = db.conn.cursor()
-
         #Lägger bilder i en variabel
         profile_img = request.files["file"]
-
         #Genererar ett namn för bilden, är namnet upptaget görs detta tills ett ledigt är funnet
         filename = str(uuid4()) + ".webp"
         while os.path.isfile(os.path.join(UPLOAD_FOLDER, secure_filename(filename))):
@@ -191,16 +199,60 @@ def upload_profile_img():
         cur.execute("update person set profile_img=%s where username=%s", [secure_filename(filename), session["username"]])
         db.conn.commit()
         cur.close()
-        return jsonify(True), 200, {'ContentType':'application/json'}
+        return jsonify(filename), 200, {'ContentType':'application/json'}
 
-@app.route("/delete/album/<album_id>", methods = ["GET"])
-def delete_album(album_id):
+@app.route("/upload_background_img", methods = ["POST"])
+def upload_background_img():
+        if "username" not in session:
+                #Användaren är inte inloggad
+                return jsonify(False)
+        if "file" not in request.files:
+                #Bild skickades ej med
+                return jsonify(False)
         db = Database()
         cur = db.conn.cursor()
+        #Lägger bilder i en variabel
+        background_img = request.files["file"]
+        #Genererar ett namn för bilden, är namnet upptaget görs detta tills ett ledigt är funnet
+        filename = str(uuid4()) + ".webp"
+        while os.path.isfile(os.path.join(UPLOAD_FOLDER, secure_filename(filename))):
+                filename = str(uuid4()) + ".webp"
+
+        #Kontrollerar ifall mappen där bilder ska sparas existeras
+        if(not os.path.exists(UPLOAD_FOLDER)):
+                #Skapa mappen ifall den inte existerar
+                os.makedirs(UPLOAD_FOLDER)
+
+        #Beskär bilden så den blir kvadratisk
+        background_img = crop_to_16_9(Image.open(background_img.stream))
+        
+        #Sparar bilden
+        background_img.save(os.path.join(UPLOAD_FOLDER, secure_filename(filename)))
+        
+        #Uppdaterar profile_img till filnamnet bilden fick
+        cur.execute("update person set background_img=%s where username=%s", [secure_filename(filename), session["username"]])
+        db.conn.commit()
+        cur.close()
+        return jsonify(filename), 200, {'ContentType':'application/json'}
+
+@app.route("/delete/album/<int:album_id>", methods = ["GET"])
+def delete_album(album_id):
         user_id = get_user_id(username=session["username"])
         if owns_album(album_id, user_id=user_id):
-                cur.execute("delete from post where album in (select id from album where id=%s)", [album_id])
+                db = Database()
+                cur = db.conn.cursor()
+                #Hämat filnamn för alla bilder i album
+                cur.execute("select img_name from post where album=%s", [album_id])
+                filenames = cur.fetchall()
+                #Loopar igenom alla filnamn och raderar dem
+                for filename in filenames:
+                        if(os.path.isfile(os.path.join(UPLOAD_FOLDER, secure_filename(filename[0])))):
+                                #Raderar alla sparade bilder
+                                os.remove(os.path.join(UPLOAD_FOLDER, secure_filename(filename[0])))
+                cur.execute("delete from post where album=%s", [album_id])
                 cur.execute("delete from album where id=%s", [album_id])
-        db.conn.commit()
-        flash(u'Your album was deleted!', 'success')
+                db.conn.commit()
+                flash(u'Your album was deleted!', 'success')
+        else:
+                flash(u'Could not delete album, you don´t own it!', 'error')
         return redirect("/")

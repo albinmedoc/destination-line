@@ -15,12 +15,12 @@
 body {
     margin: 0;
     padding: 0;
-    font-family: 'Titillium Web';
     font-weight: 300;
     overflow-x: hidden;
     text-shadow: 0 0 1px rgba(0, 0, 0, 0.13);
     color: rgb(66,66,66);
     margin-top: 60px;
+    font-display: swap;
 }
 
 a, button, input, span {
@@ -35,11 +35,12 @@ h1,h2,h3,h4,h5,h6,a,p,span,input,button{
 }
 
 i {
-    transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: .3s ease;
 }
 
-.material-icons {
+.material-icons-outlined {
     user-select: none;
+    -webkit-text-stroke: .5px rgba(255, 255, 255, 0.699);
 }
 
 main {
@@ -94,7 +95,7 @@ a, i, button, #upload_btn{
 }
 
 .button_icon_container>i {
-    color: black;
+    color: rgb(66, 66, 66);
 }
 
 .progress_bar {
@@ -104,15 +105,42 @@ a, i, button, #upload_btn{
     transition: .3s cubic-bezier(0.075, 0.82, 0.665, 1);
 }
 
+.modal {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    visibility: hidden;
+    transition: visibility .3s cubic-bezier(0.275, 0.82, 0.165, 1), opacity .3s cubic-bezier(0.275, 0.82, 0.165, 1);
+    z-index: 3;
+    opacity: 0;
+    background-color: var(--shadow_color);
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+}
+
+.modal.is_visible {
+    opacity: 1;
+    visibility: visible;
+}
+
+.modal>*{
+    overflow-y: auto;
+    box-shadow: 0 5px 15px var(--shadow_color);
+}
+
+.cancel_modal {
+    position: absolute;
+    right: 13px;
+    top: 13px;
+}
+
 /* Samling av animationer för att användas var som helst på hemsidan */
 @keyframes fade_in {
     0%{opacity: 0}
     100%{opacity: 1}
-}
-
-@keyframes slide_in_from_top{
-    0%{transform: translateY(-50px)}
-    100%{transform: none}
 }
 
 @keyframes slide_in_from_bottom{
