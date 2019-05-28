@@ -26,7 +26,7 @@
     <!-- Loopar igenom alla album i following_albums -->
     {% for album in following_albums %}
     <div class="album">
-        <a class="album_link" href="{{ url_for('image.album', album_id=album[0]) }}"></a>
+        <a href="{{ url_for('image.album', album_id=album[0]) }}" class="album_link"></a>
         <img src="{{ url_for('image.uploaded_images', image_id=album[5]) }}">
         <div class="info_circle">
             <h1 class="city">{{ album[1] }}</h1>
