@@ -14,7 +14,7 @@
     <section id="profile_header" style="{{ 'background-image: url(' +  url_for('image.uploaded_images', image_id=profile_info[5]) if profile_info[5] }}">
     </section>
     <section id="icon_row">
-        <div class="button_container" id="change_background_img_btn">
+        <div id="change_background_img_btn" class="button_container">
             <i class="material-icons-outlined button_icon_container">add_photo_alternate</i>
             <div class="button_text_container">
                 <span>Change Background</span>
@@ -27,7 +27,7 @@
                 <section id="profile_img">
                     <img
                         src="{{ url_for('image.uploaded_images', image_id=profile_info[6]) if profile_info[6] else url_for('static', filename='img/avatar.png') }}">
-                    <div class="button_container" id="change_profile_img_btn">
+                    <div id="change_profile_img_btn" class="button_container">
                         <i class="material-icons-outlined button_icon_container">add_a_photo</i>
                         <div class="button_text_container">
                             <span>Change profilepicture</span>
@@ -93,7 +93,7 @@
             <button id="save_settings_button">Save</button>
         </div>
     </div>
-    <div class="button_container" id="delete_account">
+    <div id="delete_account" class="button_container">
         <i class="material-icons-outlined button_icon_container">delete</i>
         <div class="button_text_container">
             <span>Delete account</span>
