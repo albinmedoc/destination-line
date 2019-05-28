@@ -32,16 +32,6 @@ def index():
         return render_template("index.html", explore_albums=explore_albums)
     return render_template("index.html")
 
-
-@app.route("/timeline")
-def timeline():
-    db = Database()
-    cur = db.conn.cursor()
-    cur.execute("select album.id, album.country, album.city, post.img_name, album.date_start, album.date_end from album join post on album.id = post.album where post.index=1 order by album.date_start")
-    albums = cur.fetchall()
-    return render_template("timeline1.html", albums=albums)
-
-
 @app.route("/info")
 def about():
     video = random.choice(RANDOM_VIDEOS)
