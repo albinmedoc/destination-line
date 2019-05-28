@@ -9,7 +9,8 @@
 {% block main %}
 
 <section class="album_grid_container">
-    <div class="progress_bar" id="upload_progress_bar"></div>
+
+    <div id="upload_progress_bar" class="progress_bar"></div>
     <!-- Album information -->
     <form id="upload_form" class="responsive_form">
         <fieldset>
@@ -34,8 +35,7 @@
                 <!-- Knapp för att ladda upp alla bilder -->
                 <div class="input_container">
                     <!-- Det står "Upload album" om ett nytt album skapas och "Save changes" ifall ett album ändras -->
-                    <button
-                        type="submit">{{ "Upload album" if(album_info is not defined) else "Save changes" }}</button>
+                    <button type="submit">{{ "Upload album" if(album_info is not defined) else "Save changes" }}</button>
                 </div>
                 <div class="input_container">
                     <a id="album_info_btn">How to crop your photos</a>
@@ -43,7 +43,7 @@
             </div>
         </fieldset>
     </form>
-    <section class="modal" id="album_info_modal">
+    <section id="album_info_modal" class="modal">
         <div class="responsive_form">
             <i class="material-icons-outlined cancel_modal">close</i>
             <h2>Guide how to crop your photos:</h2>
@@ -97,7 +97,7 @@
 
 <!-- Knapp för att ta bort album -->
 {% if album_info is defined %}
-<a href="{{ url_for('image.delete_album', album_id=album_info[4]) }}" class="button_container" id="delete_album">
+<a href="{{ url_for('image.delete_album', album_id=album_info[4]) }}" id="delete_album" class="button_container">
     <i class="material-icons-outlined button_icon_container">delete</i>
     <div class="button_text_container">
         <span>Delete album</span>
@@ -106,7 +106,7 @@
     {% endif %}
 
     <!-- Ruta för att lägga till text för bilder -->
-    <section class="modal" id="img_info_modal">
+    <section id="img_info_modal" class="modal">
         <form class="image_info responsive_form">
             <a class="cancel_modal"><i class="material-icons-outlined">close</i></a>
             <h2>Image info</h2>
@@ -124,7 +124,7 @@
                 </div>
             </div>
             <div class="form_row">
-                <div class="input_container" id="modal_save_img_info">
+                <div id="modal_save_img_info" class="input_container">
                     <button type="submit">Save</button>
                 </div>
             </div>

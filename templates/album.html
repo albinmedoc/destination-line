@@ -10,7 +10,7 @@
 
 {% block main %}
 {% if owns_album %}
-<a href="{{ url_for('image.edit_album', album_id=album_id) }}" class="button_container" id="edit_album">
+<a href="{{ url_for('image.edit_album', album_id=album_id) }}" id="edit_album" class="button_container">
     <i class="material-icons-outlined button_icon_container">edit</i>
     <div class="button_text_container">
         <span>Edit album</span>
