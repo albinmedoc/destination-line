@@ -1,16 +1,17 @@
-body{
+body {
     background-color: white;
     font-family: Helvetica, sans-serif;
 }
 
-.timeline{
+.timeline {
     position: relative;
     width: 100%;
     margin: 25px auto 0 auto;
     z-index: 1;
     max-width: 1000px;
 }
-.timeline::after{
+
+.timeline::after {
     content: '';
     position: absolute;
     width: 2px;
@@ -21,14 +22,14 @@ body{
     margin-left: -3px;
 }
 
-.timeline>.container{
+.timeline>.container {
     position: relative;
     background-color: inherit;
     width: 50%;
     box-sizing: border-box;
 }
 
-.timeline>.container::after{
+.timeline>.container::after {
     content: '';
     position: absolute;
     width: 25px;
@@ -42,12 +43,12 @@ body{
     transition: transform .2s ease, background-color .2s ease;
 }
 
-.timeline>.container:hover::after{
+.timeline>.container:hover::after {
     transform: scale(1.5);
     background-color: var(--accent);
 }
 
-.timeline>.container::before{
+.timeline>.container::before {
     content: " ";
     height: 0;
     position: absolute;
@@ -58,46 +59,47 @@ body{
     transition: transform .2s ease;
 }
 
-.timeline>.container:nth-child(odd){
+.timeline>.container:nth-child(odd) {
     padding: 10px 40px 10px 10px;
     left: 0;
 }
 
-.timeline>.container:nth-child(even){
+.timeline>.container:nth-child(even) {
     padding: 10px 10px 10px 40px;
     left: 50%;
 }
 
-.timeline>.container:nth-child(odd)::before{
-      right: 30px;
-      border-width: 10px 0 10px 10px;
-      border-color: transparent transparent transparent rgb(66, 66, 66);
+.timeline>.container:nth-child(odd)::before {
+    right: 30px;
+    border-width: 10px 0 10px 10px;
+    border-color: transparent transparent transparent rgb(66, 66, 66);
 }
 
-.timeline>.container:nth-child(even)::before{
+.timeline>.container:nth-child(even)::before {
     left: 30px;
     border-width: 10px 10px 10px 0;
     border-color: transparent rgb(66, 66, 66) transparent transparent;
 }
 
-.timeline>.container:nth-child(even)::after{
+.timeline>.container:nth-child(even)::after {
     left: -18px;
 }
 
-.timeline>.container>a>.content{
+.timeline>.container>a>.content {
     box-shadow: 0 1px 3px var(--shadow_color);
     position: relative;
     border-radius: 5px;
     overflow: hidden;
 }
 
-.timeline>.container>a>.content>img{
+.timeline>.container>a>.content>img {
     position: relative;
     top: 0;
     display: block;
     width: 100%;
 }
-.timeline>.container>a>.content>.location{
+
+.timeline>.container>a>.content>.location {
     position: relative;
     display: flex;
     bottom: 0;
@@ -110,34 +112,34 @@ body{
     text-align: center;
 }
 
-.location>p{
+.location>p {
     margin: 5px 0 0 12px;
 }
 
-@media screen and (max-width: 750px){
-    .timeline::after{
+@media screen and (max-width: 750px) {
+    .timeline::after {
         left: 31px;
     }
 
     .timeline>.container:nth-child(even),
-    .timeline>.container:nth-child(odd){
+    .timeline>.container:nth-child(odd) {
         width: 100%;
         padding: 10px 25px 10px 70px;
     }
 
     .timeline>.container:nth-child(odd)::before,
-    .timeline>.container:nth-child(even)::before{
+    .timeline>.container:nth-child(even)::before {
         left: 60px;
         border-width: 10px 10px 10px 0;
         border-color: transparent rgb(66, 66, 66) transparent transparent;
     }
 
     .timeline>.container:nth-child(odd)::after,
-    .timeline>.container:nth-child(even)::after{
+    .timeline>.container:nth-child(even)::after {
         left: 14px;
     }
 
-    .timeline>.container:nth-child(even){
+    .timeline>.container:nth-child(even) {
         left: 0%;
     }
 }
