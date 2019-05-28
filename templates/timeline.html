@@ -12,8 +12,7 @@
             {% endif %}
             <a href="{{ url_for('image.album', album_id=album[0]) }}">
                 <section class="content">
-                    <img src="{{ url_for('image.uploaded_images', image_id=album[3]) }}"
-                        alt="{{ album[1] }} - {{ album[2] }}">
+                    <img src="{{ url_for('image.uploaded_images', image_id=album[3]) }}" alt="{{ album[1] }} - {{ album[2] }}">
                     <div class="location">
                         <i class="material-icons-outlined">photo_album</i>
                         <p>{{ album[2] }}</p>

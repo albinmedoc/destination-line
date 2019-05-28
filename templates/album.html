@@ -30,7 +30,7 @@
                 class="material-icons-outlined">chevron_right</i></a>
         {% for post in posts %}
         <div class="slide">
-            <img src="{{  url_for('image.uploaded_images', image_id=post[0]) }}">
+            <img src="{{  url_for('image.uploaded_images', image_id=post[0]) }}" alt= "{{post[1]}}">
         </div>
         {% endfor %}
 
@@ -38,7 +38,7 @@
             {% for post in posts %}
             <div class="thumbnail">
                 <img src="{{  url_for('image.uploaded_images', image_id=post[0]) }}"
-                    onclick="current_slide('{{post[3]+1}}')" alt="The Woods">
+                    onclick="current_slide('{{post[3]+1}}')" alt="{{post[1]}}">
             </div>
             {% endfor %}
         </div>
