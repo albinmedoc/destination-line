@@ -1,82 +1,27 @@
-<head>
-    <!-- CSS -->
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/timeline.css') }}">
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"
-        integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
-</head>
-
 <!-- Tidslinje -->
+{% block head %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/timeline.css') }}">
+{% endblock head %}
+{% if albums is defined and albums|length != 0  %}
 <section class="timeline">
-    <section class="timeline_container">
-        <section class="timeline_year">
-            <p class="year">2010</p>
-            <section class="timeline_box">
-                <section class="timeline_date">
-                    <p class="day">15-21</p>
-                    <p class="month">Feb</p>
-                </section>
+        {% for album in albums %}
+            {% if loop.index % 2 == 0 %}
+            <section class="container right">
+            {% else %}
+            <section class="container left">
+            {% endif %}
+                <a href="{{ url_for('image.album', album_id=album[0]) }}">
+                    <section class="content">
+                        <img src="{{ url_for('image.uploaded_images', image_id=album[3]) }}" alt="{{ album[1] }} - {{ album[2] }}">
+                        <div class="location">
+                            <i class="material-icons-outlined">photo_album</i>
+                            <p>{{ album[2] }}</p>
+                            <p>-</p>
+                            <p>{{ album[1] }}</p>
+                        </div>
+                    </section>
+                </a>
             </section>
-            <section class="timeline_box">
-                <section class="timeline_date" style="background-color: green;">
-                    <p class="day">1</p>
-                    <p class="month">Jan</p>
-                </section>
-            </section>
-        </section>
-        <section class="timeline_year">
-            <p class="year">2008</p>
-            <section class="timeline_box">
-                <section class="timeline_date">
-                    <p class="day">29</p>
-                    <p class="month">Oct</p>
-                </section>
-            </section>
-            <section class="timeline_box">
-                <section class="timeline_date">
-                    <p class="day">29</p>
-                    <p class="month">Oct</p>
-                </section>
-            </section>
-            <section class="timeline_box">
-                <section class="timeline_date">
-                    <p class="day">29</p>
-                    <p class="month">Oct</p>
-                </section>
-            </section>
-            <section class="timeline_box">
-                <section class="timeline_date">
-                    <p class="day">29</p>
-                    <p class="month">Oct</p>
-                </section>
-            </section>
-        </section>
-        <section class="timeline_year">
-            <p class="year">2008</p>
-            <section class="timeline_box">
-                <section class="timeline_date">
-                    <p class="day">29</p>
-                    <p class="month">Oct</p>
-                </section>
-            </section>
-            <section class="timeline_box">
-                <section class="timeline_date">
-                    <p class="day">29</p>
-                    <p class="month">Oct</p>
-                </section>
-            </section>
-            <section class="timeline_box">
-                <section class="timeline_date">
-                    <p class="day">29</p>
-                    <p class="month">Oct</p>
-                </section>
-            </section>
-            <section class="timeline_box">
-                <section class="timeline_date">
-                    <p class="day">29</p>
-                    <p class="month">Oct</p>
-                </section>
-            </section>
-        </section>
-    </section>
+        {% endfor %}
 </section>
-<script src="{{ url_for('static', filename='js/timeline.js') }}"></script>
+{% endif %}

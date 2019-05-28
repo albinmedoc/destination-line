@@ -1,80 +1,143 @@
-body {
-    margin: 0;
+body{
+    background-color: white;
+    font-family: Helvetica, sans-serif;
 }
 
-.timeline {
-    position: fixed;
-    margin-left: 15px;
-    top: 70px;
-    z-index: 1;
-    height: calc(100% - 95px);
-    width: auto;
-}
-
-.timeline_container {
-    max-height: 100%;
-    overflow: auto;
-    width: 80px;
-    padding-top: 15px;
-
+.timeline{
     position: relative;
-    top: 50%;
-    transform: translateY(-50%);
-
-    /* Förhindrar att man markera text i tidslinjen när man drar i den */
-    -moz-user-select: none;
-    -khtml-user-select: none;
-    -webkit-user-select: none;
-    -ms-user-select: none;
-    user-select: none;
-}
-
-/* Tar bort scrollbar, det går ändå att scrolla */
-.timeline_container::-webkit-scrollbar {
-    display: none;
-}
-
-.timeline_year>.year,
-.timeline_date {
-    position: relative;
-    width: 60px;
-    height: 60px;
-    background-color: rgba(0, 0, 0, 0.4);
-    text-align: center;
-    color: #fff;
-    font-size: 20px;
-    margin: 15px 0;
-    cursor: pointer;
-}
-
-.timeline_year>.year {
-    border-radius: 30%;
-    /* Line-height är 60px eftersom .timeline_year har höjden 60px, då placeras texten i mitten (vertikalt) */
-    line-height: 60px;
-    width: 80px;
-}
-
-.timeline_date {
-    margin-left: 10px;
-    border-radius: 50%;
-}
-
-.timeline_year>.year::before,
-.timeline_date::before {
-    content: "";
-    position: absolute;
-    height: 15px;
-    width: 4px;
-    /* right är calc(50% - 2px) eftersom bredden på linjen är 4. Då hamnar det exakt i mitten */
-    top: -15px;
-    right: calc(50% - 2px);
-    background-color: rgba(0, 0, 0, 0.4);
-}
-
-.timeline_date>* {
     width: 100%;
-    margin: 0;
-    /* Line-height är 30px eftersom .timeline_date har höjden 60px och det ska finnas två rader,
-    då placeras texten i mitten (vertikalt) */
-    line-height: 30px;
+    margin: 25px auto 0 auto;
+    z-index: 1;
+    max-width: 1000px;
+}
+.timeline::after{
+    content: '';
+    position: absolute;
+    width: 2px;
+    background-color: rgb(201, 201, 201);
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    margin-left: -3px;
+}
+
+.timeline>.container{
+    position: relative;
+    background-color: inherit;
+    width: 50%;
+    box-sizing: border-box;
+}
+
+.timeline>.container::after{
+    content: '';
+    position: absolute;
+    width: 25px;
+    height: 25px;
+    right: -13px;
+    background-color: rgb(66, 66, 66);
+    border: 3px solid rgb(255, 255, 255);
+    top: 15px;
+    border-radius: 50%;
+    z-index: 1;
+    transition: transform .2s ease, background-color .2s ease;
+}
+
+.timeline>.container:hover::after{
+    transform: scale(1.5);
+    background-color: var(--accent);
+}
+
+.timeline>.container::before{
+    content: " ";
+    height: 0;
+    position: absolute;
+    top: 22px;
+    width: 0;
+    z-index: 1;
+    border: medium solid var(--shadow_color);
+    transition: transform .2s ease;
+}
+
+.timeline>.container:nth-child(odd){
+    padding: 10px 40px 10px 10px;
+    left: 0;
+}
+
+.timeline>.container:nth-child(even){
+    padding: 10px 10px 10px 40px;
+    left: 50%;
+}
+
+.timeline>.container:nth-child(odd)::before{
+      right: 30px;
+      border-width: 10px 0 10px 10px;
+      border-color: transparent transparent transparent rgb(66, 66, 66);
+}
+
+.timeline>.container:nth-child(even)::before{
+    left: 30px;
+    border-width: 10px 10px 10px 0;
+    border-color: transparent rgb(66, 66, 66) transparent transparent;
+}
+
+.timeline>.container:nth-child(even)::after{
+    left: -18px;
+}
+
+.timeline>.container>a>.content{
+    box-shadow: 0 1px 3px var(--shadow_color);
+    position: relative;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.timeline>.container>a>.content>img{
+    position: relative;
+    top: 0;
+    display: block;
+    width: 100%;
+}
+.timeline>.container>a>.content>.location{
+    position: relative;
+    display: flex;
+    bottom: 0;
+    padding: 0 10px;
+    align-items: center;
+    width: 100%;
+    height: 45px;
+    color: rgb(66, 66, 66);
+    font-size: 17px;
+    text-align: center;
+}
+
+.location>p{
+    margin: 5px 0 0 12px;
+}
+
+@media screen and (max-width: 750px){
+    .timeline::after{
+        left: 31px;
+    }
+
+    .timeline>.container:nth-child(even),
+    .timeline>.container:nth-child(odd){
+        width: 100%;
+        padding: 10px 25px 10px 70px;
+    }
+
+    .timeline>.container:nth-child(odd)::before,
+    .timeline>.container:nth-child(even)::before{
+        left: 60px;
+        border-width: 10px 10px 10px 0;
+        border-color: transparent rgb(66, 66, 66) transparent transparent;
+    }
+
+    .timeline>.container:nth-child(odd)::after,
+    .timeline>.container:nth-child(even)::after{
+        left: 14px;
+    }
+
+    .timeline>.container:nth-child(even){
+        left: 0%;
+    }
 }

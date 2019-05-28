@@ -2,7 +2,6 @@
 {% block head %}
 {{ super() }}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/timeline1.css') }}">
 {% endblock head %}
 {% block main %}
 <input id="input_profile_img" type="file" accept="images">
@@ -99,7 +98,7 @@
 </div>
 
 <!-- Tidslinje -->
-{% include 'timeline1.html' %}
+{% include 'timeline.html' %}
 {% endblock main %}
 {% block javascript %}
 {{ super() }}
