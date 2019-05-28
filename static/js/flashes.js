@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    //Flytar ned navigationen ifall flashes skall visas
+    //Flyttar ned navigationen ifall flashes skall visas
     offset_nav();
 
     //Användaren vill stänga ned flashen
@@ -38,7 +38,7 @@ function offset_nav() {
     });
 }
 
-//Retunerar antal flashes som skal visas
+//Returnerar antal flashes som skal visas
 function count_flashes() {
     //Kontrollera ifall det finns några flashes
     if ($("#flashes").length) {

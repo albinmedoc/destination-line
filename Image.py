@@ -10,7 +10,6 @@ from Settings import UPLOAD_FOLDER, ALLOWED_EXTENSIONS, POST_LIMIT
 
 app = Blueprint("image", __name__, template_folder="templates")
 
-
 @app.route("/request/infinite_albums", methods=["POST"])
 def infinite_albums():
     limit = 1  # Begränsning på hur många album som skickas vid scrollning
@@ -22,7 +21,6 @@ def infinite_albums():
         return jsonify(get_albums=get_new_albums(limit, offset))
     elif flow_type == 2:
         return jsonify(get_albums=get_new_following_albums(limit, offset))
-
 
 @app.route("/new/album", methods=["GET", "POST"])
 def upload():
@@ -97,7 +95,6 @@ def upload():
     flash(u'Your album has been uploaded!', 'success')
     return jsonify(album_id), 200, {"ContentType": "application/json"}
 
-
 @app.route("/edit/album/<int:album_id>", methods=["GET"])
 def edit_album(album_id):
     if("username" not in session):
@@ -118,7 +115,6 @@ def edit_album(album_id):
     posts = cur.fetchall()
     return render_template("edit_album.html", album_info=album_info, posts=posts)
 
-
 def get_new_albums(limit=4, offset=None):
     db = Database()
     cur = db.conn.cursor()
@@ -126,7 +122,6 @@ def get_new_albums(limit=4, offset=None):
     cur.execute("select album.id, album.city, album.country, person.firstname, person.lastname, post.img_name, person.username from ((album join post on album.id=post.album) join person on album.owner=person.id) where post.index=0 order by album.published desc limit %s offset %s", (limit, offset))
     albums = cur.fetchall()
     return albums
-
 
 def get_new_following_albums(limit=4, offset=None, username=None):
     if(username is None):
@@ -138,11 +133,9 @@ def get_new_following_albums(limit=4, offset=None, username=None):
     albums = cur.fetchall()
     return albums
 
-
 @app.route("/image/<image_id>", methods=["GET"])
 def uploaded_images(image_id):
     return send_from_directory(UPLOAD_FOLDER, image_id)
-
 
 def crop_to_16_9(img):
     original_size = img.size
@@ -155,7 +148,6 @@ def crop_to_16_9(img):
     cropped_img = img.crop(box)
     return cropped_img
 
-
 def crop_to_1_1(img):
     original_size = img.size
     if(original_size[0] < original_size[1]):
@@ -164,7 +156,6 @@ def crop_to_1_1(img):
         box = (0, 0, original_size[1], original_size[1])
     cropped_img = img.crop(box)
     return cropped_img
-
 
 @app.route("/album/<album_id>")
 def album(album_id):
@@ -182,7 +173,6 @@ def album(album_id):
         username=session["username"]) == album_info[6]
 
     return render_template("album.html", posts=posts, album_info=album_info, album_id=album_id, owns_album=is_own_album)
-
 
 @app.route("/upload_profile_img", methods=["POST"])
 def upload_profile_img():
@@ -219,7 +209,6 @@ def upload_profile_img():
     cur.close()
     return jsonify(filename), 200, {'ContentType': 'application/json'}
 
-
 @app.route("/upload_background_img", methods=["POST"])
 def upload_background_img():
     if "username" not in session:
@@ -254,7 +243,6 @@ def upload_background_img():
     db.conn.commit()
     cur.close()
     return jsonify(filename), 200, {'ContentType': 'application/json'}
-
 
 @app.route("/delete/album/<int:album_id>", methods=["GET"])
 def delete_album(album_id):
