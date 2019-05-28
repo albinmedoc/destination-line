@@ -28,7 +28,7 @@ def upload():
         if("username" not in session):
             flash(u'You have to be logged in to visit this page', 'error')
             return redirect("/")
-        return render_template("edit_album.html")
+        return render_template("manage_album.html")
 
     # Användaren laddar upp ett Album (POST)
     if("username" not in session):
@@ -113,7 +113,7 @@ def edit_album(album_id):
     cur.execute(
         "select img_name, headline, description from post where album=%s order by index asc", (album_id,))
     posts = cur.fetchall()
-    return render_template("edit_album.html", album_info=album_info, posts=posts)
+    return render_template("manage_album.html", album_info=album_info, posts=posts)
 
 def get_new_albums(limit=4, offset=None):
     db = Database()
