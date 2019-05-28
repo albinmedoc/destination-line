@@ -12,7 +12,7 @@ $(document).ready(function(){
     album_link();
 
     var win = $(window);
-    var get_albums = $("main>section.active>.album").length;
+    var get_albums = $("main > section.active > .album").length;
     var flow_type;
     var flow_element;
 	// Each time the user scrolls
@@ -42,7 +42,6 @@ $(document).ready(function(){
                     $(flow_element).append("<div class='album'><a class='album_link' href='album/"+data.get_albums[0][0]+"'></a><img src='/image/"+data.get_albums[0][5]+"' alt='"+data.get_albums[0][2]+" - "+data.get_albums[0][1]+"'><div class='info_circle'><h1 class='city'>"+data.get_albums[0][1]+"</h1><h2 class='country'>"+data.get_albums[0][2]+"</h2><i class='material-icons-outlined'>camera_alt</i><a href='profile/"+data.get_albums[0][6]+"' class='author'>"+data.get_albums[0][3]+ " " +data.get_albums[0][4]+"</a></div></div>");
                     album_link(); //Nya album som hämtas måste bli klickbara
                     get_albums = $("main>section.active>.album").length;
-                    console.log(get_albums);
                 }
             })
 		}
