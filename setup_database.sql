@@ -9,10 +9,10 @@ create table person(
 	id serial primary key,
 	firstname varchar(30) not null,
 	lastname varchar(50) not null,
-	username varchar(30) not null,
-	email varchar(50) not null,
+	username varchar(30) not null unique,
+	email varchar(50) not null unique,
 	password text not null,
-	profile_img text, 
+	profile_img text,
 	background_img text,
 	biography varchar(100)
 );
@@ -37,6 +37,7 @@ create table post(
 	album integer references album(id),
 	index integer not null,
 	img_name text not null,
-	headline varchar(40),
-	description varchar(2500)
+	headline varchar(60),
+	description varchar(2500),
+	unique(album, index)
 );
