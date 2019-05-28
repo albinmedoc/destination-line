@@ -12,8 +12,8 @@
     visibility: visible;
 }
 
-@media (min-width:768px){
-    #login_register_modal>form{
+@media (min-width:768px) {
+    #login_register_modal>form {
         max-width: 400px;
     }
 }

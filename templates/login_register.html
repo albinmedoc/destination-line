@@ -1,8 +1,8 @@
 {% block head %}
-    {% if("username" not in session) %}
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive_form.css') }}">
-        <link rel="stylesheet" href="{{ url_for('static', filename='css/login_signup.css') }}">
-    {% endif %}
+{% if("username" not in session) %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/responsive_form.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/login_signup.css') }}">
+{% endif %}
 {% endblock head %}
 <section class="modal" id="login_register_modal">
     <form id="login" class="responsive_form">
@@ -76,5 +76,5 @@
     </form>
 </section>
 {% block javascript %}
-    <script src="{{ url_for('static', filename='js/login_register.js') }}"></script>
+<script src="{{ url_for('static', filename='js/login_register.js') }}"></script>
 {% endblock javascript %}

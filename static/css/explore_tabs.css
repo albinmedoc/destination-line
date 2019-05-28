@@ -20,17 +20,17 @@
     transform: translateY(60px);
 }
 
-.tabs > .explore_tab {
+.tabs>.explore_tab {
     position: relative;
     display: flex;
     flex-grow: 1;
     max-width: 250px;
-    justify-content:space-around;
-    color: rgb(66,66,66);
+    justify-content: space-around;
+    color: rgb(66, 66, 66);
     height: 100%;
 }
 
-.tabs > .explore_tab::after {
+.tabs>.explore_tab::after {
     content: '';
     position: absolute;
     height: 2px;
@@ -42,31 +42,31 @@
     transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
 }
 
-#explore_tabs>.explore_tab::after{
+#explore_tabs>.explore_tab::after {
     opacity: 1;
 }
 
-#explore_tabs>.following::after{
+#explore_tabs>.following::after {
     transform-origin: right;
 }
 
-#explore_tabs>.explore::after{
+#explore_tabs>.explore::after {
     transform-origin: left;
 }
 
-.tabs > .explore_tab:hover::after,
-.tabs > .explore_tab.active::after {
+.tabs>.explore_tab:hover::after,
+.tabs>.explore_tab.active::after {
     transform: none;
     opacity: 1;
 }
 
-.tabs > .explore_tab > h2{
+.tabs>.explore_tab>h2 {
     font-size: 18px;
     font-weight: 500;
 }
 
-.tabs > .explore_tab.following>h2::before,
-.tabs > .explore_tab.explore>h2::before{
+.tabs>.explore_tab.following>h2::before,
+.tabs>.explore_tab.explore>h2::before {
     font-family: "Material Icons Outlined";
     transform: translateX(-25px);
     position: absolute;

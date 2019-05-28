@@ -1,4 +1,4 @@
-.responsive_form{
+.responsive_form {
     position: relative;
     width: 100%;
     height: 100%;
@@ -6,11 +6,13 @@
     background-color: white;
 }
 
-.responsive_form>fieldset{ /* Tar bort standard-CSS */
+.responsive_form>fieldset {
+    /* Tar bort standard-CSS */
     border: none;
     margin: 0;
     padding: 0;
-    height: 100%; /* Måste ta upp hela form, annars försvinner formuläret vid klick */
+    height: 100%;
+    /* Måste ta upp hela form, annars försvinner formuläret vid klick */
 }
 
 .responsive_form .form_row {
@@ -23,7 +25,8 @@
     flex-grow: 1;
     min-width: 200px;
     margin: 12px 20px;
-    width: calc(50% - 40px); /*  50% minus margin 20px på båda sidorna */
+    width: calc(50% - 40px);
+    /*  50% minus margin 20px på båda sidorna */
 }
 
 .responsive_form span {
@@ -62,12 +65,13 @@
     box-shadow: 0 1px 3px lightgrey;
 }
 
-.responsive_form input.error, .responsive_form textarea.error {
+.responsive_form input.error,
+.responsive_form textarea.error {
     border: 2px solid red;
     animation: shake .3s backwards;
 }
 
-.responsive_form .input_container>p{
+.responsive_form .input_container>p {
     visibility: hidden;
     max-height: 0;
     opacity: 0;
@@ -78,7 +82,7 @@
     font-size: 14px;
 }
 
-.responsive_form .input_container>p.error{
+.responsive_form .input_container>p.error {
     visibility: visible;
     opacity: 1;
     max-height: none;
@@ -128,11 +132,12 @@
     margin-left: 7px;
 }
 
-@media (min-width:768px){
-    .modal{
+@media (min-width:768px) {
+    .modal {
         transform: none;
     }
-    .modal>.responsive_form{
+
+    .modal>.responsive_form {
         height: auto;
         max-width: 600px;
         border-radius: 5px;
