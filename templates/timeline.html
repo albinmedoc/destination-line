@@ -7,21 +7,28 @@
     {% for album in albums %}
     {% if loop.index % 2 == 0 %}
     <section class="container right">
-        {% else %}
-        <section class="container left">
-            {% endif %}
-            <a href="{{ url_for('image.album', album_id=album[0]) }}">
-                <section class="content">
-                    <img src="{{ url_for('image.uploaded_images', image_id=album[3]) }}" alt="{{ album[1] }} - {{ album[2] }}">
-                    <div class="location">
-                        <i class="material-icons-outlined">photo_album</i>
-                        <p>{{ album[2] }}</p>
-                        <p>-</p>
-                        <p>{{ album[1] }}</p>
-                    </div>
-                </section>
-            </a>
-        </section>
-        {% endfor %}
-    </section>
+    {% else %}
+    <section class="container left">
     {% endif %}
+        <a href="{{ url_for('image.album', album_id=album[0]) }}">
+            <section class="content">
+                <img src="{{ url_for('image.uploaded_images', image_id=album[3]) }}" alt="{{ album[1] }} - {{ album[2] }}">
+                <div class="location">
+                    <i class="material-icons-outlined">photo_album</i>
+                    <p>{{ album[2] }}</p>
+                    <p>-</p>
+                    <p>{{ album[1] }}</p>
+                    
+                </div>
+                <div class="button_container">
+                    <div class="button_text_container">
+                        <span>{{album[4]}} - {{album[5]}}</span>
+                    </div>
+                    <i class="material-icons-outlined button_icon_container">date_range</i>
+                </div>
+            </section>
+        </a>
+    </section>
+    {% endfor %}
+</section>
+{% endif %}

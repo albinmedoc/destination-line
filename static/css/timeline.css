@@ -116,6 +116,20 @@ body {
     margin: 5px 0 0 12px;
 }
 
+.timeline>.container>a>.content>.button_container{
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    max-width: none;
+    box-shadow: none;
+    background-color: transparent;
+    text-shadow: 0 0 2px black;
+}
+
+.timeline>.container>a>.content>.button_container *{
+    color: white;
+}
+
 @media screen and (max-width: 750px) {
     .timeline::after {
         left: 31px;
