@@ -28,6 +28,11 @@
     opacity: 0;
 }
 
+#explore.logged_in,
+#following.logged_in{
+    margin-top: 120px;
+}
+
 .album:last-child {
     margin: 0;
 }

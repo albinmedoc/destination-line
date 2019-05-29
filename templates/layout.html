@@ -21,7 +21,7 @@
     {% endblock head %}
 </head>
 
-<body {% if("username" in session) %}class='logged_in'{%endif%}>
+<body>
     <!-- Hämtar alla flashes som skall visas -->
     {% with messages = get_flashed_messages(with_categories=true) %}
     <section id=flashes>

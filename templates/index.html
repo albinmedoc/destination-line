@@ -19,7 +19,7 @@
         <h2>Explore</h2>
     </a>
 </section>
-<section id="following" class="active">
+<section id="following" class='active {% if("username" in session) %}logged_in{%endif%}'>
     <!-- Om  following_albums är definierat och innehåller album -->
     {% if following_albums is defined and following_albums|length > 0 %}
     <!-- Loopar igenom alla album i following_albums -->
@@ -45,7 +45,7 @@
     {% endif %}
 </section>
 <!-- Döljer explore-sektion om användaren är inloggad eftersom det är following som skall visa från början -->
-<section id="explore" style="display: none;">
+<section id="explore" style="display: none;" class='{% if("username" in session) %}logged_in{%endif%}'>
     {% else %}
     <!-- Är användaren inte inloggad döljs inte explore-sektionen -->
     <section id="explore" class="active">
