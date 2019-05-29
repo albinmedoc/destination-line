@@ -10,10 +10,10 @@
 
 {% block main %}
 {% if owns_album %}
-<a href="{{ url_for('image.edit_album', album_id=album_id) }}" class="button_container" id="edit_album">
+<a href="{{ url_for('image.edit_album', album_id=album_id) }}" id="edit_album" class="button_container">
     <i class="material-icons-outlined button_icon_container">edit</i>
     <div class="button_text_container">
-        <span>Edit album</span>   
+        <span>Edit album</span>
     </div>
 </a>
 {% endif %}
@@ -23,19 +23,22 @@
             <div class="button_container">
                 <i class="material-icons-outlined button_icon_container">apps</i>
             </div>
-            </div>
-            <a id="slide_control_left" class="slide_control" onclick="plus_slides(-1)"><i class="material-icons-outlined">chevron_left</i></a>
-            <a id="slide_control_right" class="slide_control" onclick="plus_slides(1)"><i class="material-icons-outlined">chevron_right</i></a>
-            {% for post in posts %}
-            <div class="slide">
-                <img src="{{  url_for('image.uploaded_images', image_id=post[0]) }}">
-            </div>
-            {% endfor %}
+        </div>
+        <a id="slide_control_left" class="slide_control" onclick="plus_slides(-1)"><i
+                class="material-icons-outlined">chevron_left</i></a>
+        <a id="slide_control_right" class="slide_control" onclick="plus_slides(1)"><i
+                class="material-icons-outlined">chevron_right</i></a>
+        {% for post in posts %}
+        <div class="slide">
+            <img src="{{  url_for('image.uploaded_images', image_id=post[0]) }}" alt= "{{post[1]}}">
+        </div>
+        {% endfor %}
 
         <div id="post_image_thumbnail_container">
             {% for post in posts %}
             <div class="thumbnail">
-                <img src="{{  url_for('image.uploaded_images', image_id=post[0]) }}" onclick="current_slide('{{post[3]+1}}')" alt="The Woods">
+                <img src="{{  url_for('image.uploaded_images', image_id=post[0]) }}"
+                    onclick="current_slide('{{post[3]+1}}')" alt="{{post[1]}}">
             </div>
             {% endfor %}
         </div>
@@ -46,7 +49,8 @@
             <h1>{{ post[1] if not None}}</h1>
             <h2>{{ album_info[0] }}</h2>
             <div class="dash"></div>
-            <h3> by <a href="{{ url_for('user.profile', username=album_info[7]) }}">{{ album_info[4] }} {{ album_info[5] }}</a></h3>
+            <h3> by <a href="{{ url_for('user.profile', username=album_info[7]) }}">{{ album_info[4] }}
+                    {{ album_info[5] }}</a></h3>
             <p>{{ post[2] if not None}}</p>
         </article>
         {% endfor %}

@@ -2,14 +2,15 @@
 {% block head %}
 {{ super() }}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/timeline1.css') }}">
 {% endblock head %}
 {% block main %}
 <input id="input_profile_img" type="file" accept="images">
 <input id="input_background_img" type="file" accept="images">
 <section id="profile_container">
     <!-- Det visas error nedan, bry dig inte om det. Allting fungerar som det skall -->
-    <section id="profile_header" style="{{ 'background-image: url(' +  url_for('image.uploaded_images', image_id=user_info[5]) if user_info[5] }}"></section>
+    <section id="profile_header"
+        style="{{ 'background-image: url(' +  url_for('image.uploaded_images', image_id=user_info[5]) if user_info[5] }}">
+    </section>
     <section id="icon_row">
         {% if session["username"] == user_info[0] %}
         <div id="change_background_img_btn" class="button_container">
@@ -21,12 +22,13 @@
         <a href="{{ url_for('user.settings') }}" class="button_container">
             <i class="material-icons-outlined button_icon_container">settings</i>
             <div class="button_text_container">
-                <span>Settings</span>   
+                <span>Settings</span>
             </div>
         </a>
         {% elif "username" in session %}
         <div class="button_container follow">
-            <i id="follow_icon" class="material-icons-outlined button_icon_container">{{ "favorite" if is_following else "favorite_border" }}</i>
+            <i id="follow_icon"
+                class="material-icons-outlined button_icon_container">{{ "favorite" if is_following else "favorite_border" }}</i>
             <div class="button_text_container">
                 <span>{{ "Unfollow" if is_following else "Follow" }}</span>
             </div>
@@ -41,7 +43,8 @@
             </a>
             <a>
                 <section id="profile_img">
-                    <img src="{{ url_for('image.uploaded_images', image_id=user_info[4]) if user_info[4] else url_for('static', filename='img/avatar.png') }}">
+                    <img
+                        src="{{ url_for('image.uploaded_images', image_id=user_info[4]) if user_info[4] else url_for('static', filename='img/avatar.png') }}">
                     {% if session["username"] == user_info[0] %}
                     <div id="change_profile_img_btn" class="button_container">
                         <i class="material-icons-outlined button_icon_container">add_a_photo</i>
@@ -61,11 +64,11 @@
             <h2>{{user_info[1]}} {{user_info[2]}}</h2>
             <p>{{user_info[3] if user_info[3] != None}}</p>
         </section>
-        
+
         <!-- Här ska album finnas -->
         <section class="albums_container">
-                <h2>Album: {{album_count[0]}}</h2>
-            </section>
+            <h2>Album: {{album_count[0]}}</h2>
+        </section>
     </section>
 </section>
 <div id="following">
@@ -75,7 +78,8 @@
         {% for following in followings %}
         <a href="{{url_for('user.profile', username=following[0])}}" class="follow_list_item">
             <div>
-                <img src="{{ url_for('image.uploaded_images', image_id=following[1]) if following[1] else url_for('static', filename='img/avatar.png') }}">
+                <img
+                    src="{{ url_for('image.uploaded_images', image_id=following[1]) if following[1] else url_for('static', filename='img/avatar.png') }}">
                 <span>{{following[0]}}</span>
             </div>
             <i class="material-icons-outlined">favorite</i>
@@ -90,7 +94,8 @@
         {% for follower in followers %}
         <a href="{{ url_for('user.profile', username=follower[0])}}" class="follow_list_item">
             <div>
-                <img src="{{ url_for('image.uploaded_images', image_id=follower[1])  if follower[1] else url_for('static', filename='img/avatar.png') }}" alt="Follower">
+                <img src="{{ url_for('image.uploaded_images', image_id=follower[1])  if follower[1] else url_for('static', filename='img/avatar.png') }}"
+                    alt="Follower">
                 <span>{{follower[0]}}</span>
             </div>
         </a>
@@ -99,7 +104,7 @@
 </div>
 
 <!-- Tidslinje -->
-{% include 'timeline1.html' %}
+{% include 'timeline.html' %}
 {% endblock main %}
 {% block javascript %}
 {{ super() }}

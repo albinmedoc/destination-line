@@ -11,9 +11,10 @@
 <input id="input_profile_img" type="file" accept="images">
 <input id="input_background_img" type="file" accept="images">
 <section id="profile_container">
-    <section id="profile_header" style="{{ 'background-image: url(' +  url_for('image.uploaded_images', image_id=profile_info[5]) if profile_info[5] }}"></section>
+    <section id="profile_header" style="{{ 'background-image: url(' +  url_for('image.uploaded_images', image_id=profile_info[5]) if profile_info[5] }}">
+    </section>
     <section id="icon_row">
-        <div class="button_container" id="change_background_img_btn">
+        <div id="change_background_img_btn" class="button_container">
             <i class="material-icons-outlined button_icon_container">add_photo_alternate</i>
             <div class="button_text_container">
                 <span>Change Background</span>
@@ -24,8 +25,9 @@
         <section id="stats_container">
             <a>
                 <section id="profile_img">
-                    <img src="{{ url_for('image.uploaded_images', image_id=profile_info[6]) if profile_info[6] else url_for('static', filename='img/avatar.png') }}">
-                    <div class="button_container" id="change_profile_img_btn">
+                    <img
+                        src="{{ url_for('image.uploaded_images', image_id=profile_info[6]) if profile_info[6] else url_for('static', filename='img/avatar.png') }}">
+                    <div id="change_profile_img_btn" class="button_container">
                         <i class="material-icons-outlined button_icon_container">add_a_photo</i>
                         <div class="button_text_container">
                             <span>Change profilepicture</span>
@@ -34,11 +36,11 @@
                 </section>
             </a>
         </section>
-    </section>    
+    </section>
 </section>
 
 <div id="settings_header">
-        <h1>Settings</h1>
+    <h1>Settings</h1>
 </div>
 
 <form id="upload_form" class="responsive_form">
@@ -55,19 +57,22 @@
     </div>
     <div class="form_row">
         <div class="input_container">
-            <input id="biography" type="text" name="new_biography" placeholder=" " value="{{ profile_info[3] if profile_info[3] != None }}">
+            <input id="biography" type="text" name="new_biography" placeholder=" "
+                value="{{ profile_info[3] if profile_info[3] != None }}">
             <span>Biography</span>
         </div>
     </div>
     <h2>User & E-mail</h2>
     <div class="form_row">
         <div class="input_container">
-            <input id="username" class="force_lower" type="text" name="new_username" placeholder=" " value="{{profile_info[0]}}">
+            <input id="username" class="force_lower" type="text" name="new_username" placeholder=" "
+                value="{{profile_info[0]}}">
             <span>Username</span>
             <p id="text_varning_username">That username is taken, try another!</p>
         </div>
         <div class="input_container">
-            <input id="email" class="force_lower" type="email" name="new_email" placeholder=" " value="{{profile_info[4]}}">
+            <input id="email" class="force_lower" type="email" name="new_email" placeholder=" "
+                value="{{profile_info[4]}}">
             <span>Email</span>
             <p id="text_varning_email">This email is already registered, try another!</p>
         </div>
@@ -88,16 +93,16 @@
             <button id="save_settings_button">Save</button>
         </div>
     </div>
-    <div class="button_container" id="delete_account">
+    <div id="delete_account" class="button_container">
         <i class="material-icons-outlined button_icon_container">delete</i>
         <div class="button_text_container">
-            <span>Delete account</span>  
+            <span>Delete account</span>
         </div>
     </div>
 </form>
 {% endblock main %}
 {% block javascript %}
-    {{ super() }}
-    <script src="{{ url_for('static', filename='js/profile.js') }}"></script>
-    <script src="{{ url_for('static', filename='js/profile_settings.js') }}"></script>
+{{ super() }}
+<script src="{{ url_for('static', filename='js/profile.js') }}"></script>
+<script src="{{ url_for('static', filename='js/profile_settings.js') }}"></script>
 {% endblock javascript%}

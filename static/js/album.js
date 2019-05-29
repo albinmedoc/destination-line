@@ -2,14 +2,14 @@ var slide_index = 1;
 show_slides(slide_index);
 
 function plus_slides(n) {
-  show_slides(slide_index += n);
+    show_slides(slide_index += n);
 }
 
 function current_slide(n) {
-  show_slides(slide_index = parseInt(n));
+    show_slides(slide_index = parseInt(n));
 }
 
-$("#gallery_toggle").click(function(){
+$("#gallery_toggle").click(function () {
     $("#post_image_thumbnail_container").toggleClass("active");
     $(this).toggleClass("active");
 });
@@ -19,7 +19,7 @@ function show_slides(n) {
     var slides = document.getElementsByClassName("slide");
     var description = document.getElementsByClassName("post_text_description");
     var dots = document.getElementsByClassName("thumbnail");
-    
+
     if (n > slides.length) {
         slide_index = 1
     }

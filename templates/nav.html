@@ -1,10 +1,10 @@
 {% block head %}
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}">
 {% endblock head %}
-<div class="progress_bar" id="page_loading_bar"></div>
+<div id="page_loading_bar" class="progress_bar"></div>
 <nav class="is_visible">
     <div id="left">
-        <a id="logo" href="{{ url_for('index') }}" class="nav_link">
+        <a href="{{ url_for('index') }}" id="logo" class="nav_link">
             <h2 id="logo_wide">Destination Line</h2>
             <h2 id="logo_icon">DL</h2>
         </a>
@@ -18,9 +18,9 @@
             </a>
             <section id="search_results">
                 {% include 'loader.html' %}
-                <article class='search_category' id='destinations'>
+                <article id="destinations" class="search_category" >
                 </article>
-                <article class='search_category' id='users'>
+                <article id="users" class="search_category">
                 </article>
             </section>
         </li>
@@ -52,9 +52,12 @@
                     <span>{{ session["username"] }}</span>
                 </a>
                 <div class="dropdown_content">
-                    <a class="dropdown_link" href="{{ url_for('user.profile') }}"><span>My Profile</span><i class="material-icons-outlined">account_circle</i></a>
-                    <a class="dropdown_link" href="{{ url_for('user.settings') }}"><span>Settings</span><i class="material-icons-outlined">settings</i></a>
-                    <a class="dropdown_link" href="{{ url_for('user.logout') }}"><span>Log out</span><i class="material-icons-outlined">exit_to_app</i></a>
+                    <a href="{{ url_for('user.profile') }}" class="dropdown_link"><span>My Profile</span><i
+                            class="material-icons-outlined">account_circle</i></a>
+                    <a href="{{ url_for('user.settings') }}" class="dropdown_link"><span>Settings</span><i
+                            class="material-icons-outlined">settings</i></a>
+                    <a href="{{ url_for('user.logout') }}" class="dropdown_link"><span>Log out</span><i
+                            class="material-icons-outlined">exit_to_app</i></a>
                 </div>
                 {% endif %}
             </div>
@@ -63,8 +66,8 @@
 </nav>
 <!-- Inkludera endast ifall användaren i utloggad -->
 {% if("username" not in session) %}
-    {% include 'login_register.html' %}
+{% include 'login_register.html' %}
 {% endif %}
 {% block javascript %}
-    <script src="{{ url_for('static', filename='js/nav.js') }}"></script>
+<script src="{{ url_for('static', filename='js/nav.js') }}"></script>
 {% endblock javascript %}

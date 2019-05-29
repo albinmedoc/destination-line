@@ -1,3 +1,17 @@
+/* Inga album att visa */
+.no_albums {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+}
+
+.no_albums>i {
+    font-size: 70px;
+}
+/*-------------------*/
+
 .album {
     position: relative;
     display: flex;
@@ -8,7 +22,8 @@
     height: 300px;
 }
 
-#explore,#following{
+#explore,
+#following {
     animation: fade_in .4s forwards;
     opacity: 0;
 }
@@ -77,48 +92,52 @@
     font-weight: 500;
     word-wrap: break-word;
 }
+
 .info_circle>.author:hover {
     text-decoration: underline;
 }
 
-@media (min-width:600px){
-    .album{
+@media (min-width:600px) {
+    .album {
         height: calc(100vh - 60px);
         min-height: 600px;
     }
-    .info_circle{
+
+    .info_circle {
         height: 380px;
         width: 380px;
     }
 }
 
-@media (min-width:768px){
-    .album{
+@media (min-width:768px) {
+    .album {
         min-height: 800px;
     }
-    .info_circle{
+
+    .info_circle {
         height: 500px;
         width: 500px;
     }
+
     .info_circle>.city {
         font-size: 37px;
     }
-    
+
     .info_circle>.country {
         font-size: 23px;
     }
-    
+
     .info_circle>.material-icons {
         font-size: 37px;
     }
-    
+
     .info_circle>.author {
         font-size: 20px;
     }
 }
 
-@media (min-width:1000px){
-    .info_circle{
+@media (min-width:1000px) {
+    .info_circle {
         height: 620px;
         width: 620px;
     }

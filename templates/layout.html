@@ -16,24 +16,24 @@
 
     <!-- JavaScript -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-    
+
     {% endblock head %}
 </head>
 
 <body>
     <!-- Hämtar alla flashes som skall visas -->
     {% with messages = get_flashed_messages(with_categories=true) %}
-        <section id=flashes>
-            <!-- Kontrollerar ifall det finns några flashes -->
-            {% if messages %}
-                {% for category, message in messages %}
-                    <div class="flash {{ category }}">
-                        <i class="close material-icons-outlined">close</i>
-                        <p>{{ message }}</p>
-                    </div>
-                {% endfor %}
-            {% endif %}
-        </section>
+    <section id=flashes>
+        <!-- Kontrollerar ifall det finns några flashes -->
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="flash {{ category }}">
+            <i class="close material-icons-outlined">close</i>
+            <p>{{ message }}</p>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </section>
     {% endwith %}
 
     {% include 'nav.html' %}
@@ -44,9 +44,9 @@
     </main>
     <!-- JAVASCRIPT -->
     {% block javascript %}
-        <script type=text/javascript>$SCRIPT_ROOT = {{ request.script_root|tojson|safe }};</script>
-        <script src="{{ url_for('static', filename='js/main.js') }}"></script>
-        <script src="{{ url_for('static', filename='js/flashes.js') }}"></script>
+    <script type=text/javascript>$SCRIPT_ROOT={{ request.script_root|tojson|safe }};</script> <script
+        src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/flashes.js') }}"></script>
     {% endblock javascript %}
 </body>
 
