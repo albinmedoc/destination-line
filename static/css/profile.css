@@ -129,7 +129,8 @@
     left: 50%;
     transform: translate(-50%, -50%) scale(.9);
     z-index: 5;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
     visibility: hidden;
     opacity: 0;
     transition: visibility .2s ease, opacity .2s ease, transform .2s ease;
