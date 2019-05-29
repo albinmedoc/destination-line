@@ -172,12 +172,9 @@ $(document).ready(function () {
         $("#img_info_modal textarea[name='description']").val("");
     });
 
+    //Döljer modal
     $(".cancel_modal").click(function () {
-
-        //Döljer modal
         $("#img_info_modal, .image_info").removeClass("is_visible");
-
-
     });
 
     //Gör inläggen flyttbara, är det mobil måste man dra på ".reorder"-elementet
@@ -296,9 +293,4 @@ function blob_to_file(blob, filename) {
 // Öppnar modal
 $("#album_info_btn").click(function () {
     $("#album_info_modal").addClass("is_visible");
-});
-
-// Stänger modal
-$(".cancel_modal").click(function () {
-    $(".modal").removeClass("is_visible");
 });
