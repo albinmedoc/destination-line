@@ -3,11 +3,6 @@ $("#login_register_open").click(function () {
     $("#login_register_modal").addClass("is_visible");
 });
 
-// Stänger modal
-$(".cancel_modal").click(function () {
-    $(".modal").removeClass("is_visible");
-});
-
 $("#register input[name='password2'], #register input[name='password']").keyup(function () {
     //Kontrollerar att password2 stämmer överrens med password2
     var pass1 = $("#register > fieldset > .form_row > .input_container > input[name='password']").val()
@@ -91,6 +86,7 @@ $('#login').on('submit', function (e) {
         });
 });
 
+// Registrerar användaren om vissa villkor är uppfyllda
 $('#register').on('submit', function (e) {
     e.preventDefault();
     if (!$("#register > fieldset > .form_row > .input_container > input[name='username']").hasClass("error") && !$("#register > fieldset > .form_row > .input_container > input[name='email']").hasClass("error")) {
