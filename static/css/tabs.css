@@ -16,10 +16,6 @@
     box-shadow: 0 0 5px var(--shadow_color);
 }
 
-#explore_tabs.is_visible {
-    transform: translateY(60px);
-}
-
 .tabs>.explore_tab {
     position: relative;
     display: flex;
@@ -40,18 +36,6 @@
     transform: scaleX(0);
     opacity: 0;
     transition: .3s cubic-bezier(0.075, 0.82, 0.165, 1);
-}
-
-#explore_tabs>.explore_tab::after {
-    opacity: 1;
-}
-
-#explore_tabs>.following::after {
-    transform-origin: right;
-}
-
-#explore_tabs>.explore::after {
-    transform-origin: left;
 }
 
 .tabs>.explore_tab:hover::after,
@@ -79,4 +63,20 @@
 
 .tabs>.explore_tab.explore>h2::before {
     content: "public";
+}
+
+#explore_tabs.is_visible {
+    transform: translateY(60px);
+}
+
+#explore_tabs>.explore_tab::after {
+    opacity: 1;
+}
+
+#explore_tabs>.following::after {
+    transform-origin: right;
+}
+
+#explore_tabs>.explore::after {
+    transform-origin: left;
 }
