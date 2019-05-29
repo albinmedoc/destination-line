@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
     <meta charset="utf-8">
     <title>Destination Line</title>
+    
     <!-- Favicon -->
     <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
 
@@ -20,7 +21,7 @@
     {% endblock head %}
 </head>
 
-<body>
+<body {% if("username" in session) %}class='logged_in'{%endif%}>
     <!-- Hämtar alla flashes som skall visas -->
     {% with messages = get_flashed_messages(with_categories=true) %}
     <section id=flashes>
