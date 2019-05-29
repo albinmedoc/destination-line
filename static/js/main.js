@@ -8,16 +8,26 @@ window.mobileAndTabletcheck = function () {
 };
 
 $(document).ready(function () {
+    
+    // När sidan laddar klart blir laddningslinjen klar
     $("#page_loading_bar").css("animation", "width_grow_max 1.5s forwards");
 
-    //Visar alla bokstäver som gemener
+    // Visar alla bokstäver som gemener
     $(".force_lower").css("text-transform", "lowercase");
-    //Gör om alla bokstäver till gemener när de skrivs
+    
+    // Gör om alla bokstäver till gemener när de skrivs
     $(".force_lower").keyup(function () {
         $(this).val($(this).val().toLowerCase());
     });
+
+    // Stänger modal
+    $(".cancel_modal").click(function () {
+        $(".modal").removeClass("is_visible");
+    });
+
+    // Vid navigering till annan sida via a-tagg visas en liten laddningslinje
+    $("a[href*='/']").click(function () {
+        $("#page_loading_bar").css("animation", "width_grow .2s forwards");
+    });
 });
 
-$("a[href*='/']").click(function () {
-    $("#page_loading_bar").css("animation", "width_grow .2s forwards");
-});
