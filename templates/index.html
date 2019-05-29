@@ -1,12 +1,11 @@
 {% extends "layout.html" %}
 {% block head %}
 {{ super() }}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/list_albums.css') }}">
-<link rel="stylesheet" href="{{ url_for('static', filename='css/index.css') }}">
 <!-- Endast ifall användaren är inloggad -->
 {% if("username" in session) %}
-<link rel="stylesheet" href="{{ url_for('static', filename='css/explore_tabs.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/tabs.css') }}">
 {% endif %}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/list_albums.css') }}">
 {% endblock head %}
 
 {% block main %}
