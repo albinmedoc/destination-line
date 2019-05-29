@@ -25,25 +25,25 @@ nav .loader_container {
     visibility: visible;
 }
 
-.loader_container>.loader {
+.loader_container>div {
     height: 10px;
     width: 10px;
     background-color: rgb(59, 59, 59);
     margin: 0 7px;
     border-radius: 50%;
-    animation: loader_animation 1s both infinite;
+    animation: bounce 1s both infinite;
     box-shadow: 0 1px 2px rgba(0, 0, 0, 0.37);
 }
 
-.loader_container>.loader:nth-child(2) {
+.loader_container>div:nth-child(2) {
     animation-delay: .1s;
 }
 
-.loader_container>.loader:nth-child(3) {
+.loader_container>div:nth-child(3) {
     animation-delay: .2s;
 }
 
-@keyframes loader_animation {
+@keyframes bounce {
     0% {
         transform: none;
     }
@@ -54,15 +54,5 @@ nav .loader_container {
 
     100% {
         transform: none;
-    }
-}
-
-@keyframes loader_rotate {
-    0% {
-        transform: none;
-    }
-
-    100% {
-        transform: rotate(360deg);
     }
 }
