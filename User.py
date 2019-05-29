@@ -46,7 +46,7 @@ def profile(username=None):
         # Kontrollerar om användaren är utloggad
         if("username" not in session):
             # Visar felmeddelande
-            flash(u"You have to be logged in to visit your profile", 'error')
+            flash(u"Please login before you do that :P", 'error')
             # Hänvisar användaren till förstasidan
             return redirect("/")
         # Är användaren inloggad sätts variablen username till användarens användarnamn
@@ -88,7 +88,7 @@ def profile(username=None):
             # Visar profilsidan med informationen hämtad från databasen
             return render_template("profile.html", user_info=user_info, album_count=album_count, followers=followers, followings=followings, albums=albums, is_following=is_following)
     # Kunde inte hitta information om användaren
-    flash(u'Couldn´t find profile!', 'error')
+    flash(u'This user does not exist in our database :/', 'error')
     return redirect("/")
 
 @app.route("/login", methods=["POST"])
@@ -131,8 +131,9 @@ def register():
             flash(u'Welcome to Destination Line', 'success')
             return jsonify(True)
         else:
-            return "Något gick fel"
-    return "password stämmer inte överrens"
+            flash(u'Your account could not be created :( Please wait and try again later.', 'error')
+            return redirect('/')
+    flash(u'Password verification failed. Did you type the correct passwords in both fields?', 'error')
 
 # Skapa en ny användare
 def create_user(firstname, lastname, username, email, password):
@@ -245,7 +246,7 @@ def owns_album(album_id, username=None, email=None, user_id=None):
 @app.route("/settings")
 def settings():
     if("username" not in session):
-        flash(u"You have to be logged in to visit settings page", 'error')
+        flash(u"You can't change anything if you're not logged in!", 'error')
         return redirect("/")
     db = Database()
     cur = db.conn.cursor()
