@@ -16,6 +16,7 @@ app.secret_key = urandom(24)
 
 @app.errorhandler(404)
 def error_404(e):
+    #Visar 404-sidan
     return render_template("404.html"), 404
 
 @app.route("/")
@@ -34,7 +35,9 @@ def index():
 
 @app.route("/info")
 def about():
+    #Hämat en random video
     video = random.choice(RANDOM_VIDEOS)
+    #Visar info sidan
     return render_template("info.html", video=video, creators=User.get_creators())
 
 if __name__ == "__main__":
