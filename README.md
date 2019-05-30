@@ -11,26 +11,29 @@ Produkten är en webbaserad social plattform där bildhantering är en stor del.
     - Psycopg2 (pip install psycopg2)
     - Bcrypt (pip install bcrypt)
     - Pillow/PIL (pip install pillow)
-### RaspberryPi ###
-- Installera Raspbian Stretch
-- Skriv följand kommandon:
-    - sudo apt-get install python3-pil
-    - Fler kommer snart..
+## Förberedelser ##
+- Skapa en PostgreSQL databashanterare (Version > 11)
+- Skapa databas och tabeller med hjälp av "setup_database.sql"-filen
 ## Konfiguration ##
 - Ta bort ".ex" i slutet av "Credentials.py.ex"
 - Justera värdena i Credentials.py-filen efter dina behov
     - DATABASE_NAME - Namn på databasen
     - DATABASE_USER - Användare som skall användas
-    - DATABASE_HOST - Adress för databashanterare
+    - DATABASE_HOST - Ipadress för databashanterare
+    - DATABASE_PORT - Port för databashanterare
     - DATABASE_PASSWORD - Lösenord för användaren
-- Justera värdena i Settings.py-filen efter dina behov
+- Justera värdena i Settings.py-filen efter dina behov och önskemål
     - Server_IP - Ipadress för servern
     - SERVER_PORT - Port för servern
     - DEBUG_MODE - Kör flask i debug-mode
-    - UPLOAD_FOLDER - Vart uppladdade filer ska sparas
+    - UPLOAD_FOLDER - Vart uppladdade bilder ska sparas
     - ALLOWED_EXTENSIONS - Tillåtna filextensioner för bilder
     - POST_LIMIT - Hur många posts(bild och text) som får tillhöra varje bild
     - RANDOM_VIDEOS - Videor som skall spelas upp på info-sidan
 ## Användning ##
-Starta serverprogrammet genom "start.py"-filen (python3 start.py).
-Gå till ipadressen för servern i en valfri webbläsare.
+### Localhost ###
+    - Starta serverprogrammet genom "start.py"-filen (python3 start.py).
+    - Gå till "localhost" i en valfri webbläsare.
+### Server ###
+    - Starta serverprogrammet genom "start.py"-filen och argumentet "server"(python3 start.py server).
+    - Gå till den specifierade Ipadressen som konfiguerades i Settings.py (SERVER_IP) i en valfri webbläsare.
