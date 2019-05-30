@@ -1,7 +1,7 @@
 import psycopg2
 from sys import exit
 #Hämtar databasuppgifter från Credentials.py
-from Credentials import DATABASE_HOST, DATABASE_NAME, DATABASE_PASSWORD, DATABASE_USER
+from Credentials import DATABASE_HOST, DATABASE_PORT, DATABASE_NAME, DATABASE_PASSWORD, DATABASE_USER
 
 
 class Database():
