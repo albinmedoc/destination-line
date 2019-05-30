@@ -230,17 +230,21 @@ def get_user_id(username=None, email=None):
 def owns_album(album_id, username=None, email=None, user_id=None):
     db = Database()
     cur = db.conn.cursor()
+    #Om username är specifierat
     if(username is not None):
         cur.execute("select exists(select * from album join person on album.owner=person.id where person.username=%s and album.id=%s)",
                     (username.lower(), album_id))
+    #Om email är specifierat
     elif(email is not None):
         cur.execute("select exists(select * from album join person on album.owner=person.id where person.email=%s and album.id=%s)",
                     (email.lower(), album_id))
+    #Om user_id är specifierat
     elif(user_id is not None):
         cur.execute(
             "select exists(select * from album where album.owner=%s and album.id=%s)", (user_id, album_id))
     else:
         return False
+    #Returnerar True ifall användaren äger albumet
     return cur.fetchone()[0]
 
 @app.route("/settings")
@@ -259,6 +263,7 @@ def settings():
 def change_settings(new_settings):
     db = Database()
     cur = db.conn.cursor()
+    #Kontrollerar ifall användaren matade in rätt lösenord för sitt befintliga lösenord
     if("current_password" not in new_settings or not check_password(new_settings["current_password"], username=session["username"])):
         return False
 
@@ -292,18 +297,17 @@ def setup_follow(user_id, target_id):
     db = Database()
     cur = db.conn.cursor()
     # Lägger till följnings-koppling mellan två personer
-    cur.execute(
-        "insert into follow(follower, following) values(%s, %s)", (user_id, target_id))
+    cur.execute("insert into follow(follower, following) values(%s, %s)", (user_id, target_id))
     db.conn.commit()
 
 def delete_follow(user_id, target_id):
     db = Database()
     cur = db.conn.cursor()
-    # LTar bort följnings-koppling mellan två personer
-    cur.execute(
-        "delete from follow where follower=%s and following=%s", (user_id, target_id))
+    # Tar bort följnings-koppling mellan två personer
+    cur.execute("delete from follow where follower=%s and following=%s", (user_id, target_id))
     db.conn.commit()
 
+#Hämtar alla länder baserat på sökning
 def get_countries(search):
     db = Database()
     cur = db.conn.cursor()
@@ -311,6 +315,7 @@ def get_countries(search):
     search_results = cur.fetchall()
     return search_results
 
+#Hämtar alla användare baserat på sökning
 def get_users(search):
     db = Database()
     cur = db.conn.cursor()

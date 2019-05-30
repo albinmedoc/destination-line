@@ -137,6 +137,7 @@ def get_new_following_albums(limit=4, offset=None, username=None):
 def uploaded_images(image_id):
     return send_from_directory(UPLOAD_FOLDER, image_id)
 
+#Beskär bild till 16:9 format
 def crop_to_16_9(img):
     original_size = img.size
     if(original_size[0] * 9 == original_size[1] * 16):
@@ -148,6 +149,7 @@ def crop_to_16_9(img):
     cropped_img = img.crop(box)
     return cropped_img
 
+#Beskär bild till en kvadrat
 def crop_to_1_1(img):
     original_size = img.size
     if(original_size[0] < original_size[1]):
