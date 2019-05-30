@@ -6,9 +6,9 @@
 <section class="timeline">
     {% for album in albums %}
     {% if loop.index % 2 == 0 %}
-    <section class="container right">
+    <section class="container">
     {% else %}
-    <section class="container left">
+    <section class="container">
     {% endif %}
         <a href="{{ url_for('image.album', album_id=album[0]) }}">
             <section class="content">
