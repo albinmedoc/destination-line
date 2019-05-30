@@ -1,11 +1,13 @@
 window.onload = function () {
-
+    //Visar användare som personen följer
     $("#following_button").click(function () {
         $("#following").addClass("is_visible");
     });
+    //Visar användarens följare
     $("#followers_button").click(function () {
         $("#followers").addClass("is_visible");
     });
+    //Döljer followers/followings när användaren trycker kryss
     $("#following>i, #followers>i").click(function () {
         $("#following, #followers").removeClass("is_visible");
     });
@@ -50,8 +52,10 @@ window.onload = function () {
     $("#input_profile_img").change(function () {
         var file = this.files[0];
         var data = new FormData();
+        //Lägger till bild i FormData
         data.append("file", file);
 
+        //Skickar request till servern
         $.ajax({
             type: 'POST',
             url: $SCRIPT_ROOT + "/upload_profile_img",
@@ -60,16 +64,20 @@ window.onload = function () {
             contentType: false,
             processData: false,
             beforeSend: function () {
+                //Visar loading-snurra
                 $('.loader_container').addClass('is_visible');
             },
             success: function (data) {
+                //Ersätter profilbild till den nya och visar meddelande att det lyckades
                 add_flash_message("Profile image changed", "success");
                 $("#profile_img > img").attr("src", $SCRIPT_ROOT + "/image/" + data);
             },
             error: function (data) {
+                //Visar felmeddelande
                 add_flash_message("Could not change profile image...", "error");
             },
             complete: function () {
+                //Döljer loading-snurra
                 $('.loader_container').removeClass('is_visible');
             }
         });
@@ -83,8 +91,10 @@ window.onload = function () {
     $("#input_background_img").change(function () {
         var file = this.files[0];
         var data = new FormData();
+        //Lägger till bild i FormData
         data.append("file", file);
 
+        //Skickar request till servern
         $.ajax({
             type: 'POST',
             url: $SCRIPT_ROOT + "/upload_background_img",
@@ -93,16 +103,20 @@ window.onload = function () {
             contentType: false,
             processData: false,
             beforeSend: function () {
+                //Visar loading-snurra
                 $('.loader_container').addClass('is_visible');
             },
             success: function (data) {
+                //Ersätter bakgrundsbild till den nya och visar meddelande att det lyckades
                 add_flash_message("Background image changed", "success");
                 $("#profile_header").css("background-image", "url(" + $SCRIPT_ROOT + "/image/" + data + ")");
             },
             error: function (data) {
+                //Visar felmeddelande
                 add_flash_message("Could not change background image...", "error");
             },
             complete: function () {
+                //Döljer loading-snurra
                 $('.loader_container').removeClass('is_visible');
             }
         });
