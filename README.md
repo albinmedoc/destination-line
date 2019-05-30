@@ -13,7 +13,7 @@ Produkten är en webbaserad social plattform där bildhantering är en stor del.
     - Pillow/PIL (pip install pillow)
 ## Förberedelser ##
 - Skapa en PostgreSQL databashanterare (Version > 11)
-- Skapa databas och tabeller med hjälp av "setup_database.sql"-filen
+- Skapa databas och tabeller med hjälp av "setup_database.sql"-filen (\i setup_database.sql)
 ## Konfiguration ##
 - Ta bort ".ex" i slutet av "Credentials.py.ex"
 - Justera värdena i Credentials.py-filen efter dina behov
@@ -33,7 +33,7 @@ Produkten är en webbaserad social plattform där bildhantering är en stor del.
 ## Användning ##
 ### Localhost ###
     - Starta serverprogrammet genom "start.py"-filen (python3 start.py).
-    - Gå till "localhost" i en valfri webbläsare.
+    - Gå till "localhost:8080" i en valfri webbläsare.
 ### Server ###
     - Starta serverprogrammet genom "start.py"-filen och argumentet "server"(python3 start.py server).
     - Gå till den specifierade Ipadressen som konfiguerades i Settings.py (SERVER_IP) i en valfri webbläsare.
