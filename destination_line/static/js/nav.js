@@ -1,15 +1,17 @@
 var timeout;
 $('#search').keyup(function () {
     //Gör en sökning en halv sekund efter användaren har skrivit (detta eftersom vi vill undvika för många requests)
-    if (timeout) {
+    if (timeout || $(this).val() == "") {
         clearTimeout(timeout);
         timeout = null;
+    }else{
+        timeout = setTimeout(do_search, 500)
     }
-    timeout = setTimeout(do_search, 500)
 })
 
 var do_search = function () {
     $("nav .loader_container").addClass("is_visible");
+    $("#destinations, #users").children(".search_result").remove();
     //Hämtar sökresultat
     $.ajax({
         method: "POST",
@@ -23,6 +25,8 @@ var do_search = function () {
                 var album = albums[index];
                 $("#destinations").append("<div class='search_result'><i class='material-icons-outlined'>place</i><a href='" + $SCRIPT_ROOT + "/album/" + album["id"] + "'><img src='" + $SCRIPT_ROOT + "static/album_img/" + album["preview_img"] + "'></a><div class='destinations_search_info'><a href='" + $SCRIPT_ROOT + "/album/" + album["id"] + "' class='city'><h3>" + album["city"] + "</h3></a><p>" + album["country"] + "</p><a class='album_owner' href='#'><i class='material-icons-outlined'>person</i><span>" + album["firstname"] + " " + album["lastname"] + "</span></a></div></div>");
             }
+        },
+        complete: function(){
             $("nav .loader_container").removeClass("is_visible");
         }
     });
