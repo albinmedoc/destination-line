@@ -119,7 +119,7 @@ def search_users():
     search = search + "%"
     results = User.query.filter(or_(User.firstname.ilike(search), User.lastname.ilike(search), User.username.ilike(search), User.email.ilike(search))).limit(5).all()
     if(not results):
-        return jsonify(False), 503, {"ContentType": "application/json"}
+        return jsonify(False), 204, {"ContentType": "application/json"}
     # Gör om användarna till json format
     data = []
     for user in results:
