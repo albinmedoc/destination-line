@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block css %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/album.css') }}">
+{% endblock css %}
+
+{% block javascript %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/album.js') }}"></script>
+{% endblock javascript%}
+
+{% block main %}
+{% if(current_user.is_authenticated and album in current_user.albums) %}
+<a href="{{ url_for('album.manage_album', album_id=album.id) }}" id="edit_album" class="button_container">
+    <i class="material-icons-outlined button_icon_container">edit</i>
+    <div class="button_text_container">
+        <span>Edit album</span>
+    </div>
+</a>
+{% endif %}
+<section id="album_container">
+    <div id="post_image_container">
+        <div id="gallery_toggle">
+            <div class="button_container">
+                <i class="material-icons-outlined button_icon_container">apps</i>
+            </div>
+        </div>
+        <a id="slide_control_left" class="slide_control" onclick="plus_slides(-1)"><i
+                class="material-icons-outlined">chevron_left</i></a>
+        <a id="slide_control_right" class="slide_control" onclick="plus_slides(1)"><i
+                class="material-icons-outlined">chevron_right</i></a>
+        {% for post in album.posts %}
+        <div class="slide">
+            <img src="{{ url_for('static', filename='album_img/' + post.filename) }}" alt="{{ post.headline }}">
+        </div>
+        {% endfor %}
+
+        <div id="post_image_thumbnail_container">
+            {% for post in album.posts %}
+            <div class="thumbnail">
+                <img src="{{ url_for('static', filename='album_img/' + post.filename) }}"
+                    onclick="current_slide('{{ post.index+1 }}')" alt="{{ post.headline }}">
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <section id="post_text_description_container">
+        {% for post in album.posts %}
+        <article class="post_text_description">
+            <h1>{{ post.headline if not None}}</h1>
+            <h2>{{ album.country }}</h2>
+            <div class="dash"></div>
+            <h3> by <a
+                    href="{{ url_for('user.profile', username=album.publisher.username) }}">{{ album.publisher.firstname }}
+                    {{ album.publisher.lastname }}</a></h3>
+            <p>{{ post.description if not None}}</p>
+        </article>
+        {% endfor %}
+    </section>
+</section>
+
+{% endblock main %}

@@ -1,0 +1,109 @@
+{% extends "layout.html" %}
+
+{% block css %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/profile.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/settings.css') }}">
+{% endblock css %}
+
+{% block javascript %}
+{{ super() }}
+<script src="{{ url_for('static', filename='js/profile.js') }}"></script>
+<script src="{{ url_for('static', filename='js/profile_settings.js') }}"></script>
+{% endblock javascript%}
+
+{% block main %}
+<input id="input_profile_img" type="file" accept="images">
+<input id="input_background_img" type="file" accept="images">
+<section id="profile_container">
+    <section id="profile_header"
+        style="{{ 'background-image: url(' +  url_for('static', filename='background_img/' + current_user.background_img) if current_user.background_img }}">
+    </section>
+    <section id="icon_row">
+        <div id="change_background_img_btn" class="button_container">
+            <i class="material-icons-outlined button_icon_container">add_photo_alternate</i>
+            <div class="button_text_container">
+                <span>Change Background</span>
+            </div>
+        </div>
+    </section>
+    <section id="profile_main">
+        <section id="stats_container">
+            <a>
+                <section id="profile_img">
+                    <img
+                    src="{{ url_for('static', filename='background_img/' + current_user.profile_img) if current_user.profile_img else url_for('static', filename='img/avatar.png') }}">
+                    <div id="change_profile_img_btn" class="button_container">
+                        <i class="material-icons-outlined button_icon_container">add_a_photo</i>
+                        <div class="button_text_container">
+                            <span>Change profilepicture</span>
+                        </div>
+                    </div>
+                </section>
+            </a>
+        </section>
+    </section>
+</section>
+
+<div id="settings_header">
+    <h1>Settings</h1>
+</div>
+
+<form id="upload_form" class="responsive_form">
+    <h2>Profile</h2>
+    <div class="form_row">
+        <div class="input_container">
+            <input id="firstname" type="text" name="new_firstname" placeholder=" " value="{{ current_user.firstname }}">
+            <span>Firstname</span>
+        </div>
+        <div class="input_container">
+            <input id="lastname" type="text" name="new_lastname" placeholder=" " value="{{ current_user.lastname }}">
+            <span>Lastname</span>
+        </div>
+    </div>
+    <div class="form_row">
+        <div class="input_container">
+            <input id="biography" type="text" name="new_biography" placeholder=" "
+                value="{{ current_user.biography if current_user.biography }}">
+            <span>Biography</span>
+        </div>
+    </div>
+    <h2>User & E-mail</h2>
+    <div class="form_row">
+        <div class="input_container">
+            <input id="username" class="force_lower" type="text" name="new_username" placeholder=" "
+                value="{{ current_user.username }}">
+            <span>Username</span>
+            <p id="text_varning_username">That username is taken, try another!</p>
+        </div>
+        <div class="input_container">
+            <input id="email" class="force_lower" type="email" name="new_email" placeholder=" "
+                value="{{ current_user.email }}">
+            <span>Email</span>
+            <p id="text_varning_email">This email is already registered, try another!</p>
+        </div>
+    </div>
+    <h2>Password</h2>
+    <div class="form_row">
+        <div class="input_container">
+            <input type="password" name="new_password" placeholder=" ">
+            <span>New Password</span>
+        </div>
+        <div class="input_container">
+            <input type="password" name="new_password2" placeholder=" ">
+            <span>Confirm new password</span>
+        </div>
+    </div>
+    <div class="form_row">
+        <div class="input_container">
+            <button id="save_settings_button">Save</button>
+        </div>
+    </div>
+    <div id="delete_account" class="button_container">
+        <i class="material-icons-outlined button_icon_container">delete</i>
+        <div class="button_text_container">
+            <span>Delete account</span>
+        </div>
+    </div>
+</form>
+{% endblock main %}

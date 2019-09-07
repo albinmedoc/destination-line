@@ -1,0 +1,25 @@
+<!-- Tidslinje -->
+{% if user.albums|length != 0  %}
+<section class="timeline">
+    {% for album in user.albums %}
+    <section class="container">
+        <a href="{{ url_for('album.visit_album', album_id=album.id) }}">
+            <section class="content">
+                <img src="{{ url_for('static', filename='album_img/' + album.get_preview_img()) }}"
+                    alt="{{ album.country }} - {{ album.city }}">
+                <div class="location">
+                    <i class="material-icons-outlined">photo_album</i>
+                    <p>{{ album.city }} - {{ album.country }}</p>
+                </div>
+                <div class="button_container">
+                    <div class="button_text_container">
+                        <span>{{ album.date_start }} - {{ album.date_end }}</span>
+                    </div>
+                    <i class="material-icons-outlined button_icon_container">date_range</i>
+                </div>
+            </section>
+        </a>
+    </section>
+    {% endfor %}
+</section>
+{% endif %}

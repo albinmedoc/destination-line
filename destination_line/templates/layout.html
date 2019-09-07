@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0">
+    <meta charset="utf-8">
+    <title>{% block title %}Destination Line{% endblock title %}</title>
+    
+    <!-- Favicon -->
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+
+    {% block css %}
+        <!-- CSS -->
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/nav.css') }}">
+        <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons+Outlined">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/responsive_form.css') }}">
+        <link rel="stylesheet" href="{{ url_for('static', filename='css/flashes.css') }}">
+    {% endblock css %}
+</head>
+
+<body>
+    <!-- Hämtar alla flashes som skall visas -->
+    {% with messages = get_flashed_messages(with_categories=true) %}
+    <section id=flashes>
+        <!-- Kontrollerar ifall det finns några flashes -->
+        {% if messages %}
+        {% for category, message in messages %}
+        <div class="flash {{ category }}">
+            <i class="close material-icons-outlined">close</i>
+            <p>{{ message }}</p>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </section>
+    {% endwith %}
+
+    {% include 'nav.html' %}
+    {% include 'loading_anim.html' %}
+    <main>
+        {% block main %}
+        {% endblock main %}
+    </main>
+    {% block javascript %}
+    <!-- JAVASCRIPT -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script type=text/javascript>$SCRIPT_ROOT={{ request.script_root|tojson|safe }};</script> <script
+        src="{{ url_for('static', filename='js/main.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/nav.js') }}"></script>
+    <script src="{{ url_for('static', filename='js/flashes.js') }}"></script>
+    {% endblock javascript %}
+</body>
+
+</html>

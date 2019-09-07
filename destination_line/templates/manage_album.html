@@ -1,0 +1,148 @@
+{% extends "layout.html" %}
+{% block css %}
+{{ super() }}
+<link rel="stylesheet" href="{{ url_for('static', filename='css/manage_album.css') }}">
+<link rel="stylesheet" href="{{ url_for('static', filename='css/lightpick.css') }}">
+{% endblock css %}
+
+{% block javascript %}
+{{ super() }}
+<script src="https://raw.githack.com/SortableJS/Sortable/master/Sortable.min.js"></script>
+<script src="{{ url_for('static', filename='js/moment.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/lightpick.min.js') }}"></script>
+<script src="{{ url_for('static', filename='js/edit_album.js') }}"></script>
+{% endblock javascript %}
+
+{% block main %}
+
+<section class="album_grid_container">
+
+    <div id="upload_progress_bar" class="progress_bar"></div>
+    <!-- Album information -->
+    <form id="upload_form" class="responsive_form">
+        {{ form.hidden_tag() }}
+        <fieldset>
+            <h2>{{ "Edit album" if album_info is defined else "Create album" }}</h2>
+            {{ form.hidden_tag() }}
+            <div class="form_row">
+                <div class="input_container">
+                    {{ form.country(placeholder=" ", value=album.country if album) }}
+                    {{ form.country.label() }}
+                </div>
+            </div>
+            <div class="form_row">
+                <div class="input_container">
+                    {{ form.city(placeholder=" ", value=album.city if album) }}
+                    {{ form.city.label() }}
+                </div>
+            </div>
+            <div class="form_row">
+                <div class="input_container">
+                    {{ form.period(placeholder=" ", value=album.date_start.strftime('%Y-%m-%d') + ' - ' + album.date_end.strftime('%Y-%m-%d') if album) }}
+                    {{ form.period.label() }}
+                </div>
+            </div>
+            <div class="form_row">
+                <div class="input_container">
+                    {{ form.submit() }}
+                </div>
+            </div>
+            <div class="form_row">
+                <div class="input_container">
+                    <a id="album_info_btn">How to crop your photos</a>
+                </div>
+            </div>
+        </fieldset>
+    </form>
+    <!-- Förhandsvisning av bilder, samt sortera dem -->
+    <section id="preview">
+        {{ form.images() }}
+        <!-- Knapp för uppladdning av bilder -->
+        <div id="upload_btn" class="locked"></div>
+        <!-- Uppladdade bilder kommer hamna här -->
+        {% if album is defined %}
+        {% for post in album.posts %}
+        <div class='post' data-headline='{{ post.headline if post.headline }}'
+            data-description='{{ post.description if post.description }}'>
+            <div class='button_container img_close'>
+                <div class='button_text_container'>
+                    <span>Delete image</span>
+                </div>
+                <i class='material-icons-outlined button_icon_container'>close</i>
+            </div>
+            <div class='button_container img_modal_open'>
+                <i class='material-icons-outlined button_icon_container'>info</i>
+                <div class='button_text_container'>
+                    <span>Image info</span>
+                </div>
+            </div>
+            <img src="{{ url_for('static', filename='album_img/' + post.filename) }}" alt="{{ post.headline }}">
+            <i class='material-icons-outlined reorder'>reorder</i>
+        </div>
+        {% endfor %}
+        {% endif %}
+    </section>
+</section>
+
+<!-- Knapp för att ta bort album -->
+{% if album is defined %}
+<a href="{{ url_for('album.delete_album', album_id=album.id) }}" id="delete_album" class="button_container">
+    <i class="material-icons-outlined button_icon_container">delete</i>
+    <div class="button_text_container">
+        <span>Delete album</span>
+    </div>
+</a>
+{% endif %}
+
+<!-- Popups -->
+
+<!-- Ruta för att lägga till text för bilder -->
+<section id="img_info_modal" class="modal">
+    <form class="image_info responsive_form">
+        <a class="cancel_modal"><i class="material-icons-outlined">close</i></a>
+        <h2>Image info</h2>
+        <img class="img_preview">
+        <div class="form_row">
+            <div class="input_container">
+                <input type="text" name="headline" placeholder=" " required>
+                <span>Headline</span>
+            </div>
+        </div>
+        <div class="form_row">
+            <div class="input_container">
+                <textarea name="description" placeholder=" "></textarea>
+                <span>Image description</span>
+            </div>
+        </div>
+        <div class="form_row">
+            <div id="modal_save_img_info" class="input_container">
+                <button type="submit">Save</button>
+            </div>
+        </div>
+    </form>
+</section>
+
+<!-- Ruta för att lära sig hur man beskär sina bilder -->
+<section id="album_info_modal" class="modal">
+    <div class="responsive_form">
+        <i class="material-icons-outlined cancel_modal">close</i>
+        <h2>Guide how to crop your photos:</h2>
+        <p>To get the best result for your albums you should crop your photos before you upload them.
+            Otherwise Destination line will automatically crop them for you.</p>
+        <ol>
+            <li>
+                <p>Use a program where you can crop and export your photos, for example lightroom.</p>
+            </li>
+            <li>
+                <p>Make a collection for each album (max 50 photos)</p>
+            </li>
+            <li>
+                <p>Crop your photos to landscape images (16:9)</p>
+            </li>
+            <li>
+                <p>Export your photos to your computer in: W:1920 x H:1080 pixels</p>
+            </li>
+        </ol>
+    </div>
+</section>
+{% endblock main %}

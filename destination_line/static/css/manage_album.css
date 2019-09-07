@@ -1,0 +1,168 @@
+.album_grid_container {
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: 1fr;
+}
+
+#delete_album {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    z-index: 2;
+}
+
+.cancel_upload {
+    position: absolute;
+    top: 15px;
+    left: 15px;
+}
+
+#album_info_btn {
+    color: rgb(79, 173, 236);
+}
+
+#album_info_btn:hover {
+    text-decoration: underline;
+
+}
+
+#preview {
+    margin: 20px;
+    display: grid;
+    grid-gap: 20px;
+    justify-content: space-evenly;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 280px));
+}
+
+#images {
+    display: none;
+}
+
+#upload_btn {
+    background-color: white;
+    border: none;
+    text-align: center;
+}
+
+#upload_btn::before {
+    position: absolute;
+    font-family: "Material Icons Outlined";
+    content: "add_a_photo";
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 40px;
+}
+
+.post,
+#upload_btn {
+    position: relative;
+    height: 168px;
+    transform: none;
+    box-shadow: 0 2px 5px var(--shadow_color);
+    animation: fade_in .5s forwards;
+    transition: box-shadow .2s;
+}
+
+.post:hover,
+#upload_btn:hover {
+    box-shadow: 0 5px 10px var(--shadow_color);
+}
+
+.post>img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    position: absolute;
+}
+
+.post>.button_container,
+.post>i.reorder {
+    position: absolute;
+    z-index: 1;
+}
+
+.post>.button_container.img_close {
+    top: 0;
+    right: 0;
+}
+
+.post>.button_container.img_modal_open {
+    bottom: 0;
+    left: 0;
+}
+
+.post>i.reorder {
+    bottom: 5px;
+    right: 5px;
+    color: white;
+    text-shadow: 0 0 3px black;
+}
+
+/* Egen animation för bildinformation-formulär */
+form.image_info {
+    transform: translateY(500px);
+    transition: transform .3s cubic-bezier(0.275, 0.82, 0.165, 1);
+}
+
+form.image_info.is_visible {
+    transform: none;
+}
+
+form.image_info {
+    top: 60px;
+    min-height: 500px;
+}
+
+form.image_info>.img_preview {
+    height: 150px;
+    width: 250px;
+    object-fit: cover;
+}
+
+form.image_info textarea {
+    min-height: 100px;
+    max-height: 300px;
+    max-width: 100%;
+    min-width: 100%;
+    overflow-y: auto;
+}
+
+#upload_progress_bar {
+    z-index: 1;
+}
+
+#album_info_modal {
+    position: fixed;
+    top: 60px;
+}
+
+#album_info_modal>.responsive_form {
+    padding: 20px;
+    text-align: left;
+}
+
+#album_info_modal>.responsive_form>ol {
+    margin: 0 0 0 30px;
+    padding: 0;
+}
+
+@media (min-width:768px) {
+    .album_grid_container {
+        grid-template-columns: 300px 3fr;
+    }
+
+    #upload_form>fieldset {
+        position: fixed;
+        width: 300px;
+        box-shadow: 0 2px 5px var(--shadow_color);
+    }
+
+    .post>i.reorder {
+        display: none;
+    }
+
+    form.image_info {
+        top: 0;
+    }
+}
