@@ -144,7 +144,7 @@ def search_albums():
     search = search + "%"
     results = Album.query.filter(or_(Album.country.ilike(search), Album.city.ilike(search))).limit(5).all()
     if(not results):
-        return jsonify(False), 503, {"ContentType": "application/json"}
+        return jsonify(False), 204, {"ContentType": "application/json"}
     # Gör om albummen till json format
     data = []
     for album in results:
