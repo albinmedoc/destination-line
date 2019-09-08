@@ -6,6 +6,7 @@ class Config(object):
 
     #Database
     SQLALCHEMY_DATABASE_URI = "sqlite:///site.db"
+    SQLALCHEMY_TRACK_MODIFICATIONS = False
 
     # Count limit for images in an album
     POST_LIMIT = 50
