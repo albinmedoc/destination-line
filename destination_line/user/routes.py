@@ -7,17 +7,21 @@ from destination_line.app import bcrypt, db
 
 bp_user = Blueprint("user", __name__)
 
-@login_required
 @bp_user.route("/upload_profile_img", methods=["POST"])
+@login_required
 def upload_profile_img():
     img = Image.open(request.files["file"].stream)
     current_user.set_profile_img(img)
+    flash(u"Your profile image has been changed!")
+    return jsonify(True), 200, {"ContentType": "application/json"}   
 
-@login_required
 @bp_user.route("/upload_background_img", methods=["POST"])
+@login_required
 def upload_background_img():
     img = Image.open(request.files["file"].stream)
     current_user.set_background_img(img)
+    flash(u"Your background image has been changed!")
+    return jsonify(True), 200, {"ContentType": "application/json"}   
 
 
 @bp_user.route("/profile")
@@ -76,13 +80,21 @@ def register():
         return redirect(url_for("main.index"))
     return render_template("login_register.html", form=form, login=False)
 
+@bp_user.route("/delete_account")
 @login_required
+def delete_account():
+    current_user.delete()
+    logout_user()
+    flash(u'Your account has been deleted', 'success')
+    return redirect(url_for("main.index"))
+
 @bp_user.route("/settings")
+@login_required
 def settings():
     return render_template("settings.html")
 
-@login_required
 @bp_user.route("/follow/<int:user_id>")
+@login_required
 def follow(user_id):
     followed = User.query.get(user_id)
     if(not followed):
@@ -96,8 +108,8 @@ def follow(user_id):
         flash(u"You was already following " + followed.firstname + " " + followed.lastname + ".", "success")
     return redirect(url_for("user.profile", username=followed.username))
 
-@login_required
 @bp_user.route("/unfollow/<int:user_id>")
+@login_required
 def unfollow(user_id):
     followed = User.query.get(user_id)
     if(not followed):

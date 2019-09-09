@@ -35,12 +35,10 @@ window.onload = function () {
                 //Visar loading-snurra
                 $('.loader_container').addClass('is_visible');
             },
-            success: function (data) {
-                //Ersätter profilbild till den nya och visar meddelande att det lyckades
-                add_flash_message("Profile image changed", "success");
-                $("#profile_img > img").attr("src", $SCRIPT_ROOT + "/image/" + data);
+            success: function () {
+                location.reload();
             },
-            error: function (data) {
+            error: function () {
                 //Visar felmeddelande
                 add_flash_message("Could not change profile image...", "error");
             },
@@ -74,12 +72,10 @@ window.onload = function () {
                 //Visar loading-snurra
                 $('.loader_container').addClass('is_visible');
             },
-            success: function (data) {
-                //Ersätter bakgrundsbild till den nya och visar meddelande att det lyckades
-                add_flash_message("Background image changed", "success");
-                $("#profile_header").css("background-image", "url(" + $SCRIPT_ROOT + "/image/" + data + ")");
+            success: function () {
+                location.reload();
             },
-            error: function (data) {
+            error: function () {
                 //Visar felmeddelande
                 add_flash_message("Could not change background image...", "error");
             },
