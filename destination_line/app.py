@@ -17,7 +17,7 @@ def create_app(config_class=Config, create_db=False):
     login.init_app(app)
     login.login_view = "user.login"
     login.login_message = "You have to be logged in to visit that page!"
-    login.login_message_category = "info"
+    login.login_message_category = "error"
     bcrypt.init_app(app)
 
     from .main.routes import bp_main
