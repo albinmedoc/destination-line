@@ -2,7 +2,7 @@ from sqlalchemy import or_
 from flask import Blueprint, request, redirect, render_template, flash, url_for, jsonify
 from flask_login import current_user, login_user, logout_user, login_required
 from PIL import Image
-from destination_line.user import User, LoginForm, RegisterForm
+from destination_line.user import User, LoginForm, RegisterForm, SettingsForm
 from destination_line.app import bcrypt, db
 
 bp_user = Blueprint("user", __name__)
@@ -88,10 +88,14 @@ def delete_account():
     flash(u'Your account has been deleted', 'success')
     return redirect(url_for("main.index"))
 
-@bp_user.route("/settings")
+@bp_user.route("/settings", methods=["GET", "POST"])
 @login_required
 def settings():
-    return render_template("settings.html")
+    form = SettingsForm()
+    print(form.errors)
+    if(form.validate_on_submit()):
+        print("Valid")
+    return render_template("settings.html", form=form)
 
 @bp_user.route("/follow/<int:user_id>")
 @login_required

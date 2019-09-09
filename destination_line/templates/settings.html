@@ -9,7 +9,6 @@
 {% block javascript %}
 {{ super() }}
 <script src="{{ url_for('static', filename='js/profile.js') }}"></script>
-<script src="{{ url_for('static', filename='js/profile_settings.js') }}"></script>
 {% endblock javascript%}
 
 {% block main %}
@@ -49,54 +48,71 @@
     <h1>Settings</h1>
 </div>
 
-<form id="upload_form" class="responsive_form">
+<form id="upload_form" class="responsive_form" method="POST">
     <h2>Profile</h2>
+    {{ form.hidden_tag() }}
     <div class="form_row">
         <div class="input_container">
-            <input id="firstname" type="text" name="new_firstname" placeholder=" " value="{{ current_user.firstname }}">
-            <span>Firstname</span>
+            {{ form.firstname(placeholder=" ", class="error" if form.firstname.errors, value=current_user.firstname) }}
+            {{ form.firstname.label() }}
+            {% for error in form.firstname.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
         </div>
         <div class="input_container">
-            <input id="lastname" type="text" name="new_lastname" placeholder=" " value="{{ current_user.lastname }}">
-            <span>Lastname</span>
+            {{ form.lastname(placeholder=" ", class="error" if form.lastname.errors, value=current_user.lastname) }}
+            {{ form.lastname.label() }}
+            {% for error in form.lastname.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
         </div>
     </div>
     <div class="form_row">
         <div class="input_container">
-            <input id="biography" type="text" name="new_biography" placeholder=" "
-                value="{{ current_user.biography if current_user.biography }}">
-            <span>Biography</span>
+            {{ form.biography(placeholder=" ", class="error" if form.biography.errors, value=current_user.biography if current_user.biography else "") }}
+            {{ form.biography.label() }}
+            {% for error in form.biography.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
         </div>
     </div>
     <h2>User & E-mail</h2>
     <div class="form_row">
         <div class="input_container">
-            <input id="username" class="force_lower" type="text" name="new_username" placeholder=" "
-                value="{{ current_user.username }}">
-            <span>Username</span>
-            <p id="text_varning_username">That username is taken, try another!</p>
+            {{ form.username(placeholder=" ", class="error" if form.username.errors, value=current_user.username) }}
+            {{ form.username.label() }}
+            {% for error in form.username.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
         </div>
         <div class="input_container">
-            <input id="email" class="force_lower" type="email" name="new_email" placeholder=" "
-                value="{{ current_user.email }}">
-            <span>Email</span>
-            <p id="text_varning_email">This email is already registered, try another!</p>
+            {{ form.email(placeholder=" ", class="error" if form.email.errors, value=current_user.email) }}
+            {{ form.email.label() }}
+            {% for error in form.email.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
         </div>
     </div>
     <h2>Password</h2>
     <div class="form_row">
         <div class="input_container">
-            <input type="password" name="new_password" placeholder=" ">
-            <span>New Password</span>
+            {{ form.new_password(placeholder=" ", class="error" if form.new_password.errors) }}
+            {{ form.new_password.label() }}
+            {% for error in form.new_password.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
         </div>
         <div class="input_container">
-            <input type="password" name="new_password2" placeholder=" ">
-            <span>Confirm new password</span>
+            {{ form.confirm_new_password(placeholder=" ", class="error" if form.confirm_new_password.errors) }}
+            {{ form.confirm_new_password.label() }}
+            {% for error in form.confirm_new_password.errors %}
+                <p class="error">{{ error }}</p>
+            {% endfor %}
         </div>
     </div>
     <div class="form_row">
         <div class="input_container">
-            <button id="save_settings_button">Save</button>
+            {{ form.submit() }}
         </div>
     </div>
     <div id="delete_account" class="button_container">
