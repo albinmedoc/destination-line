@@ -26,7 +26,7 @@ class Album(db.Model):
         for post in self.posts:
             post.delete()
         
-        db.session.remove(self)
+        db.session.delete(self)
         db.session.commit()
 
     def convert_to_json(self):
