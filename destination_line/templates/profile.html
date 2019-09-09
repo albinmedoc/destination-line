@@ -51,7 +51,7 @@
             <a>
                 <section id="profile_img">
                     <img
-                        src="{{ url_for('static', filename='background_img/' + user.profile_img) if user.profile_img else url_for('static', filename='img/avatar.png') }}">
+                        src="{{ url_for('static', filename='profile_img/' + user.profile_img) if user.profile_img else url_for('static', filename='img/avatar.png') }}">
                     {% if current_user.is_authenticated and user == current_user %}
                     <div id="change_profile_img_btn" class="button_container">
                         <i class="material-icons-outlined button_icon_container">add_a_photo</i>

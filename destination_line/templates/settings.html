@@ -32,7 +32,7 @@
             <a>
                 <section id="profile_img">
                     <img
-                    src="{{ url_for('static', filename='background_img/' + current_user.profile_img) if current_user.profile_img else url_for('static', filename='img/avatar.png') }}">
+                    src="{{ url_for('static', filename='profile_img/' + current_user.profile_img) if current_user.profile_img else url_for('static', filename='img/avatar.png') }}">
                     <div id="change_profile_img_btn" class="button_container">
                         <i class="material-icons-outlined button_icon_container">add_a_photo</i>
                         <div class="button_text_container">
