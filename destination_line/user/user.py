@@ -35,8 +35,16 @@ class User(db.Model, UserMixin):
         backref=backref("followers", lazy="dynamic"), lazy="dynamic")
     
     def delete(self):
+        # Radera Album
         for album in self.albums:
             album.delete()
+
+        # Radera profilbild och bakgrundsbild
+        self.delete_profile_img()
+        self.delete_background_img()
+
+        db.session.delete(self)
+        db.session.commit()
     
     def get_follower_count(self):
         return len(self.followers)
@@ -45,6 +53,9 @@ class User(db.Model, UserMixin):
         return len(self.followed)
 
     def set_profile_img(self, img):
+        # Ta bort gammal profilbild
+        self.delete_profile_img()
+
         # Plats vart bild ska sparas
         location = os.path.join(current_app.root_path, "static/profile_img")
 
@@ -67,8 +78,18 @@ class User(db.Model, UserMixin):
         # Uppdaterar profile_img kolumnen till filnamnet bilden fick
         self.profile_img = filename
         db.session.commit()
+    
+    def delete_profile_img(self):
+        if(self.profile_img):
+            if(os.path.isfile(os.path.join(current_app.root_path, "static/profile_img", self.profile_img))):
+                os.remove(os.path.join(current_app.root_path, "static/profile_img", self.profile_img))
+            self.profile_img = None
+            db.session.commit()
 
     def set_background_img(self, img):
+        # Ta bort gammal bakgrundsbild
+        self.delete_background_img()
+
         # Plats vart bild ska sparas
         location = os.path.join(current_app.root_path, "static/background_img")
 
@@ -91,6 +112,13 @@ class User(db.Model, UserMixin):
         # Uppdaterar background_img kolumnen till filnamnet bilden fick
         self.background_img = filename
         db.session.commit()
+
+    def delete_background_img(self):
+        if(self.background_img):
+            if(os.path.isfile(os.path.join(current_app.root_path, "static/background_img", self.background_img))):
+                os.remove(os.path.join(current_app.root_path, "static/background_img", self.background_img))
+            self.background_img = None
+            db.session.commit()
 
     def convert_to_json(self):
         temp = {}
