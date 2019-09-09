@@ -1,6 +1,9 @@
 __pycache__/
-static/album_img/
 .DS_Store
-Credentials.py
+.vscode
 venv
 site.db
+
+album_img/
+profile_img/
+background_img/
