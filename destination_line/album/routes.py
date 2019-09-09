@@ -100,8 +100,8 @@ def visit_album(album_id):
         return redirect(url_for("main.index"))
     return render_template("album.html", album=album)
 
-@login_required
 @bp_album.route("/delete/album/<int:album_id>")
+@login_required
 def delete_album(album_id):
     # Hämtar album
     album = Album.query.filter_by(id=album_id).first()
